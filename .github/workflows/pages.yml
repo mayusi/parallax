@@ -1,5 +1,6 @@
 name: pages
 # Publishes the documentation site in site/ to GitHub Pages (https://mayusi.github.io/parallax/).
+# Two jobs: the artifact is finished uploading before the deploy job looks for it.
 on:
   push:
     branches: [main]
@@ -13,10 +14,7 @@ concurrency:
   group: pages
   cancel-in-progress: false
 jobs:
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
@@ -24,5 +22,12 @@ jobs:
       - uses: actions/upload-pages-artifact@v5
         with:
           path: site
+  deploy:
+    needs: build
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
       - id: deployment
         uses: actions/deploy-pages@v5
