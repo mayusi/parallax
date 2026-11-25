@@ -10,16 +10,20 @@
 - `CODE_OF_CONDUCT.md`.
 
 ### Changed
-- A new logo: a black neutron star (`docs/assets/parallax-logo.svg`).
-- The README explains each pipeline in collapsible sections (stages, gates, commands, limits) and each hardware tier's
-  models and runtimes, and links into the site.
+- A new logo: a black hole rendered with a Schwarzschild ray tracer (light bent around the hole, the photon ring,
+  Doppler beaming of the disk), on a transparent background, with a separate version for light pages
+  (`docs/assets/parallax-logo-dark.png`, `docs/assets/parallax-logo-light.png`).
+- The README is rewritten in plain prose: one summary per pipeline (what it builds, its stages, gates and known
+  limits), the hardware tiers in one table, and links into the site for the full detail.
+- The documentation site has a calmer design: neutral greys with one warm accent, a full-width home page, framed
+  tables, section links, and a menu that works on phones.
 
 ### Fixed
 - SETUP.md never installed PyTorch: `vision setup` only downloads weights, so Tier 2 and up could not run when
   followed step by step. The hardware-tier step now installs PyTorch, transformers and safetensors first, says which
   models need the hand-built diffusers and TRELLIS.2 environments (`kit/gen/README.md`), and gives one Tier 4 figure.
-- The README's pipeline and tier details were checked against the code: wrong gate severities, commands missing
-  required arguments, sizes in mixed units, and limits that are no longer true were corrected.
+- The pipeline and tier details (now on the documentation site) were checked against the code: wrong gate severities,
+  commands missing required arguments, sizes in mixed units, and limits that are no longer true were corrected.
 
 ## 3.1.0 — 2026-11-25
 

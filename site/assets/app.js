@@ -1,5 +1,6 @@
 /* Parallax docs site: shared header, navigation, table of contents, tabs, filters and copy buttons.
-   Pages set <body data-root="" data-page="..."> (data-root is "../" for pages inside pipelines/). */
+   Pages set <body data-root="" data-page="..."> (data-root is "../" for pages inside pipelines/).
+   The home page adds class="splash": no sidebar and no table of contents. */
 (function () {
   "use strict";
   var REPO = "https://github.com/mayusi/parallax";
@@ -35,15 +36,25 @@
   ];
   var TOP = [["setup", "Setup", "setup.html"], ["pipelines", "Pipelines", "pipelines/index.html"],
     ["hardware", "Hardware", "hardware.html"], ["commands", "Commands", "commands.html"], ["roadmap", "Roadmap", "roadmap.html"]];
+  var ICON_EXT = '<svg class="ext" viewBox="0 0 16 16" aria-hidden="true"><path d="M5.5 3.5h7v7M12.5 3.5l-9 9" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+  var ICON_MENU = '<svg viewBox="0 0 20 20" width="20" height="20" aria-hidden="true"><path d="M3 6h14M3 10h14M3 14h14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>';
 
   var body = document.body;
   var root = body.getAttribute("data-root") || "";
   var page = body.getAttribute("data-page") || "";
   function href(h) { return /^https?:/.test(h) ? h : root + h; }
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
-  function isActive(id) { return id === page || (id === "pipelines" && page === "pipelines"); }
+  function each(sel, fn, scope) { Array.prototype.forEach.call((scope || document).querySelectorAll(sel), fn); }
 
-  // header
+  var navHtml = NAV.map(function (g) {
+    return '<div class="group"><div class="group-title">' + esc(g.title) + "</div>" + g.items.map(function (it) {
+      var ext = /^https?:/.test(it[2]);
+      return '<a href="' + href(it[2]) + '"' + (it[0] === page ? ' class="active" aria-current="page"' : "") +
+        (ext ? ' rel="noopener"' : "") + ">" + esc(it[1]) + (ext ? ICON_EXT : "") + "</a>";
+    }).join("") + "</div>";
+  }).join("");
+
+  // header, plus the menu used on small screens
   var headerSlot = document.getElementById("site-header");
   if (headerSlot) {
     var top = TOP.map(function (t) {
@@ -52,39 +63,43 @@
     }).join("");
     headerSlot.outerHTML =
       '<header class="site-header">' +
-      '<a class="brand" href="' + href("index.html") + '"><img src="' + href("assets/logo.svg") + '" alt="" width="34" height="34">Parallax</a>' +
-      '<nav class="top-links" aria-label="Main">' + top + '<a class="gh" href="' + REPO + '">GitHub</a></nav>' +
-      '<button class="nav-toggle" type="button" aria-label="Menu">Menu</button>' +
-      "</header>";
+      '<a class="brand" href="' + href("index.html") + '"><img src="' + href("assets/logo-64.png") + '" alt="" width="30" height="30"><span>Parallax</span></a>' +
+      '<nav class="top-links" aria-label="Main">' + top + '<span class="sep" aria-hidden="true"></span>' +
+      '<a class="gh" href="' + REPO + '" rel="noopener">GitHub' + ICON_EXT + "</a></nav>" +
+      '<button class="nav-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="mobile-nav">' + ICON_MENU + "</button>" +
+      '</header><nav class="mobile-nav navtree" id="mobile-nav" aria-label="Site menu">' + navHtml + "</nav>";
+  }
+  var toggle = document.querySelector(".nav-toggle");
+  function setMenu(open) {
+    body.classList.toggle("nav-open", open);
+    if (toggle) toggle.setAttribute("aria-expanded", open ? "true" : "false");
+  }
+  if (toggle) {
+    toggle.addEventListener("click", function () { setMenu(!body.classList.contains("nav-open")); });
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && body.classList.contains("nav-open")) { setMenu(false); toggle.focus(); }
+    });
+    window.addEventListener("pageshow", function () { setMenu(false); });  // never come back open after Back
   }
 
   // sidebar
   var side = document.querySelector(".sidebar");
   if (side) {
+    side.classList.add("navtree");
     side.setAttribute("aria-label", "Site");
-    side.innerHTML = NAV.map(function (g) {
-      return '<div class="group"><div class="group-title">' + esc(g.title) + "</div>" + g.items.map(function (it) {
-        var ext = /^https?:/.test(it[2]);
-        return '<a href="' + href(it[2]) + '"' + (isActive(it[0]) ? ' class="active" aria-current="page"' : "") +
-          (ext ? ' rel="noopener"' : "") + ">" + esc(it[1]) + (ext ? " ↗" : "") + "</a>";
-      }).join("") + "</div>";
-    }).join("");
+    side.innerHTML = navHtml;
   }
 
   // footer
   var footSlot = document.getElementById("site-footer");
   if (footSlot) {
-    footSlot.outerHTML = '<footer class="site-footer">Parallax · MIT licence · <a href="' + REPO + '">source on GitHub</a> · ' +
-      '<a href="' + REPO + '/releases/latest">latest release</a> · <a href="' + REPO + '/security/policy">security policy</a><br>' +
-      "This site is built from the repository's <code>site/</code> folder.</footer>";
+    footSlot.outerHTML = '<footer class="site-footer"><div class="foot-inner">' +
+      '<span class="foot-brand"><img src="' + href("assets/logo-64.png") + '" alt="" width="22" height="22">Parallax</span>' +
+      '<nav class="foot-links" aria-label="Project">' +
+      '<a href="' + REPO + '">GitHub</a><a href="' + REPO + '/releases/latest">Releases</a>' +
+      '<a href="' + REPO + '/blob/main/CHANGELOG.md">Changelog</a><a href="' + REPO + '/security/policy">Security</a>' +
+      '<a href="' + REPO + '/blob/main/LICENSE">MIT License</a></nav></div></footer>';
   }
-
-  // mobile menu
-  var toggle = document.querySelector(".nav-toggle");
-  if (toggle) toggle.addEventListener("click", function () {
-    var h = document.querySelector(".site-header");
-    if (h) h.classList.toggle("open");
-  });
 
   // on-page table of contents from h2[id]
   var toc = document.querySelector(".toc");
@@ -98,7 +113,7 @@
       }).join("");
       if ("IntersectionObserver" in window) {
         var links = {};
-        Array.prototype.forEach.call(toc.querySelectorAll("a"), function (a) { links[decodeURIComponent(a.getAttribute("href").slice(1))] = a; });
+        each("a", function (a) { links[decodeURIComponent(a.getAttribute("href").slice(1))] = a; }, toc);
         var io = new IntersectionObserver(function (entries) {
           entries.forEach(function (e) {
             if (e.isIntersecting) {
@@ -112,18 +127,33 @@
     }
   }
 
+  // a link on each section heading (added after the table of contents has read the heading text)
+  each(".content h2[id], .content h3[id], .splash-main h2[id]", function (h) {
+    var a = document.createElement("a");
+    a.className = "anchor"; a.href = "#" + encodeURIComponent(h.id); a.textContent = "#";
+    a.setAttribute("aria-label", "Link to this section");
+    h.appendChild(a);
+  });
+
+  // every table scrolls inside its own frame
+  each(".content table, .splash-main table", function (t) {
+    if (t.parentElement.classList.contains("table-wrap")) return;
+    var w = document.createElement("div");
+    w.className = "table-wrap";
+    t.parentNode.insertBefore(w, t);
+    w.appendChild(t);
+  });
+
   // tabs: <div class="tabs"><div class="tab-list"><button class="tab" data-tab="x">..</button></div><div class="tab-panel" data-panel="x" id="x">..</div></div>
   function selectTab(tabs, key) {
-    Array.prototype.forEach.call(tabs.querySelectorAll(":scope > .tab-list > .tab"), function (b) {
+    each(":scope > .tab-list > .tab", function (b) {
       var on = b.getAttribute("data-tab") === key;
       b.setAttribute("aria-selected", on ? "true" : "false");
       b.tabIndex = on ? 0 : -1;
-    });
-    Array.prototype.forEach.call(tabs.querySelectorAll(":scope > .tab-panel"), function (p) {
-      p.hidden = p.getAttribute("data-panel") !== key;
-    });
+    }, tabs);
+    each(":scope > .tab-panel", function (p) { p.hidden = p.getAttribute("data-panel") !== key; }, tabs);
   }
-  Array.prototype.forEach.call(document.querySelectorAll(".tabs"), function (tabs) {
+  each(".tabs", function (tabs) {
     var list = tabs.querySelector(":scope > .tab-list");
     if (!list) return;
     list.setAttribute("role", "tablist");
@@ -138,7 +168,7 @@
         n.focus(); n.click();
       });
     });
-    Array.prototype.forEach.call(tabs.querySelectorAll(":scope > .tab-panel"), function (p) { p.setAttribute("role", "tabpanel"); });
+    each(":scope > .tab-panel", function (p) { p.setAttribute("role", "tabpanel"); }, tabs);
     var first = buttons.filter(function (b) { return b.getAttribute("aria-selected") === "true"; })[0] || buttons[0];
     if (first) selectTab(tabs, first.getAttribute("data-tab"));
   });
@@ -160,7 +190,7 @@
   openHash();
 
   // copy buttons on code blocks
-  Array.prototype.forEach.call(document.querySelectorAll("pre"), function (pre) {
+  each("pre", function (pre) {
     var code = pre.querySelector("code");
     if (!code || pre.querySelector(".copy")) return;
     var b = document.createElement("button");
@@ -181,13 +211,12 @@
     var s = state[sel] || {};
     var q = (s.q || "").toLowerCase().trim();
     var shown = 0;
-    var rows = table.querySelectorAll("tbody tr:not(.empty-row)");
-    Array.prototype.forEach.call(rows, function (tr) {
+    each("tbody tr:not(.empty-row)", function (tr) {
       var okText = !q || tr.textContent.toLowerCase().indexOf(q) !== -1;
       var okChip = !s.attr || !s.val || s.val === "all" || (" " + (tr.getAttribute("data-" + s.attr) || "") + " ").indexOf(" " + s.val + " ") !== -1;
       tr.hidden = !(okText && okChip);
       if (!tr.hidden) shown++;
-    });
+    }, table);
     var empty = table.querySelector("tbody tr.empty-row");
     if (!empty) {
       empty = document.createElement("tr"); empty.className = "empty-row";
@@ -196,28 +225,28 @@
     }
     empty.hidden = shown !== 0;
   }
-  Array.prototype.forEach.call(document.querySelectorAll("input.filter[data-filter-target]"), function (inp) {
+  each("input.filter[data-filter-target]", function (inp) {
     var sel = inp.getAttribute("data-filter-target");
     inp.addEventListener("input", function () { (state[sel] = state[sel] || {}).q = inp.value; apply(sel); });
   });
-  Array.prototype.forEach.call(document.querySelectorAll(".chips[data-chip-target]"), function (box) {
+  each(".chips[data-chip-target]", function (box) {
     var sel = box.getAttribute("data-chip-target");
     var attr = (box.getAttribute("data-chip-attr") || "group").replace(/^data-/, "");
-    Array.prototype.forEach.call(box.querySelectorAll(".chip"), function (c) {
+    each(".chip", function (c) {
       c.setAttribute("type", "button");
       c.addEventListener("click", function () {
-        Array.prototype.forEach.call(box.querySelectorAll(".chip"), function (o) { o.classList.toggle("active", o === c); });
+        each(".chip", function (o) { o.classList.toggle("active", o === c); }, box);
         var st = (state[sel] = state[sel] || {});
         st.attr = attr; st.val = c.getAttribute("data-value");
         apply(sel);
       });
-    });
+    }, box);
     var act = box.querySelector(".chip.active");
     if (act) { var st = (state[sel] = state[sel] || {}); st.attr = attr; st.val = act.getAttribute("data-value"); apply(sel); }
   });
 
   // expand / collapse every <details> inside a target
-  Array.prototype.forEach.call(document.querySelectorAll("[data-expand-target]"), function (b) {
+  each("[data-expand-target]", function (b) {
     b.setAttribute("type", "button");
     b.addEventListener("click", function () {
       var box = document.querySelector(b.getAttribute("data-expand-target"));

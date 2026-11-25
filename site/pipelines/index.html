@@ -5,7 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Pipelines · Parallax</title>
 <meta name="description" content="All eight Parallax pipelines: 3D models, visual effects, animation, worlds, interfaces, sound, gameplay systems, and QA.">
-<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/logo-64.png" type="image/png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta property="og:site_name" content="Parallax">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Pipelines · Parallax">
+<meta property="og:description" content="All eight Parallax pipelines: 3D models, visual effects, animation, worlds, interfaces, sound, gameplay systems, and QA.">
+<meta property="og:url" content="https://mayusi.github.io/parallax/pipelines/index.html">
+<meta property="og:image" content="https://mayusi.github.io/parallax/assets/social.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../assets/style.css">
 <script src="../assets/app.js" defer></script>
 </head>
@@ -24,13 +32,13 @@
 <section>
 <h2 id="pipelines">All eight pipelines</h2>
 <div class="cards">
-  <a class="card" href="3d.html"><div class="kicker">3D models</div><h3>3D models</h3><p>Game-ready props, weapons, and hero meshes — from references to an optimized, uploadable mesh in one planned pass through 10 stages.</p></a>
+  <a class="card" href="3d.html"><div class="kicker">3D models</div><h3>3D models</h3><p>Game-ready props, weapons, and hero meshes: from references to an optimized, uploadable mesh in one planned pass through 10 stages.</p></a>
   <a class="card" href="vfx.html"><div class="kicker">Visual effects</div><h3>Visual effects</h3><p>Anime- and AAA-grade effects (ultimates, slashes, auras, impacts) built from a measured breakdown of real footage, with textures authored in Blender.</p></a>
-  <a class="card" href="anim.html"><div class="kicker">Animation</div><h3>Animation</h3><p>Measured R6 character animations — authored from a move dossier, calibrated against the native R6 catalog, gated on motion, and proven in Studio frame by frame.</p></a>
-  <a class="card" href="world.html"><div class="kicker">Worlds</div><h3>Worlds</h3><p>Roblox levels and maps — from a creative direction and parametric generators to a world proven playable by numbers and walked in Studio.</p></a>
-  <a class="card" href="ui.html"><div class="kicker">Interfaces</div><h3>Interfaces</h3><p>HUDs, menus, and dialogs — identity-first, compiled from JSON specs, gated on readability and touch targets, and driven by the kit's Ui runtime.</p></a>
-  <a class="card" href="sfx.html"><div class="kicker">Sound</div><h3>Sound</h3><p>Sound effects and loops — real recordings layered with synthesis, measured with the ears tool, and judged by you in a listening booth.</p></a>
-  <a class="card" href="code.html"><div class="kicker">Gameplay systems</div><h3>Gameplay systems</h3><p>Server-authoritative gameplay code — pure tested rules, generated remotes, and combat moves as data, all proven with fuzzing, mutation testing, and in-engine playtests.</p></a>
+  <a class="card" href="anim.html"><div class="kicker">Animation</div><h3>Animation</h3><p>Measured R6 character animations: authored from a move dossier, calibrated against the native R6 catalog, gated on motion, and proven in Studio frame by frame.</p></a>
+  <a class="card" href="world.html"><div class="kicker">Worlds</div><h3>Worlds</h3><p>Roblox levels and maps: from a creative direction and parametric generators to a world proven playable by numbers and walked in Studio.</p></a>
+  <a class="card" href="ui.html"><div class="kicker">Interfaces</div><h3>Interfaces</h3><p>HUDs, menus, and dialogs: identity-first, compiled from JSON specs, gated on readability and touch targets, and driven by the kit's Ui runtime.</p></a>
+  <a class="card" href="sfx.html"><div class="kicker">Sound</div><h3>Sound</h3><p>Sound effects and loops: real recordings layered with synthesis, measured with the ears tool, and judged by you in a listening booth.</p></a>
+  <a class="card" href="code.html"><div class="kicker">Gameplay systems</div><h3>Gameplay systems</h3><p>Server-authoritative gameplay code: pure tested rules, generated remotes, and combat moves as data, all proven with fuzzing, mutation testing, and in-engine playtests.</p></a>
   <a class="card" href="qa.html"><div class="kicker">QA</div><h3>QA</h3><p>Security audit, gate selftests, scripted in-engine playtests, and a regression record where every bug you find becomes a permanent spec case.</p></a>
 </div>
 </section>
@@ -122,19 +130,19 @@
 <p>Every pipeline follows the same progression. Understanding it once means you can navigate any pipeline.</p>
 
 <h3>1. Start with your request</h3>
-<p>Every pipeline session starts with a single command. You must run it before any build command is accepted — the kit's gate blocks pipeline work without a fresh session token.</p>
+<p>Every pipeline session starts with a single command. You must run it before any build command is accepted; the kit's gate blocks pipeline work without a fresh session token.</p>
 <pre><code>lune run parallax start &lt;lane&gt; --prompt "&lt;your request in plain words&gt;"</code></pre>
 <p>The <code>--prompt</code> text is compiled by PROMPT-X: it determines the case, the contract floor, the capability menu, and the forbidden routes for this piece. The session token lasts four hours.</p>
 <p>The boot sheet follows: the ranked lessons for this lane, the last handoff, any failing gates, and the next suggested action. Read it before doing anything.</p>
 
 <h3>2. The case lookup</h3>
-<p>Your prompt maps to a CASE in the lane — a named scenario with its contract floor (what must be true for a done result), which routes are forbidden, and which capabilities apply. Use <code>kit case &lt;lane&gt; "..."</code> to look up a case directly.</p>
+<p>Your prompt maps to a CASE in the lane: a named scenario with its contract floor (what must be true for a done result), which routes are forbidden, and which capabilities apply. Use <code>kit case &lt;lane&gt; "..."</code> to look up a case directly.</p>
 
 <h3>3. The plan</h3>
 <p>For any heavy build (a hero asset, a hero effect, a hero system), write a plan file at <code>assets/plans/&lt;piece&gt;.plan.json</code> before starting. The kit gate blocks a heavy build without one. The plan records the tools per part and the beat order from the case's capability menu.</p>
 
 <h3>4. Stages with approval locks</h3>
-<p>Every pipeline has numbered stages. Some stages are locked: the next stage cannot start until you approve the current one. Approval always comes from you — no automated score or gate result unlocks an approval stage.</p>
+<p>Every pipeline has numbered stages. Some stages are locked: the next stage cannot start until you approve the current one. Approval always comes from you; no automated score or gate result unlocks an approval stage.</p>
 <div class="flow">
   <span class="step">stage N</span>
   <span class="arrow">→</span>
@@ -166,14 +174,14 @@
   </tbody>
 </table>
 <p>When the clock runs out, no change to the piece can be built. The piece as it was can still be rebuilt, looked at and played, and shown to you for a verdict. To extend: <code>kit clock &lt;lane&gt; &lt;name&gt; --extend &lt;minutes&gt; "&lt;your words&gt;"</code>. To restart from scratch: <code>--restart "&lt;your words&gt;"</code>.</p>
-<div class="tip"><span class="callout-title">Tip</span><p>Speed is a quality. A prop in 10 minutes and a hero weapon in 60 minutes that both pass their gates are both good outcomes. The clock is not a soft deadline — it is the production model.</p></div>
+<div class="tip"><span class="callout-title">Tip</span><p>Speed is a quality. A prop in 10 minutes and a hero weapon in 60 minutes that both pass their gates are both good outcomes. The clock is not a soft deadline; it is the production model.</p></div>
 
 <h3>7. Your verdict</h3>
 <p>When the work is done, you score it from 0 to 10 (or say "keep" or "redo") and say why in a few words:</p>
 <pre><code>lune run parallax verdict &lt;kind&gt; &lt;name&gt; &lt;0-10&gt; "one sentence about why"</code></pre>
 <p>The score drives two things:</p>
 <ul>
-  <li>Score ≥ 7 (or "keep"): the piece goes into the golden set. Use <code>kit accept &lt;kind&gt; &lt;name&gt;</code> to lock it as a regression floor — no future change may make it worse.</li>
+  <li>Score ≥ 7 (or "keep"): the piece goes into the golden set. Use <code>kit accept &lt;kind&gt; &lt;name&gt;</code> to lock it as a regression floor; no future change may make it worse.</li>
   <li>Score ≤ 3 (or "redo"): the route that produced this result goes into the graveyard, the record of failed routes that later sessions see when they start. A verdict of 3 or less needs <code>--route "what failed"</code>.</li>
 </ul>
 

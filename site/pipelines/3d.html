@@ -5,7 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>3D Models · Parallax</title>
 <meta name="description" content="How the Parallax 3D pipeline turns references and budgets into game-ready Roblox meshes in one planned pass through 10 stages.">
-<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/logo-64.png" type="image/png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta property="og:site_name" content="Parallax">
+<meta property="og:type" content="website">
+<meta property="og:title" content="3D Models · Parallax">
+<meta property="og:description" content="How the Parallax 3D pipeline turns references and budgets into game-ready Roblox meshes in one planned pass through 10 stages.">
+<meta property="og:url" content="https://mayusi.github.io/parallax/pipelines/3d.html">
+<meta property="og:image" content="https://mayusi.github.io/parallax/assets/social.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../assets/style.css">
 <script src="../assets/app.js" defer></script>
 </head>
@@ -23,7 +31,7 @@
 <header class="page-head">
   <p class="eyebrow">Pipelines</p>
   <h1>3D Models</h1>
-  <p class="lead">The 3D pipeline builds game-ready meshes — weapons, props, vehicles, creatures, building pieces — for Roblox in one planned pass. It starts from real references and sourced sizes, routes each part through the right tool (CAD for machined parts, generators for organic drafts), and ends with an optimised asset. Complex and hero pieces stop twice for your approval; props do not.</p>
+  <p class="lead">The 3D pipeline builds game-ready meshes (weapons, props, vehicles, creatures, building pieces) for Roblox in one planned pass. It starts from real references and sourced sizes, routes each part through the right tool (CAD for machined parts, generators for organic drafts), and ends with an optimised asset. Complex and hero pieces stop twice for your approval; props do not.</p>
   <div class="meta-row">
     <span class="badge tier">Tier 1+</span>
     <span class="badge lock">2 approvals (sheet, blockout)</span>
@@ -80,7 +88,7 @@
     <details id="stage-brief">
       <summary><span class="name">Brief</span> <span class="what">Define what it is, set its budget tier, list the hero features, and choose a build route per part.</span></summary>
       <div class="body">
-        <p>The brief file (<code>&lt;name&gt;.brief.md</code>) records: what the asset is, its tier (prop / complex / hero), which features must work correctly, whose design it follows, and a parts plan — a build route for each part family (machined, organic, cloth, thin plate, and so on). The tier is the budget and the quality bar; it cannot be raised by editing the brief after a build has started.</p>
+        <p>The brief file (<code>&lt;name&gt;.brief.md</code>) records: what the asset is, its tier (prop / complex / hero), which features must work correctly, whose design it follows, and a parts plan: a build route for each part family (machined, organic, cloth, thin plate, and so on). The tier is the budget and the quality bar; it cannot be raised by editing the brief after a build has started.</p>
         <pre><code>lune run parallax new asset &lt;snake&gt; [--from sword]</code></pre>
       </div>
     </details>
@@ -111,7 +119,7 @@ lune run parallax study &lt;name&gt; --new</code></pre>
   <li>
     <span class="num">2</span>
     <details id="stage-sheet">
-      <summary><span class="name">Sheet</span> <span class="badge lock">you approve</span><span class="what">Draw the model sheet — every hero feature pictured, sized, and at ≥ 2 px/mm — before any build.</span></summary>
+      <summary><span class="name">Sheet</span> <span class="badge lock">you approve</span><span class="what">Draw the model sheet (every hero feature pictured, sized, and at ≥ 2 px/mm) before any build.</span></summary>
       <div class="body">
         <p>The model sheet is a single page that shows every view of the asset and, for each hero feature named in the brief, a cropped picture box, its sourced size, and confirmation that the box is at least 2 px/mm. It is refused while any hero feature is missing a box, a size, or falls below the coverage threshold.</p>
         <p>Props skip the model sheet. For complex and hero assets the sheet must be approved before any 3D generator or build command will run.</p>
@@ -127,7 +135,7 @@ lune run parallax approve 3d &lt;name&gt; "&lt;your words&gt;" --by owner --stag
     <details id="stage-draft">
       <summary><span class="name">Draft</span> <span class="what">Run a local 3D generator for each organic part only, with the GPU otherwise idle.</span></summary>
       <div class="body">
-        <p>Generators (TRELLIS.2, Pixal3D, Hunyuan3D-2mv, PartCrafter) are used as <em>look targets</em> for organic parts such as sculpted grips, creature bodies, ornament reliefs, and draped cloth. They are never used for a hero's hard-surface final mesh — a machined barrel, a slide, a housing. Each generated mesh must pass topology and side checks (<code>glb_topology</code>, <code>side_check</code>) before it enters the build.</p>
+        <p>Generators (TRELLIS.2, Pixal3D, Hunyuan3D-2mv, PartCrafter) are used as <em>look targets</em> for organic parts such as sculpted grips, creature bodies, ornament reliefs, and draped cloth. They are never used for a hero's hard-surface final mesh (a machined barrel, a slide, a housing). Each generated mesh must pass topology and side checks (<code>glb_topology</code>, <code>side_check</code>) before it enters the build.</p>
         <p>Organic ornament also follows a picture-first route: redraw the reference crop large with the local image model, generate from that one picture, then check the shape against every view before adding any detail.</p>
         <pre><code># draft generators (Tier 4 only)
 lune run parallax gen views &lt;name&gt; --view side=&lt;rgba.png&gt; --view front=&lt;rgba.png&gt;
@@ -141,7 +149,7 @@ lune run parallax gen parts &lt;name&gt; --image &lt;picture&gt; --parts &lt;1-1
     <details id="stage-blockout">
       <summary><span class="name">Blockout</span> <span class="badge lock">you approve</span><span class="what">Build the big shapes only, as clay, and approve proportions before any detail or bake.</span></summary>
       <div class="body">
-        <p>The blockout is a fast shape pass — no baking, no textures, no fine detail. It draws a blockout sheet from a shape round and shows proportions against the model sheet. You must approve the blockout before any detail work, baking, or surface pass will run.</p>
+        <p>The blockout is a fast shape pass: no baking, no textures, no fine detail. It draws a blockout sheet from a shape round and shows proportions against the model sheet. You must approve the blockout before any detail work, baking, or surface pass will run.</p>
         <p>Like the sheet, the approval holds for what you saw. A redrawn blockout needs a new approval.</p>
         <pre><code>lune run parallax blockout &lt;name&gt;
 lune run parallax approve 3d &lt;name&gt; "&lt;your words&gt;" --by owner --stage blockout</code></pre>
@@ -163,7 +171,7 @@ lune run parallax approve 3d &lt;name&gt; "&lt;your words&gt;" --by owner --stag
           <li><strong>Thin plates / rims:</strong> <code>s.strap</code>.</li>
           <li><strong>Designed / fictional object from orthographic renders:</strong> trace the side view into parts, take widths from the top view, sections from the front view.</li>
         </ul>
-        <p>Proportions are auto-fitted with CMA-ES (<code>kit fit</code>). Every traced view is opened and checked after each shape round — scoring alone is not enough.</p>
+        <p>Proportions are auto-fitted with CMA-ES (<code>kit fit</code>). Every traced view is opened and checked after each shape round; scoring alone is not enough.</p>
         <pre><code>lune run parallax asset &lt;name&gt; --geo
 lune run parallax asset &lt;name&gt; --geo --only &lt;part&gt;
 lune run parallax cad check &lt;name&gt; [--only &lt;Part&gt;,&lt;Part&gt;]</code></pre>
@@ -177,7 +185,7 @@ lune run parallax cad check &lt;name&gt; [--only &lt;Part&gt;,&lt;Part&gt;]</cod
       <summary><span class="name">Surface</span> <span class="what">Apply a material per part from sourced data, engrave markings at measured positions, add wear from use.</span></summary>
       <div class="body">
         <p>Every part gets a material with a data source (scanned texture, real-world values). Markings are engraved at positions measured from references. Wear follows the kind of use: <code>a.contact("hand"|"rub"|"ground"|"drip")</code> applies scratches, polish, rust streaks, or grime to the right surfaces. Dust lands on faces that point up.</p>
-        <p>Tertiary detail — rivets, screws, panel lines, knurling, grille, ornament reliefs — is stamped into the normal map (no extra triangles). Drawn ornament (scrollwork, filigree, crest lines) is authored from its own SVG or PNG into the same normal-map route. A texel narrower than the map can represent is flagged by the <code>stamp_texels</code> warning.</p>
+        <p>Tertiary detail (rivets, screws, panel lines, knurling, grille, ornament reliefs) is stamped into the normal map (no extra triangles). Drawn ornament (scrollwork, filigree, crest lines) is authored from its own SVG or PNG into the same normal-map route. A texel narrower than the map can represent is flagged by the <code>stamp_texels</code> warning.</p>
         <p>The game mesh (low-poly) is baked from the high-poly CAD solid. Each part bakes only from its own high, so no two parts trade normals. The texel density target is ≥ 1 texel per screen pixel at the asset's judging distance (1028 px/m for hero, 257 px/m for prop).</p>
         <pre><code>lune run parallax asset &lt;name&gt;</code></pre>
       </div>
@@ -202,7 +210,7 @@ lune run parallax cad check &lt;name&gt; [--only &lt;Part&gt;,&lt;Part&gt;]</cod
       <summary><span class="name">Judge</span> <span class="what">The verifier compares a reference crop to the render crop per view; one edit per round, up to 10 rounds, then your verdict.</span></summary>
       <div class="body">
         <p>The judge step renders the same camera crop from the reference photo and from the model, side by side, for every traced view. The session proposes one edit per round. After at most 10 rounds you give your verdict (<code>kit verdict asset &lt;name&gt; &lt;0-10&gt; "..."</code>).</p>
-        <p>Always open the renders yourself before giving a verdict — the pipeline's scores and green gates are not a substitute for looking at the actual images.</p>
+        <p>Always open the renders yourself before giving a verdict; the pipeline's scores and green gates are not a substitute for looking at the actual images.</p>
         <pre><code>lune run parallax judge &lt;name&gt;
 lune run parallax verdict asset &lt;name&gt; &lt;0-10&gt; "&lt;your words&gt;"</code></pre>
       </div>
@@ -281,24 +289,24 @@ lune run parallax verdict asset &lt;name&gt; &lt;0-10&gt; "&lt;your words&gt;"</
   </div>
   <div class="tab-panel" data-panel="io-in" id="io-in">
     <ul>
-      <li><code>assets/models/&lt;name&gt;.brief.md</code> — tier, hero features, parts plan, similar/from fields.</li>
-      <li>Dossier JSON — approved facts, source words, graded pictures and reference models.</li>
+      <li><code>assets/models/&lt;name&gt;.brief.md</code>: tier, hero features, parts plan, similar/from fields.</li>
+      <li>Dossier JSON: approved facts, source words, graded pictures and reference models.</li>
       <li>Patent figures, turntable references, two reference <code>.glb</code> models.</li>
       <li>Traced views (outline curves per view and per part).</li>
-      <li><code>refs/&lt;name&gt;.spec.json</code> — every part named, described, and attached.</li>
+      <li><code>refs/&lt;name&gt;.spec.json</code>: every part named, described, and attached.</li>
       <li>Direction JSON (for original / fictional designs).</li>
-      <li><code>assets/plans/&lt;name&gt;.plan.json</code> — tool plan per part for heavy builds.</li>
+      <li><code>assets/plans/&lt;name&gt;.plan.json</code>: tool plan per part for heavy builds.</li>
     </ul>
   </div>
   <div class="tab-panel" data-panel="io-out" id="io-out">
     <ul>
-      <li><code>build/renders/&lt;name&gt;.png</code> — six views at ≥ 1,024 px each.</li>
-      <li><code>build/renders/&lt;name&gt;_lines_&lt;view&gt;.png</code> — reference / model / diff overlays.</li>
-      <li><code>build/renders/parts/&lt;name&gt;_parts_*.png</code> — per-part tiles in context and isolated.</li>
-      <li><code>build/judge/&lt;name&gt;/</code> — full judge packets with reference and render crops.</li>
-      <li><code>src/models/&lt;name&gt;.model.json</code> — Rojo model for Studio.</li>
+      <li><code>build/renders/&lt;name&gt;.png</code>: six views at ≥ 1,024 px each.</li>
+      <li><code>build/renders/&lt;name&gt;_lines_&lt;view&gt;.png</code>: reference / model / diff overlays.</li>
+      <li><code>build/renders/parts/&lt;name&gt;_parts_*.png</code>: per-part tiles in context and isolated.</li>
+      <li><code>build/judge/&lt;name&gt;/</code>: full judge packets with reference and render crops.</li>
+      <li><code>src/models/&lt;name&gt;.model.json</code>: Rojo model for Studio.</li>
       <li>Uploaded Roblox asset ids in <code>assets/</code> (<code>uploads.json</code> and the id files).</li>
-      <li><code>&lt;name&gt;_high.blend</code> — full-detail Blender source beside the build.</li>
+      <li><code>&lt;name&gt;_high.blend</code>: full-detail Blender source beside the build.</li>
     </ul>
   </div>
   <div class="tab-panel" data-panel="io-game" id="io-game">
@@ -320,7 +328,7 @@ lune run parallax verdict asset &lt;name&gt; &lt;0-10&gt; "&lt;your words&gt;"</
   <thead><tr><th>Tool</th><th>Used for</th><th>Tier</th></tr></thead>
   <tbody>
     <tr data-tier="tier-1"><td>Blender 5.2</td><td>DCC host: Cycles bakes, shading, renders, UV unwrap, mesh work, the kit rig.</td><td><span class="badge tier">Tier 1</span></td></tr>
-    <tr data-tier="tier-1"><td>OpenCASCADE (<code>a.cad</code>)</td><td>CAD: profiles, fillets, booleans, revolves, sweeps, threads, chains, gems — for machined parts.</td><td><span class="badge tier">Tier 1</span></td></tr>
+    <tr data-tier="tier-1"><td>OpenCASCADE (<code>a.cad</code>)</td><td>CAD: profiles, fillets, booleans, revolves, sweeps, threads, chains, gems, for machined parts.</td><td><span class="badge tier">Tier 1</span></td></tr>
     <tr data-tier="tier-1"><td>Mitsuba 3</td><td>Differentiable light fits: checks a scan's colour with its light taken out against photos under another light.</td><td><span class="badge tier">Tier 1</span></td></tr>
     <tr data-tier="tier-2"><td>SAM 2.1 (<code>sam2.1-hiera-small</code>)</td><td>Part masks from a point or a box; cutting reference crops.</td><td><span class="badge tier">Tier 2</span></td></tr>
     <tr data-tier="tier-2"><td>BiRefNet</td><td>Background cutout / object silhouette for reference images.</td><td><span class="badge tier">Tier 2</span></td></tr>
@@ -329,7 +337,7 @@ lune run parallax verdict asset &lt;name&gt; &lt;0-10&gt; "&lt;your words&gt;"</
     <tr data-tier="tier-2"><td>DINOv2 (<code>dinov2-reg-small</code>)</td><td>Dense per-patch "where it differs" maps between render and reference.</td><td><span class="badge tier">Tier 2</span></td></tr>
     <tr data-tier="tier-2"><td>Real-ESRGAN</td><td>4× upscale of reference crops before tracing.</td><td><span class="badge tier">Tier 2</span></td></tr>
     <tr data-tier="tier-3"><td>Qwen3-VL-4B (<code>qwen3-vl-4b</code>)</td><td>Reference inventory: lists every visible detail with its bounding box; reads engraved text.</td><td><span class="badge tier">Tier 3</span></td></tr>
-    <tr data-tier="tier-3"><td>SAM 3</td><td>Part masks from a text prompt ("screw", "trigger") — all matches at once.</td><td><span class="badge tier">Tier 3</span></td></tr>
+    <tr data-tier="tier-3"><td>SAM 3</td><td>Part masks from a text prompt ("screw", "trigger"), covering all matches at once.</td><td><span class="badge tier">Tier 3</span></td></tr>
     <tr data-tier="tier-4"><td>TRELLIS.2</td><td>Local 3D generator for organic-part drafts only (never hero hard-surface).</td><td><span class="badge tier">Tier 4</span></td></tr>
     <tr data-tier="tier-4"><td>Pixal3D</td><td>Local 3D generator for organic-part drafts only.</td><td><span class="badge tier">Tier 4</span></td></tr>
     <tr data-tier="tier-4"><td>Hunyuan3D-2mv</td><td>Local 3D generator for organic-part drafts only.</td><td><span class="badge tier">Tier 4</span></td></tr>
@@ -398,12 +406,12 @@ lune run parallax promote asset &lt;name&gt; --about "&lt;one line&gt;"   # only
 <h2 id="learning">How it learns</h2>
 
 <h3 id="learning-verdicts">Verdicts and the golden set</h3>
-<p>Every verdict feeds the kit's memory. A verdict of 7 or above adds the asset to the golden set — the reference calibration for future quality checks. A verdict of 3 or below puts its build route in the graveyard; that route is refused on the next similar piece without your explicit words to override it.</p>
+<p>Every verdict feeds the kit's memory. A verdict of 7 or above adds the asset to the golden set, the reference calibration for future quality checks. A verdict of 3 or below puts its build route in the graveyard; that route is refused on the next similar piece without your explicit words to override it.</p>
 <p>After five new verdicts, <code>kit start</code> asks for <code>kit vault distil 3d</code> first: it turns the new evidence into written rules for the lane.</p>
 
 <h3 id="learning-study">The study step</h3>
 <p>The study is not a one-time task. It runs before every new piece and answers: what does each reference do well, what do all the good ones share, and what does your version keep, change, and add as a signature? The best-matching vault lessons (up to five) must each be applied or skipped, with at least six words on how or why.</p>
-<p>If you change the build route — moving from CAD to a generator, for example, or adding a simulation step — you must run <code>kit study &lt;name&gt; --reroute</code> and answer every lesson again. Copied answers are rejected; the kit tracks what was written for which route.</p>
+<p>If you change the build route (moving from CAD to a generator, for example, or adding a simulation step) you must run <code>kit study &lt;name&gt; --reroute</code> and answer every lesson again. Copied answers are rejected; the kit tracks what was written for which route.</p>
 
 <h3 id="learning-lessons">Lessons</h3>
 <p>Lessons are ranked by relevance for each asset at session start. They must be answered before the quality locks pass. A lesson added after a verdict is live on the next build. Run <code>lune run parallax lessons 3d</code> for the full list.</p>

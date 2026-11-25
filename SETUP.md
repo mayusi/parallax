@@ -5,10 +5,10 @@ server, a game project and your AI client. Every step has a **command**, a **che
 **if it fails**. Most people hand this file to their AI agent and let it do the work - that is what it is written for.
 
 **Contents** - [For AI agents](#for-ai-agents) · [What you need](#what-you-need) ·
-[1 Base tools](#step-1--base-tools) · [2 Rokit](#step-2--rokit) · [3 Get Parallax](#step-3--get-parallax) ·
-[4 Doctor](#step-4--check-the-toolchain) · [5 Hardware tier](#step-5--choose-your-hardware-tier) ·
-[6 Roblox Studio](#step-6--roblox-studio-and-its-mcp-server) · [7 Your game](#step-7--make-your-game-project) ·
-[8 Your AI client](#step-8--connect-your-ai-client) · [9 First run](#step-9--first-run-and-final-check) ·
+[1 Base tools](#step-1-base-tools) · [2 Rokit](#step-2-rokit) · [3 Get Parallax](#step-3-get-parallax) ·
+[4 Doctor](#step-4-check-the-toolchain) · [5 Hardware tier](#step-5-choose-your-hardware-tier) ·
+[6 Roblox Studio](#step-6-roblox-studio-and-its-mcp-server) · [7 Your game](#step-7-make-your-game-project) ·
+[8 Your AI client](#step-8-connect-your-ai-client) · [9 First run](#step-9-first-run-and-final-check) ·
 [Uploads](#uploading-to-roblox) · [Updating](#updating) · [Troubleshooting](#troubleshooting) ·
 [Uninstall](#uninstalling)
 
@@ -56,11 +56,11 @@ Run every check and compare it with the expected result. Stop and ask me when a 
 | Node.js LTS | the VFX effect player's checks | for VFX |
 | ffmpeg | sound, effect breakdowns and recordings | for sound and VFX |
 | Blender 5.2 | 3D, effect bakes, animation, world and UI renders | for those lanes |
-| Local AI models (vision stack, CAD, 3D generators) | references, segmentation, similarity, hard surfaces, drafts | optional, by [hardware tier](#step-5--choose-your-hardware-tier) |
+| Local AI models (vision stack, CAD, 3D generators) | references, segmentation, similarity, hard surfaces, drafts | optional, by [hardware tier](#step-5-choose-your-hardware-tier) |
 
 ---
 
-## Step 1 — Base tools
+## Step 1: Base tools
 
 Install Git, Python 3.11, Node.js and ffmpeg (skip any you already have). In PowerShell:
 
@@ -95,7 +95,7 @@ site (git-scm.com, python.org - tick "Add python.exe to PATH" - nodejs.org, ffmp
 
 ---
 
-## Step 2 — Rokit
+## Step 2: Rokit
 
 [Rokit](https://github.com/rojo-rbx/rokit) installs the exact Roblox toolchain versions the kit pins in `rokit.toml`.
 
@@ -112,7 +112,7 @@ run `.\rokit.exe self-install` in the folder you saved it to, then open a new te
 
 ---
 
-## Step 3 — Get Parallax
+## Step 3: Get Parallax
 
 Choose a folder for the kit (it is the kit's home: your games live in their own folders next to it).
 
@@ -140,7 +140,7 @@ terminal. `wally install` fails: check your internet connection and run it again
 
 ---
 
-## Step 4 — Check the toolchain
+## Step 4: Check the toolchain
 
 ```powershell
 lune run parallax doctor
@@ -154,7 +154,7 @@ get it - that is fine until you use that lane (step 5).
 
 ---
 
-## Step 5 — Choose your hardware tier
+## Step 5: Choose your hardware tier
 
 Parallax runs on any PC and grows with your hardware; each tier includes the ones below it, and a lane on a lower tier
 takes the route that tier allows instead of failing. Steps 1-4 already give you **Tier 0**. Go as far up as your machine
@@ -211,7 +211,7 @@ installing it. Everything runs on your machine; nothing is sent to a cloud servi
 
 ---
 
-## Step 6 — Roblox Studio and its MCP server
+## Step 6: Roblox Studio and its MCP server
 
 Roblox Studio has a built-in MCP server. Parallax uses it to drive playtests, look at the game in the engine, and
 upload assets through Open Cloud with **your own Studio login** - no API key.
@@ -250,7 +250,7 @@ guides: [Connect to the Studio MCP server](https://create.roblox.com/docs/studio
 
 ---
 
-## Step 7 — Make your game project
+## Step 7: Make your game project
 
 From the kit's folder, point `install` at your game's folder (it is created if it does not exist; an existing Rojo
 project keeps its files):
@@ -283,7 +283,7 @@ then `lune run parallax doctor`.
 
 ---
 
-## Step 8 — Connect your AI client
+## Step 8: Connect your AI client
 
 In the **game folder**:
 
@@ -320,7 +320,7 @@ kit's entry out again.
 
 ---
 
-## Step 9 — First run and final check
+## Step 9: First run and final check
 
 In your AI client, in the game folder:
 

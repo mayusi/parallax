@@ -4,8 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Hardware and models · Parallax</title>
-<meta name="description" content="Machine tiers, AI models, runtimes and PyTorch — what each tier needs and what it unlocks in each pipeline.">
-<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<meta name="description" content="Machine tiers, AI models, runtimes and PyTorch: what each tier needs and what it unlocks in each pipeline.">
+<link rel="icon" href="assets/logo-64.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:site_name" content="Parallax">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Hardware and models · Parallax">
+<meta property="og:description" content="Machine tiers, AI models, runtimes and PyTorch: what each tier needs and what it unlocks in each pipeline.">
+<meta property="og:url" content="https://mayusi.github.io/parallax/hardware.html">
+<meta property="og:image" content="https://mayusi.github.io/parallax/assets/social.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="assets/style.css">
 <script src="assets/app.js" defer></script>
 </head>
@@ -25,10 +33,10 @@
 <p>Each tier includes everything in the tiers below it. Steps 1–4 of <a href="setup.html">Setup</a> give you Tier 0. A lane on a lower tier takes the route that tier allows instead of failing.</p>
 <p>A tier's <code>vision setup</code> command downloads <strong>weights only</strong>. Each model also needs a runtime, and every tab below says which one:</p>
 <ul>
-  <li><strong>The kit's own Python</strong> — the <code>python</code> on your PATH that runs the kit. For models it needs PyTorch, transformers and safetensors, which no Parallax command installs (see <a href="#pytorch">PyTorch and runtimes</a>).</li>
-  <li><strong>The diffusers environment</strong> — a separate Python environment you set up from <code>kit/gen/README.md</code>.</li>
-  <li><strong>The TRELLIS.2 environment</strong> — the 3D generator's environment, set up and compiled from <code>kit/gen/README.md</code>.</li>
-  <li><strong>sd-cpp</strong> — stable-diffusion.cpp, a native program that the Tier 4 setup downloads.</li>
+  <li><strong>The kit's own Python</strong>: the <code>python</code> on your PATH that runs the kit. For models it needs PyTorch, transformers and safetensors, which no Parallax command installs (see <a href="#pytorch">PyTorch and runtimes</a>).</li>
+  <li><strong>The diffusers environment</strong>: a separate Python environment you set up from <code>kit/gen/README.md</code>.</li>
+  <li><strong>The TRELLIS.2 environment</strong>: the 3D generator's environment, set up and compiled from <code>kit/gen/README.md</code>.</li>
+  <li><strong>sd-cpp</strong>: stable-diffusion.cpp, a native program that the Tier 4 setup downloads.</li>
 </ul>
 
 <div class="tabs">
@@ -41,7 +49,7 @@
   </div>
 
   <div class="tab-panel" data-panel="tier-0" id="tier-0">
-    <h3>Tier 0 — Zero-GPU core</h3>
+    <h3>Tier 0: Zero-GPU core</h3>
     <dl class="specs">
       <dt>What you need</dt><dd>Any PC; Windows 10 or 11 recommended (most commands also run on macOS and Linux)</dd>
       <dt>GPU / VRAM</dt><dd>None required</dd>
@@ -49,14 +57,14 @@
       <dt>Disk</dt><dd>Under 0.5 GB for the kit and its dependencies</dd>
       <dt>OS</dt><dd>Windows 10 or 11 (full support); macOS and Linux (most commands)</dd>
     </dl>
-    <p><strong>Install</strong> — complete <a href="setup.html#steps">Setup steps 1–4</a>.</p>
-    <p><strong>AI models added</strong> — none. The kit's reasoning comes from your AI client.</p>
-    <p><strong>Runtimes</strong> — Git, Python 3.11 (with numpy, scipy, Pillow, matplotlib, pytest), Node.js LTS, ffmpeg, Rokit (Rojo, Wally, Selene, StyLua, Lune, luau-lsp).</p>
-    <p><strong>Unlocks</strong> — the work board, enforcement, the learning loop, game scaffolding, gameplay systems, QA scripting, the UI compiler, sound synthesis and the audio gate, world checks, the MCP server and all board commands. Commands that need Blender or a local model wait for their tier.</p>
+    <p><strong>Install:</strong> complete <a href="setup.html#steps">Setup steps 1–4</a>.</p>
+    <p><strong>AI models added:</strong> none. The kit's reasoning comes from your AI client.</p>
+    <p><strong>Runtimes:</strong> Git, Python 3.11 (with numpy, scipy, Pillow, matplotlib, pytest), Node.js LTS, ffmpeg, Rokit (Rojo, Wally, Selene, StyLua, Lune, luau-lsp).</p>
+    <p><strong>Unlocks:</strong> the work board, enforcement, the learning loop, game scaffolding, gameplay systems, QA scripting, the UI compiler, sound synthesis and the audio gate, world checks, the MCP server and all board commands. Commands that need Blender or a local model wait for their tier.</p>
   </div>
 
   <div class="tab-panel" data-panel="tier-1" id="tier-1">
-    <h3>Tier 1 — DCC and CAD</h3>
+    <h3>Tier 1: DCC and CAD</h3>
     <dl class="specs">
       <dt>What you need</dt><dd>Any CPU</dd>
       <dt>GPU / VRAM</dt><dd>None required for Blender (CPU renders are slower but work). Mitsuba's default variant, <code>cuda_ad_rgb</code>, needs an NVIDIA GPU.</dd>
@@ -68,19 +76,19 @@
 lune run parallax tools setup cad
 lune run parallax tools setup mitsuba</code></pre>
     <p>Install Blender 5.2 LTS from blender.org into <code>C:\Program Files\Blender Foundation\</code>. If you install it elsewhere, set a <code>BLENDER</code> environment variable to the full path of <code>blender.exe</code>.</p>
-    <p><strong>AI models added</strong> — none. Vision models are Tier 2 and above.</p>
+    <p><strong>AI models added:</strong> none. Vision models are Tier 2 and above.</p>
     <p><strong>Runtimes added</strong></p>
     <ul>
-      <li><strong>Blender 5.2 LTS</strong> — 3D modelling, UV mapping, baking, animation rigs, world and UI renders.</li>
-      <li><strong><code>tools setup kit-python</code></strong> — adds two pinned wheels to the kit's own Python: vtracer (<code>kit vision vectorize</code>) and spandrel (<code>kit vision upscale</code>). spandrel also needs PyTorch and torchvision there.</li>
-      <li><strong>cad environment</strong> — build123d on OpenCASCADE, for hard-surface CAD. Its own environment in <code>~/.cache/roblox-kit/envs/cad</code>, which also sees the kit's Python packages.</li>
-      <li><strong>mitsuba environment</strong> — Mitsuba 3, a differentiable renderer the kit uses for fits. Its own environment in <code>~/.cache/roblox-kit/envs/mitsuba</code>.</li>
+      <li><strong>Blender 5.2 LTS</strong>: 3D modelling, UV mapping, baking, animation rigs, world and UI renders.</li>
+      <li><strong><code>tools setup kit-python</code></strong>: adds two pinned wheels to the kit's own Python: vtracer (<code>kit vision vectorize</code>) and spandrel (<code>kit vision upscale</code>). spandrel also needs PyTorch and torchvision there.</li>
+      <li><strong>cad environment</strong>: build123d on OpenCASCADE, for hard-surface CAD. Its own environment is in <code>~/.cache/roblox-kit/envs/cad</code>, which also sees the kit's Python packages.</li>
+      <li><strong>mitsuba environment</strong>: Mitsuba 3, a differentiable renderer the kit uses for fits. Its own environment is in <code>~/.cache/roblox-kit/envs/mitsuba</code>.</li>
     </ul>
-    <p><strong>Unlocks</strong> — 3D modelling, UV packing, baking, CAD boolean shapes, Mitsuba fits, animation rigs in Blender, world greybox renders, UI mockup renders. All without any AI vision model.</p>
+    <p><strong>Unlocks:</strong> 3D modelling, UV packing, baking, CAD boolean shapes, Mitsuba fits, animation rigs in Blender, world greybox renders, UI mockup renders. All without any AI vision model.</p>
   </div>
 
   <div class="tab-panel" data-panel="tier-2" id="tier-2">
-    <h3>Tier 2 — Light vision core</h3>
+    <h3>Tier 2: Light vision core</h3>
     <dl class="specs">
       <dt>What you need</dt><dd>The CPU or any GPU with 4 GB VRAM</dd>
       <dt>RAM</dt><dd>8–16 GB</dd>
@@ -91,13 +99,13 @@ lune run parallax tools setup mitsuba</code></pre>
     <p><strong>Install</strong></p>
     <pre><code>lune run parallax vision setup</code></pre>
     <p>Downloads the 8 core models (~2.4 GB). An interrupted download resumes; every file is kept only if its size and hash match its pin. PyTorch, transformers and safetensors are not installed by this command (see <a href="#pytorch">PyTorch and runtimes</a>).</p>
-    <p><strong>AI models added</strong> — see the <a href="#model-registry">model registry</a> filtered to Core. All 8 run in the kit's own Python (<code>kit/vision/run.py</code>; the upscalers through <code>kit/vision/upscale.py</code>). The on-demand <code>clap-general</code> sound model also runs there.</p>
-    <p><strong>Unlocks</strong> — part cut-outs (<code>kit vision cutout</code>), part masks from a point or a box (<code>kit vision mask</code>), depth maps (<code>kit vision depth</code>), edge maps (<code>kit vision edges</code>), similarity ranking of reference images, picture upscaling (<code>kit vision upscale</code>). Used by the 3D, VFX, UI and world pipelines for reference analysis.</p>
+    <p><strong>AI models added:</strong> see the <a href="#model-registry">model registry</a> filtered to Core. All 8 run in the kit's own Python (<code>kit/vision/run.py</code>; the upscalers through <code>kit/vision/upscale.py</code>). The on-demand <code>clap-general</code> sound model also runs there.</p>
+    <p><strong>Unlocks:</strong> part cut-outs (<code>kit vision cutout</code>), part masks from a point or a box (<code>kit vision mask</code>), depth maps (<code>kit vision depth</code>), edge maps (<code>kit vision edges</code>), similarity ranking of reference images, picture upscaling (<code>kit vision upscale</code>). Used by the 3D, VFX, UI and world pipelines for reference analysis.</p>
     <div class="note"><span class="callout-title">Force CPU</span><p>Set <code>KIT_FORCE_CPU=1</code> to run these core models on the CPU (same results, slower). It skips the CUDA probe, so use it if your GPU driver faults on that probe. It applies only to the core models; the Tier 3 and Tier 4 models still need CUDA.</p></div>
   </div>
 
   <div class="tab-panel" data-panel="tier-3" id="tier-3">
-    <h3>Tier 3 — Local VLM and diffusion</h3>
+    <h3>Tier 3: Local VLM and diffusion</h3>
     <dl class="specs">
       <dt>GPU / VRAM</dt><dd>An NVIDIA GPU with 12 GB VRAM</dd>
       <dt>RAM</dt><dd>16 GB system RAM</dd>
@@ -120,7 +128,7 @@ lune run parallax tools setup mitsuba</code></pre>
     </table>
     <p><strong>Unlocks</strong></p>
     <ul>
-      <li>Local VLM: <strong>Qwen3-VL-4B</strong> — lists every visible detail of a reference image with bounding boxes (<code>kit refs inventory</code>) and reads engraved text (<code>kit refs read</code>).</li>
+      <li>Local VLM: <strong>Qwen3-VL-4B</strong>, which lists every visible detail of a reference image with bounding boxes (<code>kit refs inventory</code>) and reads engraved text (<code>kit refs read</code>).</li>
       <li>An ornament's relief from its picture: MoGe-2 normals plus Depth Anything 3 depth (<code>kit vision relief</code>).</li>
       <li>Lighting-free colour, roughness and metalness from one photo (Marigold-IID, <code>kit vision albedo</code>).</li>
       <li>HDR lighting from a photo (DiffusionLight-Turbo on SDXL, <code>kit vision light</code>).</li>
@@ -130,7 +138,7 @@ lune run parallax tools setup mitsuba</code></pre>
   </div>
 
   <div class="tab-panel" data-panel="tier-4" id="tier-4">
-    <h3>Tier 4 — Full 3D generation</h3>
+    <h3>Tier 4: Full 3D generation</h3>
     <dl class="specs">
       <dt>GPU / VRAM</dt><dd>An NVIDIA GPU with 12–16+ GB VRAM; CUDA 13 for the generator builds</dd>
       <dt>RAM</dt><dd>32 GB system RAM (qwen-image-edit needs about 22 GB free)</dd>
@@ -143,11 +151,11 @@ lune run parallax tools setup mitsuba</code></pre>
     <pre><code>lune run parallax vision setup --tier gen</code></pre>
     <p>Then follow <code>kit/gen/README.md</code> for the generator environments (TRELLIS.2 and the others each have their own).</p>
     <div class="warn-box"><span class="callout-title">Read licences first</span><p>Each Tier 4 generator has its own licence; some restrict territories or uses. Read its <code>VETLOG.md</code> row before installing. TRELLIS.2 reads pictures through Meta's DINOv3 encoder, which is under the DINOv3 License (it has a trade-controls clause) and is gated: you need your own Hugging Face access and <code>HF_TOKEN</code>.</p></div>
-    <p><strong>AI models added</strong> — see the <a href="#model-registry">model registry</a> filtered to Gen. This tier adds 2 entries on top of the 20 below it.</p>
+    <p><strong>AI models added:</strong> see the <a href="#model-registry">model registry</a> filtered to Gen. This tier adds 2 entries on top of the 20 below it.</p>
     <p><strong>Runtimes added</strong></p>
     <ul>
-      <li><strong>sd-cpp (stable-diffusion.cpp)</strong> — the native CUDA 12 runner for GGUF models on Windows, launched from the kit's own Python. It runs qwen-image-edit.</li>
-      <li><strong>Generator environments</strong> — TRELLIS.2, Pixal3D, Hunyuan3D-Omni, PartCrafter and Hunyuan3D-2, each set up from <code>kit/gen/README.md</code>.</li>
+      <li><strong>sd-cpp (stable-diffusion.cpp)</strong>: the native CUDA 12 runner for GGUF models on Windows, launched from the kit's own Python. It runs qwen-image-edit.</li>
+      <li><strong>Generator environments</strong>: TRELLIS.2, Pixal3D, Hunyuan3D-Omni, PartCrafter and Hunyuan3D-2, each set up from <code>kit/gen/README.md</code>.</li>
     </ul>
     <p><strong>Unlocks</strong></p>
     <ul>
@@ -297,7 +305,7 @@ lune run parallax tools setup mitsuba</code></pre>
     <tr data-group="vision">
       <td><code>sam3</code></td>
       <td><span class="badge tier">Vision</span></td>
-      <td>Part masks from a text prompt — every match at once ("screw", "trigger") (SAM 3, Meta)</td>
+      <td>Part masks from a text prompt, covering every match at once ("screw", "trigger") (SAM 3, Meta)</td>
       <td>3,445</td>
       <td>SAM License</td>
       <td>The TRELLIS.2 environment</td>
@@ -414,7 +422,7 @@ lune run parallax tools setup mitsuba</code></pre>
 
 <section>
 <h2 id="llms">LLMs and vision-language models</h2>
-<p>Parallax does not need a local text LLM. All reasoning — planning, writing, reviewing — is done by your AI client. The kit provides context (every command ends with <code>summary:</code> and <code>next_action:</code>) so any model can continue without reading the whole codebase.</p>
+<p>Parallax does not need a local text LLM. All reasoning (planning, writing, reviewing) is done by your AI client. The kit provides context (every command ends with <code>summary:</code> and <code>next_action:</code>) so any model can continue without reading the whole codebase.</p>
 
 <h3>When there is no local VLM</h3>
 <p>Where a local VLM would judge something and Tier 3 is not installed, the kit hands your AI client a packet instead: the pictures and a <code>PROMPT.md</code> with the exact questions. Your client answers, and the kit records that answer with <code>--record</code>. No lane is blocked waiting for a local VLM.</p>
@@ -422,8 +430,8 @@ lune run parallax tools setup mitsuba</code></pre>
 <h3>The local VLM</h3>
 <p>The local vision-language model the kit queries is <strong>Qwen3-VL-4B</strong> (<code>qwen3-vl-4b</code>, Tier 3). It is a 4-billion-parameter instruction-tuned model (bf16) run by PyTorch and transformers in the kit's own Python. Its uses:</p>
 <ul>
-  <li><code>kit refs inventory</code> — lists every visible detail of a reference image with its bounding box, so your AI client can discuss it without seeing the image.</li>
-  <li><code>kit refs read</code> — reads engraved or printed text in a reference image.</li>
+  <li><code>kit refs inventory</code>: lists every visible detail of a reference image with its bounding box, so your AI client can discuss it without seeing the image.</li>
+  <li><code>kit refs read</code>: reads engraved or printed text in a reference image.</li>
   <li>Yes/no relevance scores for text prompts, used when the kit reranks found parts (<code>kit/tools/parts_rerank.py</code>).</li>
 </ul>
 <p>Tier 4's qwen-image-edit also bundles a vision-language model (Qwen2.5-VL-7B), but only as its text encoder, run inside sd-cpp.</p>
@@ -459,10 +467,10 @@ lune run parallax tools setup mitsuba</code></pre>
 
 <h3>Other runtimes</h3>
 <ul>
-  <li><strong>RapidOCR</strong> — reads the words in a UI still (<code>kit ui read</code>); it runs on ONNX Runtime on the CPU.</li>
-  <li><strong>spandrel</strong> — loads Real-ESRGAN weights in a weights-only-safe way.</li>
-  <li><strong>MuJoCo</strong> — physics simulation for hit-reaction animation (animation pipeline).</li>
-  <li><strong>MediaPipe Pose</strong> — offline footage analysis for the animation pipeline.</li>
+  <li><strong>RapidOCR</strong>: reads the words in a UI still (<code>kit ui read</code>); it runs on ONNX Runtime on the CPU.</li>
+  <li><strong>spandrel</strong>: loads Real-ESRGAN weights in a weights-only-safe way.</li>
+  <li><strong>MuJoCo</strong>: physics simulation for hit-reaction animation (animation pipeline).</li>
+  <li><strong>MediaPipe Pose</strong>: offline footage analysis for the animation pipeline.</li>
 </ul>
 </section>
 
@@ -474,10 +482,10 @@ lune run parallax tools setup mitsuba</code></pre>
 <div class="limit"><span class="callout-title">Known limits</span><p><code>kit gen texture</code> paints at 512 only. The 1024 network (fetched since 2026-11-19) is used by <code>kit gen --res 1024</code> for shapes, not by the texturing route. One photo means the sides it does not show are guessed. Colour detail covers panels and two-tone finishes, not fine lettering or engraving.</p></div>
 <p>The other generators, all documented in <code>kit/gen/README.md</code>:</p>
 <ul>
-  <li><strong>Pixal3D</strong> (<code>kit gen views</code>) — a shape from 2–4 views with their cameras.</li>
-  <li><strong>Hunyuan3D-Omni</strong> (<code>kit gen omni</code>) — a shape held to a code-built blockout. Its licence excludes some territories; read it before you ship a mesh from it.</li>
-  <li><strong>PartCrafter</strong> (<code>kit gen parts</code>) — one picture to separate part meshes.</li>
-  <li><strong>Hunyuan3D-2</strong> (<code>kit gen mv-shape</code>, <code>kit gen paint</code>) — private experiments only: its meshes are marked <code>"private_only": true</code>, and the kit refuses them in a public asset.</li>
+  <li><strong>Pixal3D</strong> (<code>kit gen views</code>): a shape from 2–4 views with their cameras.</li>
+  <li><strong>Hunyuan3D-Omni</strong> (<code>kit gen omni</code>): a shape held to a code-built blockout. Its licence excludes some territories; read it before you ship a mesh from it.</li>
+  <li><strong>PartCrafter</strong> (<code>kit gen parts</code>): one picture to separate part meshes.</li>
+  <li><strong>Hunyuan3D-2</strong> (<code>kit gen mv-shape</code>, <code>kit gen paint</code>): private experiments only; its meshes are marked <code>"private_only": true</code>, and the kit refuses them in a public asset.</li>
 </ul>
 </section>
 
@@ -499,7 +507,7 @@ lune run parallax tools setup mitsuba</code></pre>
 <pre><code>machine tier: N (&lt;tier name&gt;)</code></pre>
 <p>Below Tier 4 it also prints what the next tier needs, then the engine line, and ends with <code>summary:</code> and <code>next_action:</code>.</p>
 <h3><code>lune run parallax vision doctor</code></h3>
-<p>Runs six core models on a small probe image — <code>teed</code>, <code>birefnet</code>, <code>sam2.1-hiera-small</code>, <code>depth-anything-v2-small</code>, <code>siglip2-base</code> and <code>dinov2-reg-small</code> — and reports the torch version, the GPU it found (or the CPU) and the time for each. A model that fails shows <code>FAILED: &lt;reason&gt;</code>, and the <code>next_action:</code> names the first failure.</p>
+<p>Runs six core models on a small probe image (<code>teed</code>, <code>birefnet</code>, <code>sam2.1-hiera-small</code>, <code>depth-anything-v2-small</code>, <code>siglip2-base</code> and <code>dinov2-reg-small</code>) and reports the torch version, the GPU it found (or the CPU) and the time for each. A model that fails shows <code>FAILED: &lt;reason&gt;</code>, and the <code>next_action:</code> names the first failure.</p>
 </section>
 
 </main>

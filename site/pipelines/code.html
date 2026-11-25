@@ -5,7 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Gameplay systems · Parallax</title>
 <meta name="description" content="Build server-authoritative Roblox gameplay code: the game skeleton, pure tested systems, generated remotes, and combat moves as data.">
-<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/logo-64.png" type="image/png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta property="og:site_name" content="Parallax">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Gameplay systems · Parallax">
+<meta property="og:description" content="Build server-authoritative Roblox gameplay code: the game skeleton, pure tested systems, generated remotes, and combat moves as data.">
+<meta property="og:url" content="https://mayusi.github.io/parallax/pipelines/code.html">
+<meta property="og:image" content="https://mayusi.github.io/parallax/assets/social.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../assets/style.css">
 <script src="../assets/app.js" defer></script>
 </head>
@@ -102,8 +110,8 @@ lune run parallax world check Arena</code></pre>
       <summary><span class="name">Systems</span><span class="what">Scaffold a Config, Rules module, Service, Controller, and spec; fuzz and mutate.</span></summary>
       <div class="body">
         <p><code>kit new system &lt;PascalName&gt;</code> creates five files: a Config (plain tuning data; bind it with <code>Configs.bind</code> for live values), a Rules module (pure Luau: no Roblox APIs, fully testable in Lune), a Service (server-side, calls Rules), a Controller (client-side), and a spec file.</p>
-        <p><strong>Rules module rules:</strong> every decision lives in Rules, with a spec case for it — including hostile input (NaN, negative numbers, wrong types). <code>src/shared</code> must stay pure: no <code>game:GetService</code>, no <code>Instance.new</code>; siblings loaded via <code>require("./X")</code>. Use strict mode; stylua and selene must pass clean.</p>
-        <p><strong>Fuzzing:</strong> <code>kit fuzz &lt;Name&gt;Rules</code> sends NaN, inf, wrong types, and boundary values through every Rules function. A throw is a crash — zero allowed.</p>
+        <p><strong>Rules module rules:</strong> every decision lives in Rules, with a spec case for it (including hostile input: NaN, negative numbers, wrong types). <code>src/shared</code> must stay pure: no <code>game:GetService</code>, no <code>Instance.new</code>; siblings loaded via <code>require("./X")</code>. Use strict mode; stylua and selene must pass clean.</p>
+        <p><strong>Fuzzing:</strong> <code>kit fuzz &lt;Name&gt;Rules</code> sends NaN, inf, wrong types, and boundary values through every Rules function. A throw is a crash; zero allowed.</p>
         <p><strong>Mutation testing:</strong> <code>kit mutate &lt;Name&gt;Rules</code> plants bugs one at a time and reports the fraction your specs catch (the kill rate), naming every survivor. The route's target is at least 80 %; the command reports the rate and does not enforce it.</p>
         <pre><code>lune run parallax new system Combat
 lune run parallax fuzz CombatRules
@@ -117,7 +125,7 @@ lune run parallax mutate CombatRules</code></pre>
     <details id="stage-net">
       <summary><span class="name">Net</span><span class="what">Generate type-safe, rate-limited remote wrappers from a schema.</span></summary>
       <div class="body">
-        <p>Write <code>assets/net/&lt;System&gt;.net.json</code> to describe every remote: event name, arguments (types, ranges), and a rate limit. Run <code>kit net</code> to generate <code>src/net/&lt;System&gt;Net.luau</code> — a typed wrapper you never edit directly.</p>
+        <p>Write <code>assets/net/&lt;System&gt;.net.json</code> to describe every remote: event name, arguments (types, ranges), and a rate limit. Run <code>kit net</code> to generate <code>src/net/&lt;System&gt;Net.luau</code>, a typed wrapper you never edit directly.</p>
         <p>The schema gate refuses an unbounded client number, an unlimited string, a Vector3 with no magnitude cap, or a request with no rate. <code>kit verify</code> fails if a generated file is edited or becomes stale.</p>
         <p>After generating remotes, run <code>kit audit</code> and then a red-team playtest: try to break the system by sending bad arguments directly.</p>
         <pre><code>lune run parallax net
@@ -132,7 +140,7 @@ lune run parallax audit</code></pre>
       <summary><span class="name">Moves</span><span class="what">Describe combat moves as data: frames, hitboxes, cancels, and cues.</span></summary>
       <div class="body">
         <p>A move is a JSON file in <code>assets/moves/&lt;Move&gt;.json</code>. Its startup, active, and recovery frame counts come from the animation pipeline's measured phases (use <code>"from_anim"</code> to reference them directly). Hitboxes are given per frame (size, offset); damage, stun, knockback, hit-stop and blockstun belong to the move. Cancels name which moves can interrupt which. Sound and VFX cues are referenced by frame number.</p>
-        <p><code>kit move</code> validates the data (flags ghost hitboxes outside active frames, over-large boxes, combo links that are not cancels), checks that a swing or whoosh sound cue leads the first active frame by 50 to 300 ms, measures on-block advantage and time-to-kill, writes <code>src/moves/&lt;Set&gt;.json</code> and a move sheet at <code>build/moves/&lt;Set&gt;.png</code>. Look at the sheet — it is not optional.</p>
+        <p><code>kit move</code> validates the data (flags ghost hitboxes outside active frames, over-large boxes, combo links that are not cancels), checks that a swing or whoosh sound cue leads the first active frame by 50 to 300 ms, measures on-block advantage and time-to-kill, writes <code>src/moves/&lt;Set&gt;.json</code> and a move sheet at <code>build/moves/&lt;Set&gt;.png</code>. Look at the sheet: it is not optional.</p>
         <p>In game, <code>Moves.serve("&lt;Set&gt;")</code> runs the full server loop: cancels, combo scaling, per-frame hitboxes via <code>GetPartBoundsInBox</code> on the server's own positions, hit, block, chip, parry, i-frame dodge, damage, stun, knockback, hit-stop, and Sfx / Vfx playback from the data.</p>
         <pre><code>lune run parallax move</code></pre>
       </div>
@@ -145,7 +153,7 @@ lune run parallax audit</code></pre>
       <summary><span class="name">Playtests</span><span class="what">Run scripted in-engine checks through the Studio MCP; any console error fails.</span></summary>
       <div class="body">
         <p>Scaffold a playtest with <code>kit new playtest &lt;snake&gt;</code>. This creates <code>tests/playtest/&lt;name&gt;.luau</code> with the check API (<code>t.check</code>, <code>t.wait</code>, <code>t.waitFor</code>, <code>t.player</code>, <code>t.find</code>) already imported. Write checks for every game state you care about.</p>
-        <p><code>kit playtest bundle &lt;name&gt;</code> compiles the script. Then use the Studio MCP to run it: <code>start_stop_play(true)</code>, <code>execute_luau</code> with the bundle, save the returned JSON, <code>start_stop_play(false)</code>, then <code>kit playtest record &lt;name&gt; &lt;file&gt;</code>. Any console error — from any script — fails the playtest. The performance probe (from <code>qa.perf</code> in <code>kit.config.json</code>) measures memory, workspace instance count, and frame time.</p>
+        <p><code>kit playtest bundle &lt;name&gt;</code> compiles the script. Then use the Studio MCP to run it: <code>start_stop_play(true)</code>, <code>execute_luau</code> with the bundle, save the returned JSON, <code>start_stop_play(false)</code>, then <code>kit playtest record &lt;name&gt; &lt;file&gt;</code>. Any console error (from any script) fails the playtest. The performance probe (from <code>qa.perf</code> in <code>kit.config.json</code>) measures memory, workspace instance count, and frame time.</p>
         <pre><code>lune run parallax new playtest smoke_combat
 lune run parallax playtest bundle smoke_combat</code></pre>
       </div>
@@ -158,7 +166,7 @@ lune run parallax playtest bundle smoke_combat</code></pre>
       <summary><span class="name">Accept</span> <span class="badge lock">verdict ≥ 7</span><span class="what">Run the full quality gate; lock anything you rated 7 or above as a regression floor.</span></summary>
       <div class="body">
         <p><code>kit verify --game &lt;Name&gt;</code> runs the full sequence: format → selene → types → tests → VFX → UI → world → moves → contract → anim → models → audit → build. All must pass.</p>
-        <p>Record your verdict with <code>kit verdict system &lt;name&gt; &lt;score&gt; "..."</code>. For anything you score 7 or above, run <code>kit accept system &lt;name&gt;</code> to register it as a regression floor — the kit will refuse any future change that regresses below it.</p>
+        <p>Record your verdict with <code>kit verdict system &lt;name&gt; &lt;score&gt; "..."</code>. For anything you score 7 or above, run <code>kit accept system &lt;name&gt;</code> to register it as a regression floor; the kit will refuse any future change that regresses below it.</p>
         <pre><code>lune run parallax verify --game MyGame
 lune run parallax verdict system combat 8 "feels good, hitboxes precise"
 lune run parallax accept system combat</code></pre>
@@ -179,7 +187,7 @@ lune run parallax accept system combat</code></pre>
   <tbody>
     <tr><td>Argument validation</td><td>Every client argument is validated with Guard, typeof, type, or a check function.</td><td>All arguments</td><td><span class="badge block">blocks</span></td></tr>
     <tr><td>Rate limit</td><td>A handler with no rate limit or cooldown.</td><td>All handlers</td><td><span class="badge warn">warns</span></td></tr>
-    <tr><td><code>require(&lt;asset id&gt;)</code></td><td>Free-model backdoor pattern — a numeric asset ID passed to require.</td><td>Zero allowed</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td><code>require(&lt;asset id&gt;)</code></td><td>Free-model backdoor pattern: a numeric asset ID passed to require.</td><td>Zero allowed</td><td><span class="badge block">blocks</span></td></tr>
     <tr><td><code>loadstring</code></td><td>Dynamic code execution.</td><td>Zero allowed</td><td><span class="badge block">blocks</span></td></tr>
     <tr><td>Server <code>InvokeClient</code></td><td>Server invoking a client function: exploitable for denial of service.</td><td>Zero allowed</td><td><span class="badge block">blocks</span></td></tr>
     <tr><td><code>getfenv</code> / <code>setfenv</code></td><td>Environment manipulation.</td><td>Zero allowed</td><td><span class="badge warn">warns</span></td></tr>
@@ -235,11 +243,11 @@ lune run parallax accept system combat</code></pre>
   </div>
   <div class="tab-panel" data-panel="io-out" id="io-out">
     <ul>
-      <li><code>src/net/&lt;System&gt;Net.luau</code>: generated typed remote wrappers — never edit these by hand.</li>
+      <li><code>src/net/&lt;System&gt;Net.luau</code>: generated typed remote wrappers; never edit these by hand.</li>
       <li><code>src/moves/&lt;Set&gt;.json</code>: compiled move set (synced to <code>ReplicatedStorage.KitMoves</code>).</li>
-      <li><code>build/moves/&lt;Set&gt;.png</code>: the move sheet — look at this after every <code>kit move</code> run.</li>
+      <li><code>build/moves/&lt;Set&gt;.png</code>: the move sheet. Look at this after every <code>kit move</code> run.</li>
       <li><code>build/playtest/&lt;name&gt;.result.json</code>: playtest result from Studio.</li>
-      <li><code>tests/regressions.json</code>: bug registry — every confirmed bug as a spec case and a mutation case.</li>
+      <li><code>tests/regressions.json</code>: bug registry (every confirmed bug as a spec case and a mutation case).</li>
     </ul>
   </div>
   <div class="tab-panel" data-panel="io-game" id="io-game">
@@ -248,7 +256,7 @@ lune run parallax accept system combat</code></pre>
       <li><strong>Guard</strong>: validate client arguments. <code>Guard.number(v, min, max)</code>, <code>Guard.integer</code>, <code>Guard.string(v, maxLen)</code>, <code>Guard.oneOf</code>, <code>Guard.boolean</code>, <code>Guard.vector3</code> (rejects NaN and inf components), <code>Guard.withinRange</code>.</li>
       <li><strong>RateLimit</strong>: per-player token bucket. <code>RateLimit.new(capacity, refillPerSecond)</code>; <code>limit:take(player.UserId, os.clock())</code>; <code>limit:forget(player.UserId)</code> on <code>PlayerRemoving</code>.</li>
       <li><strong>Moves</strong>: server-side combat loop. <code>Moves.serve("&lt;Set&gt;")</code> runs hitboxes, cancels, stun, knockback, hit-stop. <code>Moves.client("&lt;Set&gt;").use / block / parry</code> for the client.</li>
-      <li><strong>Bus</strong>: presentation event bus. Server: <code>Bus.publish("Hit", payload, {near=250})</code>. Client: <code>Bus.start()</code> once, then <code>Bus.on("Hit", fn)</code>. Clients cannot publish. Listeners are isolated — one error does not stop others.</li>
+      <li><strong>Bus</strong>: presentation event bus. Server: <code>Bus.publish("Hit", payload, {near=250})</code>. Client: <code>Bus.start()</code> once, then <code>Bus.on("Hit", fn)</code>. Clients cannot publish. Listeners are isolated; one error does not stop others.</li>
       <li><strong>Recorder</strong>: flight recorder. Keeps the last 64 remote calls in memory and prints them to the output when any error is logged. The wrappers <code>kit net</code> generates record every call.</li>
       <li><strong>Loader</strong>: service bootstrap (required services started in dependency order).</li>
       <li><strong>Configs</strong>: live tuning through Roblox's Experience Configs (ConfigService); <code>Configs.bind("Combat", CombatConfig)</code> returns the live values, with your Config module's values as the fallback.</li>

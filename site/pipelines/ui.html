@@ -5,7 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Interfaces · Parallax</title>
 <meta name="description" content="How the Parallax UI pipeline builds identity-first Roblox screens: HUDs, menus, shops, dialogs, compiled from JSON specs and driven by the Ui runtime.">
-<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/logo-64.png" type="image/png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta property="og:site_name" content="Parallax">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Interfaces · Parallax">
+<meta property="og:description" content="How the Parallax UI pipeline builds identity-first Roblox screens: HUDs, menus, shops, dialogs, compiled from JSON specs and driven by the Ui runtime.">
+<meta property="og:url" content="https://mayusi.github.io/parallax/pipelines/ui.html">
+<meta property="og:image" content="https://mayusi.github.io/parallax/assets/social.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../assets/style.css">
 <script src="../assets/app.js" defer></script>
 </head>
@@ -23,7 +31,7 @@
 <header class="page-head">
   <p class="eyebrow">Pipeline</p>
   <h1>Interfaces</h1>
-  <p class="lead">The UI pipeline builds Roblox screens — HUDs, menus, shops, death screens, status sheets, and dialogs — that look like one game and no other. Every screen starts from an identity pack that pins tokens, type, shapes, motion rules, and bans before any art is made. Specs written in JSON are compiled to Rojo models, gated for readability and touch, previewed at phone, tablet, and desktop with real fonts, and driven in-game by the kit's Ui runtime.</p>
+  <p class="lead">The UI pipeline builds Roblox screens (HUDs, menus, shops, death screens, status sheets, and dialogs) that look like one game and no other. Every screen starts from an identity pack that pins tokens, type, shapes, motion rules, and bans before any art is made. Specs written in JSON are compiled to Rojo models, gated for readability and touch, previewed at phone, tablet, and desktop with real fonts, and driven in-game by the kit's Ui runtime.</p>
   <div class="meta-row">
     <span class="badge tier">Tier 0+</span>
     <span class="badge lock">2 approvals</span>
@@ -38,7 +46,7 @@
   <dd>Rojo models (<code>src/ui/&lt;Name&gt;.model.json</code>), preview sheets at three viewports, motion strips, fuzz and localisation reports, saliency maps, identity style guides, and Studio capture scripts.</dd>
   <dt>Hardware</dt>
   <dd>
-    <span class="badge tier">Tier 0</span> Compile, gates, fuzz, localisation, saliency, fonts, the blind A/B page, and all text tools — no GPU needed.<br>
+    <span class="badge tier">Tier 0</span> Compile, gates, fuzz, localisation, saliency, fonts, the blind A/B page, and all text tools. No GPU is needed.<br>
     <span class="badge tier">Tier 1</span> <code>kit ui render</code> (Blender Cycles) and <code>kit ui spin</code> (3D plate previews).<br>
     <span class="badge tier">Tier 2</span> Reference ranking by similarity (SigLIP 2) and reference-based piece tracing.<br>
     <span class="badge tier">Tier 3</span> Local VLM (Qwen3-VL) for identity screening. Without Tier 3 the kit sends your AI client a packet to review instead.
@@ -48,7 +56,7 @@
   <dt>Clock</dt>
   <dd>10 min for a simple screen, 30 min for a complex one, 60 min for a hero screen. Hero screens require <code>kit approve</code> first. Past the budget, no change to the screen can be built (the screen as it was can still be rebuilt and looked at); extend only on your words via <code>kit clock ui &lt;name&gt; --extend &lt;minutes&gt; "&lt;your words&gt;"</code>.</dd>
   <dt>Results land in</dt>
-  <dd><code>src/ui/</code> (Rojo models, never edit these), <code>build/ui/</code> (previews, motion strips, fuzz and saliency outputs), <code>library/ui/</code> (the permanent archive — <code>kit verify</code> fails if anything is missing).</dd>
+  <dd><code>src/ui/</code> (Rojo models, never edit these), <code>build/ui/</code> (previews, motion strips, fuzz and saliency outputs), <code>library/ui/</code> (the permanent archive; <code>kit verify</code> fails if anything is missing).</dd>
 </dl>
 </section>
 
@@ -83,7 +91,7 @@
     <details id="stage-direction">
       <summary><span class="name">Direction</span> <span class="badge lock">you approve</span><span class="what">Generate 3–5 original design directions; you pick one before any identity is written.</span></summary>
       <div class="body">
-        <p>Start every new visual look here, not at the identity. The command reads your words and produces 3–5 directions. Each direction names a world object, a verb, and a signature moment — a concrete visual idea, not a mood board. The kit then renders sketch frames onto a world shot so you can compare them side by side before committing.</p>
+        <p>Start every new visual look here, not at the identity. The command reads your words and produces 3–5 directions. Each direction names a world object, a verb, and a signature moment: a concrete visual idea, not a mood board. The kit then renders sketch frames onto a world shot so you can compare them side by side before committing.</p>
         <p>A new identity is locked until you pick a direction. Identities older than this rule are exempt.</p>
         <pre><code>lune run parallax ui direct new MyGame --ask "a ruined city at dusk, tactical, clean readouts"
 lune run parallax ui direct board   # view the sketch frames; pick one</code></pre>
@@ -97,7 +105,7 @@ lune run parallax ui direct board   # view the sketch frames; pick one</code></p
     <details id="stage-refs">
       <summary><span class="name">References</span><span class="what">Collect ≥ 2 real stills of the exact screen type at ≥ 1080p, measured at 1:1.</span></summary>
       <div class="body">
-        <p>References are the ceiling, not inspiration. You need at least two real, full-resolution stills of the specific screen type you are building — a health bar, a menu, a death screen. Gallery contact sheets are not acceptable (they collapse at measurement). Measure each still at 1:1 and record everything in <code>REFS.md</code>.</p>
+        <p>References are the ceiling, not inspiration. You need at least two real, full-resolution stills of the specific screen type you are building (a health bar, a menu, a death screen). Gallery contact sheets are not acceptable (they collapse at measurement). Measure each still at 1:1 and record everything in <code>REFS.md</code>.</p>
         <p>Every later stage is locked until this gate passes. The selftest fixture for the locked state is <code>kit/selftest/ui/refs_too_small</code>.</p>
         <pre><code>lune run parallax ui refs MyTheme "&lt;game&gt;" "&lt;words&gt;"   # real stills into refs/MyTheme/candidates
 lune run parallax ui measure &lt;still&gt;                    # layout + palette measured by script</code></pre>
@@ -123,18 +131,18 @@ lune run parallax ui measure &lt;still&gt;                    # layout + palette
   <li>
     <span class="num">3</span>
     <details id="stage-pieces">
-      <summary><span class="name">Pieces</span><span class="what">Make every hero piece as rendered art, a trace, an ink, lettering, or a 3D spin — never a tinted font glyph.</span></summary>
+      <summary><span class="name">Pieces</span><span class="what">Make every hero piece as rendered art, a trace, an ink, lettering, or a 3D spin; never use a tinted font glyph.</span></summary>
       <div class="body">
         <p>A "piece" is any image asset a screen references. The pipeline enforces a medium rule: every hero piece must be one of the following, chosen before the build starts:</p>
         <ul>
-          <li><strong>Render</strong> — a Blender Cycles render (<span class="badge tier">Tier 1</span>), read back by the kit to confirm it matches the spec.</li>
-          <li><strong>Trace</strong> — a 1:1 crop of a real reference still, upscaled (Real-ESRGAN) and cut out (BiRefNet): the reference's own pixels are the art.</li>
-          <li><strong>Ink</strong> — a real picture turned into halftone ink, flat cel (<code>--mode cel</code>, best on official 2D key art) or a HUD icon.</li>
-          <li><strong>Letter</strong> — a lettered title or logotype drawn at the identity's lettering defaults.</li>
-          <li><strong>Spin</strong> — a flat piece made into a bevelled 3D mesh with its art on the face, rendered as a turntable flipbook (plus the FBX).</li>
+          <li><strong>Render</strong>: a Blender Cycles render (<span class="badge tier">Tier 1</span>), read back by the kit to confirm it matches the spec.</li>
+          <li><strong>Trace</strong>: a 1:1 crop of a real reference still, upscaled (Real-ESRGAN) and cut out (BiRefNet): the reference's own pixels are the art.</li>
+          <li><strong>Ink</strong>: a real picture turned into halftone ink, flat cel (<code>--mode cel</code>, best on official 2D key art) or a HUD icon.</li>
+          <li><strong>Letter</strong>: a lettered title or logotype drawn at the identity's lettering defaults.</li>
+          <li><strong>Spin</strong>: a flat piece made into a bevelled 3D mesh with its art on the face, rendered as a turntable flipbook (plus the FBX).</li>
         </ul>
         <p>A typed font glyph with a tint is never acceptable as a hero piece. The one exception is a realistic HUD readout backed by <code>"typed_hero_evidence"</code> in the identity, citing the exact still that shows such a readout.</p>
-        <p>If you change the medium of a piece — gaining a route, not losing one — the build refuses until you re-answer every lesson for the new route via <code>kit answer ui &lt;name&gt; --reroute</code>.</p>
+        <p>If you change the medium of a piece (gaining a route, not losing one) the build refuses until you re-answer every lesson for the new route via <code>kit answer ui &lt;name&gt; --reroute</code>.</p>
         <pre><code>lune run parallax ui render MyTheme/Icon
 lune run parallax ui trace MyTheme/Logo --from &lt;still&gt; --box x,y,w,h
 lune run parallax ui ink MyTheme/Card --from &lt;picture&gt; --mode cel
@@ -150,7 +158,7 @@ lune run parallax ui spin MyTheme/Medal</code></pre>
     <details id="stage-assemble">
       <summary><span class="name">Assemble</span><span class="what">Compile the JSON spec to a Rojo model; anchors and gates run automatically.</span></summary>
       <div class="body">
-        <p>The screen spec (<code>assets/ui/&lt;Name&gt;.json</code>) defines every node: type, text, layout, motion, state variants, pieces, and the identity it belongs to. The compiler resolves anchors via <code>kit ui gauge</code> — a "gauge" node provides a measured anchor point, and <code>crest_width</code> sets the global scale so child nodes scale in proportion. Children of a warped parent follow that parent's transform.</p>
+        <p>The screen spec (<code>assets/ui/&lt;Name&gt;.json</code>) defines every node: type, text, layout, motion, state variants, pieces, and the identity it belongs to. The compiler resolves anchors via <code>kit ui gauge</code>: a "gauge" node provides a measured anchor point, and <code>crest_width</code> sets the global scale so child nodes scale in proportion. Children of a warped parent follow that parent's transform.</p>
         <p>The HUD size contract applies when a screen is driven partly by game code. Its contract file at <code>assets/ui/huds/&lt;Hud&gt;.json</code> records the code path, a block helper and resize function, and the measured size of each block from the approved reference round. <code>kit ui hudsize</code> (and <code>kit verify</code>) runs the HUD's own resize code at 1920×1080 and at desktop sizes and fails any block that falls below its floor times its reference size.</p>
         <p>All compile-time gates run here (see the Gates section). The model written to <code>src/ui/&lt;Name&gt;.model.json</code> is generated; never edit it by hand.</p>
         <pre><code>lune run parallax ui MyScreen          # compile + all gates
@@ -165,7 +173,7 @@ lune run parallax ui MyScreen --motion  # compile + generate motion strip</code>
     <details id="stage-look">
       <summary><span class="name">Look</span><span class="what">View the preview sheet and motion strip at all three viewports; record what you saw.</span></summary>
       <div class="body">
-        <p>The preview sheet renders the screen at phone, tablet, and desktop viewports using the actual Roblox <code>Enum.Font</code> values and their mapped Google Fonts families — not stand-ins. You must look at this sheet before the judge stage. No look record means no judge and no promotion.</p>
+        <p>The preview sheet renders the screen at phone, tablet, and desktop viewports using the actual Roblox <code>Enum.Font</code> values and their mapped Google Fonts families, not stand-ins. You must look at this sheet before the judge stage. No look record means no judge and no promotion.</p>
         <p>The motion strip (<code>build/ui/&lt;Name&gt;.motion.png</code>) shows every animated node's enter choreography as a horizontal filmstrip. If you have a reel spec (<code>&lt;Name&gt;.reel.json</code>), <code>kit ui reel</code> renders it to a GIF and an annotated strip showing bar drains, rolling counters, and state flips in timeline order.</p>
         <p>The motion critic (<code>&lt;Name&gt;.critic.json</code>) checks Material 3 timing rules automatically: ease-out on enter, ease-in on leave, entrances between 0.15 s and 0.6 s, staggered siblings, a 3–8% overshoot on the hero beat, and a still moment to read. It produces advice you review here.</p>
         <pre><code>lune run parallax ui reel MyScreen                    # render the reel to GIF + strip
@@ -180,7 +188,7 @@ lune run parallax ui look MyScreen "bar drains clean, counter rolls at right spe
     <details id="stage-judge">
       <summary><span class="name">Judge</span> <span class="badge lock">you approve</span><span class="what">Two fresh judges check for bugs; you give a verdict scored 0–10.</span></summary>
       <div class="body">
-        <p>Two independent judge passes run on the compiled screen, checking for bugs: wrong state shown, an empty flip face, a number node displaying "1 HITS", overlapping text. Each judge is fresh-context — it has not seen earlier stages.</p>
+        <p>Two independent judge passes run on the compiled screen, checking for bugs: wrong state shown, an empty flip face, a number node displaying "1 HITS", overlapping text. Each judge is fresh-context; it has not seen earlier stages.</p>
         <p>After the judge passes, the verifier produces a diff and one edit per piece. You then give a verdict with a score (0–10) and words. The score is recorded as <code>kit verdict screen</code>.</p>
         <p>A verdict is sha-keyed: it belongs to the build you judged. Never carry a verdict from one build onto a changed one.</p>
         <pre><code>lune run parallax ui judge MyScreen
@@ -195,7 +203,7 @@ lune run parallax ui judge MyScreen --owner 8 "sharp, reads at a glance"</code><
     <details id="stage-promote">
       <summary><span class="name">Promote</span> <span class="badge lock">verdict ≥ 7 required</span><span class="what">Upload art to Roblox, archive everything to the library, and add the screen to the example library.</span></summary>
       <div class="body">
-        <p>Upload the art first: art that is not uploaded shows blank in-game — the runtime resolves asset IDs, not local file paths. After upload, <code>kit ui vault check</code> confirms the library entry is complete (renders, traces, anchors, refs, verdict, and reel if one was made). <code>kit promote</code> adds the screen to the example library as a reuse candidate, only on a verdict of 7 or higher.</p>
+        <p>Upload the art first: art that is not uploaded shows blank in-game; the runtime resolves asset IDs, not local file paths. After upload, <code>kit ui vault check</code> confirms the library entry is complete (renders, traces, anchors, refs, verdict, and reel if one was made). <code>kit promote</code> adds the screen to the example library as a reuse candidate, only on a verdict of 7 or higher.</p>
         <pre><code>lune run parallax upload                   # upload all pending art
 lune run parallax ui vault check           # confirm the library entry is complete
 lune run parallax promote screen MyScreen --about "health bar with ghost drain and counter"</code></pre>
@@ -233,7 +241,7 @@ lune run parallax promote screen MyScreen --about "health bar with ghost drain a
   <thead><tr><th>Gate</th><th>What it warns about</th></tr></thead>
   <tbody>
     <tr><td><code>habit_face</code></td><td>Gotham or similar "habit" typeface used under a custom identity.</td></tr>
-    <tr><td><code>purple_accent</code></td><td>Indigo or purple accent colour — a common generated-UI default.</td></tr>
+    <tr><td><code>purple_accent</code></td><td>Indigo or purple accent colour, a common generated-UI default.</td></tr>
     <tr><td><code>uniform_radius</code></td><td>One corner radius applied to every element.</td></tr>
     <tr><td><code>mass_enter</code></td><td>A menu where all elements enter at the same time (no stagger).</td></tr>
     <tr><td><code>flat_panel</code></td><td>A flat untextured panel with no depth or material.</td></tr>
@@ -244,7 +252,7 @@ lune run parallax promote screen MyScreen --about "health bar with ghost drain a
     <tr><td><code>text_size_soft</code></td><td>Text smaller than 14 px on any device.</td></tr>
     <tr><td><code>touch_target</code></td><td>Interactive touch target smaller than 44 px.</td></tr>
     <tr><td><code>below_minimums</code></td><td>Text, button, or icon below the identity's stated minimums.</td></tr>
-    <tr><td><code>art_not_uploaded</code></td><td>A piece has no uploaded asset ID — it will show blank in-game.</td></tr>
+    <tr><td><code>art_not_uploaded</code></td><td>A piece has no uploaded asset ID; it will show blank in-game.</td></tr>
     <tr><td><code>type_levels</code></td><td>Typography v7.13: two size levels closer than 1.12× apart.</td></tr>
     <tr><td><code>counter_in_proportional</code></td><td>A rolling counter using a proportional typeface (digits shift width between frames).</td></tr>
     <tr><td><code>palette_count</code></td><td>More than 7 colours each covering more than 2% of the painted area.</td></tr>
@@ -267,27 +275,27 @@ lune run parallax promote screen MyScreen --about "health bar with ghost drain a
 
   <div class="tab-panel" data-panel="io-in" id="io-in">
     <ul>
-      <li><code>assets/ui/identities/&lt;name&gt;.json</code> — the identity pack: colour tokens, font trio, shape language, motion rules, bans, and minimums.</li>
-      <li><code>assets/ui/&lt;Name&gt;.json</code> — the screen spec: node tree, types, text, layout, states, motion, and the identity it belongs to.</li>
-      <li><code>assets/ui/art/&lt;identity&gt;/</code> — piece art files (renders, traces, inks, lettered images) referenced by name in the spec.</li>
-      <li><code>assets/ui/&lt;Name&gt;.reel.json</code> — optional motion reel: tracks keying node properties over time, expanded from macros (<code>flipbook</code>, <code>cycle</code>, <code>weave</code>).</li>
-      <li><code>assets/ui/huds/&lt;Hud&gt;.json</code> — HUD size contract for screens whose layout is driven by game code rather than by the spec alone.</li>
-      <li>Reference stills in <code>REFS.md</code> — ≥ 2 real stills at ≥ 1080p of the exact screen type, measured at 1:1.</li>
+      <li><code>assets/ui/identities/&lt;name&gt;.json</code>: the identity pack: colour tokens, font trio, shape language, motion rules, bans, and minimums.</li>
+      <li><code>assets/ui/&lt;Name&gt;.json</code>: the screen spec: node tree, types, text, layout, states, motion, and the identity it belongs to.</li>
+      <li><code>assets/ui/art/&lt;identity&gt;/</code>: piece art files (renders, traces, inks, lettered images) referenced by name in the spec.</li>
+      <li><code>assets/ui/&lt;Name&gt;.reel.json</code>: optional motion reel: tracks keying node properties over time, expanded from macros (<code>flipbook</code>, <code>cycle</code>, <code>weave</code>).</li>
+      <li><code>assets/ui/huds/&lt;Hud&gt;.json</code>: HUD size contract for screens whose layout is driven by game code rather than by the spec alone.</li>
+      <li>Reference stills in <code>REFS.md</code>: ≥ 2 real stills at ≥ 1080p of the exact screen type, measured at 1:1.</li>
     </ul>
   </div>
 
   <div class="tab-panel" data-panel="io-out" id="io-out">
     <ul>
-      <li><code>src/ui/&lt;Name&gt;.model.json</code> — the compiled Rojo model. Never edit this by hand; it is regenerated every build.</li>
-      <li><code>build/ui/&lt;Name&gt;.png</code> — preview sheet at phone, tablet, and desktop viewports using real fonts.</li>
-      <li><code>build/ui/&lt;Name&gt;.motion.png</code> — animated enter choreography as a horizontal filmstrip.</li>
-      <li><code>build/ui/&lt;Name&gt;.reel.gif</code> and <code>build/ui/&lt;Name&gt;.reel.png</code> — reel render (if a reel spec exists).</li>
-      <li><code>build/ui/booth/&lt;Name&gt;.studio.luau</code> — Studio capture script for the engine proof.</li>
-      <li><code>build/ui/fuzz/&lt;Name&gt;.json</code> — fuzz report: overflow, squeeze, and off-screen issues with max-length text and large numbers.</li>
-      <li><code>build/ui/loc/&lt;Name&gt;.json</code> — localisation report: pseudo-translation overflow and a list of lettered words that must have per-language versions.</li>
-      <li><code>build/judge/ui/&lt;Name&gt;/saliency/map.png</code> — saliency heat map from 24 simulated first looks.</li>
-      <li><code>build/ui/guide/&lt;identity&gt;.html</code> — identity style guide HTML page (from <code>kit ui guide</code>): tokens, type roles, shapes, motion, bans, and every screen wearing the identity.</li>
-      <li><code>library/ui/</code> — permanent archive; <code>kit verify</code> fails if anything is missing or stale.</li>
+      <li><code>src/ui/&lt;Name&gt;.model.json</code>: the compiled Rojo model. Never edit this by hand; it is regenerated every build.</li>
+      <li><code>build/ui/&lt;Name&gt;.png</code>: preview sheet at phone, tablet, and desktop viewports using real fonts.</li>
+      <li><code>build/ui/&lt;Name&gt;.motion.png</code>: animated enter choreography as a horizontal filmstrip.</li>
+      <li><code>build/ui/&lt;Name&gt;.reel.gif</code> and <code>build/ui/&lt;Name&gt;.reel.png</code>: reel render (if a reel spec exists).</li>
+      <li><code>build/ui/booth/&lt;Name&gt;.studio.luau</code>: Studio capture script for the engine proof.</li>
+      <li><code>build/ui/fuzz/&lt;Name&gt;.json</code>: fuzz report: overflow, squeeze, and off-screen issues with max-length text and large numbers.</li>
+      <li><code>build/ui/loc/&lt;Name&gt;.json</code>: localisation report: pseudo-translation overflow and a list of lettered words that must have per-language versions.</li>
+      <li><code>build/judge/ui/&lt;Name&gt;/saliency/map.png</code>: saliency heat map from 24 simulated first looks.</li>
+      <li><code>build/ui/guide/&lt;identity&gt;.html</code>: identity style guide HTML page (from <code>kit ui guide</code>): tokens, type roles, shapes, motion, bans, and every screen wearing the identity.</li>
+      <li><code>library/ui/</code>: permanent archive; <code>kit verify</code> fails if anything is missing or stale.</li>
     </ul>
   </div>
 

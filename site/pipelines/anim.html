@@ -5,7 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Animation pipeline · Parallax</title>
 <meta name="description" content="Build R6 character animations measured from real footage, gated on motion, and proven in Studio frame by frame before upload.">
-<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/logo-64.png" type="image/png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta property="og:site_name" content="Parallax">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Animation pipeline · Parallax">
+<meta property="og:description" content="Build R6 character animations measured from real footage, gated on motion, and proven in Studio frame by frame before upload.">
+<meta property="og:url" content="https://mayusi.github.io/parallax/pipelines/anim.html">
+<meta property="og:image" content="https://mayusi.github.io/parallax/assets/social.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../assets/style.css">
 <script src="../assets/app.js" defer></script>
 </head>
@@ -79,7 +87,7 @@
     <details id="stage-dossier">
       <summary><span class="name">Dossier</span><span class="what">Measure the real move from footage; write the move dossier.</span></summary>
       <div class="body">
-        <p>Every clip starts with a <strong>move dossier</strong> (<code>assets/animations/dossiers/&lt;move&gt;.json</code>): phase timings measured from real footage, the mechanics of each phase, what cues make it read clearly, common mistakes, and the R6 translation (how the move works on a rig with no knees or elbows — which joints slide, what the torso does).</p>
+        <p>Every clip starts with a <strong>move dossier</strong> (<code>assets/animations/dossiers/&lt;move&gt;.json</code>): phase timings measured from real footage, the mechanics of each phase, what cues make it read clearly, common mistakes, and the R6 translation (how the move works on a rig with no knees or elbows: which joints slide, what the torso does).</p>
         <p>Footage is analysed offline with MediaPipe Pose. Files go in <code>_artifacts/footage/&lt;move&gt;/</code> and are never committed. The dossier must carry <strong>measured evidence</strong> for every moving phase: a source with real timings (<code>real_s</code>) and where they were measured. A dossier built on inference alone, or one that lacks numeric checks, is refused at build time.</p>
         <p>Every rejection you give must be recorded in the dossier (<code>owner_rejections</code>) before a rebuild is allowed. A "bad" verdict blocks the rebuild until the dossier answers the rejection with what changed. This enforces the loop: record the verdict → re-research → update the dossier → build to the checks → look at the render → then show the result.</p>
         <pre><code>lune run parallax new anim &lt;PascalName&gt;
@@ -96,7 +104,7 @@ lune run parallax anim dossier check &lt;Name&gt;</code></pre>
       <summary><span class="name">Design page</span> <span class="badge lock">you approve</span><span class="what">Design a string of attacks as one page before any individual move is posed.</span></summary>
       <div class="body">
         <p>A set of related attacks is designed as <strong>one page</strong> before anything is posed. The design page specifies, for each attack: the cut direction (down, left, up, thrust, etc.), the height (high/mid/low), what the body does (plant, step in, lunge, spin, etc.), the intent (calm/proper/aggressive), frame budgets at 60 fps (windup, active, recovery), which pose the move ends in, and what may come next. The page also specifies how the game links moves in the string: by pose (each move ends where the next starts) or by blend (the game cross-fades).</p>
-        <p>The check catches two attacks that are cousins: the same cut, height, and body action. It also measures whether the blade paths of two attacks are fewer than 2.8 studs apart on average — that too is a cousin pair, named with the attack numbers.</p>
+        <p>The check catches two attacks that are cousins: the same cut, height, and body action. It also measures whether the blade paths of two attacks are fewer than 2.8 studs apart on average; that too is a cousin pair, named with the attack numbers.</p>
         <p>You must approve the drawn page before any move in the string can be blocked or built. A new move is refused if its string has no approved design page.</p>
         <pre><code>lune run parallax anim design &lt;Set&gt; --new --attacks 4
 # draw and inspect the page:
@@ -115,7 +123,7 @@ lune run parallax anim design &lt;Set&gt; --approve "&lt;your words&gt;" --by ow
       <div class="body">
         <p>Before any motion is generated for a strike, sword, or kick move, the key poses are shown to you held still, large, from three views (player camera, side, top), beside the dossier's reference frame for that phase. A real-time GIF shows the poses playing at the right hold durations.</p>
         <p>You can note what is wrong on any pose (<code>--note &lt;pose&gt; "words"</code>). The note travels with the pose through edits. The next sheet print marks each note as answered (what changed in that pose's own key) or not answered (unchanged, or changed only by its neighbours).</p>
-        <p>Your approval is a yes to the poses <em>as they are now</em>. Any later change — a pose turned, retimed, added, or dropped — makes the approval stale and holds the build again. The finished clip is also held to the approved poses: each pose is looked for in the clip at its own moment (within 0.05 s, with a tolerance of 10°/0.25 studs for joints and 1.25 studs for the blade tip). A pose the clip never reaches fails with the joint name and the amount it is off.</p>
+        <p>Your approval is a yes to the poses <em>as they are now</em>. Any later change (a pose turned, retimed, added, or dropped) makes the approval stale and holds the build again. The finished clip is also held to the approved poses: each pose is looked for in the clip at its own moment (within 0.05 s, with a tolerance of 10°/0.25 studs for joints and 1.25 studs for the blade tip). A pose the clip never reaches fails with the joint name and the amount it is off.</p>
         <pre><code>lune run parallax anim block &lt;Move&gt; --sheet
 # inspect every keys/ page at full size, then show the sheet and gif
 lune run parallax anim block &lt;Move&gt; --note 3 "left arm is wrong"
@@ -176,7 +184,7 @@ lune run parallax anim critic build/candidates/&lt;Name&gt;/round_1/&lt;id&gt;.c
     <details id="stage-picks">
       <summary><span class="name">Pick gallery</span><span class="what">View candidates as real-time GIFs from the player's camera; pick one to build into a game clip.</span></summary>
       <div class="body">
-        <p>Gate-clean candidates are shown as a gallery: real-time GIFs from the player's camera (every 4th frame at 66 ms; every 2nd frame for fast cuts or spins at two or more turns per second). Each card shows the kit's warnings — a limb or blade below the loved range — underneath the GIF.</p>
+        <p>Gate-clean candidates are shown as a gallery: real-time GIFs from the player's camera (every 4th frame at 66 ms; every 2nd frame for fast cuts or spins at two or more turns per second). Each card shows the kit's warnings (a limb or blade below the loved range) underneath the GIF.</p>
         <p>You pick one or more candidates. Your picks and rejections steer the next round: half the new candidates are likely-good (near the picks), half are informative (away from the rejected region). An "all bad" response steers the next round away from everything that was rejected. Gallery tuning tracks what the pool has learned from your choices.</p>
         <p>Once you have picked a candidate, it becomes the basis for the game clip. The game clip spec references the candidate by its round number and ID, so the kit can reproduce the exact motion from tracked parameters.</p>
         <pre><code>lune run parallax anim candidates &lt;Name&gt;
@@ -255,7 +263,7 @@ lune run parallax upload</code></pre>
     <tr><td>Roblox 30 fps sampling</td><td>Motion lost when Roblox resamples a 60 fps curve animation at 30 fps</td><td>Report only</td><td><span class="badge warn">warns</span></td></tr>
   </tbody>
 </table>
-<div class="note"><span class="callout-title">Note</span><p>Roblox samples curve animations at 30 frames per second. A clip authored at 60 fps loses its odd frames when exported as a CurveAnimation — up to 5.2° on a fast cut's arm. The kit keeps its own clips as KeyframeSequences (every frame plays). A clip made at 30 fps may be exported as a CurveAnimation at no loss.</p></div>
+<div class="note"><span class="callout-title">Note</span><p>Roblox samples curve animations at 30 frames per second. A clip authored at 60 fps loses its odd frames when exported as a CurveAnimation, up to 5.2° on a fast cut's arm. The kit keeps its own clips as KeyframeSequences (every frame plays). A clip made at 30 fps may be exported as a CurveAnimation at no loss.</p></div>
 </section>
 
 <section>
@@ -268,12 +276,12 @@ lune run parallax upload</code></pre>
   </div>
   <div class="tab-panel" data-panel="io-in" id="io-in">
     <ul>
-      <li><code>assets/animations/dossiers/&lt;Name&gt;.json</code>: move dossier — phase timings, mechanics, R6 translation, numeric checks, reference frames from real footage.</li>
+      <li><code>assets/animations/dossiers/&lt;Name&gt;.json</code>: move dossier (phase timings, mechanics, R6 translation, numeric checks, reference frames from real footage).</li>
       <li><code>assets/animations/designs/&lt;Set&gt;.design.json</code>: approved attack string design page.</li>
       <li><code>assets/animations/blocks/&lt;Name&gt;.blocking.json</code>: approved key-pose blocking record.</li>
-      <li><code>assets/animations/&lt;Name&gt;.move.json</code>: weapon move spec — grip, direction, torso, foot schedule, overshoot, lag.</li>
+      <li><code>assets/animations/&lt;Name&gt;.move.json</code>: weapon move spec (grip, direction, torso, foot schedule, overshoot, lag).</li>
       <li><code>assets/animations/&lt;Name&gt;.pose.json</code>: hand-posed keyframe spec for R6 attacks.</li>
-      <li><code>assets/animations/&lt;Name&gt;.json</code>: keyframe spec for other clips — character-space keys, beats, events, feel.</li>
+      <li><code>assets/animations/&lt;Name&gt;.json</code>: keyframe spec for other clips (character-space keys, beats, events, feel).</li>
       <li><code>assets/animations/&lt;Name&gt;.blend</code>: Blender source file, once authored on the kit rig.</li>
       <li><code>assets/rigs/R6_IK.md</code>: kit rig documentation (drive controllers, never copy the armature).</li>
       <li><code>_artifacts/footage/&lt;move&gt;/</code>: private footage files, never committed. The footage is used offline for MediaPipe Pose analysis.</li>
@@ -403,9 +411,9 @@ lune run parallax upload</code></pre>
 <h2 id="limits">Known limits</h2>
 <div class="limit"><span class="callout-title">Known limit</span><p>No locomotion start, stop, or pivot clips exist yet. The runtime API (<code>start</code>, <code>stop</code>, <code>pivot</code>, <code>turnLeft</code>, <code>turnRight</code>) is built and ready, but the library has no such clips to fill it.</p></div>
 <div class="limit"><span class="callout-title">Known limit</span><p>Prop clips are built and gated against the prop's joints, and the runtime has a prop player (<code>AnimProp</code>: an AnimationController and Animator on the spawned model, stepped on the character's clock), but the kit's skill does not yet record a prop clip proven in Studio. The check that clips still fit a rebuilt model (<code>--check</code>) does not run by itself.</p></div>
-<div class="limit"><span class="callout-title">Known limit</span><p>Roblox samples curve animations at 30 frames per second. A 60 fps clip loses its odd frames — up to 5.2° on a fast arm cut. The kit's own clips stay as KeyframeSequences and are not affected.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>Roblox samples curve animations at 30 frames per second. A 60 fps clip loses its odd frames, up to 5.2° on a fast arm cut. The kit's own clips stay as KeyframeSequences and are not affected.</p></div>
 <div class="limit"><span class="callout-title">Known limit</span><p>The R6 motion model is not suitable for combat moves yet; the procedural spring engine outperformed it on loved attack clips. The model is used only for filling long gaps in imported locomotion clips.</p></div>
-<div class="limit"><span class="callout-title">Known limit</span><p>Runtime rules (foot placement, motion matching, pose matching, get-up blends, secondary motion) have been written and pass their spec tests, but several of them — reading the pose and ground off a live character, writing the answers after the Animator, capturing a ragdoll's pose — have not been seen to move in a live Studio session.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>Runtime rules (foot placement, motion matching, pose matching, get-up blends, secondary motion) have been written and pass their spec tests, but several of them (reading the pose and ground off a live character, writing the answers after the Animator, capturing a ragdoll's pose) have not been seen to move in a live Studio session.</p></div>
 </section>
 
 <section>

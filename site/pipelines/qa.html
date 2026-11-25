@@ -5,7 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>QA · Parallax</title>
 <meta name="description" content="Test a Roblox game like a tester: security audit, gate self-tests, scripted in-engine playtests, and a regression record where every bug becomes a spec and a mutation case.">
-<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/logo-64.png" type="image/png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta property="og:site_name" content="Parallax">
+<meta property="og:type" content="website">
+<meta property="og:title" content="QA · Parallax">
+<meta property="og:description" content="Test a Roblox game like a tester: security audit, gate self-tests, scripted in-engine playtests, and a regression record where every bug becomes a spec and a mutation case.">
+<meta property="og:url" content="https://mayusi.github.io/parallax/pipelines/qa.html">
+<meta property="og:image" content="https://mayusi.github.io/parallax/assets/social.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../assets/style.css">
 <script src="../assets/app.js" defer></script>
 </head>
@@ -74,11 +82,11 @@
         </ul>
         <p>It also flags these patterns regardless of where they appear:</p>
         <ul>
-          <li><code>require(&lt;asset id&gt;)</code> — a numeric ID passed to require is a free-model backdoor.</li>
-          <li><code>loadstring</code> — dynamic code execution.</li>
-          <li>Server-side <code>InvokeClient</code> — exploitable for denial of service.</li>
-          <li><code>getfenv</code> / <code>setfenv</code> — environment manipulation.</li>
-          <li><code>FireAllClients</code> inside a loop — a network flood.</li>
+          <li><code>require(&lt;asset id&gt;)</code>: a numeric ID passed to require is a free-model backdoor.</li>
+          <li><code>loadstring</code>: dynamic code execution.</li>
+          <li>Server-side <code>InvokeClient</code>: exploitable for denial of service.</li>
+          <li><code>getfenv</code> / <code>setfenv</code>: environment manipulation.</li>
+          <li><code>FireAllClients</code> inside a loop: a network flood.</li>
         </ul>
         <p>The audit runs automatically inside <code>kit verify</code>. If you have an intentional exception, record it:</p>
         <pre><code># In kit.config.json, add:
@@ -122,7 +130,7 @@ end</code></pre>
         <p>The script returns one function that receives <code>t</code>; the bundle calls it.</p>
         <p><strong>Running through Studio MCP:</strong></p>
         <ol>
-          <li><code>kit playtest bundle &lt;name&gt;</code> — compile the script.</li>
+          <li><code>kit playtest bundle &lt;name&gt;</code>: compile the script.</li>
           <li>MCP: <code>start_stop_play(true)</code> to start a play session.</li>
           <li>MCP: <code>execute_luau</code> with the bundle code.</li>
           <li>Save the returned JSON.</li>
@@ -130,7 +138,7 @@ end</code></pre>
           <li><code>kit playtest record &lt;name&gt; &lt;file&gt;</code> to store the result.</li>
           <li>Skim <code>get_console_output</code> for errors from other scripts.</li>
         </ol>
-        <p>Any console error — from any script, not just your playtest — fails the run. The performance probe (configured in <code>qa.perf</code> inside <code>kit.config.json</code>) measures memory, workspace instance count, and frame time against thresholds you set.</p>
+        <p>Any console error (from any script, not just your playtest) fails the run. The performance probe (configured in <code>qa.perf</code> inside <code>kit.config.json</code>) measures memory, workspace instance count, and frame time against thresholds you set.</p>
         <pre><code>lune run parallax new playtest smoke
 lune run parallax playtest bundle smoke
 # then run through Studio MCP (see above)
@@ -220,7 +228,7 @@ lune run parallax accept system combat</code></pre>
     <ul>
       <li><code>tests/playtest/&lt;name&gt;.luau</code>: playtest scripts. First line declares side (<code>-- runs on: Server</code> or <code>-- runs on: Client</code>).</li>
       <li><code>kit.config.json</code> key <code>qa.perf</code>: performance thresholds (<code>memoryMb</code>, <code>instances</code>, <code>heartbeatMs</code>, <code>clientMemoryMb</code>, <code>highlights</code>, <code>shadowLights</code>, <code>shadowRadius</code>); a key you leave out uses the kit's default.</li>
-      <li><code>kit.config.json</code> key <code>qa.auditIgnore</code>: accepted-risk entries — each exactly <code>"file:line"</code>, <code>"file"</code> or <code>"file:rule"</code>.</li>
+      <li><code>kit.config.json</code> key <code>qa.auditIgnore</code>: accepted-risk entries, each exactly <code>"file:line"</code>, <code>"file"</code> or <code>"file:rule"</code>.</li>
       <li>The game's server scripts (read by the audit).</li>
       <li>The kit's selftest fixtures in <code>kit/selftest/&lt;lane&gt;/</code> (read by selftest).</li>
     </ul>
@@ -228,7 +236,7 @@ lune run parallax accept system combat</code></pre>
   <div class="tab-panel" data-panel="io-out" id="io-out">
     <ul>
       <li><code>build/playtest/&lt;name&gt;.result.json</code>: the playtest result, check by check, plus the console log.</li>
-      <li><code>tests/regressions.json</code>: bug registry — every confirmed bug as a spec case and a mutation case. Never delete entries; add them.</li>
+      <li><code>tests/regressions.json</code>: bug registry (every confirmed bug as a spec case and a mutation case). Never delete entries; add them.</li>
       <li>Playtest verdicts in <code>kit/knowledge/vault/qa/playtests/</code>: one Markdown file per playtest type.</li>
     </ul>
   </div>
@@ -279,7 +287,7 @@ end</code></pre>
     <tr><td>Roblox Studio MCP tools</td><td><code>start_stop_play</code>, <code>execute_luau</code>, <code>get_console_output</code>.</td><td><span class="badge tier">Tier 0 hardware + Studio</span></td></tr>
   </tbody>
 </table>
-<div class="tip"><span class="callout-title">Tip</span><p>Check <code>get_studio_state</code> before starting a playtest. Studio is a shared resource — another session may already have a play session running. Never close another session's play.</p></div>
+<div class="tip"><span class="callout-title">Tip</span><p>Check <code>get_studio_state</code> before starting a playtest. Studio is a shared resource; another session may already have a play session running. Never close another session's play.</p></div>
 </section>
 
 <section>
@@ -314,10 +322,10 @@ lune run parallax accept &lt;kind&gt; &lt;name&gt;       # lock verdict ≥ 7 as
 <h2 id="how-it-learns">How it learns</h2>
 <p>QA has two compounding mechanisms: the regression record and the lesson vault.</p>
 <h3>Regression record</h3>
-<p>Every bug in <code>tests/regressions.json</code> is replanted by <code>kit mutate --regressions</code> on every future run. A spec that stops catching a regression is a failure. The record only grows — entries are never removed. Over time it builds a comprehensive hostile-input suite for the whole game.</p>
+<p>Every bug in <code>tests/regressions.json</code> is replanted by <code>kit mutate --regressions</code> on every future run. A spec that stops catching a regression is a failure. The record only grows; entries are never removed. Over time it builds a comprehensive hostile-input suite for the whole game.</p>
 
 <h3>Lesson vault</h3>
-<p>Record QA traps and techniques with <code>kit lesson qa "..."</code>. Example: "a registered KeyframeSequence loads asynchronously in Edit mode — wait for <code>track.Length &gt; 0</code> before reading frame data."</p>
+<p>Record QA traps and techniques with <code>kit lesson qa "..."</code>. Example: "a registered KeyframeSequence loads asynchronously in Edit mode; wait for <code>track.Length &gt; 0</code> before reading frame data."</p>
 
 <h3>Verdict ratchet</h3>
 <p>When you rate a feature 7 or above and run <code>kit accept</code>, no future change may regress it below that floor. The ratchet is the mechanism that makes QA permanent: once something is good, it stays good.</p>
@@ -331,7 +339,7 @@ lune run parallax accept &lt;kind&gt; &lt;name&gt;       # lock verdict ≥ 7 as
 <div class="limit"><span class="callout-title">Known limit</span><p>Studio is shared between sessions. Always call <code>get_studio_state</code> first to check whether another session is already running a play. Never close another session's play session.</p></div>
 <div class="limit"><span class="callout-title">Known limit</span><p>An unfocused Studio window renders at around 5 frames per second. Timing-sensitive checks (frame-exact hitbox windows, animation markers) may behave differently when Studio is not in focus.</p></div>
 <div class="limit"><span class="callout-title">Known limit</span><p>A server started inside a Lune job dies when the job ends. The kit starts its own servers outside the job (WMI breakaway, a per-launch token).</p></div>
-<div class="limit"><span class="callout-title">Known limit</span><p>Lune's <code>stdio.prompt</code> does not work in an agent shell. Any step that requires your direct input stays yours — it cannot be automated.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>Lune's <code>stdio.prompt</code> does not work in an agent shell. Any step that requires your direct input stays yours; it cannot be automated.</p></div>
 <div class="limit"><span class="callout-title">Known limit</span><p>A <code>KeyframeSequence</code> registered in Edit mode loads asynchronously. Wait for <code>track.Length &gt; 0</code> before reading its frame data, or checks will read an empty sequence.</p></div>
 </section>
 
@@ -340,7 +348,7 @@ lune run parallax accept &lt;kind&gt; &lt;name&gt;       # lock verdict ≥ 7 as
 <p>This is the shape of a complete QA session, from start to acceptance.</p>
 <ol>
   <li>Start the lane: <code>lune run parallax start qa --prompt "test the combat system"</code>. Read the boot sheet and the last handoff.</li>
-  <li>Run the static checks first — they are fast and GPU-free:
+  <li>Run the static checks first (they are fast and GPU-free):
     <ul>
       <li><code>kit audit</code>: fix any unvalidated arguments or missing rate limits.</li>
       <li><code>kit selftest</code>: confirm every gate is still catching its bad fixture.</li>

@@ -5,7 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Worlds pipeline · Parallax</title>
 <meta name="description" content="Build Roblox levels from JSON blueprints with terrain shaped by real hydrology, scanned materials, and playability proven by numbers before the Studio walk.">
-<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/logo-64.png" type="image/png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta property="og:site_name" content="Parallax">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Worlds pipeline · Parallax">
+<meta property="og:description" content="Build Roblox levels from JSON blueprints with terrain shaped by real hydrology, scanned materials, and playability proven by numbers before the Studio walk.">
+<meta property="og:url" content="https://mayusi.github.io/parallax/pipelines/world.html">
+<meta property="og:image" content="https://mayusi.github.io/parallax/assets/social.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../assets/style.css">
 <script src="../assets/app.js" defer></script>
 </head>
@@ -23,7 +31,7 @@
 <header class="page-head">
   <p class="eyebrow">Pipeline</p>
   <h1>Worlds</h1>
-  <p class="lead">Build Roblox levels and maps from JSON blueprints — terrain shaped by rivers and real elevation data, scanned CC0 materials and meshes, roads laid first, playability proven by numbers, then walked in Studio. One world pushed to impressive beats five mediocre ones.</p>
+  <p class="lead">Build Roblox levels and maps from JSON blueprints: terrain shaped by rivers and real elevation data, scanned CC0 materials and meshes, roads laid first, playability proven by numbers, then walked in Studio. One world pushed to impressive beats five mediocre ones.</p>
   <div class="meta-row">
     <span class="badge tier">Tier 1+ for Blender look stations</span>
     <span class="badge lock">1 approval (direction)</span>
@@ -119,7 +127,7 @@ lune run parallax world refs &lt;Name&gt; --vs &lt;render.png&gt;</code></pre>
       <summary><span class="name">Lessons</span><span class="what">Answer the vault's ranked lessons for this world before anything is built.</span></summary>
       <div class="body">
         <p>Before building starts, the vault's lessons are ranked for this specific world (by its blueprint words, brief, and direction) and shown as a sheet. Up to five answer lessons must be applied (how) or skipped (with a reason of at least six words) before any build runs.</p>
-        <p>Past house layouts (<code>*.layout.json</code>) are offered as examples for town and interior worlds — examples to draw ideas from, never templates to copy.</p>
+        <p>Past house layouts (<code>*.layout.json</code>) are offered as examples for town and interior worlds: draw ideas from them, never use them as templates to copy.</p>
         <p>Once answered, the applied lessons are recorded on the world. Your future verdict credits or flags each one, so the pipeline knows which lessons actually helped and which were noise.</p>
         <pre><code>lune run parallax world lessons &lt;Name&gt;      # ranked sheet + answer prompt
 lune run parallax world lessons &lt;Name&gt; --show  # re-check answers</code></pre>
@@ -133,7 +141,7 @@ lune run parallax world lessons &lt;Name&gt; --show  # re-check answers</code></
     <details id="stage-terrain">
       <summary><span class="name">Terrain</span><span class="what">Shape land by rivers and real hydrology; paint roles by climate and slope.</span></summary>
       <div class="body">
-        <p>Land is never shaped by noise and thermal erosion alone — that produces talus-angle cones that read as a wall. Instead, the terrain generator uses a stream-power incision pass to carve rivers into the heightmap, then thermal erosion, then droplet erosion, then a painter that assigns material roles (meadow, lush, rock, cliff, scree, sand, snow) by slope, altitude, and climate.</p>
+        <p>Land is never shaped by noise and thermal erosion alone; that produces talus-angle cones that read as a wall. Instead, the terrain generator uses a stream-power incision pass to carve rivers into the heightmap, then thermal erosion, then droplet erosion, then a painter that assigns material roles (meadow, lush, rock, cliff, scree, sand, snow) by slope, altitude, and climate.</p>
         <p>Terrain generation flags:</p>
         <ul>
           <li><code>--stream</code>: stream-power river incision, so rivers carve the land. After terrain generation, run <code>lune run parallax world rivers &lt;Name&gt;</code> once: D8 drainage over the stored heights paints the cells where the most water gathers (the top 1.2%) as Water.</li>
@@ -186,7 +194,7 @@ lune run parallax world import &lt;set&gt;              # a specific import set<
       <summary><span class="name">Dressing</span><span class="what">Lay roads first; set-dress everything else by story.</span></summary>
       <div class="body">
         <p>Roads are always placed before scatter and cover. Scatter and cover rules keep off roads automatically. Set dressing follows story logic: what does a player see first, what draws them forward, what breaks up the silhouette.</p>
-        <p>A town is planned before it is typed. <code>lune run parallax world town &lt;Name&gt;</code> draws the town plan from above: a square entered at its corners, streets that end on house fronts, terraced lots on a 4-stud grid, and one landmark on the main gate's line of sight. Read this plan before dressing anything. <code>lune run parallax world town &lt;Name&gt; --kit</code> then writes one house mesh recipe per house type. Twelve or more <code>building</code> steps typed individually is a build error — use a <code>town</code> step instead.</p>
+        <p>A town is planned before it is typed. <code>lune run parallax world town &lt;Name&gt;</code> draws the town plan from above: a square entered at its corners, streets that end on house fronts, terraced lots on a 4-stud grid, and one landmark on the main gate's line of sight. Read this plan before dressing anything. <code>lune run parallax world town &lt;Name&gt; --kit</code> then writes one house mesh recipe per house type. Twelve or more <code>building</code> steps typed individually is a build error; use a <code>town</code> step instead.</p>
         <p>Scatter generators (<code>forest</code>, <code>scatter</code>, <code>cover</code>) place objects by density and role. Each has keep masks to clear roads, spawn pads, and objective areas.</p>
         <p>Breakable objects (crates, barrels, walls) are placed with the <code>breakable</code> generator step. They connect to <code>KitBreakable</code> and <code>KitHealth</code> at runtime.</p>
         <pre><code>lune run parallax world town &lt;Name&gt;         # draw town plan
@@ -205,7 +213,7 @@ lune run parallax world meshes --set town_&lt;World&gt;  # build house meshes</c
         <p>The check gate must reach 0 errors before the look stations are drawn. It runs a full playability proof by numbers:</p>
         <ul>
           <li><strong>R6 reachability:</strong> voxelizes the world (1-stud cells; 2-stud cells on maps larger than 400,000 square studs) and walks every reachable floor using the R6 real jump arc (<code>v = sqrt(2gJ)</code>). Narrow areas that the coarse grid misses are rechecked at 1-stud cells. A spawn that cannot reach another spawn or an objective is an error; a walkable area no one can reach is a warning.</li>
-          <li><strong>Traps:</strong> a reachable place from which no spawn can be reached again (a pit you fall into for good), 12 cells or more, is an error. A gap narrower than the voxel body-width that still holds a whole voxel can read as passable — this is a known limit of the voxel check.</li>
+          <li><strong>Traps:</strong> a reachable place from which no spawn can be reached again (a pit you fall into for good), 12 cells or more, is an error. A gap narrower than the voxel body-width that still holds a whole voxel can read as passable; this is a known limit of the voxel check.</li>
           <li><strong>Spawn fairness</strong> (a warning): the path distance from each spawn to the objectives, or to the floor's centre, must not differ by more than 15%.</li>
           <li><strong>Camera clearance</strong> (a warning): a third-person camera 12 studs back must not hit a wall within 4 studs over more than 20% of the reachable floor.</li>
           <li><strong>Knockback room</strong> (a warning, battlegrounds): the share of floor with 30 studs of open room to the nearest wall.</li>
@@ -225,7 +233,7 @@ lune run parallax world meshes --set town_&lt;World&gt;  # build house meshes</c
     <details id="stage-look">
       <summary><span class="name">Look stations</span><span class="what">Render every station at 1920×1080 beside its reference still; one difference and one edit per station.</span></summary>
       <div class="body">
-        <p>Every look station is rendered at 1920×1080 in Blender. Each page shows the reference still above the render at the same framing. You open every page individually — not a contact sheet, not a thumbnail grid. For each station: one difference from the reference and one edit to make.</p>
+        <p>Every look station is rendered at 1920×1080 in Blender. Each page shows the reference still above the render at the same framing. You open every page individually, not a contact sheet, not a thumbnail grid. For each station: one difference from the reference and one edit to make.</p>
         <p>Stations cover: each spawn (from behind the R6 rig), every view declared in the blueprint, back from each objective, and from above. A <code>refs/&lt;Name&gt;/stations.json</code> file says which reference still maps to which station and how to crop it.</p>
         <p>The web viewer (<code>lune run parallax world web &lt;Name&gt;</code>) is an art-direction tool, not a proof. It renders in a browser with a three.js shader (terrain layers, procedural materials, water, sky, height fog, sun shadows, HDR bloom, light shafts, grass, particles). Use it to explore the world's look and colour script. Spatial proof stays in the check gate and the Studio walk.</p>
         <p>The look command ends with <code>LOOK: &lt;folder&gt;</code> lines. A changed world's look is re-rendered automatically at the end of <code>lune run parallax world</code>.</p>
@@ -306,7 +314,7 @@ lune run parallax verdict world &lt;Name&gt; 8 "dark tone reads clearly from the
   </div>
   <div class="tab-panel" data-panel="io-in" id="io-in">
     <ul>
-      <li><code>assets/worlds/&lt;Name&gt;.json</code>: blueprint — generator steps, objectives, checks config, streaming declaration, lighting preset, terrain ops.</li>
+      <li><code>assets/worlds/&lt;Name&gt;.json</code>: blueprint (generator steps, objectives, checks config, streaming declaration, lighting preset, terrain ops).</li>
       <li><code>assets/worlds/&lt;Name&gt;.brief.md</code>: free-text brief.</li>
       <li><code>assets/worlds/terrain/&lt;Name&gt;.hm.json</code>: heightmap with painted roles, produced by the terrain command.</li>
       <li><code>assets/worlds/refs/&lt;Name&gt;/</code>: reference stills for look stations.</li>
@@ -349,9 +357,9 @@ WorldStream.ahead(player, "Bridge")      -- requests without moving
   <thead><tr><th>Tool</th><th>Used for</th><th>Tier</th></tr></thead>
   <tbody>
     <tr><td>Blender 5.2</td><td>Eye-level look stations (1920×1080), material PBR preview, sky rendering (six faces), tree mesh grammar output</td><td><span class="badge tier">Tier 1+</span></td></tr>
-    <tr><td>Three.js web viewer (<code>kit/world/web.py</code>)</td><td>Art-direction viewer — custom shaders for terrain layers, procedural materials, water, sky, height fog, sun shadows, HDR bloom, light shafts, grass, particles. Browser only; no GPU required for playback.</td><td><span class="badge tier">Tier 0</span></td></tr>
+    <tr><td>Three.js web viewer (<code>kit/world/web.py</code>)</td><td>Art-direction viewer: custom shaders for terrain layers, procedural materials, water, sky, height fog, sun shadows, HDR bloom, light shafts, grass, particles. Browser only; no GPU required for playback.</td><td><span class="badge tier">Tier 0</span></td></tr>
     <tr><td>Stream-power hydrology (<code>kit/world/terrain.py</code>)</td><td>River incision, D8 drainage, erosion passes, heightmap design shapes</td><td><span class="badge tier">Tier 0</span></td></tr>
-    <tr><td>ambientCG (CC0)</td><td>Scanned PBR terrain materials at 1K resolution — grass, rock, cliff, sand, soil, snow. Vetted in VETLOG.md.</td><td><span class="badge tier">Tier 0</span></td></tr>
+    <tr><td>ambientCG (CC0)</td><td>Scanned PBR terrain materials at 1K resolution: grass, rock, cliff, sand, soil, snow. Vetted in VETLOG.md.</td><td><span class="badge tier">Tier 0</span></td></tr>
     <tr><td>Poly Haven (CC0)</td><td>Scanned rock and cliff meshes. Vetted in VETLOG.md. Split at ≤ 20k triangles; textures at 1024 px.</td><td><span class="badge tier">Tier 0</span></td></tr>
     <tr><td>USGS 3DEP</td><td>Real elevation data for US locations (public domain). Fetched by <code>world dem</code>.</td><td><span class="badge tier">Tier 0</span></td></tr>
     <tr><td>Roblox Studio with its MCP (<code>execute_luau</code>, <code>character_navigation</code>)</td><td>Studio capture, MCP station walk, 0 console error assertion</td><td><span class="badge">Separate install, any tier</span></td></tr>
@@ -477,7 +485,7 @@ lune run parallax world sky &lt;Name&gt; --sun 25,180 --clouds 0.4 --size 512</c
 <div class="limit"><span class="callout-title">Known limit</span><p>Yards, markets, and lamps are checked for presence, not for quality. The check gate passes a yard that exists but reads poorly.</p></div>
 <div class="limit"><span class="callout-title">Known limit</span><p>The voxel reachability check uses 1-stud cells (2 studs on maps larger than 400,000 square studs). A gap narrower than the voxel body-width that still holds a whole voxel can read as passable. Narrow stairs and doorways that the coarse grid misses are rechecked at 1-stud cells and listed as fine-rechecked in the stats.</p></div>
 <div class="limit"><span class="callout-title">Known limit</span><p>Roblox's <code>StreamAroundAsync</code> returns nothing on a timeout and makes no guarantee. A 5-second streaming request can come back "late". The kit's <code>WorldStream.arrive</code> handles this by requesting before moving the character, but a late response still means the character arrives into an unloaded area.</p></div>
-<div class="limit"><span class="callout-title">Known limit</span><p>The three.js web viewer and the Blender look stations do not draw SDF caves or overhangs — land the SDF op adds is missing there, and cave openings look solid. The voxel check and the Studio walk are the only proofs of SDF playability.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>The three.js web viewer and the Blender look stations do not draw SDF caves or overhangs; land the SDF op adds is missing there, and cave openings look solid. The voxel check and the Studio walk are the only proofs of SDF playability.</p></div>
 <div class="limit"><span class="callout-title">Known limit</span><p>The weather cycle system (<code>"weather": {"cycle": [...]}</code>) has been written and passes its spec tests, but has not been seen to run in a live Roblox session.</p></div>
 <div class="limit"><span class="callout-title">Known limit</span><p>Town playability is proved by the check gate and the Studio walk, not by the town plan generator alone. The generator lays out a geometrically valid town; playability (whether a player can reach every building, whether the streets flow well) is confirmed by the check's reachability pass.</p></div>
 </section>

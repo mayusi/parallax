@@ -3,118 +3,106 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Parallax · Turn your AI coding agent into a Roblox game studio</title>
-<meta name="description" content="Parallax turns your AI coding agent into a Roblox game studio: eight production pipelines served as an MCP tool, with stages that cannot be skipped, gates that measure, and a vault that learns from every verdict you give.">
-<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<title>Parallax · Production pipelines for Roblox games, run by your AI agent</title>
+<meta name="description" content="Parallax gives your AI coding agent eight production pipelines for Roblox games, served as an MCP tool: stages that cannot be skipped, gates that measure, and a vault that learns from every verdict you give.">
+<link rel="icon" href="assets/logo-64.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:site_name" content="Parallax">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Parallax · Production pipelines for Roblox games, run by your AI agent">
+<meta property="og:description" content="Parallax gives your AI coding agent eight production pipelines for Roblox games, served as an MCP tool: stages that cannot be skipped, gates that measure, and a vault that learns from every verdict you give.">
+<meta property="og:url" content="https://mayusi.github.io/parallax/">
+<meta property="og:image" content="https://mayusi.github.io/parallax/assets/social.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="assets/style.css">
 <script src="assets/app.js" defer></script>
 </head>
-<body data-root="" data-page="overview">
+<body data-root="" data-page="overview" class="splash">
 <div id="site-header"></div>
-<div class="layout">
-<aside class="sidebar"></aside>
-<main class="content">
+<main class="splash-main">
 
-<header class="hero">
-  <img src="assets/logo.svg" alt="The Parallax logo: a black star with a glowing ring and two pulsar jets" width="220" height="220">
-  <div>
-    <p class="eyebrow">Roblox game development, with your AI agent</p>
-    <h1>Parallax</h1>
-    <p class="lead">Turn your AI coding agent into a Roblox game studio. Eight production pipelines (3D, visual effects, animation, worlds, interfaces, sound, gameplay systems and QA) served as an MCP tool, with stages that cannot be skipped, gates that measure, and a vault that learns from every verdict you give.</p>
-    <div class="cta">
-      <a class="btn primary" href="setup.html">Set it up</a>
-      <a class="btn" href="pipelines/index.html">Explore the pipelines</a>
-      <a class="btn" href="hardware.html">Hardware &amp; AI models</a>
-      <a class="btn" href="https://github.com/mayusi/parallax">GitHub</a>
-    </div>
+<section class="hero">
+  <img class="hero-art" src="assets/logo-hero.png" alt="A black hole: a dark shadow ringed by light, inside a glowing disk of gas whose far side is bent over and under the hole by gravity" width="1000" height="667">
+  <h1>Parallax</h1>
+  <p class="tagline">Production pipelines for Roblox games, run by your AI coding agent.</p>
+  <p class="lead">Eight pipelines (3D models, visual effects, animation, worlds, interfaces, sound, gameplay systems and QA) served to your AI client as an MCP tool. Stages cannot be skipped, results are measured, and your verdict decides what counts as good.</p>
+  <div class="cta">
+    <a class="btn primary" href="setup.html">Get started</a>
+    <a class="btn" href="pipelines/index.html">Explore the pipelines</a>
   </div>
-</header>
+</section>
 
 <section>
 <h2 id="what">What Parallax is</h2>
-<p>Parallax is a toolkit that an AI coding agent drives for you. You ask for something in plain words in your AI client, such as <em>"start the 3d lane: a mossy stone well for the village square"</em>. The agent then runs the right pipeline through the Parallax MCP server and its command line, <code>lune run parallax</code>.</p>
-<p>Each pipeline is a fixed series of stages, the way a studio department works:</p>
-<ul>
-  <li>references first;</li>
-  <li>a plan you approve;</li>
-  <li>the build;</li>
-  <li>measurements that must pass;</li>
-  <li>your verdict.</li>
-</ul>
-<p>The agent cannot skip a stage, and it cannot call its own work good. The gates measure it, and you decide.</p>
-<div class="cards">
-  <div class="card"><div class="kicker">MCP tool</div><h3>Works with your AI client</h3><p>Claude Code, Cursor, VS Code, Gemini CLI, Codex, Windsurf, Roo, OpenCode, Cline and Claude Desktop. One command connects the client you use.</p></div>
-  <div class="card"><div class="kicker">Local first</div><h3>Runs on your machine</h3><p>Blender, local vision models and the Roblox Studio MCP do the heavy work. No paid generators are required, and no local LLM is required: your AI client does the thinking.</p></div>
-  <div class="card"><div class="kicker">Always a next step</div><h3>Readable by any model</h3><p>Every command ends with two lines, <code>summary:</code> (what happened) and <code>next_action:</code> (exactly what to do next), so any model, or you, can always continue.</p></div>
+<p class="section-lead">A toolkit that an AI coding agent drives for you. You ask for something in plain words, such as <em>"start the 3d lane: a mossy stone well for the village square"</em>, and the agent runs the right pipeline through the Parallax MCP server and its command line, <code>lune run parallax</code>.</p>
+<div class="features">
+  <div class="feature"><h3>Stages that cannot be skipped</h3><p>Each pipeline is a fixed series of stages, the way a studio department works: references first, a plan you approve, the build, measurements that must pass, and your verdict.</p></div>
+  <div class="feature"><h3>Results that are measured</h3><p>Budgets, playability, motion, loudness, readability and security are checked by numbers. A failing gate stops the work and names the fix.</p></div>
+  <div class="feature"><h3>Your verdict is the signal</h3><p>The agent cannot call its own work good. A verdict of 7 or above joins the golden set; 3 or below puts the route in the graveyard, refused next time unless you say otherwise.</p></div>
+  <div class="feature"><h3>Works with your AI client</h3><p>Claude Code, Cursor, VS Code, Gemini CLI, Codex, Windsurf, Roo, OpenCode, Cline and Claude Desktop. One command connects the client you use.</p></div>
+  <div class="feature"><h3>Runs on your machine</h3><p>Blender, local vision models and the Roblox Studio MCP do the heavy work. No paid generators and no local LLM are required: your AI client does the thinking.</p></div>
+  <div class="feature"><h3>Always a next step</h3><p>Every command ends with <code>summary:</code> (what happened) and <code>next_action:</code> (exactly what to do next), so any model, or you, can continue.</p></div>
 </div>
 </section>
 
 <section>
 <h2 id="pipelines">The eight pipelines</h2>
-<p>Each pipeline has its own stages, approvals, gates and limits. Pick one to see it in depth.</p>
-<div class="cards">
-  <a class="card" href="pipelines/3d.html"><div class="kicker">3D</div><h3>3D models</h3><p>Weapons, props, vehicles, creatures and building pieces, built part by part from real references in 10 stages, with a model sheet and a blockout you approve.</p></a>
-  <a class="card" href="pipelines/vfx.html"><div class="kicker">VFX</div><h3>Visual effects</h3><p>Slashes, beams, auras, explosions and impacts, authored from a measured breakdown of real footage, with a beat chart and an animatic you approve.</p></a>
-  <a class="card" href="pipelines/anim.html"><div class="kicker">Animation</div><h3>Animation</h3><p>R6 attacks, abilities, emotes, idles and hit reactions, measured against real timings, gated on motion and proven in Studio frame by frame.</p></a>
-  <a class="card" href="pipelines/world.html"><div class="kicker">Worlds</div><h3>Worlds</h3><p>Arenas, lobbies, towns, interiors and open terrain from JSON blueprints, proven playable by numbers before anyone walks them.</p></a>
-  <a class="card" href="pipelines/ui.html"><div class="kicker">UI</div><h3>Interfaces</h3><p>HUDs, menus, shops and dialogs that share one visual identity, previewed at phone, tablet and desktop with the real fonts.</p></a>
-  <a class="card" href="pipelines/sfx.html"><div class="kicker">Sound</div><h3>Sound</h3><p>Hits, swings, UI clicks and ambience, made of real recordings layered with synthesis, measured by "ears" and judged by you in a listening booth.</p></a>
-  <a class="card" href="pipelines/code.html"><div class="kicker">Systems</div><h3>Gameplay systems</h3><p>Server-authoritative code: validated, rate-limited remotes generated from schemas, moves as data, fuzzing, mutation testing and Studio playtests.</p></a>
-  <a class="card" href="pipelines/qa.html"><div class="kicker">QA</div><h3>QA</h3><p>A security audit of every remote, a self-test that proves each gate still catches its bad example, and scripted in-engine playtests.</p></a>
+<p class="section-lead">Each pipeline has its own stages, approvals, gates and limits. Pick one to see it in depth.</p>
+<div class="cards four">
+  <a class="card" href="pipelines/3d.html"><div class="kicker">3d</div><h3>3D models</h3><p>Weapons, props, vehicles, creatures and building pieces, built part by part from real references in 10 stages, with a model sheet and a blockout you approve.</p></a>
+  <a class="card" href="pipelines/vfx.html"><div class="kicker">vfx</div><h3>Visual effects</h3><p>Slashes, beams, auras, explosions and impacts, authored from a measured breakdown of real footage, with a beat chart and an animatic you approve.</p></a>
+  <a class="card" href="pipelines/anim.html"><div class="kicker">anim</div><h3>Animation</h3><p>R6 attacks, abilities, emotes, idles and hit reactions, measured against real timings, gated on motion and proven in Studio frame by frame.</p></a>
+  <a class="card" href="pipelines/world.html"><div class="kicker">world</div><h3>Worlds</h3><p>Arenas, lobbies, towns, interiors and open terrain from JSON blueprints, proven playable by numbers before anyone walks them.</p></a>
+  <a class="card" href="pipelines/ui.html"><div class="kicker">ui</div><h3>Interfaces</h3><p>HUDs, menus, shops and dialogs that share one visual identity, previewed at phone, tablet and desktop sizes with the real fonts.</p></a>
+  <a class="card" href="pipelines/sfx.html"><div class="kicker">sfx</div><h3>Sound</h3><p>Hits, swings, UI clicks and ambience, made of real recordings layered with synthesis, measured by "ears" and judged by you in a listening booth.</p></a>
+  <a class="card" href="pipelines/code.html"><div class="kicker">code</div><h3>Gameplay systems</h3><p>Server-authoritative code: validated, rate-limited remotes generated from schemas, moves as data, fuzzing, mutation testing and Studio playtests.</p></a>
+  <a class="card" href="pipelines/qa.html"><div class="kicker">qa</div><h3>QA</h3><p>A security audit of every remote, a self-test that proves each gate still catches its bad example, and scripted in-engine playtests.</p></a>
 </div>
 </section>
 
 <section>
 <h2 id="flow">How a request flows</h2>
-<div class="flow">
-  <span class="step">your request</span><span class="arrow">→</span>
-  <span class="step">parallax_start</span><span class="arrow">→</span>
-  <span class="step">references &amp; plan</span><span class="arrow">→</span>
-  <span class="step lock">key stages (you approve)</span><span class="arrow">→</span>
-  <span class="step">gates measure</span><span class="arrow">→</span>
-  <span class="step lock">your verdict 0-10</span><span class="arrow">→</span>
-  <span class="step">lessons for next time</span>
-</div>
-<ol>
-  <li><strong>Start the lane.</strong> The agent calls <code>parallax_start</code> with your request. The kit compiles the request, finds the matching case (what this kind of job must reach, and which routes are forbidden) and loads the lane's recipe, lessons and past verdicts. Pipeline commands are refused until this happens.</li>
-  <li><strong>Plan, then build in stages.</strong> Each lane works through its stages. The ones that set the look (a model sheet, a blockout, a beat chart, a pose sheet, a direction) wait for your approval.</li>
-  <li><strong>Gates measure.</strong> Budgets, playability, motion, loudness, readability and security are checked by numbers. A failing gate stops the work.</li>
-  <li><strong>You judge.</strong> Your verdict (0-10) is the only quality signal. A 7 or above joins the golden set; a 3 or below puts the route in the graveyard, and it is refused next time unless you say otherwise.</li>
-  <li><strong>It learns.</strong> Lessons are ranked by relevance and must be answered before the next similar piece is built.</li>
+<p class="section-lead">From your words to a finished piece that you have judged.</p>
+<ol class="steps">
+  <li><h3>Start the lane</h3><p>The agent calls <code>parallax_start</code> with your request. The kit compiles it, finds the matching case and loads the lane's recipe, lessons and past verdicts. Pipeline commands are refused until this happens.</p></li>
+  <li><h3>Plan, then build in stages</h3><p>Each lane works through its stages. The ones that set the look (a model sheet, a blockout, a beat chart, a pose sheet, a direction) wait for your approval.</p></li>
+  <li><h3>Gates measure</h3><p>Budgets, playability, motion, loudness, readability and security are checked by numbers. A failing gate stops the work.</p></li>
+  <li><h3>You judge</h3><p>Your verdict (0-10) is the only quality signal. It decides what joins the golden set and which routes go to the graveyard.</p></li>
+  <li><h3>It learns</h3><p>Lessons are ranked by relevance and must be answered before the next similar piece is built.</p></li>
 </ol>
 </section>
 
 <section>
 <h2 id="enforced">Enforced, not advisory</h2>
-<p>The rules are checked by the tools themselves, not left to the agent's good behaviour:</p>
+<p class="section-lead">The rules are checked by the tools themselves, not left to the agent's good behaviour.</p>
 <div class="cards">
   <div class="card"><h3>The MCP server gate</h3><p>A pipeline command sent through the MCP server without a fresh session is refused, with the exact call to make instead.</p></div>
   <div class="card"><h3>The command-line gate</h3><p>Every command passes a check first: the session token, a plan file for heavy builds, and the routes the case forbids.</p></div>
   <div class="card"><h3>Client guard hooks</h3><p>For Claude Code and Gemini CLI, <code>connect</code> also installs hooks that block pipeline writes made around the kit.</p></div>
   <div class="card"><h3>Locks, clocks and git hooks</h3><p>Approvals lock each key stage. Every 3D, VFX, UI, animation, sound and world piece runs against a 10, 30 or 60-minute clock. A commit must pass format and lint checks, and one that mixes two lanes needs the word <code>cross</code>.</p></div>
 </div>
-<p><a href="enforcement.html">How enforcement works, layer by layer →</a></p>
+<p><a class="more-link" href="enforcement.html">How enforcement works, layer by layer →</a></p>
 </section>
 
 <section>
 <h2 id="tiers">Hardware tiers</h2>
-<p>Each tier includes the ones below it. <code>lune run parallax doctor</code> tells you which tier your machine reaches, and what the next one needs.</p>
+<p class="section-lead">Each tier includes the ones below it. <code>lune run parallax doctor</code> tells you which tier your machine reaches, and what the next one needs.</p>
 <table>
   <thead><tr><th>Tier</th><th>What you need</th><th>What it adds</th></tr></thead>
   <tbody>
-    <tr><td><span class="badge tier">Tier 0</span></td><td>Any PC</td><td>The board, the gates, gameplay systems, worlds as geometry, sound synthesis and its checks, and the git hooks. Commands that need Blender or local models wait for their tier.</td></tr>
-    <tr><td><span class="badge tier">Tier 1</span></td><td>Any CPU, plus Blender 5.2</td><td>Renders, bakes, CAD parts and simulation in Blender.</td></tr>
-    <tr><td><span class="badge tier">Tier 2</span></td><td>A CPU or a 4 GB GPU; about 2.4 GB of models</td><td>The core vision models: cut-outs, depth, edges, similarity search, upscaling.</td></tr>
-    <tr><td><span class="badge tier">Tier 3</span></td><td>An NVIDIA GPU with 12 GB, 16 GB of RAM; about 44.6 GB more weights, some of which run in environments you set up from <code>kit/gen/README.md</code></td><td>A local vision-language model, depth and surface estimation, concept pictures, text-prompted masks.</td></tr>
-    <tr><td><span class="badge tier">Tier 4</span></td><td>CUDA 13, 12-16+ GB of VRAM, 32 GB of RAM, MSVC 2022</td><td>Image editing from one picture and the local 3D generators.</td></tr>
+    <tr><td class="nowrap">Tier 0</td><td>Any PC</td><td>The board, the gates, gameplay systems, worlds as geometry, sound synthesis and its checks, and the git hooks. Commands that need Blender or local models wait for their tier.</td></tr>
+    <tr><td class="nowrap">Tier 1</td><td>Any CPU, plus Blender 5.2</td><td>Renders, bakes, CAD parts and simulation in Blender.</td></tr>
+    <tr><td class="nowrap">Tier 2</td><td>A CPU or a 4 GB GPU; about 2.4 GB of models</td><td>The core vision models: cut-outs, depth, edges, similarity search, upscaling.</td></tr>
+    <tr><td class="nowrap">Tier 3</td><td>An NVIDIA GPU with 12 GB, 16 GB of RAM; about 44.6 GB more weights, some of which run in environments you set up from <code>kit/gen/README.md</code></td><td>A local vision-language model, depth and surface estimation, concept pictures, text-prompted masks.</td></tr>
+    <tr><td class="nowrap">Tier 4</td><td>CUDA 13, 12-16+ GB of VRAM, 32 GB of RAM, MSVC 2022</td><td>Image editing from one picture and the local 3D generators.</td></tr>
   </tbody>
 </table>
-<p><a href="hardware.html">Every model, runtime and size, tier by tier →</a></p>
+<p><a class="more-link" href="hardware.html">Every model, runtime and size, tier by tier →</a></p>
 </section>
 
 <section>
 <h2 id="quick-start">Quick start</h2>
-<p>The full guide, written so an AI agent can follow it for you, is on the <a href="setup.html">setup page</a>. On Windows, in PowerShell:</p>
+<p class="section-lead">The full guide, written so an AI agent can follow it for you, is on the <a href="setup.html">setup page</a>. On Windows, in PowerShell:</p>
 <pre><code>git clone https://github.com/mayusi/parallax.git
 cd parallax
 rokit install
@@ -130,12 +118,10 @@ lune run parallax connect claude</code></pre>
 <section>
 <h2 id="roadmap">Where it is going</h2>
 <p>Parallax is built for Roblox today, and about 70% of the kit does not depend on the engine. The engine is a setting in <code>kit.config.json</code>, and the plan is Godot first (plain-text scenes, native glTF import, a headless mode for CI), then Unreal and Unity. Windows comes first; most commands also run on macOS and Linux, and full support for them is on the roadmap.</p>
-<p><a href="roadmap.html">The full roadmap →</a></p>
+<p><a class="more-link" href="roadmap.html">The full roadmap →</a></p>
 </section>
 
 </main>
-<aside class="toc"></aside>
-</div>
 <div id="site-footer"></div>
 <!-- sources: README.md, SETUP.md, docs/ENGINES.md, kit/mcp/server.py, kit/lib/enforcer.luau, kit/lib/harness.luau, kit/lib/vault.luau, kit/scripts/lane_fence.py, kit/vision/models.json, kit/vision/setup.py -->
 </body>

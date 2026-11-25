@@ -5,7 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Setup · Parallax</title>
 <meta name="description" content="Install Parallax from scratch: base tools, the kit, Roblox Studio, your AI client, and the first run.">
-<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="icon" href="assets/logo-64.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:site_name" content="Parallax">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Setup · Parallax">
+<meta property="og:description" content="Install Parallax from scratch: base tools, the kit, Roblox Studio, your AI client, and the first run.">
+<meta property="og:url" content="https://mayusi.github.io/parallax/setup.html">
+<meta property="og:image" content="https://mayusi.github.io/parallax/assets/social.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="assets/style.css">
 <script src="assets/app.js" defer></script>
 </head>
@@ -83,7 +91,7 @@ node --version
 ffmpeg -version
 python -c "import numpy, scipy, PIL, matplotlib, pytest; print('python packages ok')"</code></pre>
         <p>You should see a version line for each tool, <code>Python 3.11.x</code>, and <code>python packages ok</code>.</p>
-        <p><strong>If it fails</strong> — "not recognized": open a new terminal and try again. Still failing: install the tool from its own site (git-scm.com, python.org — tick "Add python.exe to PATH" — nodejs.org, ffmpeg.org) and open a new terminal. If <code>python</code> opens the Microsoft Store, turn off the "App execution aliases" for python in Windows Settings.</p>
+        <p><strong>If it fails:</strong> "not recognized": open a new terminal and try again. Still failing: install the tool from its own site (git-scm.com, python.org, tick "Add python.exe to PATH", nodejs.org, ffmpeg.org) and open a new terminal. If <code>python</code> opens the Microsoft Store, turn off the "App execution aliases" for python in Windows Settings.</p>
       </div>
     </details>
   </li>
@@ -95,8 +103,8 @@ python -c "import numpy, scipy, PIL, matplotlib, pytest; print('python packages 
       <div class="body">
         <pre><code>Invoke-RestMethod https://raw.githubusercontent.com/rojo-rbx/rokit/main/scripts/install.ps1 | Invoke-Expression</code></pre>
         <p>Open a new terminal.</p>
-        <p><strong>Check</strong> — <code>rokit --version</code> prints a version.</p>
-        <p><strong>If it fails</strong> — download <code>rokit.exe</code> from the latest release page at github.com/rojo-rbx/rokit and run <code>.\rokit.exe self-install</code> in that folder, then open a new terminal.</p>
+        <p><strong>Check:</strong> <code>rokit --version</code> prints a version.</p>
+        <p><strong>If it fails:</strong> download <code>rokit.exe</code> from the latest release page at github.com/rojo-rbx/rokit and run <code>.\rokit.exe self-install</code> in that folder, then open a new terminal.</p>
       </div>
     </details>
   </li>
@@ -111,11 +119,11 @@ python -c "import numpy, scipy, PIL, matplotlib, pytest; print('python packages 
 cd parallax
 rokit install
 wally install</code></pre>
-        <p><code>rokit install</code> may ask once whether you trust each tool. They are the six tools in <code>rokit.toml</code> from their official authors — answer yes. An AI agent cannot answer an interactive trust prompt; ask the person to run <code>rokit install</code> once in their own terminal.</p>
+        <p><code>rokit install</code> may ask once whether you trust each tool. They are the six tools in <code>rokit.toml</code> from their official authors; answer yes. An AI agent cannot answer an interactive trust prompt; ask the person to run <code>rokit install</code> once in their own terminal.</p>
         <p><strong>Check</strong></p>
         <pre><code>lune run parallax version</code></pre>
         <p>You should see <code>summary: kit 3.1.0</code> (or newer).</p>
-        <p><strong>If it fails</strong> — <code>lune</code> not recognized: open a new terminal (Rokit adds its folder to PATH). <code>wally install</code> fails: check your internet connection and run it again.</p>
+        <p><strong>If it fails:</strong> <code>lune</code> not recognized: open a new terminal (Rokit adds its folder to PATH). <code>wally install</code> fails: check your internet connection and run it again.</p>
       </div>
     </details>
   </li>
@@ -126,8 +134,8 @@ wally install</code></pre>
       <summary><span class="name">Check the toolchain</span><span class="what">Run doctor to confirm Tier 0 is complete and see what higher tiers need.</span></summary>
       <div class="body">
         <pre><code>lune run parallax doctor</code></pre>
-        <p><strong>Check</strong> — every Tier 0 tool (Rokit's six, Python and its packages, Node.js, ffmpeg, the Wally packages) is found, and the output includes a <code>machine tier: N</code> line (then ends with <code>summary:</code> and <code>next_action:</code>). Missing optional tools are listed with the lane each one blocks and how to get it — that is fine until you use that lane.</p>
-        <p><strong>If it fails</strong> — install what it names, open a new terminal, and run <code>doctor</code> again.</p>
+        <p><strong>Check:</strong> every Tier 0 tool (Rokit's six, Python and its packages, Node.js, ffmpeg, the Wally packages) is found, and the output includes a <code>machine tier: N</code> line (then ends with <code>summary:</code> and <code>next_action:</code>). Missing optional tools are listed with the lane each one blocks and how to get it; that is fine until you use that lane.</p>
+        <p><strong>If it fails:</strong> install what it names, open a new terminal, and run <code>doctor</code> again.</p>
       </div>
     </details>
   </li>
@@ -139,22 +147,22 @@ wally install</code></pre>
       <div class="body">
         <p>Parallax runs on any PC and grows with your hardware. Steps 1–4 already give you Tier 0. Go as far up as your machine and your lanes need.</p>
         <p>See the <a href="hardware.html">Hardware and models</a> page for the full tier table, the AI models each tier adds and what each one unlocks.</p>
-        <p><strong>Tier 1 — DCC and CAD</strong> (3D, bakes, animation, worlds). Any CPU. Install Blender 5.2 LTS from blender.org into its default folder (<code>C:\Program Files\Blender Foundation\</code>); Parallax finds the newest version there. If you install it somewhere else, set a <code>BLENDER</code> environment variable to the full path of <code>blender.exe</code>. Then:</p>
+        <p><strong>Tier 1: DCC and CAD</strong> (3D, bakes, animation, worlds). Any CPU. Install Blender 5.2 LTS from blender.org into its default folder (<code>C:\Program Files\Blender Foundation\</code>); Parallax finds the newest version there. If you install it somewhere else, set a <code>BLENDER</code> environment variable to the full path of <code>blender.exe</code>. Then:</p>
         <pre><code>lune run parallax tools setup kit-python
 lune run parallax tools setup cad
 lune run parallax tools setup mitsuba</code></pre>
         <p>The <code>vision setup</code> commands below download model weights only. Each model also needs a runtime, which the <a href="hardware.html#tiers">Hardware and models</a> page names tier by tier.</p>
-        <p><strong>Tier 2 — Light vision core</strong> (cut-outs, depth, similarity; ~2.4 GB). CPU or a 4 GB GPU. These models run in the kit's own Python, which needs PyTorch, transformers and safetensors. No Parallax command installs them: <code>doctor</code>'s "torch (vision)" row says <code>pip torch</code>. Pick the PyTorch build for your OS and GPU with the selector at pytorch.org, install transformers and safetensors with pip, then:</p>
+        <p><strong>Tier 2: Light vision core</strong> (cut-outs, depth, similarity; ~2.4 GB). CPU or a 4 GB GPU. These models run in the kit's own Python, which needs PyTorch, transformers and safetensors. No Parallax command installs them: <code>doctor</code>'s "torch (vision)" row says <code>pip torch</code>. Pick the PyTorch build for your OS and GPU with the selector at pytorch.org, install transformers and safetensors with pip, then:</p>
         <pre><code>lune run parallax vision setup</code></pre>
-        <p><strong>Tier 3 — Local VLM and diffusion</strong> (~44.6 GB more). An NVIDIA GPU with 12 GB VRAM and 16 GB RAM. SAM 3 (a gated model) is included in this tier; it requires you to request access on Hugging Face with your own account and set <code>HF_TOKEN</code> in your environment — without it the tier skips SAM 3 and the free SAM 2.1 masks stand in:</p>
+        <p><strong>Tier 3: Local VLM and diffusion</strong> (~44.6 GB more). An NVIDIA GPU with 12 GB VRAM and 16 GB RAM. SAM 3 (a gated model) is included in this tier; it requires you to request access on Hugging Face with your own account and set <code>HF_TOKEN</code> in your environment; without it the tier skips SAM 3 and the free SAM 2.1 masks stand in:</p>
         <pre><code>lune run parallax vision setup --tier vision</code></pre>
         <p>Qwen3-VL runs in the kit's own Python. The other Tier 3 models need two environments that this command does not create: the diffusers environment (SDXL, FLUX.2, DiffusionLight) and the TRELLIS.2 environment (Depth Anything 3, MoGe-2, Marigold-IID, SAM 3). Set both up from <code>kit/gen/README.md</code>; the TRELLIS.2 environment is compiled with CUDA 13 and MSVC 2022.</p>
-        <p><strong>Tier 4 — Full 3D generation</strong> (~24.5 GB more of models, plus the generator environments). CUDA 13, 12–16+ GB VRAM, 32 GB RAM, MSVC 2022. qwen-image-edit runs in sd-cpp, a native Windows program this command downloads. After the models, follow <code>kit/gen/README.md</code> for the generator environments:</p>
+        <p><strong>Tier 4: Full 3D generation</strong> (~24.5 GB more of models, plus the generator environments). CUDA 13, 12–16+ GB VRAM, 32 GB RAM, MSVC 2022. qwen-image-edit runs in sd-cpp, a native Windows program this command downloads. After the models, follow <code>kit/gen/README.md</code> for the generator environments:</p>
         <pre><code>lune run parallax vision setup --tier gen</code></pre>
         <p>Each Tier 4 generator has its own licence; some restrict territories or uses. Read its <code>VETLOG.md</code> row before installing. Everything runs on your machine; nothing is sent to a cloud service.</p>
         <p>To list all models with their tier and size before downloading:</p>
         <pre><code>lune run parallax vision setup --list</code></pre>
-        <p><strong>Check</strong> — <code>lune run parallax doctor</code> prints <code>machine tier: N</code> and, below Tier 4, exactly what the next tier needs. <code>lune run parallax vision doctor</code> runs the core models on a probe image and prints the torch version and GPU it found.</p>
+        <p><strong>Check:</strong> <code>lune run parallax doctor</code> prints <code>machine tier: N</code> and, below Tier 4, exactly what the next tier needs. <code>lune run parallax vision doctor</code> runs the core models on a probe image and prints the torch version and GPU it found.</p>
       </div>
     </details>
   </li>
@@ -164,11 +172,11 @@ lune run parallax tools setup mitsuba</code></pre>
     <details id="stage-roblox-studio">
       <summary><span class="name">Roblox Studio and its MCP server</span><span class="badge lock">you do this</span><span class="what">Enable the Studio MCP server so the kit can drive playtests and uploads.</span></summary>
       <div class="body">
-        <p>Roblox Studio has a built-in MCP server. Parallax uses it to drive playtests, look at the game in the engine and upload assets through Open Cloud with your own Studio login — no API key needed.</p>
+        <p>Roblox Studio has a built-in MCP server. Parallax uses it to drive playtests, look at the game in the engine and upload assets through Open Cloud with your own Studio login. No API key is needed.</p>
         <ol>
-          <li><strong>Install Roblox Studio</strong> from create.roblox.com and sign in. <em>You do this — not your AI agent.</em></li>
+          <li><strong>Install Roblox Studio</strong> from create.roblox.com and sign in. <em>You do this, not your AI agent.</em></li>
           <li><strong>Open a place from a published game.</strong> Open Cloud permissions are saved per game; a local, unpublished place cannot use them.</li>
-          <li><strong>Turn the MCP server on:</strong> open <strong>Assistant</strong>, click <strong>…</strong> → <strong>Manage MCP Servers</strong>, and turn on <strong>Enable Studio as MCP server</strong>. <em>You do this — the AI agent must not change these switches.</em></li>
+          <li><strong>Turn the MCP server on:</strong> open <strong>Assistant</strong>, click <strong>…</strong> → <strong>Manage MCP Servers</strong>, and turn on <strong>Enable Studio as MCP server</strong>. <em>You do this; the AI agent must not change these switches.</em></li>
           <li><strong>Add the Roblox Studio MCP to your AI client.</strong> Assistant's settings offer a quick connect for Claude Code, Codex CLI, Claude Desktop, Cursor, Gemini CLI and VS Code. For any other client, add this entry (Windows):
             <pre><code>{
   "mcpServers": {
@@ -180,10 +188,10 @@ lune run parallax tools setup mitsuba</code></pre>
 }</code></pre>
             On macOS the command is <code>/Applications/RobloxStudio.app/Contents/MacOS/StudioMCP</code>.
           </li>
-          <li><strong>Allow uploads</strong> — <em>you do this:</em> click <strong>MCP</strong> in Studio's bottom-right corner → <strong>MCP Permissions</strong>. Under <strong>Publish and manage assets</strong>, allow <code>asset:read</code> and <code>asset:write</code> (and <code>asset-permissions:write</code> if audio should be granted to your experience). Approve your game project's <code>build</code> folder as an upload folder. Changes apply to the client's next request.</li>
+          <li><strong>Allow uploads</strong> (<em>you do this</em>): click <strong>MCP</strong> in Studio's bottom-right corner → <strong>MCP Permissions</strong>. Under <strong>Publish and manage assets</strong>, allow <code>asset:read</code> and <code>asset:write</code> (and <code>asset-permissions:write</code> if audio should be granted to your experience). Approve your game project's <code>build</code> folder as an upload folder. Changes apply to the client's next request.</li>
         </ol>
-        <p><strong>Check</strong> — Assistant → <strong>…</strong> → <strong>Manage MCP Servers</strong> shows a green indicator, and your AI client lists the Roblox Studio tools (for example <code>list_roblox_studios</code>).</p>
-        <p><strong>If it fails</strong> — restart Studio and the AI client; check the path and the JSON syntax of the config. Roblox's own guides: <a href="https://create.roblox.com/docs/studio/mcp">Connect to the Studio MCP server</a> and <a href="https://create.roblox.com/docs/studio/mcp-open-cloud">Use Open Cloud with the Studio MCP server</a>.</p>
+        <p><strong>Check:</strong> Assistant → <strong>…</strong> → <strong>Manage MCP Servers</strong> shows a green indicator, and your AI client lists the Roblox Studio tools (for example <code>list_roblox_studios</code>).</p>
+        <p><strong>If it fails:</strong> restart Studio and the AI client; check the path and the JSON syntax of the config. Roblox's own guides: <a href="https://create.roblox.com/docs/studio/mcp">Connect to the Studio MCP server</a> and <a href="https://create.roblox.com/docs/studio/mcp-open-cloud">Use Open Cloud with the Studio MCP server</a>.</p>
       </div>
     </details>
   </li>
@@ -198,12 +206,12 @@ lune run parallax tools setup mitsuba</code></pre>
 cd ..\MyGame
 git add -A
 git commit -m "Start from Parallax (cross)"</code></pre>
-        <p><code>install</code> copies the kit (<code>kit/</code>) and its in-game runtime (<code>src/kit/</code>), starter content, a work board (<code>board/</code> with <code>BRIEF.md</code>) and the git hooks, then runs <code>rokit install</code>, <code>wally install</code> and <code>git init</code>. It writes no AI-client files — the next step adds the one you use.</p>
-        <p>The word <code>cross</code> in the commit message tells the lane fence — the git hook that keeps each commit to one department — that this commit spans every department on purpose.</p>
+        <p><code>install</code> copies the kit (<code>kit/</code>) and its in-game runtime (<code>src/kit/</code>), starter content, a work board (<code>board/</code> with <code>BRIEF.md</code>) and the git hooks, then runs <code>rokit install</code>, <code>wally install</code> and <code>git init</code>. It writes no AI-client files; the next step adds the one you use.</p>
+        <p>The word <code>cross</code> in the commit message tells the lane fence (the git hook that keeps each commit to one department) that this commit spans every department on purpose.</p>
         <p><strong>Check</strong></p>
         <pre><code>lune run parallax status</code></pre>
         <p>You should see the board's summary and a <code>next_action:</code>.</p>
-        <p><strong>If it fails</strong> — if <code>install</code> reports that <code>rokit install</code> or <code>wally install</code> failed, run them in the game folder yourself, then <code>lune run parallax doctor</code>.</p>
+        <p><strong>If it fails:</strong> if <code>install</code> reports that <code>rokit install</code> or <code>wally install</code> failed, run them in the game folder yourself, then <code>lune run parallax doctor</code>.</p>
       </div>
     </details>
   </li>
@@ -236,7 +244,7 @@ git commit -m "Start from Parallax (cross)"</code></pre>
             <p>Writes <code>.mcp.json</code> (the MCP server entry) and <code>.claude/settings.json</code> (the enforcement guard hooks). Restart Claude Code in the game folder afterwards.</p>
             <dl class="specs">
               <dt>Config file</dt><dd><code>.mcp.json</code> in the game folder</dd>
-              <dt>Guard hooks</dt><dd><code>.claude/settings.json</code> — <code>PreToolUse</code>, <code>PostToolUse</code> and <code>Stop</code> hooks that run <code>kit/scripts/parallax_guard.py</code></dd>
+              <dt>Guard hooks</dt><dd><code>.claude/settings.json</code>: <code>PreToolUse</code>, <code>PostToolUse</code> and <code>Stop</code> hooks that run <code>kit/scripts/parallax_guard.py</code></dd>
             </dl>
           </div>
 
@@ -263,7 +271,7 @@ git commit -m "Start from Parallax (cross)"</code></pre>
             <p>Writes <code>.gemini/settings.json</code> (the MCP entry and the enforcement guard hooks). Restart Gemini CLI in the game folder afterwards.</p>
             <dl class="specs">
               <dt>Config file</dt><dd><code>.gemini/settings.json</code> in the game folder</dd>
-              <dt>Guard hooks</dt><dd><code>.gemini/settings.json</code> — <code>BeforeTool</code> and <code>AfterTool</code> hooks that run <code>kit/scripts/parallax_guard.py</code></dd>
+              <dt>Guard hooks</dt><dd><code>.gemini/settings.json</code>: <code>BeforeTool</code> and <code>AfterTool</code> hooks that run <code>kit/scripts/parallax_guard.py</code></dd>
             </dl>
           </div>
 
@@ -324,8 +332,8 @@ git commit -m "Start from Parallax (cross)"</code></pre>
 
         <p>To connect several clients at once: <code>lune run parallax connect claude,cursor</code>. To remove an entry: <code>lune run parallax connect &lt;client&gt; --remove</code>.</p>
 
-        <p><strong>Check</strong> — <code>lune run parallax connect</code> (no arguments) lists your client as <code>connected</code>. Clients that print a block are not tracked — check them in the client. The client should show the tools <code>parallax_start</code>, <code>parallax_status</code>, <code>parallax_skill</code> and the others.</p>
-        <p><strong>If it fails</strong> — the client does not list the tools: make sure it was started in the game folder, that <code>python</code> works in a new terminal, and that you approved the server.</p>
+        <p><strong>Check:</strong> <code>lune run parallax connect</code> (no arguments) lists your client as <code>connected</code>. Clients that print a block are not tracked; check them in the client. The client should show the tools <code>parallax_start</code>, <code>parallax_status</code>, <code>parallax_skill</code> and the others.</p>
+        <p><strong>If it fails:</strong> the client does not list the tools: make sure it was started in the game folder, that <code>python</code> works in a new terminal, and that you approved the server.</p>
       </div>
     </details>
   </li>
@@ -339,7 +347,7 @@ git commit -m "Start from Parallax (cross)"</code></pre>
         <pre><code>Call parallax_status and tell me what the board says.</code></pre>
         <p>Then fill in <code>board/BRIEF.md</code> (what the game is) and ask for the first piece, for example:</p>
         <pre><code>Start the 3d lane: a mossy stone well for the village square.</code></pre>
-        <p><strong>Final check</strong> — in the game folder:</p>
+        <p><strong>Final check:</strong> in the game folder:</p>
         <pre><code>lune run parallax harness --check
 lune run parallax doctor
 lune run parallax verify</code></pre>
@@ -363,7 +371,7 @@ lune run parallax verify</code></pre>
 <p><code>lune run parallax upload --pending</code> lists what is left; after the last one the kit recompiles the models and screens that use the new ids.</p>
 <div class="note"><span class="callout-title">One-time setup</span><p>In the game's <code>kit.config.json</code>, set <code>"upload": {"creator": "user:&lt;your user id&gt;", "universe": &lt;experience id&gt;}</code>. Your user id is the number in your roblox.com profile URL; the universe is the experience that should play the audio.</p></div>
 <div class="warn-box"><span class="callout-title">Uploads are permanent</span><p>Open Cloud cannot delete uploaded assets. New images and sounds go through Roblox moderation: check status with <code>lune run parallax upload --status</code>.</p></div>
-<p>For headless runs (CI, no Studio open): set <code>ROBLOX_API_KEY</code> in your environment and the kit uploads by itself — never paste a key into a chat or a file.</p>
+<p>For headless runs (CI, no Studio open): set <code>ROBLOX_API_KEY</code> in your environment and the kit uploads by itself. Never paste a key into a chat or a file.</p>
 </section>
 
 <section>
@@ -394,7 +402,7 @@ git commit -m "Update Parallax (cross)"</code></pre>
     <pre><code>lune run parallax update ..\MyGame</code></pre>
     <p>Or, from inside the game folder:</p>
     <pre><code>lune run parallax sync</code></pre>
-    <p>A game holding a later kit version than the clone is refused — <code>git pull</code> the clone first, or pass <code>--force</code> to install the clone's kit anyway.</p>
+    <p>A game holding a later kit version than the clone is refused; <code>git pull</code> the clone first, or pass <code>--force</code> to install the clone's kit anyway.</p>
   </div>
 
   <div class="tab-panel" data-panel="update-300" id="update-300">
@@ -416,7 +424,7 @@ git commit -m "Update Parallax (cross)"</code></pre>
     <tr><td><code>harness --check</code> reports files out of step</td><td>Run <code>lune run parallax harness</code>, then commit what it changed if you share that client config.</td></tr>
     <tr><td>The AI client does not show the <code>parallax</code> tools</td><td>Start the client in the game folder, approve the server, restart it.</td></tr>
     <tr><td>The Studio MCP refuses a file or a scope</td><td>Go to <strong>MCP</strong> → <strong>MCP Permissions</strong> in Studio and approve the scope and the <code>build</code> folder.</td></tr>
-    <tr><td><code>rojo serve</code> cannot connect</td><td>Only one project can serve on the port; stop the other one. Save a copy of the place before the first Connect — Rojo replaces what it manages.</td></tr>
+    <tr><td><code>rojo serve</code> cannot connect</td><td>Only one project can serve on the port; stop the other one. Save a copy of the place before the first Connect; Rojo replaces what it manages.</td></tr>
     <tr><td>The AI broke something</td><td><code>git restore .</code> (uncommitted) or <code>git revert</code> (a commit). Edited kit files: <code>lune run parallax sync</code> restores them in a game installed from a local clone; in a game installed from a release, restore them with <code>git checkout -- &lt;the files&gt;</code>. <code>lune run parallax status</code> shows the last handoff and open tasks.</td></tr>
   </tbody>
 </table>

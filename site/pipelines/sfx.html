@@ -5,7 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sound · Parallax</title>
 <meta name="description" content="How the Parallax sound pipeline builds Roblox audio: real recordings layered with synthesis, measured by the ears tool, judged in a listening booth, and played in-game by the Sfx runtime.">
-<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="icon" href="../assets/logo-64.png" type="image/png">
+<link rel="apple-touch-icon" href="../assets/apple-touch-icon.png">
+<meta property="og:site_name" content="Parallax">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Sound · Parallax">
+<meta property="og:description" content="How the Parallax sound pipeline builds Roblox audio: real recordings layered with synthesis, measured by the ears tool, judged in a listening booth, and played in-game by the Sfx runtime.">
+<meta property="og:url" content="https://mayusi.github.io/parallax/pipelines/sfx.html">
+<meta property="og:image" content="https://mayusi.github.io/parallax/assets/social.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="../assets/style.css">
 <script src="../assets/app.js" defer></script>
 </head>
@@ -23,7 +31,7 @@
 <header class="page-head">
   <p class="eyebrow">Pipeline</p>
   <h1>Sound</h1>
-  <p class="lead">The sound pipeline makes Roblox sound effects — UI clicks, hits, explosions, weapons, abilities, and ambient loops — from real recordings layered with synthesis. Sounds are built in sets that share one sonic DNA, measured with an objective "ears" tool, matched to references you chose, judged by you in a listening booth, and synchronised with the hit in the engine. In-game they play as named events through the kit's Sfx runtime on the Roblox Audio API.</p>
+  <p class="lead">The sound pipeline makes Roblox sound effects (UI clicks, hits, explosions, weapons, abilities, and ambient loops) from real recordings layered with synthesis. Sounds are built in sets that share one sonic DNA, measured with an objective "ears" tool, matched to references you chose, judged by you in a listening booth, and synchronised with the hit in the engine. In-game they play as named events through the kit's Sfx runtime on the Roblox Audio API.</p>
   <div class="meta-row">
     <span class="badge tier">Tier 0</span>
     <span class="badge lock">3 approvals</span>
@@ -38,7 +46,7 @@
   <dd>Uploaded Roblox audio assets, waveform and spectrogram sheets, a checked events map (<code>assets/sounds/_events.json</code>), ambience zone files, and sound-on-picture clips (<code>build/sounds/av/</code>).</dd>
   <dt>Hardware</dt>
   <dd>
-    <span class="badge tier">Tier 0</span> All synthesis, gates, the listening booth, sheet rendering, and upload — no GPU needed.<br>
+    <span class="badge tier">Tier 0</span> All synthesis, gates, the listening booth, sheet rendering, and upload. No GPU is needed.<br>
     <span class="badge tier">Tier 2+</span> LAION CLAP semantic search over the audio library (optional; also works on CPU with <code>KIT_FORCE_CPU=1</code>).
   </dd>
   <dt>Your approvals</dt>
@@ -85,7 +93,7 @@
     <details id="stage-direction">
       <summary><span class="name">Direction</span> <span class="badge lock">you approve</span><span class="what">Generate three sonic directions for a place or weapon set; you pick one before any sounds are built.</span></summary>
       <div class="body">
-        <p>Every original place or weapon set starts with a direction, not a sound. The command reads your intent and produces one idea, six or more references from three or more media, three sonic pillars (what this place always has in common), bans (what it must never be), and three full directions that differ on at least two axes: space, source, density, and mood. Each direction becomes a sketch — a short bed, a few events, and one convolution space using a real impulse response — played back so you can hear the difference before committing to a build.</p>
+        <p>Every original place or weapon set starts with a direction, not a sound. The command reads your intent and produces one idea, six or more references from three or more media, three sonic pillars (what this place always has in common), bans (what it must never be), and three full directions that differ on at least two axes: space, source, density, and mood. Each direction becomes a sketch (a short bed, a few events, and one convolution space using a real impulse response) played back so you can hear the difference before committing to a build.</p>
         <p><code>kit sfx soundscript</code> lays the place's sounds out in journey order: loudness, density, brightness, and space across the player's route.</p>
         <p>Runtime places can be alive: <code>kit.WindVoice</code> plays tonal wind driven by cavity physics and the global wind value; <code>kit.GustEvents</code> fires rare audio moments on real gusts; <code>kit.EchoZones</code> answers the player's own steps with a late reflection. All three are data-driven from the world's ambience JSON.</p>
         <pre><code>lune run parallax sfx direction SwordSounds --new   # generate three directions
@@ -133,12 +141,12 @@ lune run parallax sfx identity MyGame --check SwordHits                       # 
         <p>A sound is a JSON file at <code>assets/sounds/&lt;name&gt;.json</code> describing a set of layers. Every layer has a <strong>role</strong>: one of <code>transient</code>, <code>body</code>, <code>sub</code>, <code>mechanical</code>, <code>tail</code>, <code>sweetener</code>, or <code>air</code>. The role is enforced: a <code>sub</code> layer with no sub-bass energy is a build error.</p>
         <p>Layers can use:</p>
         <ul>
-          <li><strong>Samples</strong> — <code>"sample": "lib:kenney.impact_metal_1"</code> (a CC0 or royalty-free recording from the indexed library; multiple values in an array for round-robin variation).</li>
-          <li><strong>Noise synthesis</strong> — a generated noise burst. Short bursts must carry a <code>seed</code> value; without one, the character can drift wildly between takes (an unseeded 90 ms brown thud was measured swinging from 8% to 38% sub between takes).</li>
-          <li><strong>Modal synthesis</strong> (<code>"source": "modal"</code>) — a struck resonant body defined by frequency, decay-rate, and gain triplets. Good for metallic rings and tonal impacts.</li>
-          <li><strong>Karplus-Strong synthesis</strong> (<code>"source": "karplus"</code>) — plucked strings or chains.</li>
+          <li><strong>Samples</strong>: <code>"sample": "lib:kenney.impact_metal_1"</code> (a CC0 or royalty-free recording from the indexed library; multiple values in an array for round-robin variation).</li>
+          <li><strong>Noise synthesis</strong>: a generated noise burst. Short bursts must carry a <code>seed</code> value; without one, the character can drift wildly between takes (an unseeded 90 ms brown thud was measured swinging from 8% to 38% sub between takes).</li>
+          <li><strong>Modal synthesis</strong> (<code>"source": "modal"</code>): a struck resonant body defined by frequency, decay-rate, and gain triplets. Good for metallic rings and tonal impacts.</li>
+          <li><strong>Karplus-Strong synthesis</strong> (<code>"source": "karplus"</code>): plucked strings or chains.</li>
         </ul>
-        <p>A <strong>set</strong> is a JSON file at <code>assets/sounds/sets/&lt;set&gt;.json</code> that groups related sounds (a light hit, a medium hit, a heavy hit) under shared DNA — reverb tail, sub weight, brightness band, and a single loudness level. The set gate enforces that the DNA is consistent across members.</p>
+        <p>A <strong>set</strong> is a JSON file at <code>assets/sounds/sets/&lt;set&gt;.json</code> that groups related sounds (a light hit, a medium hit, a heavy hit) under shared DNA: reverb tail, sub weight, brightness band, and a single loudness level. The set gate enforces that the DNA is consistent across members.</p>
         <pre><code>lune run parallax new sound sword_hit_metal      # create a new sound spec
 lune run parallax sfx set SwordHits              # build a sound set</code></pre>
         <p><strong>Produces:</strong> <code>assets/sounds/sword_hit_metal.json</code> (spec), processed audio in the build cache.</p>
@@ -152,7 +160,7 @@ lune run parallax sfx set SwordHits              # build a sound set</code></pre
       <summary><span class="name">Match</span><span class="what">Use CMA-ES optimisation to fit the sound's gains, envelopes, and filter cutoffs to the reference.</span></summary>
       <div class="body">
         <p>The match step runs a CMA-ES (Covariance Matrix Adaptation Evolution Strategy) optimiser against the ears measurements of the reference you chose. It adjusts gains, envelope parameters (attack, decay, sustain, release), filter cutoffs, and pitch to bring the ears numbers closer to the reference.</p>
-        <p>The rule: find <strong>one difference</strong> between the current sound and the reference, then make <strong>one edit per role</strong> to close it. Never chase a score — look at the specific measurement that is off and fix only that. Iterating this way keeps changes legible and prevents over-fitting to numbers.</p>
+        <p>The rule: find <strong>one difference</strong> between the current sound and the reference, then make <strong>one edit per role</strong> to close it. Never chase a score; look at the specific measurement that is off and fix only that. Iterating this way keeps changes legible and prevents over-fitting to numbers.</p>
         <pre><code>lune run parallax sfx match sword_hit_metal --to ref_metal_impact</code></pre>
         <p><strong>Produces:</strong> Updated spec parameters; rebuild triggers automatically.</p>
       </div>
@@ -164,7 +172,7 @@ lune run parallax sfx set SwordHits              # build a sound set</code></pre
     <details id="stage-sheet">
       <summary><span class="name">Sheet</span><span class="what">Render the waveform, spectrogram, and ears measurements alongside the reference; you look at it.</span></summary>
       <div class="body">
-        <p>The sheet is the evidence you read. It shows the waveform, a full spectrogram, loudness over time (momentary loudness, 50 ms window), and brightness over time — all rendered alongside the reference for direct comparison. Because the pipeline has no ears of its own, the sheet is the primary verification tool.</p>
+        <p>The sheet is the evidence you read. It shows the waveform, a full spectrogram, loudness over time (momentary loudness, 50 ms window), and brightness over time, all rendered alongside the reference for direct comparison. Because the pipeline has no ears of its own, the sheet is the primary verification tool.</p>
         <p>Look for:</p>
         <ul>
           <li>Sub energy on impact (first 150 ms under 120 Hz matches the reference).</li>
@@ -189,7 +197,7 @@ lune run parallax sfx set SwordHits              # build a sound set</code></pre
         <ul>
           <li>A score never approves a sound; you do, with your words about what you heard.</li>
           <li>Judge sounds in sync with their animation and effect, not in isolation. A hit sound that rates well alone may fall flat on its picture.</li>
-          <li>The taste profile (<code>kit/knowledge/sfx_taste.json</code>) learns what you reward once six or more verdicts exist. It is shown as a report beside each take's measurements, never as a gate — and it only predicts after you have given your verdict, never before.</li>
+          <li>The taste profile (<code>kit/knowledge/sfx_taste.json</code>) learns what you reward once six or more verdicts exist. It is shown as a report beside each take's measurements, never as a gate, and it only predicts after you have given your verdict, never before.</li>
         </ul>
         <div class="warn-box"><span class="callout-title">Watch out</span><p>The booth server must run outside the Lune job, or it dies when the command ends. The kit launches it that way for you (WMI breakaway and a per-launch token), with Host and Origin checks.</p></div>
         <pre><code>lune run parallax sfx listen sword_hit_metal --blind   # play blind
@@ -234,7 +242,7 @@ lune run parallax playtest record sfx_smoke result.json</code></pre>
     <details id="stage-upload">
       <summary><span class="name">Upload</span><span class="what">Upload the set to Roblox and grant it to the target universe.</span></summary>
       <div class="body">
-        <p>Upload is scoped to a set: <code>kit upload --only assets/sounds/&lt;set&gt;</code>. After upload, check moderation status with <code>--status</code>. Uploaded sounds must be granted to the target universe before they will play in the game — the upload command handles the grant automatically.</p>
+        <p>Upload is scoped to a set: <code>kit upload --only assets/sounds/&lt;set&gt;</code>. After upload, check moderation status with <code>--status</code>. Uploaded sounds must be granted to the target universe before they will play in the game; the upload command handles the grant automatically.</p>
         <p>Private audio plays only where it has been granted. A Creator Store asset ID can be restricted per experience, so always check moderation status after upload.</p>
         <pre><code>lune run parallax upload --only assets/sounds/SwordHits   # upload the set
 lune run parallax upload --only assets/sounds/SwordHits --status   # check moderation</code></pre>
@@ -249,7 +257,7 @@ lune run parallax upload --only assets/sounds/SwordHits --status   # check moder
 <section>
 <h2 id="gates">Gates</h2>
 
-<h3>Upload gate (every file — blocking)</h3>
+<h3>Upload gate (every file, blocking)</h3>
 <table>
   <thead><tr><th>Gate</th><th>What it checks</th><th>Threshold</th><th>Effect</th></tr></thead>
   <tbody>
@@ -282,7 +290,7 @@ lune run parallax upload --only assets/sounds/SwordHits --status   # check moder
 <table>
   <thead><tr><th>Gate</th><th>What it warns about</th></tr></thead>
   <tbody>
-    <tr><td><code>masking</code></td><td>Two layers hit together in the same loudest frequency bands — carve one with a filter or offset the onset.</td></tr>
+    <tr><td><code>masking</code></td><td>Two layers hit together in the same loudest frequency bands; carve one with a filter or offset the onset.</td></tr>
   </tbody>
 </table>
 </section>
@@ -297,13 +305,13 @@ lune run parallax upload --only assets/sounds/SwordHits --status   # check moder
     <tr><td><code>lufs</code></td><td>BS.1770 gated loudness (a 1 kHz sine reads −3.01 LUFS on this meter).</td><td>UI: −20…−12 · Hits: −18…−14 · Swings: −20…−17</td></tr>
     <tr><td><code>true_peak_dbfs</code></td><td>The highest reconstructed sample peak; must stay at or below 0 dBFS.</td><td>≤ 0 dBFS</td></tr>
     <tr><td><code>crest_db</code></td><td>Peak-to-RMS ratio, a measure of punch.</td><td>—</td></tr>
-    <tr><td><code>transient_ms</code></td><td>Time from 10% to 90% of peak amplitude — the attack sharpness.</td><td>—</td></tr>
+    <tr><td><code>transient_ms</code></td><td>Time from 10% to 90% of peak amplitude, the attack sharpness.</td><td>—</td></tr>
     <tr><td><code>attack_ms</code></td><td>Time from silence to peak.</td><td>—</td></tr>
-    <tr><td><code>tail_ms</code></td><td>Time from peak to −40 dB — the decay length.</td><td>—</td></tr>
+    <tr><td><code>tail_ms</code></td><td>Time from peak to −40 dB, the decay length.</td><td>—</td></tr>
     <tr><td><code>brightness_hz</code></td><td>Spectral centroid of the full sound.</td><td>Booms &lt; 300 Hz · Hits 300–1200 · UI/swings 1200–3500 · &gt; 3500 harsh</td></tr>
-    <tr><td><code>centroid_start_hz</code></td><td>Spectral centroid of the first 50 ms — the attack brightness.</td><td>—</td></tr>
-    <tr><td><code>centroid_end_hz</code></td><td>Spectral centroid of the last 100 ms — the tail brightness. Real tails darken; synthetic tails often stay flat.</td><td>lower than start in real recordings</td></tr>
-    <tr><td><code>flux</code></td><td>Frame-to-frame spectral change — a measure of texture and movement.</td><td>—</td></tr>
+    <tr><td><code>centroid_start_hz</code></td><td>Spectral centroid of the first 50 ms, the attack brightness.</td><td>—</td></tr>
+    <tr><td><code>centroid_end_hz</code></td><td>Spectral centroid of the last 100 ms, the tail brightness. Real tails darken; synthetic tails often stay flat.</td><td>lower than start in real recordings</td></tr>
+    <tr><td><code>flux</code></td><td>Frame-to-frame spectral change, a measure of texture and movement.</td><td>—</td></tr>
     <tr><td><code>onsets</code></td><td>Count of detected onset events (1 for a hit, many for a rattle).</td><td>—</td></tr>
     <tr><td><code>sub_share</code></td><td>Energy fraction below roughly 120 Hz.</td><td>—</td></tr>
     <tr><td><code>low_share</code></td><td>Energy fraction in the low-mid band.</td><td>—</td></tr>
@@ -326,20 +334,20 @@ lune run parallax upload --only assets/sounds/SwordHits --status   # check moder
 
   <div class="tab-panel" data-panel="io-in" id="io-in">
     <ul>
-      <li><code>assets/sounds/&lt;name&gt;.json</code> — layer recipe: duration, variations, pitch spread, global fx, and a list of layers each with a role, source, seed, filter, and envelope.</li>
-      <li><code>assets/sounds/sets/&lt;set&gt;.json</code> — set definition: shared DNA (reverb, sub weight, brightness band), member sound names, weights, and one loudness level per class.</li>
-      <li><code>assets/sounds/_events.json</code> — the game event map: event name to sound name, bus, blend key, and playback parameters.</li>
-      <li><code>assets/sounds/references.json</code> — reference recordings you chose in the booth; these are the measurement targets for the match stage.</li>
-      <li><code>assets/sounds/ambience/&lt;World&gt;.json</code> — ambience zone definitions: bed sounds, event densities, reverb zone, WindVoice, GustEvents, and EchoZones per region.</li>
+      <li><code>assets/sounds/&lt;name&gt;.json</code>: layer recipe: duration, variations, pitch spread, global fx, and a list of layers each with a role, source, seed, filter, and envelope.</li>
+      <li><code>assets/sounds/sets/&lt;set&gt;.json</code>: set definition: shared DNA (reverb, sub weight, brightness band), member sound names, weights, and one loudness level per class.</li>
+      <li><code>assets/sounds/_events.json</code>: the game event map: event name to sound name, bus, blend key, and playback parameters.</li>
+      <li><code>assets/sounds/references.json</code>: reference recordings you chose in the booth; these are the measurement targets for the match stage.</li>
+      <li><code>assets/sounds/ambience/&lt;World&gt;.json</code>: ambience zone definitions: bed sounds, event densities, reverb zone, WindVoice, GustEvents, and EchoZones per region.</li>
     </ul>
   </div>
 
   <div class="tab-panel" data-panel="io-out" id="io-out">
     <ul>
-      <li><code>build/sounds/sheets/&lt;name&gt;.png</code> — waveform, spectrogram, and ears measurements alongside the reference.</li>
-      <li><code>build/sounds/av/&lt;name&gt;.mp4</code> — the sound on its picture, from <code>kit sfx av</code>.</li>
-      <li><code>src/shared/&lt;World&gt;Ambience.json</code> — ambience zone data synced to <code>ReplicatedStorage</code>.</li>
-      <li><code>build/sounds/ambience/&lt;World&gt;.png</code> — visual map of the ambience zones.</li>
+      <li><code>build/sounds/sheets/&lt;name&gt;.png</code>: waveform, spectrogram, and ears measurements alongside the reference.</li>
+      <li><code>build/sounds/av/&lt;name&gt;.mp4</code>: the sound on its picture, from <code>kit sfx av</code>.</li>
+      <li><code>src/shared/&lt;World&gt;Ambience.json</code>: ambience zone data synced to <code>ReplicatedStorage</code>.</li>
+      <li><code>build/sounds/ambience/&lt;World&gt;.png</code>: visual map of the ambience zones.</li>
       <li>Uploaded audio asset IDs in <code>assets/ids.json</code>.</li>
     </ul>
   </div>
@@ -402,7 +410,7 @@ lune run parallax sfx ambience MyWorld</code></pre>
   </tbody>
 </table>
 
-<div class="warn-box"><span class="callout-title">Watch out</span><p>Never use Freesound-NC, BBC RemArc, or Pixabay sources — these are banned by the pipeline. Every pack must be vetted and recorded in <code>VETLOG.md</code> before its sounds can be referenced. Measure-only references are indexed with <code>--licence measure-only</code> and are never uploaded to Roblox.</p></div>
+<div class="warn-box"><span class="callout-title">Watch out</span><p>Never use Freesound-NC, BBC RemArc, or Pixabay sources; these are banned by the pipeline. Every pack must be vetted and recorded in <code>VETLOG.md</code> before its sounds can be referenced. Measure-only references are indexed with <code>--licence measure-only</code> and are never uploaded to Roblox.</p></div>
 </section>
 
 <section>
@@ -482,13 +490,13 @@ lune run parallax upload --only assets/sounds/SwordHits --status # check moderat
 <p>Verdicts of 7 or higher go into the golden set. Verdicts of 3 or lower go into the graveyard, the lane's record of failed routes, which every new session sees when it starts (a synth-only sword set graded down across rounds is the recorded example).</p>
 <p>Record a technique or trap at any time:</p>
 <pre><code>lune run parallax lesson sfx "unseed short noise bursts — a 90ms thud swung 8% to 38% sub between takes"</code></pre>
-<p>After six or more verdicts, the taste profile (<code>kit/knowledge/sfx_taste.json</code>) learns what you reward. It appears as a report beside each take's measurements and at lane start — but it predicts only after your verdict, never before. It is a navigation aid, not a gate.</p>
+<p>After six or more verdicts, the taste profile (<code>kit/knowledge/sfx_taste.json</code>) learns what you reward. It appears as a report beside each take's measurements and at lane start, but it predicts only after your verdict, never before. It is a navigation aid, not a gate.</p>
 <div class="tip"><span class="callout-title">Tip</span><p><code>lune run parallax sfx find "&lt;words&gt;"</code> searches the library before you build anything. Reuse a proven sound from the library rather than making a new one from scratch.</p></div>
 </section>
 
 <section>
 <h2 id="limits">Known limits</h2>
-<div class="limit"><span class="callout-title">Known limit</span><p>The pipeline cannot hear. Every decision at the match and sheet stages is made from numbers. The listening booth puts your ears in the loop — it is the only form of real-world quality assessment available.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>The pipeline cannot hear. Every decision at the match and sheet stages is made from numbers. The listening booth puts your ears in the loop; it is the only form of real-world quality assessment available.</p></div>
 <div class="limit"><span class="callout-title">Known limit</span><p>Synth-only sounds consistently score lower than layered-recording sounds. A synth-only sword set graded down across multiple booth rounds in practice. Use real recordings as the body layer where possible.</p></div>
 <div class="limit"><span class="callout-title">Known limit</span><p>BS.1770 loudness on a 0.5 s sound sits at a measurement block edge (the last block ends at the sound's end).</p></div>
 <div class="limit"><span class="callout-title">Known limit</span><p>A server started inside a Lune job dies with it, so the kit starts the booth outside the job (WMI breakaway, a per-launch token). Use <code>kit sfx listen</code> to start it and <code>--stop</code> to stop it.</p></div>

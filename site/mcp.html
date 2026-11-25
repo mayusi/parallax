@@ -5,7 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MCP server · Parallax</title>
 <meta name="description" content="The Parallax MCP server: tools, prompts, supported AI clients, config paths and uploading to Roblox.">
-<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="icon" href="assets/logo-64.png" type="image/png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:site_name" content="Parallax">
+<meta property="og:type" content="website">
+<meta property="og:title" content="MCP server · Parallax">
+<meta property="og:description" content="The Parallax MCP server: tools, prompts, supported AI clients, config paths and uploading to Roblox.">
+<meta property="og:url" content="https://mayusi.github.io/parallax/mcp.html">
+<meta property="og:image" content="https://mayusi.github.io/parallax/assets/social.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="assets/style.css">
 <script src="assets/app.js" defer></script>
 </head>
@@ -32,7 +40,7 @@
 </dl>
 
 <h3>Rules at connect</h3>
-<p>When a client sends <code>initialize</code>, the server returns a short preamble followed by the contents of <code>kit/harness/AGENTS.parallax.md</code> as the <code>instructions</code> field. Every client receives the same rules at the moment it connects — no per-client instruction file is needed, and no client needs to fetch the rules separately.</p>
+<p>When a client sends <code>initialize</code>, the server returns a short preamble followed by the contents of <code>kit/harness/AGENTS.parallax.md</code> as the <code>instructions</code> field. Every client receives the same rules at the moment it connects: no per-client instruction file is needed, and no client needs to fetch the rules separately.</p>
 <p>The preamble says that Parallax is enforced, not advisory: pipeline work (3D models, VFX, animation, worlds, UI, sound, gameplay systems, QA) is refused until the agent calls <code>parallax_start</code> with the lane and your request (<code>prompt</code>). It points to <code>parallax_case</code> for the request's contract and <code>parallax_skill</code> for the lane's full recipe, says every command ends with <code>summary:</code> and <code>next_action:</code> to act on, and that each <code>lune run parallax &lt;command&gt;</code> in the rules is also the <code>parallax</code> tool with those arguments.</p>
 </section>
 
@@ -87,7 +95,7 @@
     </tr>
     <tr>
       <td><code>parallax</code></td>
-      <td><code>args</code> (required): a list of strings — the arguments after <code>lune run parallax</code></td>
+      <td><code>args</code> (required): a list of strings, the arguments after <code>lune run parallax</code></td>
       <td>Run any command. A mutating pipeline command is refused with an exact <code>parallax_start</code> call if there is no fresh session. Act on the final <code>summary:</code> and <code>next_action:</code> lines.</td>
     </tr>
   </tbody>
@@ -143,7 +151,7 @@ lune run parallax start code --prompt "a double-jump ability"</code></pre>
     <dl class="specs">
       <dt>Connect command</dt><dd><code>lune run parallax connect claude</code></dd>
       <dt>Config written</dt><dd><code>.mcp.json</code> in the game folder</dd>
-      <dt>Guard hooks written</dt><dd><code>.claude/settings.json</code> — <code>PreToolUse</code>, <code>PostToolUse</code> and <code>Stop</code> hooks</dd>
+      <dt>Guard hooks written</dt><dd><code>.claude/settings.json</code>: <code>PreToolUse</code>, <code>PostToolUse</code> and <code>Stop</code> hooks</dd>
     </dl>
     <p>The enforcement guard hooks run <code>kit/scripts/parallax_guard.py</code>: before every write, shell (Bash, PowerShell) and <code>parallax</code> MCP tool call, after every write, and once when the session stops (a single reminder about unfinished pipeline work). The hook intercepts writes to pipeline paths, mutating CLI commands and writes to the session token file.</p>
     <p>The hook is found through the <code>CLAUDE_PROJECT_DIR</code> environment variable (or the working folder if the variable is not set). A missing script exits 0 so it never blocks everything when the kit is not installed.</p>
@@ -170,7 +178,7 @@ lune run parallax start code --prompt "a double-jump ability"</code></pre>
     <dl class="specs">
       <dt>Connect command</dt><dd><code>lune run parallax connect gemini</code></dd>
       <dt>Config written</dt><dd><code>.gemini/settings.json</code> in the game folder</dd>
-      <dt>Guard hooks written</dt><dd><code>.gemini/settings.json</code> — <code>BeforeTool</code> and <code>AfterTool</code> hooks</dd>
+      <dt>Guard hooks written</dt><dd><code>.gemini/settings.json</code>: <code>BeforeTool</code> and <code>AfterTool</code> hooks</dd>
     </dl>
     <p>The enforcement guard hooks run <code>kit/scripts/parallax_guard.py</code> before every <code>write_file</code>, <code>replace</code> and <code>run_shell_command</code> call, and after every <code>write_file</code> and <code>replace</code>. The script is found through <code>GEMINI_PROJECT_DIR</code> (or the working folder).</p>
   </div>
@@ -249,7 +257,7 @@ lune run parallax start code --prompt "a double-jump ability"</code></pre>
   <li>
     <strong>Run the upload command.</strong> From your game folder:
     <pre><code>lune run parallax upload</code></pre>
-    The kit screens every new or changed file through the moderation gate (banned words, blood/gore), then writes <code>build/upload_plan.json</code> — one entry per file with the exact <code>open_cloud_invoke</code> call, the file's absolute path and the required permission scopes.
+    The kit screens every new or changed file through the moderation gate (banned words, blood/gore), then writes <code>build/upload_plan.json</code>: one entry per file with the exact <code>open_cloud_invoke</code> call, the file's absolute path and the required permission scopes.
   </li>
   <li>
     <strong>Your AI agent uploads each file.</strong> For each entry in the plan:
