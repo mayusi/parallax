@@ -1,0 +1,44 @@
+{
+ "duration": 0.75,
+ "fx": {
+  "reverb": 0.15
+ },
+ "layers": [
+  {
+   "source": "saw",
+   "freq": [
+    300,
+    1200
+   ],
+   "filter": {
+    "type": "lowpass",
+    "cutoff": [
+     800,
+     5000
+    ]
+   },
+   "env": {
+    "attack": 0.01,
+    "hold": 0.0,
+    "decay": 0.6,
+    "sustain": 0.0,
+    "release": 0.1
+   }
+  },
+  {
+   "source": "triangle",
+   "freq": [
+    600,
+    2400
+   ],
+   "gain": 0.4,
+   "env": {
+    "attack": 0.01,
+    "hold": 0.0,
+    "decay": 0.6,
+    "sustain": 0.0,
+    "release": 0.1
+   }
+  }
+ ]
+}

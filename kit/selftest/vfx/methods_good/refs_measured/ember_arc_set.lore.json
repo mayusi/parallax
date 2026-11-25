@@ -1,0 +1,23 @@
+{
+ "preset": "ember_arc_set",
+ "facts": [
+  {
+   "text": "The arc is one crescent of flame.",
+   "tags": [
+    "shape"
+   ]
+  },
+  {
+   "text": "Its core is pale, its body orange.",
+   "tags": [
+    "colour"
+   ]
+  },
+  {
+   "text": "It ends in drifting embers.",
+   "tags": [
+    "motion"
+   ]
+  }
+ ]
+}

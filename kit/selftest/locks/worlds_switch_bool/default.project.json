@@ -1,0 +1,14 @@
+{
+ "name": "fixture",
+ "tree": {
+  "$className": "DataModel",
+  "Workspace": {
+   "$className": "Workspace",
+   "$properties": {
+    "StreamingEnabled": {
+     "Bool": true
+    }
+   }
+  }
+ }
+}

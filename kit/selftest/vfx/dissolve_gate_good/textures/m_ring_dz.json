@@ -1,0 +1,24 @@
+{
+ "engine": "fx",
+ "recipe": "dissolve",
+ "about": "selftest: a made dissolve sheet's spec (only its recipe and options are read here)",
+ "frames": 16,
+ "grid": 4,
+ "cell": 256,
+ "from": "m_streaks",
+ "dissolve": {
+  "pattern": "patches",
+  "cells": 16,
+  "cell": 256,
+  "soft": 0.08,
+  "density": 0.35,
+  "curve": 1.0,
+  "seed": 7,
+  "scale": 5.0
+ },
+ "post": {
+  "alpha": "coverage",
+  "tonemap": false,
+  "border": 0
+ }
+}

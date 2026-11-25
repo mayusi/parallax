@@ -1,0 +1,17 @@
+{
+ "lane": "3d",
+ "about": "The 3D lane's fixed questions for the parts library (board/plans/archive/2026-11-09-parts-libraries-plan.md, P0): new pieces in a brief's words, written before any method was run on them (q01 is the plan's rim probe). Every method's top answers are pooled and labelled blind by two labellers (labels.json); `kit parts 3d eval` scores each method on them. Add a question only from real work, never to suit a method.",
+ "written": "2026-11-09",
+ "questions": [
+  {"id": "3d-q01", "piece": "car_wheel_rim", "brief": "car wheel rim: a round alloy rim, five spokes from a centre hub out to the barrel, raised lips at both edges, lug nut holes on a bolt circle, machined metal finish", "keywords": "wheel rim spokes hub"},
+  {"id": "3d-q02", "piece": "ship_helm_wheel", "brief": "ship's helm wheel: a wooden wheel with eight turned spokes through a brass hub, the spokes run past the rim as handles, the rim built from curved pieces pinned together", "keywords": "helm wheel spokes hub"},
+  {"id": "3d-q03", "piece": "revolver_cylinder", "brief": "revolver cylinder: a steel cylinder with six chambers bored evenly round the centre pin, flutes cut between the chambers, a ratchet star at the back, blued finish", "keywords": "revolver cylinder chambers"},
+  {"id": "3d-q04", "piece": "hanging_shop_sign", "brief": "hanging shop sign: a painted wooden board with carved lettering, hung by two chains from a wrought-iron wall bracket with a scroll, the bracket bolted to the wall", "keywords": "sign board chain bracket"},
+  {"id": "3d-q05", "piece": "oil_lantern", "brief": "oil lantern: a brass fount and burner, a glass chimney held inside a wire guard cage, a folding wire bail handle on top, a ring to hang it by", "keywords": "lantern glass brass cage"},
+  {"id": "3d-q06", "piece": "crossbow", "brief": "crossbow: a wooden stock with a steel bow lashed across the front, a string, a trigger lever under the stock, a stirrup at the nose to cock it, iron fittings riveted on", "keywords": "crossbow stock bow trigger"},
+  {"id": "3d-q07", "piece": "stone_well", "brief": "stone well: a round wall of fitted stones with a capstone lip, two timber posts holding a turned winch roller with a crank handle, a rope and a wooden bucket with iron hoops", "keywords": "well stone winch bucket"},
+  {"id": "3d-q08", "piece": "knight_helmet", "brief": "knight helmet: a steel great helm, a hollow rounded dome with a narrow eye slit, breathing holes drilled in rows, riveted reinforcing bands, a brass trim along the edge", "keywords": "helmet helm steel rivets"},
+  {"id": "3d-q09", "piece": "pocket_watch", "brief": "pocket watch: a gold round case with a hinged lid, a crown and bow at the top, an enamel dial with numerals and two hands, a glass crystal, engraving on the back", "keywords": "watch case dial hinge"},
+  {"id": "3d-q10", "piece": "street_bench", "brief": "street bench: cast-iron side frames with scroll legs, wooden slats along the seat and back screwed to the frames, a painted finish worn at the edges", "keywords": "bench cast iron slats"}
+ ]
+}

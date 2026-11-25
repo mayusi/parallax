@@ -1,0 +1,153 @@
+{
+ "schema": 1,
+ "about": "The kit's starter pieces as `kit init` seeds them into a new project, by the sha256 of their text (line endings read as LF); every version a starter shipped with. A project's piece with one of these texts is the kit's: the making gates and the VFX vault hold it from its first edit. Written in the kit's home only (python kit/vfx/starters.py --write; kit promote vfx runs it).",
+ "pieces": {
+  "effect/dust_puff": [
+   "0ddff5b05a4e438161015d6967dcc72b0aae8ee4f19900113027e7947f610c63"
+  ],
+  "effect/hellfire_impact": [
+   "e57fedba42d6fa74f0571dd5a4c547058fc24b0e8431380760e505401c7ca164"
+  ],
+  "effect/hit_sparks": [
+   "bf6911e94aa42ba8b0246fa91bedb9b6a16c885974fbf4ae865f7d818060c854"
+  ],
+  "effect/laser_beam": [
+   "a9f59ac19faa2010800336a39299e6d89d77f00916b1e9428141feeeb38a589c"
+  ],
+  "effect/lightning_strike": [
+   "ad52abd60911f9589bc42f4d1ac505d93de7d21210c2062d6d95d3ec952344dd"
+  ],
+  "effect/missile_exhaust": [
+   "618ed45db4f71db44a49d85473bad29bd79157b0eeada34f7da296948fd0a03e"
+  ],
+  "effect/muzzle_flash": [
+   "cda0aa708d3bc5c360960d6ec9016d1483f86bb2328a65ab38d343fba5aaea89"
+  ],
+  "effect/nuke_v4": [
+   "4c4a8a3f5d0c0da193adf5f29a0ea48b5163b4811787e643ca46fe17bae9291a"
+  ],
+  "effect/orbital_strike": [
+   "ddeb03d5489c1d9f6bbd4d4e7755e122b762c93fa00780e53bff9aab2696a47a"
+  ],
+  "effect/planetary_cannon": [
+   "26fa2db00eb1d72bdf849137aa6f8e74d50d59daad108ef9616762c8aba020e7"
+  ],
+  "effect/techniques": [
+   "c9a3149de7835bf4b822e9da5696c2b1249c4840d4cbdb4349acf7f53ca4d4be"
+  ],
+  "effect/time_surge": [
+   "1d09de9e802679bb7c954af570592d01c1648b182711eb95604f4e4d36933c17"
+  ],
+  "mesh/charge_spiral": [
+   "7c72e43e4fa18c9f25fbf899428db510f92af62d183fd2eeacb352c164410744"
+  ],
+  "mesh/dust_wall": [
+   "b7a729524e7198038883a5a12186388af49692f8e424b8a6200be8616ace2508"
+  ],
+  "mesh/glyph_ring": [
+   "dde9b9115e6ac7311f3d84b58b73f58f61acb03fcd381947b3cae1a419508cb6"
+  ],
+  "mesh/impact_spikes": [
+   "50ccf91483fa1de4b9ca1c3dc56afe2ffe2f34e0419a11160e2cefa978515d6d"
+  ],
+  "mesh/shock_ring": [
+   "0925084b314541e8aa78eafc6bdce17ee024321ae3a3da3665f5e046d580ff0d"
+  ],
+  "mesh/shockwave_dome": [
+   "94c4c3b3cc00ab3c04ca2ebda6e594c323f247e859de2c6e5fa9e1d39971d327"
+  ],
+  "mesh/slash_crescent": [
+   "85ac169a2d566a7a3b839f25aeaafe8deeb57509159816386d0f9a7c4a3e77cf"
+  ],
+  "texture/dust": [
+   "54fa0f00014b2988b599e04b23d7c2159d1da1c080bb125e0e94abb18b87fc34"
+  ],
+  "texture/fire": [
+   "14b70757318ba4e9d5f32f450c381e27b0953dba762bd28037b5ce4ba47fe941"
+  ],
+  "texture/flow_vortex_caustics": [
+   "a9bf6f49055198fab7bfc0ef8324160eb2ce5d951fe721d5e1444239c3a28a00"
+  ],
+  "texture/glow": [
+   "7c7204967d735243b5093c7a5cad96ea959b0bb7803761c7ce85cb669e4faa54"
+  ],
+  "texture/lens_dirt": [
+   "a89932872db8381969808cab6d8d695c645037b22953a60ff34ac7cb310e232c"
+  ],
+  "texture/lens_fringe": [
+   "be3627a1a5b69fa0339d97d07d14f57509ff9adff2ec0908472cacf645eb3679"
+  ],
+  "texture/lens_vignette": [
+   "4aca0182949025f1d43955710619c56818f17a0723d6b483e4493986baec1b6a"
+  ],
+  "texture/lens_zoom": [
+   "7535bc1c8353c7b02bc213924fada25f1b80beba38a499c66a98f6a11271a7c0"
+  ],
+  "texture/mask_fbm": [
+   "6cfb123dadfbd8f82d89e142c8b766354dc4b7eada81f61726753e3a3a1a1063"
+  ],
+  "texture/mask_swirl": [
+   "50a9d941676a41c3682e4e64380619833c88c2effbae8952525e938960d2c850"
+  ],
+  "texture/nk_mushroom2_gpu": [
+   "a745d8f35b9b27527508147114ffcda6a104015098d8dd142a244a6368250585"
+  ],
+  "texture/nk_mushroom2_gpu_back": [
+   "7e29f310edbad38634b56882b545683b91e7ed3648f9bc2906a6941b382239fe"
+  ],
+  "texture/nk_mushroom2_gpu_left": [
+   "3decd769725177159da8261f101a0e37f990321c6641ca18d1382c1e8e174208"
+  ],
+  "texture/nk_mushroom2_gpu_right": [
+   "717e87c4dd72f9eac3bfcc55aed273c5429241f51efd57b49e119a32568fcf19"
+  ],
+  "texture/nk_surge_gpu": [
+   "a4b034467e562e286024c085803fc66cc2e2715a84dc3137c2faf1c0adc4e4fd"
+  ],
+  "texture/nk_surge_gpu_back": [
+   "7a0f206aa8055e5d8988007b24e8d0be6e55a5bb0cd8cc9fda2b69a8e7fec90f"
+  ],
+  "texture/nk_surge_gpu_left": [
+   "96d312e2de7f096007f4de4e3af8a9e53c5018c08857feaf50811d5a729629f0"
+  ],
+  "texture/nk_surge_gpu_right": [
+   "16b65ff10791c18045b7553cac735a6f98185d9f9f04dc771a26d4d09159253d"
+  ],
+  "texture/ring": [
+   "7517ba4ba9e8a813416423888e57a6653da361aeda200c8e5537b407564a725e"
+  ],
+  "texture/smoke": [
+   "3b283554b440fb8903b5c643cc3bbef69fa278a8414c5be3e32e98b917c4b66d"
+  ],
+  "texture/smoke_lit": [
+   "9f5c476b3a82cba8452ba0cb7bed5a64ccc15ba6839df4495aa56359571b2c21"
+  ],
+  "texture/smoke_lit_back": [
+   "45379df677bfb14335bb432885de895590153a277a23b0b95d1f543304210260"
+  ],
+  "texture/smoke_lit_left": [
+   "383944630a9219609808a5adb7915069f28f8a47a2680dfbd56b08f16cabe722"
+  ],
+  "texture/smoke_lit_right": [
+   "79619e21febbaf3429406352c3c38fc33eae38998641b2fbdef19692a9918fdd"
+  ],
+  "texture/spark": [
+   "50ecdc4c9188a457a707f5224668b794f4cc61fbdabe3d5c7fd5ec6b1bf30da4"
+  ],
+  "texture/star": [
+   "766c3cd1c81c7a6376c2f25eea8ca3731869ccc69975c5cbc322206a731c744f"
+  ],
+  "texture/vol_energy": [
+   "5c7299c5dd6ed5e30948f00aa9ca17c2032e70efecd0ef8fbc15659c58497bd9"
+  ],
+  "texture/vol_explosion": [
+   "fab3c0156505f1dede658265e66283ba9147c30dda35d73a3d37d83aca18066f"
+  ],
+  "texture/vol_fire": [
+   "621c818307fa79853064a4950e36673003eee8ee8b789eb46370ad579740054d"
+  ],
+  "texture/vol_smoke": [
+   "3960800c448584e3e9296f012be26424ae8edd18502ba384aa746f3ca0f2127d"
+  ]
+ }
+}

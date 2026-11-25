@@ -1,0 +1,927 @@
+{
+ "schema": 1,
+ "note": "Vetted 2026-10-05 (VETLOG.md): free, no login, not gated, pinned to a commit. kit/vision/setup.py downloads each file to <cache>/<model>/ and keeps it only if its size + hash match. Phase B (2026-10-06, owner-approved): da3-mono-large, moge-2-vitl-normal, marigold-iid-appearance, sam3 (gated: fetched with the owner's HF_TOKEN from the environment). TIERS (2026-11-24, the release blueprint's hardware tiers): every entry names its tier - core (the default `kit vision setup`: the lightweight vision core, ~2.4 GB, CPU or any 4 GB GPU), vision (adds the local VLM, depth/normal/albedo, SDXL lighting, FLUX.2 concepts and gated SAM 3: ~44.6 GB more, a 12 GB CUDA GPU), gen (adds qwen-image-edit + its Windows-only sd-cpp runner: ~24.5 GB more); each tier includes the ones below, `--tier all` adds the on_demand extras (clap-general), and an entry with \"os\" is fetched only there. geocalib-pinhole was removed (no caller).",
+ "models": {
+  "sam2.1-hiera-small": {
+   "what": "part masks from a point or a box (SAM 2.1, Meta)",
+   "tier": "core",
+   "license": "Apache-2.0",
+   "source": "https://huggingface.co/facebook/sam2.1-hiera-small",
+   "commit": "ee5bba1d82bb8749febdf90f45e84b687142ba03",
+   "files": [
+    {
+     "path": "model.safetensors",
+     "url": "https://huggingface.co/facebook/sam2.1-hiera-small/resolve/ee5bba1d82bb8749febdf90f45e84b687142ba03/model.safetensors",
+     "size": 184305280,
+     "sha256": "0a4067b11ce1e23d5229203f11c718a823060d15a4b23fa2372a7d4b77cbbc60"
+    },
+    {
+     "path": "config.json",
+     "url": "https://huggingface.co/facebook/sam2.1-hiera-small/resolve/ee5bba1d82bb8749febdf90f45e84b687142ba03/config.json",
+     "size": 5698,
+     "git_sha1": "be32655f86eff2add48c6f0b234187ca83df32bd"
+    },
+    {
+     "path": "preprocessor_config.json",
+     "url": "https://huggingface.co/facebook/sam2.1-hiera-small/resolve/ee5bba1d82bb8749febdf90f45e84b687142ba03/preprocessor_config.json",
+     "size": 683,
+     "git_sha1": "8499e53cb79bf1786a890021550e6994b9808f39"
+    },
+    {
+     "path": "processor_config.json",
+     "url": "https://huggingface.co/facebook/sam2.1-hiera-small/resolve/ee5bba1d82bb8749febdf90f45e84b687142ba03/processor_config.json",
+     "size": 95,
+     "git_sha1": "7556f607c3581a19f545de09d8b3fc98502b9f36"
+    }
+   ]
+  },
+  "depth-anything-v2-small": {
+   "what": "relative depth from one photo (Depth Anything V2 Small)",
+   "tier": "core",
+   "license": "Apache-2.0",
+   "source": "https://huggingface.co/depth-anything/Depth-Anything-V2-Small-hf",
+   "commit": "5426e4f0f36572d16453bbda7a8389317b1bef99",
+   "files": [
+    {
+     "path": "model.safetensors",
+     "url": "https://huggingface.co/depth-anything/Depth-Anything-V2-Small-hf/resolve/5426e4f0f36572d16453bbda7a8389317b1bef99/model.safetensors",
+     "size": 99173660,
+     "sha256": "3152477ce0d8d6978d76b995120de97cb5b928701fd0f817769f59e249a16b70"
+    },
+    {
+     "path": "config.json",
+     "url": "https://huggingface.co/depth-anything/Depth-Anything-V2-Small-hf/resolve/5426e4f0f36572d16453bbda7a8389317b1bef99/config.json",
+     "size": 950,
+     "git_sha1": "9207d3a304e86517dab21638c559d8b3195d41b6"
+    },
+    {
+     "path": "preprocessor_config.json",
+     "url": "https://huggingface.co/depth-anything/Depth-Anything-V2-Small-hf/resolve/5426e4f0f36572d16453bbda7a8389317b1bef99/preprocessor_config.json",
+     "size": 775,
+     "git_sha1": "a7822a90a0e91a14d50d1996953bac8f389a4377"
+    }
+   ]
+  },
+  "birefnet": {
+   "what": "background cutout / object mask (BiRefNet, Swin-L; code vendored in kit/vision/birefnet.py)",
+   "tier": "core",
+   "license": "MIT",
+   "source": "https://huggingface.co/ZhengPeng7/BiRefNet",
+   "commit": "e2bf8e4460fc8fa32bba5ea4d94b3233d367b0e4",
+   "files": [
+    {
+     "path": "model.safetensors",
+     "url": "https://huggingface.co/ZhengPeng7/BiRefNet/resolve/e2bf8e4460fc8fa32bba5ea4d94b3233d367b0e4/model.safetensors",
+     "size": 444473596,
+     "sha256": "9ab37426bf4de0567af6b5d21b16151357149139362e6e8992021b8ce356a154"
+    },
+    {
+     "path": "config.json",
+     "url": "https://huggingface.co/ZhengPeng7/BiRefNet/resolve/e2bf8e4460fc8fa32bba5ea4d94b3233d367b0e4/config.json",
+     "size": 405,
+     "git_sha1": "06d8fa9d7f2f4c6f1cf0dc6e7bfd194153176a42"
+    }
+   ]
+  },
+  "teed": {
+   "what": "edge map (TEED, 58K params; code vendored in kit/vision/teed.py)",
+   "tier": "core",
+   "license": "MIT",
+   "source": "https://github.com/xavysp/TEED",
+   "commit": "40fa4b1391dc6424f88989d0ca75d5b592c8681d",
+   "files": [
+    {
+     "path": "5_model.pth",
+     "url": "https://raw.githubusercontent.com/xavysp/TEED/40fa4b1391dc6424f88989d0ca75d5b592c8681d/checkpoints/BIPED/5/5_model.pth",
+     "size": 249139,
+     "git_sha1": "6f44f611f3e0c055151f10a9952cf54af67307b2"
+    }
+   ]
+  },
+  "siglip2-base": {
+   "what": "image-text and image-image similarity (SigLIP 2 base): the perceptual judge, view ranking for references",
+   "tier": "core",
+   "license": "Apache-2.0",
+   "source": "https://huggingface.co/google/siglip2-base-patch16-224",
+   "commit": "75de2d55ec2d0b4efc50b3e9ad70dba96a7b2fa2",
+   "files": [
+    {
+     "path": "model.safetensors",
+     "url": "https://huggingface.co/google/siglip2-base-patch16-224/resolve/75de2d55ec2d0b4efc50b3e9ad70dba96a7b2fa2/model.safetensors",
+     "size": 1500800904,
+     "sha256": "612923381c76ec5a9bed335d1c48827e3f2e506ac31b044b63b2031fadee6a0b"
+    },
+    {
+     "path": "tokenizer.json",
+     "url": "https://huggingface.co/google/siglip2-base-patch16-224/resolve/75de2d55ec2d0b4efc50b3e9ad70dba96a7b2fa2/tokenizer.json",
+     "size": 34363039,
+     "sha256": "cb9140fae3ac5122c972d37adf83e1248471a38147ad76f8215c8872c6fd8322"
+    },
+    {
+     "path": "tokenizer.model",
+     "url": "https://huggingface.co/google/siglip2-base-patch16-224/resolve/75de2d55ec2d0b4efc50b3e9ad70dba96a7b2fa2/tokenizer.model",
+     "size": 4241003,
+     "sha256": "61a7b147390c64585d6c3543dd6fc636906c9af3865a5548f27f31aee1d4c8e2"
+    },
+    {
+     "path": "config.json",
+     "url": "https://huggingface.co/google/siglip2-base-patch16-224/resolve/75de2d55ec2d0b4efc50b3e9ad70dba96a7b2fa2/config.json",
+     "size": 253,
+     "git_sha1": "c8cd2a20e58a738f44f267ae19f9568ff1095698"
+    },
+    {
+     "path": "preprocessor_config.json",
+     "url": "https://huggingface.co/google/siglip2-base-patch16-224/resolve/75de2d55ec2d0b4efc50b3e9ad70dba96a7b2fa2/preprocessor_config.json",
+     "size": 394,
+     "git_sha1": "2e52d8e8492b5c496ae04c37bfa09760469fb18b"
+    },
+    {
+     "path": "special_tokens_map.json",
+     "url": "https://huggingface.co/google/siglip2-base-patch16-224/resolve/75de2d55ec2d0b4efc50b3e9ad70dba96a7b2fa2/special_tokens_map.json",
+     "size": 636,
+     "git_sha1": "8d6368f7e735fbe4781bf6e956b7c6ad0586df80"
+    },
+    {
+     "path": "tokenizer_config.json",
+     "url": "https://huggingface.co/google/siglip2-base-patch16-224/resolve/75de2d55ec2d0b4efc50b3e9ad70dba96a7b2fa2/tokenizer_config.json",
+     "size": 47164,
+     "git_sha1": "d97c5412159422c3b56fbc99076b1dcc25dd7856"
+    }
+   ]
+  },
+  "dinov2-reg-small": {
+   "what": "dense per-patch features (DINOv2 with registers, small): 'where it differs' maps between a render and a reference",
+   "tier": "core",
+   "license": "Apache-2.0",
+   "source": "https://huggingface.co/facebook/dinov2-with-registers-small",
+   "commit": "0d9846e56b43a21fa46d7f3f5070f0506a5795a9",
+   "files": [
+    {
+     "path": "model.safetensors",
+     "url": "https://huggingface.co/facebook/dinov2-with-registers-small/resolve/0d9846e56b43a21fa46d7f3f5070f0506a5795a9/model.safetensors",
+     "size": 88256200,
+     "sha256": "78e7f952c5af83cf6da38f08ff52b062bbe00c1adf39c4c7e0361969f27abae7"
+    },
+    {
+     "path": "config.json",
+     "url": "https://huggingface.co/facebook/dinov2-with-registers-small/resolve/0d9846e56b43a21fa46d7f3f5070f0506a5795a9/config.json",
+     "size": 1001,
+     "git_sha1": "666c3e636d86d379ce67d669354a0e5d43212c7f"
+    },
+    {
+     "path": "preprocessor_config.json",
+     "url": "https://huggingface.co/facebook/dinov2-with-registers-small/resolve/0d9846e56b43a21fa46d7f3f5070f0506a5795a9/preprocessor_config.json",
+     "size": 436,
+     "git_sha1": "ff5b47c2edcd1d3556d63c01a65d93b58b9efce1"
+    }
+   ]
+  },
+  "da3-mono-large": {
+   "what": "relative depth from one picture, sharp at object edges (Depth Anything 3 mono-large, ByteDance)",
+   "tier": "vision",
+   "license": "Apache-2.0",
+   "source": "https://huggingface.co/depth-anything/DA3MONO-LARGE",
+   "commit": "f465978e618db8cc79c83b8bbf24964857db1875",
+   "files": [
+    {
+     "path": "config.json",
+     "url": "https://huggingface.co/depth-anything/DA3MONO-LARGE/resolve/f465978e618db8cc79c83b8bbf24964857db1875/config.json",
+     "size": 845,
+     "git_sha1": "2b72bd53c7f3c084fc67f7e2e20a269500f2ef50"
+    },
+    {
+     "path": "model.safetensors",
+     "url": "https://huggingface.co/depth-anything/DA3MONO-LARGE/resolve/f465978e618db8cc79c83b8bbf24964857db1875/model.safetensors",
+     "size": 1336734448,
+     "sha256": "7a799a7f95eb8d4c404c2ca8be3dc3276b350a417ddc4420db72ba850cc0e960"
+    }
+   ]
+  },
+  "moge-2-vitl-normal": {
+   "what": "geometry, surface normals and the camera's field of view from one picture (MoGe-2, Microsoft); model.pt is a PyTorch checkpoint, loaded only with weights_only=True (no code runs)",
+   "tier": "vision",
+   "license": "MIT",
+   "source": "https://huggingface.co/Ruicheng/moge-2-vitl-normal",
+   "commit": "cb0e8bbd6b1e243589717c78e750b1ba4c093acf",
+   "files": [
+    {
+     "path": "model.pt",
+     "url": "https://huggingface.co/Ruicheng/moge-2-vitl-normal/resolve/cb0e8bbd6b1e243589717c78e750b1ba4c093acf/model.pt",
+     "size": 1323815904,
+     "sha256": "280741fd09bc3f403ccff9967784c2a391b52d2c0742ae3efdb21d9f90cc1a01"
+    }
+   ]
+  },
+  "marigold-iid-appearance": {
+   "what": "lighting-free colour (albedo), roughness and metalness from one picture (Marigold-IID, ETH Zurich)",
+   "tier": "vision",
+   "license": "OpenRAIL++-M (weights), Apache-2.0 (code)",
+   "source": "https://huggingface.co/prs-eth/marigold-iid-appearance-v1-1",
+   "commit": "e7280a0a0fc5a0df0b36050882b3d8b77da22fd9",
+   "files": [
+    {
+     "path": "model_index.json",
+     "url": "https://huggingface.co/prs-eth/marigold-iid-appearance-v1-1/resolve/e7280a0a0fc5a0df0b36050882b3d8b77da22fd9/model_index.json",
+     "size": 970,
+     "git_sha1": "3215db96d4d69e5da3b8e2318eebee416d9e1885"
+    },
+    {
+     "path": "scheduler/scheduler_config.json",
+     "url": "https://huggingface.co/prs-eth/marigold-iid-appearance-v1-1/resolve/e7280a0a0fc5a0df0b36050882b3d8b77da22fd9/scheduler/scheduler_config.json",
+     "size": 533,
+     "git_sha1": "ece79362969e0d8a9ded0333156ba96a0f7c2269"
+    },
+    {
+     "path": "text_encoder/config.json",
+     "url": "https://huggingface.co/prs-eth/marigold-iid-appearance-v1-1/resolve/e7280a0a0fc5a0df0b36050882b3d8b77da22fd9/text_encoder/config.json",
+     "size": 633,
+     "git_sha1": "9c60528fdcb99a7caf834426a94ea13c56cf422b"
+    },
+    {
+     "path": "tokenizer/merges.txt",
+     "url": "https://huggingface.co/prs-eth/marigold-iid-appearance-v1-1/resolve/e7280a0a0fc5a0df0b36050882b3d8b77da22fd9/tokenizer/merges.txt",
+     "size": 524619,
+     "git_sha1": "76e821f1b6f0a9709293c3b6b51ed90980b3166b"
+    },
+    {
+     "path": "tokenizer/special_tokens_map.json",
+     "url": "https://huggingface.co/prs-eth/marigold-iid-appearance-v1-1/resolve/e7280a0a0fc5a0df0b36050882b3d8b77da22fd9/tokenizer/special_tokens_map.json",
+     "size": 460,
+     "git_sha1": "ae0c5be6f35217e51c4c000fd325d8de0294e99c"
+    },
+    {
+     "path": "tokenizer/tokenizer_config.json",
+     "url": "https://huggingface.co/prs-eth/marigold-iid-appearance-v1-1/resolve/e7280a0a0fc5a0df0b36050882b3d8b77da22fd9/tokenizer/tokenizer_config.json",
+     "size": 855,
+     "git_sha1": "bd2abe19377557ff5771584921f9b65fa041fef0"
+    },
+    {
+     "path": "tokenizer/vocab.json",
+     "url": "https://huggingface.co/prs-eth/marigold-iid-appearance-v1-1/resolve/e7280a0a0fc5a0df0b36050882b3d8b77da22fd9/tokenizer/vocab.json",
+     "size": 1059962,
+     "git_sha1": "469be27c5c010538f845f518c4f5e8574c78f7c8"
+    },
+    {
+     "path": "unet/config.json",
+     "url": "https://huggingface.co/prs-eth/marigold-iid-appearance-v1-1/resolve/e7280a0a0fc5a0df0b36050882b3d8b77da22fd9/unet/config.json",
+     "size": 1814,
+     "git_sha1": "25f47b6e26dbd48adc484bf24e6c8c1c562e6c00"
+    },
+    {
+     "path": "vae/config.json",
+     "url": "https://huggingface.co/prs-eth/marigold-iid-appearance-v1-1/resolve/e7280a0a0fc5a0df0b36050882b3d8b77da22fd9/vae/config.json",
+     "size": 711,
+     "git_sha1": "87cb39197e3d376a794a6b9ae898e39d21de4773"
+    },
+    {
+     "path": "text_encoder/model.fp16.safetensors",
+     "url": "https://huggingface.co/prs-eth/marigold-iid-appearance-v1-1/resolve/e7280a0a0fc5a0df0b36050882b3d8b77da22fd9/text_encoder/model.fp16.safetensors",
+     "size": 680820392,
+     "sha256": "bc1827c465450322616f06dea41596eac7d493f4e95904dcb51f0fc745c4e13f"
+    },
+    {
+     "path": "unet/diffusion_pytorch_model.fp16.safetensors",
+     "url": "https://huggingface.co/prs-eth/marigold-iid-appearance-v1-1/resolve/e7280a0a0fc5a0df0b36050882b3d8b77da22fd9/unet/diffusion_pytorch_model.fp16.safetensors",
+     "size": 1731973872,
+     "sha256": "6c7ab00d751edc8ac26a56d6d5bdcef600f2577b7ec708bea9cbac3fb12eda39"
+    },
+    {
+     "path": "vae/diffusion_pytorch_model.fp16.safetensors",
+     "url": "https://huggingface.co/prs-eth/marigold-iid-appearance-v1-1/resolve/e7280a0a0fc5a0df0b36050882b3d8b77da22fd9/vae/diffusion_pytorch_model.fp16.safetensors",
+     "size": 167335342,
+     "sha256": "3e4c08995484ee61270175e9e7a072b66a6e4eeb5f0c266667fe1f45b90daf9a"
+    }
+   ]
+  },
+  "sam3": {
+   "what": "part masks from a text prompt: every match at once ('screw', 'trigger') (SAM 3, Meta)",
+   "tier": "vision",
+   "license": "SAM License (owner's decision 2026-10-06: use)",
+   "source": "https://huggingface.co/facebook/sam3",
+   "commit": "3c879f39826c281e95690f02c7821c4de09afae7",
+   "files": [
+    {
+     "path": "config.json",
+     "url": "https://huggingface.co/facebook/sam3/resolve/3c879f39826c281e95690f02c7821c4de09afae7/config.json",
+     "size": 25843,
+     "git_sha1": "3e600e765b0f1b4c52680aed9ad242c9a90f7ed1"
+    },
+    {
+     "path": "model.safetensors",
+     "url": "https://huggingface.co/facebook/sam3/resolve/3c879f39826c281e95690f02c7821c4de09afae7/model.safetensors",
+     "size": 3439938512,
+     "sha256": "6d06f0a5f84e435071fe6603e61d0b4cc7b40e0d39d487cfd4d67d8cc11cc14a"
+    },
+    {
+     "path": "processor_config.json",
+     "url": "https://huggingface.co/facebook/sam3/resolve/3c879f39826c281e95690f02c7821c4de09afae7/processor_config.json",
+     "size": 1712,
+     "git_sha1": "9d3bd6df8a54852cd56087a3ae019cce051de2b2"
+    },
+    {
+     "path": "merges.txt",
+     "url": "https://huggingface.co/facebook/sam3/resolve/3c879f39826c281e95690f02c7821c4de09afae7/merges.txt",
+     "size": 524619,
+     "git_sha1": "76e821f1b6f0a9709293c3b6b51ed90980b3166b"
+    },
+    {
+     "path": "special_tokens_map.json",
+     "url": "https://huggingface.co/facebook/sam3/resolve/3c879f39826c281e95690f02c7821c4de09afae7/special_tokens_map.json",
+     "size": 588,
+     "git_sha1": "cf0682d6de72c1547f41b4f6d7c59f62deffef94"
+    },
+    {
+     "path": "tokenizer.json",
+     "url": "https://huggingface.co/facebook/sam3/resolve/3c879f39826c281e95690f02c7821c4de09afae7/tokenizer.json",
+     "size": 3642073,
+     "git_sha1": "bd1e367764006ad6a2249b1dcc0b20879c7c211f"
+    },
+    {
+     "path": "tokenizer_config.json",
+     "url": "https://huggingface.co/facebook/sam3/resolve/3c879f39826c281e95690f02c7821c4de09afae7/tokenizer_config.json",
+     "size": 799,
+     "git_sha1": "1f20c0274c5d4581b5ccdcbdddd7a22729b5c57b"
+    },
+    {
+     "path": "vocab.json",
+     "url": "https://huggingface.co/facebook/sam3/resolve/3c879f39826c281e95690f02c7821c4de09afae7/vocab.json",
+     "size": 862328,
+     "git_sha1": "182766ce89b439768edadda342519f33802f5364"
+    },
+    {
+     "path": "LICENSE",
+     "url": "https://huggingface.co/facebook/sam3/resolve/3c879f39826c281e95690f02c7821c4de09afae7/LICENSE",
+     "size": 7352,
+     "git_sha1": "16ee5f6318102430087a4a779f04417a21d7cd18"
+    }
+   ],
+   "gated": true
+  },
+  "realesrgan-x4plus": {
+   "what": "picture upscaling x4, the quality model (Real-ESRGAN x4plus, RRDBNet); loaded weights-only through spandrel",
+   "tier": "core",
+   "license": "BSD-3-Clause",
+   "source": "https://github.com/xinntao/Real-ESRGAN/releases/tag/v0.1.0",
+   "commit": "v0.1.0",
+   "note": "GitHub publishes no checksum for this release asset: its size matches the release listing, the sha256 is pinned at the first download (2026-10-06)",
+   "files": [
+    {
+     "path": "RealESRGAN_x4plus.pth",
+     "url": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.1.0/RealESRGAN_x4plus.pth",
+     "size": 67040989,
+     "sha256": "4fa0d38905f75ac06eb49a7951b426670021be3018265fd191d2125df9d682f1"
+    }
+   ]
+  },
+  "realesr-general-x4v3": {
+   "what": "picture upscaling x4, the small fast model (Real-ESRGAN general x4v3, SRVGGNetCompact); loaded weights-only through spandrel",
+   "tier": "core",
+   "license": "BSD-3-Clause",
+   "source": "https://github.com/xinntao/Real-ESRGAN/releases/tag/v0.2.5.0",
+   "commit": "v0.2.5.0",
+   "note": "GitHub publishes no checksum for this release asset: its size matches the release listing, the sha256 is pinned at the first download (2026-10-06)",
+   "files": [
+    {
+     "path": "realesr-general-x4v3.pth",
+     "url": "https://github.com/xinntao/Real-ESRGAN/releases/download/v0.2.5.0/realesr-general-x4v3.pth",
+     "size": 4885111,
+     "sha256": "8dc7edb9ac80ccdc30c3a5dca6616509367f05fbc184ad95b731f05bece96292"
+    }
+   ]
+  },
+  "sdxl-base-1.0": {
+   "what": "Stable Diffusion XL base, fp16 (the painter under DiffusionLight-Turbo; its own VAE is not fetched: sdxl-vae-fp16-fix replaces it)",
+   "tier": "vision",
+   "license": "CreativeML OpenRAIL++-M (commercial use allowed, use-based restrictions)",
+   "source": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0",
+   "commit": "462165984030d82259a11f4367a4eed129e94a7b",
+   "files": [
+    {
+     "path": "model_index.json",
+     "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/462165984030d82259a11f4367a4eed129e94a7b/model_index.json",
+     "size": 609,
+     "git_sha1": "6cc5138ddb67e9309c9b4e058e33e52087f1d215"
+    },
+    {
+     "path": "scheduler/scheduler_config.json",
+     "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/462165984030d82259a11f4367a4eed129e94a7b/scheduler/scheduler_config.json",
+     "size": 479,
+     "git_sha1": "e5bc8421e047838523be7acfb6720f167f7382f6"
+    },
+    {
+     "path": "text_encoder/config.json",
+     "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/462165984030d82259a11f4367a4eed129e94a7b/text_encoder/config.json",
+     "size": 565,
+     "git_sha1": "cde352ada4bb95fdad2fc503b8121257cef215a6"
+    },
+    {
+     "path": "text_encoder/model.fp16.safetensors",
+     "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/462165984030d82259a11f4367a4eed129e94a7b/text_encoder/model.fp16.safetensors",
+     "size": 246144152,
+     "sha256": "660c6f5b1abae9dc498ac2d21e1347d2abdb0cf6c0c0c8576cd796491d9a6cdd"
+    },
+    {
+     "path": "text_encoder_2/config.json",
+     "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/462165984030d82259a11f4367a4eed129e94a7b/text_encoder_2/config.json",
+     "size": 575,
+     "git_sha1": "da1848b5ed17b676f021578838f12c4023b86379"
+    },
+    {
+     "path": "text_encoder_2/model.fp16.safetensors",
+     "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/462165984030d82259a11f4367a4eed129e94a7b/text_encoder_2/model.fp16.safetensors",
+     "size": 1389382176,
+     "sha256": "ec310df2af79c318e24d20511b601a591ca8cd4f1fce1d8dff822a356bcdb1f4"
+    },
+    {
+     "path": "unet/config.json",
+     "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/462165984030d82259a11f4367a4eed129e94a7b/unet/config.json",
+     "size": 1680,
+     "git_sha1": "c8714c90f0e2409156da42781954416cb7df36af"
+    },
+    {
+     "path": "unet/diffusion_pytorch_model.fp16.safetensors",
+     "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/462165984030d82259a11f4367a4eed129e94a7b/unet/diffusion_pytorch_model.fp16.safetensors",
+     "size": 5135149760,
+     "sha256": "83e012a805b84c7ca28e5646747c90a243c65c8ba4f070e2d7ddc9d74661e139"
+    },
+    {
+     "path": "tokenizer/merges.txt",
+     "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/462165984030d82259a11f4367a4eed129e94a7b/tokenizer/merges.txt",
+     "size": 524619,
+     "git_sha1": "76e821f1b6f0a9709293c3b6b51ed90980b3166b"
+    },
+    {
+     "path": "tokenizer/special_tokens_map.json",
+     "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/462165984030d82259a11f4367a4eed129e94a7b/tokenizer/special_tokens_map.json",
+     "size": 472,
+     "git_sha1": "2c2130b544c0c5a72d5d00da071ba130a9800fb2"
+    },
+    {
+     "path": "tokenizer/tokenizer_config.json",
+     "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/462165984030d82259a11f4367a4eed129e94a7b/tokenizer/tokenizer_config.json",
+     "size": 737,
+     "git_sha1": "2e8612a429492973fe60635b3f44a28b065cfac0"
+    },
+    {
+     "path": "tokenizer/vocab.json",
+     "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/462165984030d82259a11f4367a4eed129e94a7b/tokenizer/vocab.json",
+     "size": 1059962,
+     "git_sha1": "469be27c5c010538f845f518c4f5e8574c78f7c8"
+    },
+    {
+     "path": "tokenizer_2/merges.txt",
+     "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/462165984030d82259a11f4367a4eed129e94a7b/tokenizer_2/merges.txt",
+     "size": 524619,
+     "git_sha1": "76e821f1b6f0a9709293c3b6b51ed90980b3166b"
+    },
+    {
+     "path": "tokenizer_2/special_tokens_map.json",
+     "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/462165984030d82259a11f4367a4eed129e94a7b/tokenizer_2/special_tokens_map.json",
+     "size": 460,
+     "git_sha1": "ae0c5be6f35217e51c4c000fd325d8de0294e99c"
+    },
+    {
+     "path": "tokenizer_2/tokenizer_config.json",
+     "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/462165984030d82259a11f4367a4eed129e94a7b/tokenizer_2/tokenizer_config.json",
+     "size": 725,
+     "git_sha1": "a8438e020c4497a429240d6b89e0bf9a6e2ffa92"
+    },
+    {
+     "path": "tokenizer_2/vocab.json",
+     "url": "https://huggingface.co/stabilityai/stable-diffusion-xl-base-1.0/resolve/462165984030d82259a11f4367a4eed129e94a7b/tokenizer_2/vocab.json",
+     "size": 1059962,
+     "git_sha1": "469be27c5c010538f845f518c4f5e8574c78f7c8"
+    }
+   ]
+  },
+  "sdxl-vae-fp16-fix": {
+   "what": "SDXL's VAE fine-tuned to run in fp16 without NaNs (madebyollin)",
+   "tier": "vision",
+   "license": "MIT",
+   "source": "https://huggingface.co/madebyollin/sdxl-vae-fp16-fix",
+   "commit": "207b116dae70ace3637169f1ddd2434b91b3a8cd",
+   "files": [
+    {
+     "path": "config.json",
+     "url": "https://huggingface.co/madebyollin/sdxl-vae-fp16-fix/resolve/207b116dae70ace3637169f1ddd2434b91b3a8cd/config.json",
+     "size": 631,
+     "git_sha1": "a0fc2b4620b60f1e599418c4de1c3d5e45db875a"
+    },
+    {
+     "path": "diffusion_pytorch_model.safetensors",
+     "url": "https://huggingface.co/madebyollin/sdxl-vae-fp16-fix/resolve/207b116dae70ace3637169f1ddd2434b91b3a8cd/diffusion_pytorch_model.safetensors",
+     "size": 334643238,
+     "sha256": "1b909373b28f2137098b0fd9dbc6f97f8410854f31f84ddc9fa04b077b0ace2c"
+    }
+   ]
+  },
+  "controlnet-depth-sdxl": {
+   "what": "depth ControlNet for SDXL, fp16 (keeps the painted chrome ball a sphere in the scene)",
+   "tier": "vision",
+   "license": "CreativeML OpenRAIL++-M",
+   "source": "https://huggingface.co/diffusers/controlnet-depth-sdxl-1.0",
+   "commit": "17bb97973f29801224cd66f192c5ffacf82648b4",
+   "files": [
+    {
+     "path": "config.json",
+     "url": "https://huggingface.co/diffusers/controlnet-depth-sdxl-1.0/resolve/17bb97973f29801224cd66f192c5ffacf82648b4/config.json",
+     "size": 1274,
+     "git_sha1": "9e36326b51f8c1d0b35cc74aa75cfd2504cc8d5f"
+    },
+    {
+     "path": "diffusion_pytorch_model.fp16.safetensors",
+     "url": "https://huggingface.co/diffusers/controlnet-depth-sdxl-1.0/resolve/17bb97973f29801224cd66f192c5ffacf82648b4/diffusion_pytorch_model.fp16.safetensors",
+     "size": 2502139134,
+     "sha256": "66a6813e6bd7270ecfe68206a59ddd605a011ae85321188376605c66e0a4f303"
+    }
+   ]
+  },
+  "diffusionlight-turbo-lora": {
+   "what": "DiffusionLight-Turbo's Turbo LoRA (one pass to a steady chrome ball)",
+   "tier": "vision",
+   "license": "MIT",
+   "source": "https://huggingface.co/DiffusionLight/Flickr2K",
+   "commit": "ed635477e5a742e363e54a6ed2193a9a43153113",
+   "files": [
+    {
+     "path": "pytorch_lora_weights.safetensors",
+     "url": "https://huggingface.co/DiffusionLight/Flickr2K/resolve/ed635477e5a742e363e54a6ed2193a9a43153113/pytorch_lora_weights.safetensors",
+     "size": 23396024,
+     "sha256": "acc0781a04d2341cc6307c8fcfa78768e6f50c1c79ebcdad6f22893207f8b16d"
+    }
+   ]
+  },
+  "diffusionlight-exposure-lora": {
+   "what": "DiffusionLight's exposure LoRA (the same ball at EV 0, -2.5, -5: HDR from LDR)",
+   "tier": "vision",
+   "license": "MIT",
+   "source": "https://huggingface.co/DiffusionLight/DiffusionLight",
+   "commit": "bda34823e932601b3eb9aff0276f00925cdeea46",
+   "files": [
+    {
+     "path": "pytorch_lora_weights.safetensors",
+     "url": "https://huggingface.co/DiffusionLight/DiffusionLight/resolve/bda34823e932601b3eb9aff0276f00925cdeea46/pytorch_lora_weights.safetensors",
+     "size": 23396024,
+     "sha256": "6bf601e30c08ce4f1eea6e09e1780bd8ba2588986eaee8379672350707dcddaa"
+    }
+   ]
+  },
+  "dpt-large": {
+   "what": "depth for the ControlNet (DPT-Large, Intel; DiffusionLight-Turbo's choice)",
+   "tier": "vision",
+   "license": "Apache-2.0",
+   "source": "https://huggingface.co/Intel/dpt-large",
+   "commit": "bc15f29aa3a80d532f2ed650b5e16ac48d8958f9",
+   "files": [
+    {
+     "path": "config.json",
+     "url": "https://huggingface.co/Intel/dpt-large/resolve/bc15f29aa3a80d532f2ed650b5e16ac48d8958f9/config.json",
+     "size": 942,
+     "git_sha1": "ee679a1bf4c5dc149c47ff8db3855ed787161240"
+    },
+    {
+     "path": "preprocessor_config.json",
+     "url": "https://huggingface.co/Intel/dpt-large/resolve/bc15f29aa3a80d532f2ed650b5e16ac48d8958f9/preprocessor_config.json",
+     "size": 285,
+     "git_sha1": "a0fbbe1170f71fba7cee165aad8b0d68185def61"
+    },
+    {
+     "path": "model.safetensors",
+     "url": "https://huggingface.co/Intel/dpt-large/resolve/bc15f29aa3a80d532f2ed650b5e16ac48d8958f9/model.safetensors",
+     "size": 1367456044,
+     "sha256": "c173e7fd575c4d6c2164621063fed3a0e7e2eb6adbfb7c1845b364bc0fed9ce8"
+    }
+   ]
+  },
+  "flux2-klein-4b": {
+   "what": "concept pictures and turnaround sheets from words (FLUX.2 [klein] 4B, Black Forest Labs; the root single-file duplicate flux-2-klein-4b.safetensors is not fetched)",
+   "tier": "vision",
+   "license": "Apache-2.0",
+   "source": "https://huggingface.co/black-forest-labs/FLUX.2-klein-4B",
+   "commit": "e7b7dc27f91deacad38e78976d1f2b499d76a294",
+   "files": [
+    {
+     "path": "model_index.json",
+     "url": "https://huggingface.co/black-forest-labs/FLUX.2-klein-4B/resolve/e7b7dc27f91deacad38e78976d1f2b499d76a294/model_index.json",
+     "size": 446,
+     "git_sha1": "554a39bf1019138dd0b28809b745df8ef33657c8"
+    },
+    {
+     "path": "scheduler/scheduler_config.json",
+     "url": "https://huggingface.co/black-forest-labs/FLUX.2-klein-4B/resolve/e7b7dc27f91deacad38e78976d1f2b499d76a294/scheduler/scheduler_config.json",
+     "size": 486,
+     "git_sha1": "7e53605e2643440b310fa554f087641893883c5f"
+    },
+    {
+     "path": "text_encoder/config.json",
+     "url": "https://huggingface.co/black-forest-labs/FLUX.2-klein-4B/resolve/e7b7dc27f91deacad38e78976d1f2b499d76a294/text_encoder/config.json",
+     "size": 1536,
+     "git_sha1": "86f951d170cfd1fdc1c8a57a041e05c27b7b789b"
+    },
+    {
+     "path": "text_encoder/generation_config.json",
+     "url": "https://huggingface.co/black-forest-labs/FLUX.2-klein-4B/resolve/e7b7dc27f91deacad38e78976d1f2b499d76a294/text_encoder/generation_config.json",
+     "size": 214,
+     "git_sha1": "f5af93d0c7764fa38e3b1cd3aaba1b6307246d3b"
+    },
+    {
+     "path": "text_encoder/model-00001-of-00002.safetensors",
+     "url": "https://huggingface.co/black-forest-labs/FLUX.2-klein-4B/resolve/e7b7dc27f91deacad38e78976d1f2b499d76a294/text_encoder/model-00001-of-00002.safetensors",
+     "size": 4967215360,
+     "sha256": "8c0506e7f4936fa7e26183a4fd8da4e2bdbc5990ba64ae441f965d51228f36ea"
+    },
+    {
+     "path": "text_encoder/model-00002-of-00002.safetensors",
+     "url": "https://huggingface.co/black-forest-labs/FLUX.2-klein-4B/resolve/e7b7dc27f91deacad38e78976d1f2b499d76a294/text_encoder/model-00002-of-00002.safetensors",
+     "size": 3077766632,
+     "sha256": "82f2bd839378541b0557bfabaf37c7d3d637071fdcb73302dedd7cf61162ce07"
+    },
+    {
+     "path": "text_encoder/model.safetensors.index.json",
+     "url": "https://huggingface.co/black-forest-labs/FLUX.2-klein-4B/resolve/e7b7dc27f91deacad38e78976d1f2b499d76a294/text_encoder/model.safetensors.index.json",
+     "size": 32855,
+     "git_sha1": "b65d8063815c8679d85bb919337b36fae8de75cf"
+    },
+    {
+     "path": "transformer/config.json",
+     "url": "https://huggingface.co/black-forest-labs/FLUX.2-klein-4B/resolve/e7b7dc27f91deacad38e78976d1f2b499d76a294/transformer/config.json",
+     "size": 541,
+     "git_sha1": "f21592ae2bc9f43052e78785bde7414f219ae369"
+    },
+    {
+     "path": "transformer/diffusion_pytorch_model.safetensors",
+     "url": "https://huggingface.co/black-forest-labs/FLUX.2-klein-4B/resolve/e7b7dc27f91deacad38e78976d1f2b499d76a294/transformer/diffusion_pytorch_model.safetensors",
+     "size": 7751109744,
+     "sha256": "9f29f9edcfdae452a653ffb51a534ca4decd389952c225724ff3b94042612a6e"
+    },
+    {
+     "path": "vae/config.json",
+     "url": "https://huggingface.co/black-forest-labs/FLUX.2-klein-4B/resolve/e7b7dc27f91deacad38e78976d1f2b499d76a294/vae/config.json",
+     "size": 821,
+     "git_sha1": "c3f38eb4c188a96a462519159356bd0fcc28cd14"
+    },
+    {
+     "path": "vae/diffusion_pytorch_model.safetensors",
+     "url": "https://huggingface.co/black-forest-labs/FLUX.2-klein-4B/resolve/e7b7dc27f91deacad38e78976d1f2b499d76a294/vae/diffusion_pytorch_model.safetensors",
+     "size": 168120878,
+     "sha256": "ca70d2202afe6415bdbcb8793ba8cd99fd159cfe6192381504d6c4d3036e0f04"
+    },
+    {
+     "path": "tokenizer/added_tokens.json",
+     "url": "https://huggingface.co/black-forest-labs/FLUX.2-klein-4B/resolve/e7b7dc27f91deacad38e78976d1f2b499d76a294/tokenizer/added_tokens.json",
+     "size": 707,
+     "git_sha1": "b54f9135e44c1e81047e8d05cb027af8bc039eed"
+    },
+    {
+     "path": "tokenizer/chat_template.jinja",
+     "url": "https://huggingface.co/black-forest-labs/FLUX.2-klein-4B/resolve/e7b7dc27f91deacad38e78976d1f2b499d76a294/tokenizer/chat_template.jinja",
+     "size": 4168,
+     "git_sha1": "01be9b307daa2d425f7c168c9fb145a286e0afb4"
+    },
+    {
+     "path": "tokenizer/merges.txt",
+     "url": "https://huggingface.co/black-forest-labs/FLUX.2-klein-4B/resolve/e7b7dc27f91deacad38e78976d1f2b499d76a294/tokenizer/merges.txt",
+     "size": 1671853,
+     "git_sha1": "31349551d90c7606f325fe0f11bbb8bd5fa0d7c7"
+    },
+    {
+     "path": "tokenizer/special_tokens_map.json",
+     "url": "https://huggingface.co/black-forest-labs/FLUX.2-klein-4B/resolve/e7b7dc27f91deacad38e78976d1f2b499d76a294/tokenizer/special_tokens_map.json",
+     "size": 613,
+     "git_sha1": "ac23c0aaa2434523c494330aeb79c58395378103"
+    },
+    {
+     "path": "tokenizer/tokenizer.json",
+     "url": "https://huggingface.co/black-forest-labs/FLUX.2-klein-4B/resolve/e7b7dc27f91deacad38e78976d1f2b499d76a294/tokenizer/tokenizer.json",
+     "size": 11422654,
+     "sha256": "aeb13307a71acd8fe81861d94ad54ab689df773318809eed3cbe794b4492dae4"
+    },
+    {
+     "path": "tokenizer/tokenizer_config.json",
+     "url": "https://huggingface.co/black-forest-labs/FLUX.2-klein-4B/resolve/e7b7dc27f91deacad38e78976d1f2b499d76a294/tokenizer/tokenizer_config.json",
+     "size": 5404,
+     "git_sha1": "ddaf69808214a44fdd26d3785b66c1367c78277a"
+    },
+    {
+     "path": "tokenizer/vocab.json",
+     "url": "https://huggingface.co/black-forest-labs/FLUX.2-klein-4B/resolve/e7b7dc27f91deacad38e78976d1f2b499d76a294/tokenizer/vocab.json",
+     "size": 2776833,
+     "git_sha1": "4783fe10ac3adce15ac8f358ef5462739852c569"
+    }
+   ]
+  },
+  "qwen-image-edit": {
+   "what": "image editing + new camera angles from one picture (Qwen-Image-Edit-2511, Q4_K_M GGUF, run by stable-diffusion.cpp: kit/gen/qwen_edit.py); its text encoder Qwen2.5-VL-7B (+ vision projector), its VAE, the Multiple-Angles LoRA (96 camera poses) and the Lightning 4-step LoRA",
+   "tier": "gen",
+   "license": "Apache-2.0",
+   "source": "https://huggingface.co/Qwen/Qwen-Image-Edit-2511",
+   "note": "23.6 GB: fetched only when named (lune run kit vision setup qwen-image-edit sd-cpp). Each file is pinned to its own repository's commit (unsloth 0d33d96, mradermacher cfa2baa, Comfy-Org 1f12b17, fal e306622, lightx2v d74eba1); sizes + sha256 = the Hub's LFS record (2026-10-06)",
+   "files": [
+    {
+     "path": "qwen-image-edit-2511-Q4_K_M.gguf",
+     "url": "https://huggingface.co/unsloth/Qwen-Image-Edit-2511-GGUF/resolve/0d33d9692b4b26212297240d87b0d4719aa4fd06/qwen-image-edit-2511-Q4_K_M.gguf",
+     "size": 13244758624,
+     "sha256": "8677bac90627adbbc11efab87b1870e701c4eb3689ee865a3de8ab81b705a723"
+    },
+    {
+     "path": "Qwen2.5-VL-7B-Instruct.Q8_0.gguf",
+     "url": "https://huggingface.co/mradermacher/Qwen2.5-VL-7B-Instruct-GGUF/resolve/cfa2baa09946b211c107e6e104948987a64dd2c1/Qwen2.5-VL-7B-Instruct.Q8_0.gguf",
+     "size": 8098524160,
+     "sha256": "577bfb3e41f93f00414e594c56a38bbe91207b3b636ab7faf343e34a20aa73ca"
+    },
+    {
+     "path": "Qwen2.5-VL-7B-Instruct.mmproj-Q8_0.gguf",
+     "url": "https://huggingface.co/mradermacher/Qwen2.5-VL-7B-Instruct-GGUF/resolve/cfa2baa09946b211c107e6e104948987a64dd2c1/Qwen2.5-VL-7B-Instruct.mmproj-Q8_0.gguf",
+     "size": 853119712,
+     "sha256": "2185ca0adf339f96845318c7b666f5d242f86bbace5657a89cb834785d0cea57"
+    },
+    {
+     "path": "qwen_image_vae.safetensors",
+     "url": "https://huggingface.co/Comfy-Org/Qwen-Image_ComfyUI/resolve/1f12b17be14c89b026c51a91d67c32f84bb047bc/split_files/vae/qwen_image_vae.safetensors",
+     "size": 253806246,
+     "sha256": "a70580f0213e67967ee9c95f05bb400e8fb08307e017a924bf3441223e023d1f"
+    },
+    {
+     "path": "loras/multiple-angles.safetensors",
+     "url": "https://huggingface.co/fal/Qwen-Image-Edit-2511-Multiple-Angles-LoRA/resolve/e3066224ab74263f4a5b6179cd1a3b0a15577e44/qwen-image-edit-2511-multiple-angles-lora.safetensors",
+     "size": 295140688,
+     "sha256": "42426ded4e25fd22879d9e198b857556445ef4ca56e8da3246d0345155bb6765"
+    },
+    {
+     "path": "loras/lightning-4steps.safetensors",
+     "url": "https://huggingface.co/lightx2v/Qwen-Image-Edit-2511-Lightning/resolve/d74eba145674fd7e31b949324e148e21e7118abd/Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors",
+     "size": 849608296,
+     "sha256": "22226e8d05d354bb356627d428809f5afd7819399b077238a2b70a82883a904f"
+    }
+   ]
+  },
+  "sd-cpp": {
+   "what": "stable-diffusion.cpp, the native runner of qwen-image-edit (Windows CUDA 12 build, sm_120 included) + NVIDIA's CUDA 12 runtime DLLs",
+   "tier": "gen",
+   "license": "MIT (sd.cpp); CUDA runtime: NVIDIA CUDA EULA (redistributable)",
+   "source": "https://github.com/leejet/stable-diffusion.cpp/releases/tag/master-929-3f8527a",
+   "commit": "3f8527a46c54ecf4cb4ed6003da8e8982283c73c",
+   "tool": true,
+   "note": "a tool, not weights: kept in ~/.cache/roblox-kit/tools/sd-cpp (KIT_TOOLS overrides) and unzipped there (every zip path checked: no absolute path, no ..). Size + sha256 = the GitHub release API's digest",
+   "files": [
+    {
+     "path": "sd-master-3f8527a-bin-win-cuda12-x64.zip",
+     "url": "https://github.com/leejet/stable-diffusion.cpp/releases/download/master-929-3f8527a/sd-master-3f8527a-bin-win-cuda12-x64.zip",
+     "size": 337915440,
+     "sha256": "217d6dead9abd3f827fc338268555cc179234e7e6330ef21ecb1c985e19d2dc7",
+     "unzip": true
+    },
+    {
+     "path": "cudart-sd-bin-win-cu12-x64.zip",
+     "url": "https://github.com/leejet/stable-diffusion.cpp/releases/download/master-929-3f8527a/cudart-sd-bin-win-cu12-x64.zip",
+     "size": 563452046,
+     "sha256": "fe20366827d357c00797eebb58244dddab7fd9a348d70090c3871004c320f38d",
+     "unzip": true
+    }
+   ],
+   "os": [
+    "windows"
+   ]
+  },
+  "qwen3-vl-4b": {
+   "what": "a vision-language model (Qwen3-VL-4B-Instruct, bf16): lists every visible DETAIL of a reference with its box (kit refs inventory) and reads engraved text (kit refs read)",
+   "tier": "vision",
+   "license": "Apache-2.0",
+   "source": "https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct",
+   "commit": "ebb281ec70b05090aa6165b016eac8ec08e71b17",
+   "files": [
+    {
+     "path": "chat_template.json",
+     "url": "https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct/resolve/ebb281ec70b05090aa6165b016eac8ec08e71b17/chat_template.json",
+     "size": 5502,
+     "git_sha1": "e49e75bdda104c8de941eb20e0b3765184fb27bc"
+    },
+    {
+     "path": "config.json",
+     "url": "https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct/resolve/ebb281ec70b05090aa6165b016eac8ec08e71b17/config.json",
+     "size": 1505,
+     "git_sha1": "22be8bb79043d39840ca5e70d7a2dab80311602c"
+    },
+    {
+     "path": "generation_config.json",
+     "url": "https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct/resolve/ebb281ec70b05090aa6165b016eac8ec08e71b17/generation_config.json",
+     "size": 269,
+     "git_sha1": "e116347d7ef42621c7a5957f82c015c38d939c1f"
+    },
+    {
+     "path": "merges.txt",
+     "url": "https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct/resolve/ebb281ec70b05090aa6165b016eac8ec08e71b17/merges.txt",
+     "size": 1671839,
+     "git_sha1": "20024bfe7c83998e9aeaf98a0cd6a2ce6306c2f0"
+    },
+    {
+     "path": "model-00001-of-00002.safetensors",
+     "url": "https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct/resolve/ebb281ec70b05090aa6165b016eac8ec08e71b17/model-00001-of-00002.safetensors",
+     "size": 4967229296,
+     "sha256": "30a01a0556622645a3cce87b655bbbbbc1f170c196099f1b666c93202c3339a9"
+    },
+    {
+     "path": "model-00002-of-00002.safetensors",
+     "url": "https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct/resolve/ebb281ec70b05090aa6165b016eac8ec08e71b17/model-00002-of-00002.safetensors",
+     "size": 3908490048,
+     "sha256": "046296a2a387efb43b0c997d5833c789604d168834f6e0d3064bf7bb13d002a6"
+    },
+    {
+     "path": "model.safetensors.index.json",
+     "url": "https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct/resolve/ebb281ec70b05090aa6165b016eac8ec08e71b17/model.safetensors.index.json",
+     "size": 64742,
+     "git_sha1": "3b52de97496e2f4501dfa92a87642f60db3e22a1"
+    },
+    {
+     "path": "preprocessor_config.json",
+     "url": "https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct/resolve/ebb281ec70b05090aa6165b016eac8ec08e71b17/preprocessor_config.json",
+     "size": 390,
+     "git_sha1": "2ea84a437d448ff71b08df68fdd949d5cc4ebb64"
+    },
+    {
+     "path": "tokenizer.json",
+     "url": "https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct/resolve/ebb281ec70b05090aa6165b016eac8ec08e71b17/tokenizer.json",
+     "size": 7032403,
+     "git_sha1": "c6cc1014128b19d1fc46b1d30a23e3b1d35db421"
+    },
+    {
+     "path": "tokenizer_config.json",
+     "url": "https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct/resolve/ebb281ec70b05090aa6165b016eac8ec08e71b17/tokenizer_config.json",
+     "size": 10868,
+     "git_sha1": "d3d3763207692c78780f4bf42d4dadf49a5c8012"
+    },
+    {
+     "path": "video_preprocessor_config.json",
+     "url": "https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct/resolve/ebb281ec70b05090aa6165b016eac8ec08e71b17/video_preprocessor_config.json",
+     "size": 385,
+     "git_sha1": "3ba673a5ad7d4d13f54155ecd38b2a94a6dac8fe"
+    },
+    {
+     "path": "vocab.json",
+     "url": "https://huggingface.co/Qwen/Qwen3-VL-4B-Instruct/resolve/ebb281ec70b05090aa6165b016eac8ec08e71b17/vocab.json",
+     "size": 2776833,
+     "git_sha1": "4783fe10ac3adce15ac8f358ef5462739852c569"
+    }
+   ]
+  },
+  "clap-general": {
+   "what": "audio-text similarity (LAION CLAP, larger general: sound effects, music, speech): kit sfx find by DESCRIPTION over the sound library",
+   "tier": "core",
+   "license": "Apache-2.0",
+   "source": "https://huggingface.co/laion/larger_clap_general",
+   "commit": "ada0c23a36c4e8582805bb38fec3905903f18b41",
+   "on_demand": true,
+   "note": "No safetensors in the repo: pytorch_model.bin loads with torch's weights_only (torch >= 2.6), which blocks code in the pickle. Vetted 2026-11-08 (VETLOG): the owner's yes ('Yes, download it').",
+   "files": [
+    {
+     "path": "config.json",
+     "url": "https://huggingface.co/laion/larger_clap_general/resolve/ada0c23a36c4e8582805bb38fec3905903f18b41/config.json",
+     "size": 643,
+     "git_sha1": "19cd0d27ed9aa01b7154b32270a02f251b08d120"
+    },
+    {
+     "path": "merges.txt",
+     "url": "https://huggingface.co/laion/larger_clap_general/resolve/ada0c23a36c4e8582805bb38fec3905903f18b41/merges.txt",
+     "size": 456318,
+     "git_sha1": "226b0752cac7789c48f0cb3ec53eda48b7be36cc"
+    },
+    {
+     "path": "preprocessor_config.json",
+     "url": "https://huggingface.co/laion/larger_clap_general/resolve/ada0c23a36c4e8582805bb38fec3905903f18b41/preprocessor_config.json",
+     "size": 541,
+     "git_sha1": "e8636819eeb1b19f1e5b6f572eca1a101144062e"
+    },
+    {
+     "path": "pytorch_model.bin",
+     "url": "https://huggingface.co/laion/larger_clap_general/resolve/ada0c23a36c4e8582805bb38fec3905903f18b41/pytorch_model.bin",
+     "size": 776444665,
+     "sha256": "314eb00cce6ad68d25237b8446b659ccdb136ed4672c1bca470f142f72455026"
+    },
+    {
+     "path": "special_tokens_map.json",
+     "url": "https://huggingface.co/laion/larger_clap_general/resolve/ada0c23a36c4e8582805bb38fec3905903f18b41/special_tokens_map.json",
+     "size": 280,
+     "git_sha1": "d5698132694f4f1bcff08fa7d937b1701812598e"
+    },
+    {
+     "path": "tokenizer.json",
+     "url": "https://huggingface.co/laion/larger_clap_general/resolve/ada0c23a36c4e8582805bb38fec3905903f18b41/tokenizer.json",
+     "size": 2108774,
+     "git_sha1": "15cffb1a334cf27ccef68b0b6e2bc6f74f1be219"
+    },
+    {
+     "path": "tokenizer_config.json",
+     "url": "https://huggingface.co/laion/larger_clap_general/resolve/ada0c23a36c4e8582805bb38fec3905903f18b41/tokenizer_config.json",
+     "size": 1362,
+     "git_sha1": "6e172a6edd7cb77400dc898b7a2d4d7cc0dbd75d"
+    },
+    {
+     "path": "vocab.json",
+     "url": "https://huggingface.co/laion/larger_clap_general/resolve/ada0c23a36c4e8582805bb38fec3905903f18b41/vocab.json",
+     "size": 798293,
+     "git_sha1": "4ebe4bb3f3114daf2e4cc349f24873a1175a35d7"
+    }
+   ]
+  }
+ }
+}

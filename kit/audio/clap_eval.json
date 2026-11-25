@@ -1,0 +1,17 @@
+{
+ "about": "The recorded descriptions `lune run kit sfx clap eval` scores the sound search on (2026-11-08). `want`: a pattern the library id of a RIGHT sound matches - a proxy (the sound's name, not the ear), so listen before trusting a pick. The eval sorts each description itself: `shared` when the plain word search finds any sound for it, `unshared` when it finds none (only CLAP can answer). Only sounds whose file is still there count. A description that missed in real use belongs here.",
+ "cases": [
+  {"q": "a big explosion", "want": "explo"},
+  {"q": "glass breaking", "want": "glass"},
+  {"q": "a metal sword clash", "want": "sword|impactmetal"},
+  {"q": "a door opening", "want": "rpg\\.(creak|door)"},
+  {"q": "footsteps on a wooden floor", "want": "footstep_wood"},
+  {"q": "a punch hitting a body", "want": "punch"},
+  {"q": "a soft whoosh", "want": "whoosh|swoosh|swish"},
+  {"q": "a gunshot", "want": "gun|shot|pistol|rifle|revolver|luger"},
+  {"q": "a babbling brook", "want": "flowing_water|waterflow|creek|stream|brook|river"},
+  {"q": "fabric rustling", "want": "cloth"},
+  {"q": "a revolver blast", "want": "gun|shot|pistol|rifle|revolver|luger"},
+  {"q": "crunching through powder", "want": "snow"}
+ ]
+}

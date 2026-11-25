@@ -1,0 +1,260 @@
+{
+  "schema": 1,
+  "lane": "3d",
+  "default_case": "3d:static_prop",
+  "cases": [
+    {
+      "case_id": "3d:static_prop",
+      "label": "Simple Environmental Prop (crate, barrel, lamp, hydrant)",
+      "triggers": {
+        "keywords": ["crate", "barrel", "lamp", "hydrant", "pillar", "bench", "fence", "post", "sign", "chest", "pot", "box", "prop", "environmental", "dumpster", "streetlight", "lantern"],
+        "requires_both": []
+      },
+      "tier": "prop",
+      "budget_minutes": 10,
+      "required_tools_ordered": [
+        "parallax refs find \"<object>\"",
+        "parallax study <name> (or parallax make <name> if fast prop)",
+        "per-part a.cad / measured code or checked CC ref mesh",
+        "parallax asset <name>",
+        "parallax optimize <name>",
+        "parallax upload"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "G7", "pattern": "whole_object_gen_projected_texture", "why": "Whole-object generators with projected textures produce low-fidelity props that do not match sourced sizes." },
+        { "id": "G8", "pattern": "projected_texture_no_uvs", "why": "Projected textures skip UV layout and fail Roblox texture fidelity requirements." },
+        { "id": "G5", "pattern": "crispness_weighted_scoring", "why": "Crispness-weighted scoring picks the sharpest render, not the most accurate mesh." }
+      ],
+      "mandatory_gates": ["clock<=10m", "trace_match>=0.9", "uv_overlap<0.1%", "studio_spawn"],
+      "owner_stops": [],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "make a wooden crate for the market stall",
+        "build a stone lantern prop for the courtyard",
+        "add a metal barrel environmental piece"
+      ]
+    },
+    {
+      "case_id": "3d:hard_surface_hero",
+      "label": "Machined/Engineered Hero Weapon, Firearm, Vehicle, Mechanism",
+      "triggers": {
+        "keywords": ["firearm", "pistol", "rifle", "revolver", "shotgun", "machined", "engineered", "mechanism", "trigger", "barrel", "receiver", "frame", "vehicle", "sword", "blade", "katana", "dagger", "spear", "axe", "hammer", "mace", "weapon"],
+        "requires_both": []
+      },
+      "tier": "hero",
+      "budget_minutes": 60,
+      "required_tools_ordered": [
+        "parallax dossier new \"<object>\"",
+        "parallax refs find|dims|edges|inventory",
+        "2 graded ref models",
+        "parallax study <name>",
+        "parallax sheet <name> (Owner Stop 1)",
+        "parallax blockout <name> (Owner Stop 2)",
+        "a.cad (fillet_mm, redraw(pts) tangent) + a.pillow for crowned plates/triggers + cad_parts ISO small parts + a.stamp / a.ornament",
+        "parallax refs sections (<=1.5mm)",
+        "parallax look closeup/lookdev/edges/silhouette",
+        "mechanism (a.joint / a.cycle)",
+        "parallax optimize <name>",
+        "parallax upload",
+        "Studio parity playtest"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "G1", "pattern": "side_extrude_slab", "why": "2D side-outline extrusion without sections/pillow produces flat slabs with no depth." },
+        { "id": "G10", "pattern": "flat_extruded_trigger", "why": "Flat extruded trigger has no mechanical detail and reads as placeholder geometry." },
+        { "id": "G2", "pattern": "whole_object_gen", "why": "Whole-object generators warp hard-surface blades/barrels; generate organic PARTS only." },
+        { "id": "G9", "pattern": "colour_threshold_panel_tracing", "why": "Colour-threshold panel tracing loses precise edge geometry required for machined surfaces." }
+      ],
+      "mandatory_gates": ["study_lock", "sheet_lock", "blockout_lock", "cad_edges", "sections<=1.5mm", "close_res>=2px/mm", "studio_parity"],
+      "owner_stops": ["sheet", "blockout", "verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "build a detailed revolver hero weapon with a working cylinder mechanism",
+        "create a katana blade with hand-filed bevels and machined tsuba guard",
+        "make a sci-fi rifle with a reload mechanism and machined receiver"
+      ]
+    },
+    {
+      "case_id": "3d:organic_hero",
+      "label": "Creature, Head, Skull, Statue, Sculpted Organic Ornament",
+      "triggers": {
+        "keywords": ["creature", "skull", "statue", "sculpted", "organic", "monster", "dragon", "wolf", "lion", "eagle", "bust", "head", "face", "demon", "angel", "figure", "gargoyle"],
+        "requires_both": []
+      },
+      "tier": "hero",
+      "budget_minutes": 60,
+      "required_tools_ordered": [
+        "parallax refs (>=2 px/mm)",
+        "parallax study <name>",
+        "parallax sheet <name> (Owner Stop 1)",
+        "parallax vision plate --from <crop> (owner sees plate)",
+        "parallax gen <part> --res 1024 (per part, GPU idle)",
+        "shape check vs all views",
+        "parallax sharpen <part.glb>",
+        "a.import_mesh (measured size, own maps, no mat=) OR checked CC ref mesh as clay (fit_to / a.form_match)",
+        "parallax blockout <name> (Owner Stop 2)",
+        "parallax look <name>",
+        "parallax optimize <name>",
+        "parallax upload"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "G3", "pattern": "typed_sdf_organic", "why": "Hand-coded SDF primitives for creatures/crests plateau at 1/10 — cannot produce believable organic surfaces." },
+        { "id": "G6", "pattern": "single_concept_whole_hero", "why": "Using a single concept image for the whole hero skips per-part resolution; each part needs its own sourced reference." }
+      ],
+      "mandatory_gates": ["study_lock", "sheet_lock", "glb_topology", "side_check", "form_match", "blockout_lock"],
+      "owner_stops": ["sheet", "blockout", "verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "sculpt a dragon skull ornament with detailed teeth and eye sockets",
+        "create an organic wolf head creature for a totem pole",
+        "build a gargoyle statue with stone texture and bat wings"
+      ]
+    },
+    {
+      "case_id": "3d:hybrid_hero",
+      "label": "Hero Hard-Surface + Sculpted Organic Ornament (e.g., ornate sword, crested firearm)",
+      "triggers": {
+        "keywords": ["ornate", "carved", "crest", "filigree", "pommel", "guard", "gothic", "sword", "engraved", "rune", "relief", "decorated", "embossed", "crested", "ceremonial"],
+        "requires_both": []
+      },
+      "tier": "hero",
+      "budget_minutes": 60,
+      "required_tools_ordered": [
+        "parallax new asset <name>",
+        "parallax dossier new / parallax refs find|dims|edges|inventory",
+        "parallax study <name> --new",
+        "parallax sheet <name>",
+        "parallax approve 3d <name> --by owner --stage sheet",
+        "parallax vision plate --from <crop> -> parallax gen <part> --res 1024 -> parallax sharpen <part.glb>",
+        "a.cad (fillet_mm, build123d) + a.import_mesh (organic part) + a.cast + a.ornament",
+        "parallax blockout <name> -> parallax approve 3d <name> --by owner --stage blockout",
+        "parallax asset <name> -> parallax look closeup|lookdev|silhouette|edges",
+        "parallax optimize <name> -> parallax upload -> Studio parity playtest"
+      ],
+      "v4_upgrade_tools": [
+        { "path": "kit/gen/hybrid_fabricate.py", "when_present": "Auto-activates as mandatory orchestrator once V4 3D-X ships; until then `a.cad` + `vision plate` + `gen --res 1024` + `sharpen` + `a.import_mesh` + `a.cast` is the enforced main path." }
+      ],
+      "forbidden_tools": [
+        { "id": "G2", "pattern": "whole_object_gen", "why": "Whole-object generators warp hard-surface blades/barrels; generate organic PARTS only." },
+        { "id": "G3", "pattern": "typed_sdf_organic", "why": "Hand-coded SDF primitives for creatures/crests plateau at 1/10." },
+        { "id": "G1", "pattern": "side_extrude_slab", "why": "2D side extrusion without sections/pillow produces flat slabs." }
+      ],
+      "mandatory_gates": ["study_lock", "sheet_lock", "blockout_lock", "low_envelope_guard (<0.2% miss)", "uv_overlap<0.1%", "studio_parity"],
+      "owner_stops": ["sheet", "blockout", "verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [
+        {
+          "file_glob": "assets/models/build_*.py",
+          "regex": "whole_object_gen|from_sdf_head",
+          "severity": "block",
+          "message": "G2/G3 violation: use picture-first kit vision plate -> kit gen --res 1024 -> kit sharpen for organic parts."
+        }
+      ],
+      "examples": [
+        "make a gothic sword with an ornate lion-head pommel and carved blade runes",
+        "build a crested ceremonial axe with a sculpted eagle head on the pommel",
+        "create an ornate ceremonial pistol with carved gothic filigree on the pommel guard"
+      ]
+    },
+    {
+      "case_id": "3d:cloth_garment",
+      "label": "R6 Clothing, Coats, Capes, Boots, Robes",
+      "triggers": {
+        "keywords": ["clothing", "coat", "cape", "boot", "robe", "garment", "cloth", "cloak", "jacket", "pants", "shirt", "armor", "armour", "helmet", "gloves", "drape"],
+        "requires_both": []
+      },
+      "tier": "complex",
+      "budget_minutes": 30,
+      "required_tools_ordered": [
+        "rbx_garment cloth-sim drape over R6 rig",
+        "<4k quad-loft shell with 0.035 st rectangular leg clearance + 0.022 corner + Seat closure",
+        "parallax look <name> (zero leg poke)",
+        "parallax optimize <name>",
+        "Studio R6 rig test"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "G4", "pattern": "typed_rigid_shell", "why": "Typed rigid shells without cloth sim produce stiff geometry that clips through the R6 rig legs." }
+      ],
+      "mandatory_gates": ["cloth_drape_lock", "tris<4000", "r6_leg_poke==0", "studio_rig_playtest"],
+      "owner_stops": ["verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "make a flowing cloak garment for the R6 character with cloth drape",
+        "create medieval robes that fit correctly on an R6 rig without leg clipping",
+        "build armour pieces as a cloth-simmed layered suit for R6"
+      ]
+    },
+    {
+      "case_id": "3d:original_design",
+      "label": "Brand-New Original IP Asset (No Existing Reference Object)",
+      "triggers": {
+        "keywords": ["original-design", "invent", "direction", "fictional", "fantasy", "alien", "futuristic", "original-ip", "concept-direction"],
+        "requires_both": []
+      },
+      "tier": "complex",
+      "budget_minutes": 30,
+      "required_tools_ordered": [
+        "parallax design direction <Piece> --new (>=6 cross-media refs, 3 pillars, bans, 3 directions >=2 axes apart)",
+        "parallax design maker",
+        "parallax design explore <Piece> (pick board, Owner Pick)",
+        "parallax design concept --from <pick>",
+        "measure row-by-row profiles",
+        "route per part family per case above",
+        "parallax design review"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "FLUX_LEAK", "pattern": "poetic_flux_prompt", "why": "Poetic prompts to FLUX ('a living flame') leak muzzle-flash lighting into weapon renders; use measured design language." }
+      ],
+      "mandatory_gates": ["direction_pick_lock", "flux_leak_gate==0", "design_review"],
+      "owner_stops": ["direction_pick", "verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "invent an original-design futuristic energy weapon with a concept-direction from references",
+        "design a new alien creature with an original-ip fictional anatomy from cross-media references",
+        "invent an original-ip fictional artifact with a concept-direction from cross-media refs"
+      ]
+    },
+    {
+      "case_id": "3d:photoscan_real",
+      "label": "Real Physical Object Captured via Photos (tupa photoscan route)",
+      "triggers": {
+        "keywords": ["photoscan", "scan", "photo", "turntable", "colmap", "capture", "real", "physical", "photograph", "retopo"],
+        "requires_both": []
+      },
+      "tier": "complex",
+      "budget_minutes": 30,
+      "required_tools_ordered": [
+        "16-30 overlapping turntable photos",
+        "COLMAP reconstruction",
+        "clean & retopo (Instant Meshes)",
+        "bake PBR maps",
+        "parallax optimize <name>",
+        "parallax upload",
+        "Studio parity playtest"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "SCAN_SKIP", "pattern": "skip_photo_coverage", "why": "Skipping real photo coverage produces holes and reconstruction artefacts in the mesh." },
+        { "id": "RAW_SCAN", "pattern": "ship_raw_scan", "why": "Shipping a raw un-retopologised scan exceeds triangle budgets and has inverted normals." }
+      ],
+      "mandatory_gates": ["photo_count>=16", "uv_overlap<0.1%", "studio_parity"],
+      "owner_stops": ["verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "photoscan a real ancient coin from turntable photos for the game",
+        "capture a physical prop with colmap reconstruction and retopo it for Roblox",
+        "scan a real object via turntable photography and bake PBR maps"
+      ]
+    }
+  ]
+}

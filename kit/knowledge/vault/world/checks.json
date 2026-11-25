@@ -1,0 +1,19 @@
+{
+ "lane": "world",
+ "about": "The owner's recurring words as checks (kit/checks/checks.py). The world lane's R6 checks already run inside kit world check; this file maps the owner's words to them.",
+ "checks": [
+  {
+   "id": "world-r6-openings",
+   "words": ["fit my R6 rig", "bigger than the rigs"],
+   "said": [
+    {"verdict": "world/verdicts/district--2026-10-29", "quote": "some things are not ... to perfectly fit my R6 rig"},
+    {"verdict": "board ask gmgy (2026-11-03)", "quote": "buildings and everything BIG, bigger than the rigs so it makes sense compared to realism"}
+   ],
+   "target": "world",
+   "measure": "builtin",
+   "builtin": "kit world check: the R6 openings gate (a door under 5 wide or 8 high, a corridor under 6 wide, a ceiling under 11 studs; the author's town gate plan (2026-11-03)) and the room-size table (the author's town plan (2026-11-02))",
+   "status": "built in",
+   "validation": null
+  }
+ ]
+}

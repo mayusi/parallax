@@ -1,0 +1,141 @@
+{
+ "name": "SimShop",
+ "identity": "sim",
+ "quality": "hero",
+ "focus": "Shop.Window.Title.Txt",
+ "kind": "menu",
+ "enabled": false,
+ "insets": "none",
+ "scale": { "phone": 0.5, "tablet": 0.72 },
+ "root": {
+  "type": "panel",
+  "name": "Shop",
+  "size": ["100%", "100%"],
+  "color": "bg",
+  "transparency": 0.4,
+  "children": [
+   { "type": "plate", "name": "Rays", "plate": "burst", "size": [1400, 1400], "pos": ["50%", "50%"], "anchor": "center", "imageAlpha": 0.55,
+     "motion": { "enter": { "type": "fade", "duration": 0.8 }, "loop": { "type": "spin", "speed": 0.08 } } },
+
+   {
+    "type": "panel", "name": "Window", "plate": "bubble_panel", "shadow": 10, "size": ["72%", "78%"], "pos": ["50%", "52%"], "anchor": "center",
+    "at": { "phone": { "size": ["96%", "92%"], "pos": ["50%", "54%"] } },
+    "motion": { "enter": { "type": "bounce", "duration": 0.55 }, "stagger": 0.05 },
+    "children": [
+     {
+      "type": "panel", "name": "Title", "plate": "banner_focus", "shadow": true, "size": [380, 78], "pos": ["50%", -30], "anchor": "top", "z": 3,
+      "motion": { "enter": { "type": "drop", "delay": 0.15, "duration": 0.5, "ease": "back" } },
+      "children": [
+       { "type": "image", "name": "Icon", "image": "art:sim/icon_cart", "fit": "fit", "size": [70, 70], "pos": [10, "50%-6"], "anchor": "left", "z": 4 },
+       {"type": "label", "name": "Txt", "text": "SHOP", "size": [250, 50], "pos": [90, "50%-5"], "anchor": "left", "lettering": {"size": 57}}
+      ]
+     },
+     { "type": "imagebutton", "name": "Close", "plate": "close", "size": [68, 68], "pos": ["100%-6", -6], "anchor": "topright", "z": 4,
+       "motion": { "enter": { "type": "pop", "delay": 0.3 }, "hover": "grow", "press": "sink" } },
+
+     {
+      "type": "panel", "name": "Tabs", "size": ["100%-80", 56], "pos": [40, 70],
+      "layout": { "dir": "horizontal", "gap": 12, "align": "center", "justify": "start" },
+      "motion": { "stagger": 0.05 },
+      "children": [
+       { "type": "button", "name": "TabFeatured", "text": "FEATURED", "plate": "pill_accent", "shadow": true, "role": "heading", "textSize": 20, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": [170, 50],
+         "motion": { "enter": "bounce", "hover": "grow", "press": "sink" } },
+       { "type": "button", "name": "TabCoins", "text": "COINS", "plate": "pill_panel", "role": "heading", "textSize": 20, "textColor": "textDark", "size": [150, 50],
+         "motion": { "enter": "bounce", "hover": "grow", "press": "sink" } },
+       { "type": "button", "name": "TabGems", "text": "GEMS", "plate": "pill_panel", "role": "heading", "textSize": 20, "textColor": "textDark", "size": [150, 50],
+         "motion": { "enter": "bounce", "hover": "grow", "press": "sink" } },
+       { "type": "button", "name": "TabBoosts", "text": "BOOSTS", "plate": "pill_panel", "role": "heading", "textSize": 20, "textColor": "textDark", "size": [150, 50],
+         "motion": { "enter": "bounce", "hover": "grow", "press": "sink" } },
+       { "type": "button", "name": "TabPasses", "text": "PASSES", "plate": "pill_panel", "role": "heading", "textSize": 20, "textColor": "textDark", "size": [150, 50],
+         "at": { "phone": { "visible": false } },
+         "motion": { "enter": "bounce", "hover": "grow", "press": "sink" } }
+      ]
+     },
+
+     {
+      "type": "panel", "name": "Featured", "plate": "card_legendary", "shadow": true, "size": [380, "100%-170"], "pos": [40, 140],
+      "at": { "phone": { "visible": false } },
+      "motion": { "enter": { "type": "bounce", "delay": 0.2, "duration": 0.6 } },
+      "children": [
+       { "type": "label", "name": "Name", "text": "STARTER PACK", "role": "heading", "textSize": 26, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": ["100%", 40], "pos": [0, 16] },
+       { "type": "plate", "name": "Glow", "plate": "burst", "size": [300, 300], "pos": ["50%", 190], "anchor": "center", "imageAlpha": 0.25,
+         "motion": { "loop": { "type": "spin", "speed": 0.15 } } },
+       { "type": "image", "name": "Icon", "image": "art:sim/icon_chest", "fit": "fit", "size": [210, 210], "pos": ["50%", 190], "anchor": "center",
+         "motion": { "loop": { "type": "float", "speed": 0.9 } } },
+       { "type": "panel", "name": "Tag", "plate": "pill_danger", "shadow": true, "size": [140, 44], "pos": ["100%-10", 92], "anchor": "center", "rotation": 12, "z": 4,
+         "motion": { "loop": { "type": "wobble", "speed": 0.9 } },
+         "children": [ { "type": "label", "name": "Txt", "text": "x3 VALUE", "role": "heading", "textSize": 20, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": ["100%", "100%"] } ] },
+       { "type": "panel", "name": "Items", "size": ["100%-40", 120], "pos": ["50%", 320], "anchor": "top",
+         "layout": { "dir": "vertical", "gap": 2, "align": "center", "justify": "start" },
+         "children": [
+          { "type": "stat", "name": "I1", "label": "Coins", "value": "50,000", "textColor": "textDark", "valueColor": "accent2", "textOutline": "line", "height": 36, "textSize": 22 },
+          { "type": "stat", "name": "I2", "label": "Gems", "value": "500", "textColor": "textDark", "valueColor": "focus", "textOutline": "line", "height": 36, "textSize": 22 },
+          { "type": "stat", "name": "I3", "label": "Dragon pet", "value": "x1", "textColor": "textDark", "valueColor": "purple", "textOutline": "line", "height": 36, "textSize": 22 }
+         ] },
+       { "type": "label", "name": "Was", "text": "WAS R$ 1,199", "role": "body", "textSize": 20, "textColor": "textDark", "size": ["100%", 24], "pos": ["50%", "100%-86"], "anchor": "bottom" },
+       { "type": "button", "name": "Buy", "text": "R$ 399", "plate": "pill_good", "shadow": true, "role": "heading", "textSize": 28, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3,
+         "size": [240, 64], "pos": ["50%", "100%-16"], "anchor": "bottom",
+         "motion": { "hover": "grow", "press": "sink", "loop": { "type": "pulse", "speed": 0.7 } } }
+      ]
+     },
+
+     {
+      "type": "scroll", "name": "Grid", "size": ["100%-480", "100%-170"], "pos": [448, 140],
+      "at": { "phone": { "size": ["100%-60", "100%-150"], "pos": [30, 130] } },
+      "layout": { "grid": [210, 262], "gap": 18 },
+      "motion": { "stagger": 0.06 },
+      "children": [
+       { "type": "panel", "name": "Pack1", "rarity": "common", "shadow": true, "size": [210, 262], "motion": { "enter": "bounce", "hover": "grow" },
+         "children": [
+          { "type": "label", "name": "Name", "text": "COIN POUCH", "role": "heading", "textSize": 18, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": ["100%", 34], "pos": [0, 12] },
+          { "type": "image", "name": "Icon", "image": "art:sim/icon_coin", "fit": "fit", "size": [104, 104], "pos": ["50%", 62], "anchor": "top" },
+          { "type": "label", "name": "Amount", "text": "1,000 COINS", "role": "heading", "textSize": 20, "textColor": "textDark", "size": ["100%", 28], "pos": [0, 172] },
+          { "type": "button", "name": "Buy", "text": "R$ 49", "plate": "pill_good", "shadow": true, "role": "heading", "textSize": 20, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": [150, 46], "pos": ["50%", "100%-12"], "anchor": "bottom", "motion": { "hover": "grow", "press": "sink" } }
+         ] },
+       { "type": "panel", "name": "Pack2", "rarity": "uncommon", "shadow": true, "size": [210, 262], "motion": { "enter": "bounce", "hover": "grow" },
+         "children": [
+          { "type": "label", "name": "Name", "text": "COIN BAG", "role": "heading", "textSize": 18, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": ["100%", 34], "pos": [0, 12] },
+          { "type": "image", "name": "Icon", "image": "art:sim/icon_coin", "fit": "fit", "size": [104, 104], "pos": ["50%", 62], "anchor": "top" },
+          { "type": "label", "name": "Amount", "text": "5,500 COINS", "role": "heading", "textSize": 20, "textColor": "textDark", "size": ["100%", 28], "pos": [0, 172] },
+          { "type": "button", "name": "Buy", "text": "R$ 199", "plate": "pill_good", "shadow": true, "role": "heading", "textSize": 20, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": [150, 46], "pos": ["50%", "100%-12"], "anchor": "bottom", "motion": { "hover": "grow", "press": "sink" } }
+         ] },
+       { "type": "panel", "name": "Pack3", "rarity": "rare", "shadow": true, "size": [210, 262], "motion": { "enter": "bounce", "hover": "grow" },
+         "children": [
+          { "type": "label", "name": "Name", "text": "COIN CHEST", "role": "heading", "textSize": 18, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": ["100%", 34], "pos": [0, 12] },
+          { "type": "image", "name": "Icon", "image": "art:sim/icon_chest", "fit": "fit", "size": [104, 104], "pos": ["50%", 62], "anchor": "top" },
+          { "type": "label", "name": "Amount", "text": "30,000 COINS", "role": "heading", "textSize": 20, "textColor": "textDark", "size": ["100%", 28], "pos": [0, 172] },
+          { "type": "panel", "name": "Bonus", "plate": "pill_danger", "size": [92, 32], "pos": ["100%-6", 40], "anchor": "center", "rotation": 10, "z": 4,
+            "children": [ { "type": "label", "name": "Txt", "text": "+20%", "role": "heading", "textSize": 16, "textColor": "text", "textOutline": "line", "textOutlineWidth": 2, "size": ["100%", "100%"] } ] },
+          { "type": "button", "name": "Buy", "text": "R$ 799", "plate": "pill_good", "shadow": true, "role": "heading", "textSize": 20, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": [150, 46], "pos": ["50%", "100%-12"], "anchor": "bottom", "motion": { "hover": "grow", "press": "sink" } }
+         ] },
+       { "type": "panel", "name": "Gem1", "rarity": "rare", "shadow": true, "size": [210, 262], "motion": { "enter": "bounce", "hover": "grow" },
+         "children": [
+          { "type": "label", "name": "Name", "text": "GEM POUCH", "role": "heading", "textSize": 18, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": ["100%", 34], "pos": [0, 12] },
+          { "type": "image", "name": "Icon", "image": "art:sim/icon_gem", "fit": "fit", "size": [104, 104], "pos": ["50%", 62], "anchor": "top" },
+          { "type": "label", "name": "Amount", "text": "100 GEMS", "role": "heading", "textSize": 20, "textColor": "textDark", "size": ["100%", 28], "pos": [0, 172] },
+          { "type": "button", "name": "Buy", "text": "R$ 99", "plate": "pill_good", "shadow": true, "role": "heading", "textSize": 20, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": [150, 46], "pos": ["50%", "100%-12"], "anchor": "bottom", "motion": { "hover": "grow", "press": "sink" } }
+         ] },
+       { "type": "panel", "name": "Gem2", "rarity": "epic", "shadow": true, "size": [210, 262], "motion": { "enter": "bounce", "hover": "grow" },
+         "children": [
+          { "type": "label", "name": "Name", "text": "GEM CRATE", "role": "heading", "textSize": 18, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": ["100%", 34], "pos": [0, 12] },
+          { "type": "image", "name": "Icon", "image": "art:sim/icon_gem", "fit": "fit", "size": [104, 104], "pos": ["50%", 62], "anchor": "top" },
+          { "type": "label", "name": "Amount", "text": "650 GEMS", "role": "heading", "textSize": 20, "textColor": "textDark", "size": ["100%", 28], "pos": [0, 172] },
+          { "type": "panel", "name": "Bonus", "plate": "pill_danger", "size": [92, 32], "pos": ["100%-6", 40], "anchor": "center", "rotation": 10, "z": 4,
+            "children": [ { "type": "label", "name": "Txt", "text": "+30%", "role": "heading", "textSize": 16, "textColor": "text", "textOutline": "line", "textOutlineWidth": 2, "size": ["100%", "100%"] } ] },
+          { "type": "button", "name": "Buy", "text": "R$ 499", "plate": "pill_good", "shadow": true, "role": "heading", "textSize": 20, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": [150, 46], "pos": ["50%", "100%-12"], "anchor": "bottom", "motion": { "hover": "grow", "press": "sink" } }
+         ] },
+       { "type": "panel", "name": "Boost1", "rarity": "epic", "shadow": true, "size": [210, 262], "motion": { "enter": "bounce", "hover": "grow" },
+         "children": [
+          { "type": "label", "name": "Name", "text": "LUCK POTION", "role": "heading", "textSize": 18, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": ["100%", 34], "pos": [0, 12] },
+          { "type": "image", "name": "Icon", "image": "art:sim/icon_potion", "fit": "fit", "size": [104, 104], "pos": ["50%", 62], "anchor": "top" },
+          { "type": "label", "name": "Amount", "text": "x3 LUCK · 30 MIN", "role": "heading", "textSize": 18, "textColor": "textDark", "size": ["100%", 28], "pos": [0, 172] },
+          { "type": "button", "name": "Buy", "text": "250", "plate": "pill_focus", "shadow": true, "role": "heading", "textSize": 20, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": [150, 46], "pos": ["50%", "100%-12"], "anchor": "bottom", "motion": { "hover": "grow", "press": "sink" },
+            "children": [ { "type": "image", "name": "Gem", "image": "art:sim/icon_gem", "fit": "fit", "size": [40, 40], "pos": [8, "50%"], "anchor": "left", "z": 3 } ] }
+         ] }
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}

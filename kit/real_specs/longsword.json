@@ -1,0 +1,44 @@
+[
+ {
+  "object": "longsword",
+  "part": "blade",
+  "dim": "length",
+  "value": 950.0,
+  "unit": "mm",
+  "source": "https://en.wikipedia.org/wiki/Longsword",
+  "kind": "published",
+  "note": "the range's midpoint; the page gives 800-1100 mm",
+  "quote": "a straight double-edged blade of around 80 to 110 cm",
+  "trust": "high",
+  "id": "9c09ed9b",
+  "added": "2026-11-22"
+ },
+ {
+  "object": "longsword",
+  "part": "grip",
+  "dim": "length",
+  "value": 225.0,
+  "unit": "mm",
+  "source": "https://en.wikipedia.org/wiki/Longsword",
+  "kind": "published",
+  "note": "the range's midpoint; the page gives 150-300 mm",
+  "quote": "around 15 to 30 cm",
+  "trust": "high",
+  "id": "3181e7d9",
+  "added": "2026-11-22"
+ },
+ {
+  "object": "longsword",
+  "part": "overall",
+  "dim": "length",
+  "value": 1200.0,
+  "unit": "mm",
+  "source": "https://en.wikipedia.org/wiki/Longsword",
+  "kind": "published",
+  "note": "the infobox range's midpoint: 1000-1400 mm",
+  "quote": "avg. 100\u2013140 cm",
+  "trust": "high",
+  "id": "9cc3c702",
+  "added": "2026-11-22"
+ }
+]

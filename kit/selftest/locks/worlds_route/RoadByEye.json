@@ -1,0 +1,96 @@
+{
+ "_note": "NEGATIVE fixture for the world lane's lock on roads across the land (kit/lib/lanelocks.luau LaneLocks.unsaidRoutes): two paths on the ground (\"HillRoad\", \"Doorstep\") whose typed points together run 200 studs or more and that say neither a \"route\" nor \"route\": false; one that says \"route\": false (\"OldRoad\") is not asked. The lock must name the first two. Never fix.",
+ "name": "RoadByEye",
+ "scale": "r6",
+ "lighting": "noon",
+ "palette": {
+  "stone": {
+   "material": "Slate",
+   "color": [
+    90,
+    90,
+    90
+   ]
+  }
+ },
+ "terrain": [
+  {
+   "ground": {
+    "center": [
+     0,
+     0,
+     0
+    ],
+    "size": [
+     512,
+     512
+    ],
+    "material": "Grass"
+   }
+  }
+ ],
+ "build": [
+  {
+   "path": {
+    "name": "HillRoad",
+    "points": [
+     [
+      -150,
+      0
+     ],
+     [
+      0,
+      40
+     ],
+     [
+      150,
+      0
+     ]
+    ],
+    "width": 8,
+    "mat": "stone",
+    "ground": true,
+    "curve": false
+   }
+  },
+  {
+   "path": {
+    "name": "Doorstep",
+    "points": [
+     [
+      0,
+      0
+     ],
+     [
+      20,
+      0
+     ]
+    ],
+    "width": 8,
+    "mat": "stone",
+    "ground": true,
+    "curve": false
+   }
+  },
+  {
+   "path": {
+    "name": "OldRoad",
+    "points": [
+     [
+      -150,
+      100
+     ],
+     [
+      150,
+      100
+     ]
+    ],
+    "width": 8,
+    "mat": "stone",
+    "ground": true,
+    "curve": false,
+    "route": false
+   }
+  }
+ ]
+}

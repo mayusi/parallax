@@ -1,0 +1,18 @@
+{
+ "_note": "POSITIVE twin of _selftest_lamps.json: the same street, lit on BOTH sides, at the row generator's new lamp default (90 studs apart): each lamp has only its opposite within reach. kit world check passes it.",
+ "name": "SelftestLampsFixed",
+ "scale": "r6",
+ "palette": {
+  "ground": { "material": "Cobblestone", "color": [96, 92, 88] },
+  "iron": { "material": "Metal", "color": [40, 40, 44] },
+  "glow": { "material": "Neon", "color": [255, 196, 120] },
+  "spawn": { "material": "Neon", "color": [80, 220, 120] }
+ },
+ "build": [
+  { "floor": { "name": "Street", "center": [0, 0, 0], "size": [260, 60], "mat": "ground" } },
+  { "row": { "name": "LampsNorth", "points": [[-120, -12], [120, -12]], "item": "lamp", "mat": "iron", "light": "glow" } },
+  { "row": { "name": "LampsSouth", "points": [[-120, 12], [120, 12]], "item": "lamp", "mat": "iron", "light": "glow" } },
+  { "spawn": { "pos": [-100, 0, 0], "mat": "spawn" } },
+  { "spawn": { "pos": [100, 0, 0], "mat": "spawn" } }
+ ]
+}

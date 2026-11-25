@@ -1,0 +1,24 @@
+{
+ "category": "generic",
+ "about": "Any real object without its own category template: the minimum a dossier must hold. Write a category template (kit/knowledge/categories/<name>.json) for a kind of object you will model more than once.",
+ "bar": 70,
+ "min_px_per_mm": 2.0,
+ "frame": {"length": ["overall.length"], "height": ["overall.height"], "width": ["overall.width"]},
+ "facts": ["overall.length", "overall.height", "overall.width"],
+ "views": ["side-left", "front", "top"],
+ "closeups": [],
+ "anatomy_min": 3,
+ "tells_min": 1,
+ "models_min": 1,
+ "weights": {"facts": 30, "views": 30, "closeups": 0, "anatomy": 15, "models": 10, "reviews": 15},
+ "research": [
+  "1 the maker's own page or a museum record of the object (primary): its sizes, quoted (kit dossier fact ... --quote)",
+  "2 a manual, a catalogue or a drawing: its parts and how they join",
+  "3 patents (kit refs patent <number>): design patents draw clean orthographic views",
+  "4 pictures of every side players see (CC: kit refs find; a private asset may use others as measure-only)",
+  "5 what sets this exact object apart from its look-alikes (kit dossier tell)",
+  "6 a reference model if one exists (kit library find)",
+  "7 the owner's own photos when the owner has the object: they count as primary",
+  "never: content farms (kit/knowledge/sources.json); a number nobody can point to"
+ ]
+}

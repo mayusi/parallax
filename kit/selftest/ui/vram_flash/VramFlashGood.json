@@ -1,0 +1,15 @@
+{
+ "name": "VramFlashGood",
+ "about": "selftest control: the same screen done right - one CanvasGroup with panels inside, the hit marker on its own (hidden for real until Ui.flash shows it), a shimmer every 1.2 s, a split every 1.2 s, a glint at speed 0.7 and a flicker at its default",
+ "theme": { "bg": "#101218", "text": "#f0f2f5", "accent": "#e8b04a" },
+ "root": { "type": "panel", "name": "Root", "children": [
+  { "type": "canvas", "name": "Card", "size": [400, 240], "pos": [40, 40], "children": [
+   { "type": "panel", "name": "Inner", "size": [200, 120], "pos": [10, 10] }
+  ] },
+  { "type": "hitmarker", "name": "Hit", "size": 12 },
+  { "type": "label", "name": "Title", "text": "STAGE CLEAR", "textSize": 40, "size": [400, 60], "pos": [40, 320],
+    "fx": [{ "kind": "shimmer", "period": 1.2 }, { "kind": "split", "every": 1.2, "dur": 0.1 }] },
+  { "type": "label", "name": "Sign", "text": "OPEN", "textSize": 28, "size": [200, 40], "pos": [460, 320], "fx": [{ "kind": "flicker" }] },
+  { "type": "button", "name": "Go", "text": "GO", "size": [160, 56], "pos": [40, 400], "motion": { "loop": { "type": "glint", "speed": 0.7 } } }
+ ] }
+}

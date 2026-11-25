@@ -1,0 +1,435 @@
+{
+ "about": "Footsteps + foley: one boot on every surface the world paints (the matrix), walk / run weights, four takes each so a walk never machine-guns; cloth rustle and landings for the Foley runtime. Synth-only first pass: recorded footsteps join as sample layers once the owner approves a library.",
+ "variations": 4,
+ "loudness": -22,
+ "pitch_spread": 0.08,
+ "dna": {
+  "heel": {
+   "role": "body",
+   "source": "noise",
+   "color": "brown",
+   "filter": {
+    "type": "lowpass",
+    "cutoff": 420
+   },
+   "env": {
+    "attack": 0.002,
+    "decay": 0.05,
+    "sustain": 0,
+    "release": 0.02
+   },
+   "gain": 0.8,
+   "weight_gain": 4,
+   "seed": 101
+  },
+  "click": {
+   "role": "transient",
+   "source": "noise",
+   "filter": {
+    "type": "highpass",
+    "cutoff": 2600
+   },
+   "env": {
+    "attack": 0.0003,
+    "decay": 0.006,
+    "sustain": 0,
+    "release": 0.004
+   },
+   "gain": 0.3,
+   "seed": 102
+  },
+  "scuff": {
+   "role": "sweetener",
+   "source": "noise",
+   "color": "pink",
+   "filter": {
+    "type": "bandpass",
+    "cutoff": 2000,
+    "q": 1.0
+   },
+   "env": {
+    "attack": 0.004,
+    "decay": 0.04,
+    "sustain": 0,
+    "release": 0.02
+   },
+   "gain": 0.18
+  }
+ },
+ "fx": {
+  "reverb": 0.05
+ },
+ "gates": {
+  "loudness_spread": 3.0,
+  "surface_min": 1.0
+ },
+ "matrix": {
+  "verb": "step",
+  "base": {
+   "class": "step",
+   "duration": 0.4,
+   "weights": [
+    0.3,
+    0.8
+   ],
+   "pitch_spread": 0.09
+  },
+  "weapons": {
+   "boot": {
+    "use": [
+     "heel",
+     "click",
+     "scuff"
+    ]
+   }
+  },
+  "surfaces": {
+   "grass": {
+    "layers": [
+     {
+      "role": "sweetener",
+      "source": "noise",
+      "filter": {
+       "type": "bandpass",
+       "cutoff": 3000,
+       "q": 0.8
+      },
+      "env": {
+       "attack": 0.01,
+       "decay": 0.09,
+       "sustain": 0,
+       "release": 0.02
+      },
+      "gain": 0.6,
+      "color": "pink",
+      "seed": 201
+     }
+    ]
+   },
+   "dirt": {
+    "layers": [
+     {
+      "role": "sweetener",
+      "source": "noise",
+      "filter": {
+       "type": "bandpass",
+       "cutoff": 1200,
+       "q": 0.9
+      },
+      "env": {
+       "attack": 0.006,
+       "decay": 0.07,
+       "sustain": 0,
+       "release": 0.02
+      },
+      "gain": 0.55,
+      "color": "pink",
+      "seed": 202
+     }
+    ]
+   },
+   "sand": {
+    "use": {
+     "click": {
+      "gain": 0.08
+     }
+    },
+    "layers": [
+     {
+      "role": "sweetener",
+      "source": "noise",
+      "filter": {
+       "type": "lowpass",
+       "cutoff": 1800
+      },
+      "env": {
+       "attack": 0.012,
+       "decay": 0.12,
+       "sustain": 0,
+       "release": 0.02
+      },
+      "gain": 0.55,
+      "color": "pink",
+      "seed": 230
+     }
+    ],
+    "pitch_spread": 0.15
+   },
+   "snow": {
+    "use": {
+     "click": {
+      "gain": 0.05
+     }
+    },
+    "layers": [
+     {
+      "role": "sweetener",
+      "source": "noise",
+      "filter": {
+       "type": "bandpass",
+       "cutoff": 2200,
+       "q": 2
+      },
+      "env": {
+       "attack": 0.02,
+       "decay": 0.12,
+       "sustain": 0,
+       "release": 0.02
+      },
+      "gain": 0.6,
+      "color": "pink",
+      "seed": 204
+     },
+     {
+      "role": "sweetener",
+      "source": "fm",
+      "freq": [
+       900,
+       700
+      ],
+      "ratio": 2.1,
+      "index": 1.5,
+      "env": {
+       "attack": 0.02,
+       "decay": 0.08,
+       "sustain": 0,
+       "release": 0.02
+      },
+      "gain": 0.12
+     }
+    ]
+   },
+   "stone": {
+    "use": {
+     "click": {
+      "gain": 0.7
+     },
+     "heel": {
+      "gain": 0.35
+     },
+     "scuff": {
+      "gain": 0.3
+     }
+    },
+    "layers": [
+     {
+      "role": "sweetener",
+      "source": "modal",
+      "modes": [
+       [
+        1800,
+        0.04,
+        1.0
+       ],
+       [
+        2900,
+        0.03,
+        0.5
+       ],
+       [
+        4100,
+        0.02,
+        0.3
+       ]
+      ],
+      "strike": 0.4,
+      "gain": 0.2
+     },
+     {
+      "role": "body",
+      "source": "noise",
+      "color": "brown",
+      "filter": {
+       "type": "lowpass",
+       "cutoff": 380
+      },
+      "env": {
+       "attack": 0.002,
+       "decay": 0.045,
+       "sustain": 0,
+       "release": 0.02
+      },
+      "gain": 0.6,
+      "weight_gain": 4,
+      "seed": 260
+     }
+    ],
+    "fx": {
+     "reverb": 0.0
+    },
+    "duration": 0.3
+   },
+   "wood": {
+    "layers": [
+     {
+      "role": "body",
+      "source": "modal",
+      "modes": [
+       [
+        220,
+        0.12,
+        1.0
+       ],
+       [
+        540,
+        0.08,
+        0.5
+       ],
+       [
+        960,
+        0.05,
+        0.3
+       ]
+      ],
+      "strike": 0.5,
+      "gain": 0.6
+     }
+    ]
+   },
+   "metal": {
+    "layers": [
+     {
+      "role": "tail",
+      "source": "modal",
+      "modes": [
+       [
+        1240,
+        0.4,
+        1.0
+       ],
+       [
+        3100,
+        0.25,
+        0.5
+       ],
+       [
+        5200,
+        0.15,
+        0.3
+       ]
+      ],
+      "strike": 0.3,
+      "gain": 0.35
+     },
+     {
+      "role": "sweetener",
+      "source": "noise",
+      "filter": {
+       "type": "bandpass",
+       "cutoff": 3800,
+       "q": 1.5
+      },
+      "env": {
+       "attack": 0.003,
+       "decay": 0.05,
+       "sustain": 0,
+       "release": 0.02
+      },
+      "gain": 0.25
+     }
+    ],
+    "duration": 0.8,
+    "pitch_spread": 0.15
+   },
+   "water": {
+    "use": {
+     "click": {
+      "gain": 0.05
+     },
+     "heel": {
+      "gain": 0.4
+     }
+    },
+    "layers": [
+     {
+      "role": "sweetener",
+      "source": "noise",
+      "filter": {
+       "type": "bandpass",
+       "cutoff": [
+        2500,
+        900
+       ],
+       "q": 0.9
+      },
+      "env": {
+       "attack": 0.005,
+       "decay": 0.18,
+       "sustain": 0,
+       "release": 0.02
+      },
+      "gain": 0.8,
+      "color": "pink"
+     }
+    ],
+    "duration": 0.6
+   }
+  }
+ },
+ "members": {
+  "cloth_rustle": {
+   "class": "foley",
+   "duration": 0.35,
+   "loudness": -28,
+   "layers": [
+    {
+     "role": "body",
+     "source": "noise",
+     "filter": {
+      "type": "bandpass",
+      "cutoff": 1500,
+      "q": 0.7
+     },
+     "env": {
+      "attack": 0.03,
+      "decay": 0.15,
+      "sustain": 0,
+      "release": 0.02
+     },
+     "gain": 0.5,
+     "color": "pink"
+    }
+   ]
+  },
+  "land": {
+   "class": "land",
+   "duration": 0.6,
+   "weights": [
+    0.3,
+    0.9
+   ],
+   "use": {
+    "heel": {
+     "gain": 1.0,
+     "env": {
+      "attack": 0.002,
+      "decay": 0.12,
+      "sustain": 0,
+      "release": 0.05
+     },
+     "weight_gain": 6
+    },
+    "click": {}
+   },
+   "layers": [
+    {
+     "role": "sub",
+     "source": "sine",
+     "freq": [
+      80,
+      45
+     ],
+     "env": {
+      "attack": 0.002,
+      "decay": 0.14,
+      "sustain": 0,
+      "release": 0.05
+     },
+     "gain": 0.4,
+     "min_weight": 0.4,
+     "weight_gain": 6
+    }
+   ]
+  }
+ }
+}

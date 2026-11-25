@@ -1,0 +1,89 @@
+{
+ "_note": "POSITIVE twin of _selftest_zfight: the same court with a HOUSE built on it by the building generator (its ground floor's boards World.GROUND_LIFT over the court's floor) must PASS kit world check with no z-fighting.",
+ "name": "SelftestZFightFixed",
+ "palette": {
+  "court": {
+   "material": "Slate",
+   "color": [
+    58,
+    62,
+    70
+   ]
+  },
+  "wood": {
+   "material": "WoodPlanks",
+   "color": [
+    120,
+    80,
+    50
+   ]
+  },
+  "stone": {
+   "material": "Limestone",
+   "color": [
+    150,
+    146,
+    136
+   ]
+  },
+  "spawn": {
+   "material": "Slate",
+   "color": [
+    58,
+    62,
+    70
+   ]
+  }
+ },
+ "build": [
+  {
+   "floor": {
+    "name": "Court",
+    "center": [
+     0,
+     0,
+     0
+    ],
+    "size": [
+     80,
+     80
+    ],
+    "mat": "court"
+   }
+  },
+  {
+   "building": {
+    "name": "House",
+    "center": [
+     -20,
+     0,
+     0
+    ],
+    "size": [
+     20,
+     22
+    ],
+    "floors": 2,
+    "floorHeight": 14,
+    "mat": "stone",
+    "slab": "wood",
+    "roof": "flat",
+    "door": {
+     "side": "E",
+     "width": 5,
+     "height": 8
+    }
+   }
+  },
+  {
+   "spawn": {
+    "pos": [
+     20,
+     0,
+     20
+    ],
+    "mat": "spawn"
+   }
+  }
+ ]
+}

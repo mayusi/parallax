@@ -1,0 +1,164 @@
+{
+ "_note": "POSITIVE fixture: a town on a slope (\"slope\": rise 6 studs in 100 toward the north) - tilted ground cut round the houses, each house level at its own door's height, a market, dressed yards and lamps on the hillside. kit world check must pass: every door reached, every lane as wide as the sheet asks.",
+ "name": "SelftestTownSlope",
+ "scale": "r6",
+ "palette": {
+  "cobble": {
+   "material": "Cobblestone",
+   "color": [
+    84,
+    82,
+    80
+   ]
+  },
+  "pave": {
+   "material": "Slate",
+   "color": [
+    98,
+    96,
+    94
+   ]
+  },
+  "flag": {
+   "material": "Pavement",
+   "color": [
+    110,
+    106,
+    100
+   ]
+  },
+  "plaster": {
+   "material": "Concrete",
+   "color": [
+    150,
+    140,
+    124
+   ]
+  },
+  "brick": {
+   "material": "Brick",
+   "color": [
+    112,
+    84,
+    72
+   ]
+  },
+  "slate": {
+   "material": "Slate",
+   "color": [
+    58,
+    60,
+    68
+   ]
+  },
+  "hall": {
+   "material": "Limestone",
+   "color": [
+    168,
+    160,
+    146
+   ]
+  },
+  "spawn": {
+   "material": "Neon",
+   "color": [
+    80,
+    220,
+    120
+   ]
+  },
+  "iron": {
+   "material": "Metal",
+   "color": [
+    40,
+    40,
+    44
+   ]
+  },
+  "glow": {
+   "material": "Neon",
+   "color": [
+    255,
+    214,
+    160
+   ]
+  },
+  "timber": {
+   "material": "Wood",
+   "color": [
+    96,
+    72,
+    48
+   ]
+  },
+  "cloth": {
+   "material": "Fabric",
+   "color": [
+    150,
+    60,
+    50
+   ]
+  }
+ },
+ "objectives": [
+  {
+   "name": "Square",
+   "pos": [
+    0,
+    1,
+    0
+   ],
+   "radius": 12
+  }
+ ],
+ "build": [
+  {
+   "town": {
+    "name": "Town",
+    "center": [
+     0,
+     0,
+     0
+    ],
+    "area": [
+     320,
+     320
+    ],
+    "seed": 1,
+    "gates": [
+     "S",
+     "N"
+    ],
+    "square": {
+     "at": [
+      0,
+      0
+     ]
+    },
+    "mats": {
+     "street": "cobble",
+     "square": "flag",
+     "block": "pave",
+     "wall": "plaster",
+     "wallAlt": "brick",
+     "roof": "slate",
+     "landmark": "hall",
+     "spawn": "spawn",
+     "lamp": "iron",
+     "lampLight": "glow",
+     "stall": "timber",
+     "cloth": "cloth"
+    },
+    "bend": 0,
+    "spawns": 2,
+    "lamps": true,
+    "market": true,
+    "yards": true,
+    "slope": {
+     "rise": 6,
+     "toward": "N"
+    }
+   }
+  }
+ ]
+}

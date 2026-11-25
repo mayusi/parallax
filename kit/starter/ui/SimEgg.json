@@ -1,0 +1,153 @@
+{
+ "name": "SimEgg",
+ "identity": "sim",
+ "quality": "hero",
+ "focus": "Egg.Title.Txt",
+ "kind": "menu",
+ "enabled": false,
+ "insets": "none",
+ "scale": { "phone": 0.5, "tablet": 0.75 },
+ "root": {
+  "type": "panel",
+  "name": "Egg",
+  "size": ["100%", "100%"],
+  "color": "bg",
+  "transparency": 0.5,
+  "children": [
+   { "type": "plate", "name": "Rays", "plate": "burst", "size": [1300, 1300], "pos": ["50%", "52%"], "anchor": "center", "imageAlpha": 0.35, "color": "accent",
+     "motion": { "enter": { "type": "fade", "duration": 0.8 }, "loop": { "type": "spin", "speed": 0.1 } } },
+
+   { "type": "imagebutton", "name": "Close", "plate": "close", "size": [72, 72], "pos": ["100%-40", 40], "anchor": "topright", "z": 4,
+     "motion": { "enter": { "type": "pop", "delay": 0.3 }, "hover": "grow", "press": "sink" } },
+
+   {
+    "type": "panel", "name": "Wallet", "plate": "pill_panel", "shadow": true, "size": [270, 70], "pos": [40, 40],
+    "motion": { "enter": { "type": "sweep", "delay": 0.2, "duration": 0.6 } },
+    "children": [
+     { "type": "image", "name": "Icon", "image": "art:sim/icon_gem", "fit": "fit", "size": [90, 90], "pos": [-24, "50%"], "anchor": "left", "z": 3 },
+     { "type": "counter", "name": "Value", "value": 318, "format": "short", "role": "number", "textSize": 38, "textColor": "textDark", "size": [150, 48], "pos": [72, "50%"], "anchor": "left", "align": "left" }
+    ]
+   },
+
+   {
+    "type": "panel", "name": "Title", "plate": "banner_pink", "shadow": true, "size": [520, 96], "pos": ["50%", 36], "anchor": "top", "z": 3,
+    "motion": { "enter": { "type": "drop", "duration": 0.5, "ease": "back" } },
+    "children": [
+     {"type": "label", "name": "Txt", "text": "SPOTTED EGG", "size": ["100%", 56], "pos": ["50%", "50%-5"], "anchor": "center", "lettering": {"size": 64}}
+    ]
+   },
+
+   {
+    "type": "panel", "name": "Stage", "size": [460, 460], "pos": ["50%", "50%"], "anchor": "center",
+    "motion": { "enter": { "type": "bounce", "delay": 0.1, "duration": 0.7 } },
+    "children": [
+     { "type": "image", "name": "EggArt", "image": "art:sim/icon_egg", "fit": "fit", "size": [420, 420], "pos": ["50%", "50%"], "anchor": "center",
+       "motion": { "loop": { "type": "wobble", "speed": 0.5 } } },
+     { "type": "panel", "name": "Luck", "plate": "pill_accent", "shadow": true, "size": [230, 54], "pos": ["100%-30", 50], "anchor": "center", "rotation": 12, "z": 4,
+       "motion": { "loop": { "type": "wobble", "speed": 0.8 } },
+       "children": [
+        { "type": "image", "name": "Icon", "image": "art:sim/icon_clock", "fit": "fit", "size": [48, 48], "pos": [6, "50%"], "anchor": "left", "z": 4 },
+        { "type": "label", "name": "Txt", "text": "x3 LUCK ON", "role": "heading", "textSize": 22, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": [160, 32], "pos": [58, "50%"], "anchor": "left", "align": "left" }
+       ] }
+    ]
+   },
+
+   {
+    "type": "panel", "name": "Actions", "size": [820, 110], "pos": ["50%", "100%-44"], "anchor": "bottom",
+    "at": { "phone": { "pos": ["50%", "100%-12"] } },
+    "layout": { "dir": "horizontal", "gap": 24, "align": "center", "justify": "center" },
+    "motion": { "stagger": 0.08 },
+    "children": [
+     { "type": "button", "name": "Hatch1", "text": "HATCH 1", "plate": "pill_good", "shadow": true, "role": "heading", "textSize": 32, "textColor": "text", "textOutline": "line", "textOutlineWidth": 4, "size": [300, 92], "align": "left",
+       "motion": { "enter": "bounce", "hover": "grow", "press": "sink" },
+       "children": [
+        { "type": "panel", "name": "Price", "plate": "pill_panel", "size": [126, 48], "pos": ["100%-14", "50%"], "anchor": "right", "z": 3,
+          "children": [
+           { "type": "image", "name": "Gem", "image": "art:sim/icon_gem", "fit": "fit", "size": [44, 44], "pos": [-2, "50%"], "anchor": "left", "z": 4 },
+           { "type": "label", "name": "Txt", "text": "250", "role": "heading", "textSize": 24, "textColor": "textDark", "size": [76, 34], "pos": [46, "50%"], "anchor": "left", "align": "left" }
+          ] }
+       ] },
+     { "type": "button", "name": "Hatch3", "text": "HATCH 3", "plate": "pill_purple", "shadow": true, "role": "heading", "textSize": 32, "textColor": "text", "textOutline": "line", "textOutlineWidth": 4, "size": [300, 92], "align": "left",
+       "motion": { "enter": "bounce", "hover": "grow", "press": "sink", "loop": { "type": "pulse", "speed": 0.6 } },
+       "children": [
+        { "type": "panel", "name": "Price", "plate": "pill_panel", "size": [126, 48], "pos": ["100%-14", "50%"], "anchor": "right", "z": 3,
+          "children": [
+           { "type": "image", "name": "Gem", "image": "art:sim/icon_gem", "fit": "fit", "size": [44, 44], "pos": [-2, "50%"], "anchor": "left", "z": 4 },
+           { "type": "label", "name": "Txt", "text": "700", "role": "heading", "textSize": 24, "textColor": "textDark", "size": [76, 34], "pos": [46, "50%"], "anchor": "left", "align": "left" }
+          ] }
+       ] },
+     { "type": "imagebutton", "name": "Auto", "plate": "pill_panel", "shadow": true, "size": [170, 76],
+       "at": { "phone": { "visible": false } },
+       "motion": { "enter": "bounce", "hover": "grow", "press": "sink" },
+       "children": [
+        { "type": "label", "name": "Txt", "text": "AUTO", "role": "heading", "textSize": 24, "textColor": "textDark", "size": [90, 32], "pos": [18, "50%"], "anchor": "left", "align": "left" },
+        { "type": "plate", "name": "Knob", "plate": "badge_panel", "size": [60, 60], "pos": ["100%-8", "50%"], "anchor": "right", "z": 3, "imageColor": "panel2" }
+       ] }
+    ]
+   },
+
+   {
+    "type": "panel", "name": "Chances", "plate": "bubble_panel", "shadow": true, "size": [400, 500], "pos": [330, "52%"], "anchor": "left",
+    "at": { "phone": { "size": [330, 420], "pos": [16, "56%"] } },
+    "motion": { "enter": { "type": "sweep", "delay": 0.2, "duration": 0.6 } },
+    "children": [
+     { "type": "panel", "name": "Head", "plate": "banner_focus", "shadow": true, "size": [250, 62], "pos": ["50%", -24], "anchor": "top", "z": 3,
+       "children": [ { "type": "label", "name": "Txt", "text": "CHANCES", "role": "heading", "textSize": 28, "textColor": "text", "textOutline": "line", "textOutlineWidth": 4, "size": ["100%", 34], "pos": ["50%", "50%-3"], "anchor": "center" } ] },
+     { "type": "panel", "name": "Rows", "size": ["100%-44", 420], "pos": ["50%", 60], "anchor": "top",
+       "layout": { "dir": "vertical", "gap": 6, "align": "center", "justify": "start" },
+       "motion": { "stagger": 0.05 },
+       "children": [
+        { "type": "panel", "name": "C1", "size": ["100%", 76], "motion": { "enter": "fade" }, "children": [
+          { "type": "image", "name": "Icon", "image": "art:sim/icon_pet_cat", "fit": "fit", "size": [66, 66], "pos": [0, "50%"], "anchor": "left" },
+          { "type": "label", "name": "Name", "text": "Cat", "role": "body", "textSize": 26, "textColor": "textDark", "size": [150, 34], "pos": [76, "50%"], "anchor": "left", "align": "left", "at": {"phone": {"size": [110, 34], "textSize": 22}} },
+          { "type": "panel", "name": "Pct", "plate": "pill_panel", "size": [110, 46], "pos": ["100%", "50%"], "anchor": "right",
+            "children": [ { "type": "label", "name": "Txt", "text": "60%", "role": "heading", "textSize": 22, "textColor": "textDark", "size": ["100%", "100%"] } ] }
+         ] },
+        { "type": "panel", "name": "C2", "size": ["100%", 76], "motion": { "enter": "fade" }, "children": [
+          { "type": "image", "name": "Icon", "image": "art:sim/icon_pet_dog", "fit": "fit", "size": [66, 66], "pos": [0, "50%"], "anchor": "left" },
+          { "type": "label", "name": "Name", "text": "Puppy", "role": "body", "textSize": 26, "textColor": "textDark", "size": [150, 34], "pos": [76, "50%"], "anchor": "left", "align": "left", "at": {"phone": {"size": [110, 34], "textSize": 22}} },
+          { "type": "panel", "name": "Pct", "plate": "pill_good", "size": [110, 46], "pos": ["100%", "50%"], "anchor": "right",
+            "children": [ { "type": "label", "name": "Txt", "text": "25%", "role": "heading", "textSize": 22, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": ["100%", "100%"] } ] }
+         ] },
+        { "type": "panel", "name": "C3", "size": ["100%", 76], "motion": { "enter": "fade" }, "children": [
+          { "type": "image", "name": "Icon", "image": "art:sim/icon_pet_cat", "fit": "fit", "size": [66, 66], "pos": [0, "50%"], "anchor": "left" },
+          { "type": "label", "name": "Name", "text": "Royal Cat", "role": "body", "textSize": 26, "textColor": "textDark", "size": [170, 34], "pos": [76, "50%"], "anchor": "left", "align": "left", "at": {"phone": {"size": [110, 34], "textSize": 22}} },
+          { "type": "panel", "name": "Pct", "plate": "pill_focus", "size": [110, 46], "pos": ["100%", "50%"], "anchor": "right",
+            "children": [ { "type": "label", "name": "Txt", "text": "10%", "role": "heading", "textSize": 22, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": ["100%", "100%"] } ] }
+         ] },
+        { "type": "panel", "name": "C4", "size": ["100%", 76], "motion": { "enter": "fade" }, "children": [
+          { "type": "image", "name": "Icon", "image": "art:sim/icon_pet_dragon", "fit": "fit", "size": [66, 66], "pos": [0, "50%"], "anchor": "left" },
+          { "type": "label", "name": "Name", "text": "Dragon", "role": "body", "textSize": 26, "textColor": "textDark", "size": [150, 34], "pos": [76, "50%"], "anchor": "left", "align": "left", "at": {"phone": {"size": [110, 34], "textSize": 22}} },
+          { "type": "panel", "name": "Pct", "plate": "pill_purple", "size": [110, 46], "pos": ["100%", "50%"], "anchor": "right",
+            "children": [ { "type": "label", "name": "Txt", "text": "4.5%", "role": "heading", "textSize": 22, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": ["100%", "100%"] } ] }
+         ] },
+        { "type": "panel", "name": "C5", "size": ["100%", 76], "motion": { "enter": "fade" }, "children": [
+          { "type": "image", "name": "Icon", "image": "art:sim/icon_crown", "fit": "fit", "size": [66, 66], "pos": [0, "50%"], "anchor": "left" },
+          { "type": "label", "name": "Name", "text": "King Dragon", "role": "body", "textSize": 26, "textColor": "textDark", "size": [180, 34], "pos": [76, "50%"], "anchor": "left", "align": "left", "at": {"phone": {"size": [110, 56], "textSize": 22}} },
+          { "type": "panel", "name": "Pct", "plate": "pill_accent", "size": [110, 46], "pos": ["100%", "50%"], "anchor": "right",
+            "motion": { "loop": { "type": "pulse", "speed": 0.8 } },
+            "children": [ { "type": "label", "name": "Txt", "text": "0.5%", "role": "heading", "textSize": 22, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": ["100%", "100%"] } ] }
+         ] }
+       ] }
+    ]
+   },
+
+   {
+    "type": "panel", "name": "Owned", "plate": "bubble_panel", "shadow": true, "size": [330, 300], "pos": ["100%-330", "52%"], "anchor": "left",
+    "at": { "phone": { "visible": false } },
+    "motion": { "enter": { "type": "sweep", "delay": 0.3, "duration": 0.6 } },
+    "children": [
+     { "type": "panel", "name": "Head", "plate": "banner_purple", "shadow": true, "size": [230, 62], "pos": ["50%", -24], "anchor": "top", "z": 3,
+       "children": [ { "type": "label", "name": "Txt", "text": "FROM THIS EGG", "role": "heading", "textSize": 22, "textColor": "text", "textOutline": "line", "textOutlineWidth": 4, "size": ["100%", 30], "pos": ["50%", "50%-3"], "anchor": "center" } ] },
+     { "type": "panel", "name": "Rows", "size": ["100%-44", 200], "pos": ["50%", 60], "anchor": "top",
+       "layout": { "dir": "vertical", "gap": 6, "align": "center", "justify": "start" },
+       "children": [
+        { "type": "stat", "name": "O1", "label": "Hatched", "value": "47", "textColor": "textDark", "valueColor": "textDark", "height": 44, "textSize": 24, "valueWidth": "34%" },
+        { "type": "stat", "name": "O2", "label": "Best pet", "value": "Dragon", "textColor": "textDark", "valueColor": "purple", "textOutline": "line", "height": 44, "textSize": 24, "valueWidth": "44%" },
+        { "type": "stat", "name": "O3", "label": "Luck", "value": "x3", "textColor": "textDark", "valueColor": "accent2", "textOutline": "line", "height": 44, "textSize": 24, "valueWidth": "34%" }
+       ] }
+    ]
+   }
+  ]
+ }
+}

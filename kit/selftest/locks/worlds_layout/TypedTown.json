@@ -1,0 +1,263 @@
+{
+ "_note": "NEGATIVE fixture for the world lane's LAYOUT lock (kit/lib/lanelocks.luau LaneLocks.world): 12 houses typed one by one and no \"town\" step. The lock must name it. Never fix.",
+ "name": "TypedTown",
+ "scale": "r6",
+ "build": [
+  {
+   "floor": {
+    "name": "Ground",
+    "center": [
+     0,
+     -1,
+     0
+    ],
+    "size": [
+     400,
+     200
+    ],
+    "thickness": 2,
+    "mat": "ground"
+   }
+  },
+  {
+   "building": {
+    "name": "House 1",
+    "center": [
+     -165,
+     0,
+     30
+    ],
+    "size": [
+     20,
+     24
+    ],
+    "floors": 2,
+    "mat": "wall",
+    "door": {
+     "side": "S"
+    },
+    "skin": "gh_house"
+   }
+  },
+  {
+   "building": {
+    "name": "House 2",
+    "center": [
+     -135,
+     0,
+     -30
+    ],
+    "size": [
+     20,
+     24
+    ],
+    "floors": 2,
+    "mat": "wall",
+    "door": {
+     "side": "S"
+    },
+    "skin": "gh_house"
+   }
+  },
+  {
+   "building": {
+    "name": "House 3",
+    "center": [
+     -105,
+     0,
+     30
+    ],
+    "size": [
+     20,
+     24
+    ],
+    "floors": 2,
+    "mat": "wall",
+    "door": {
+     "side": "S"
+    },
+    "skin": "gh_house"
+   }
+  },
+  {
+   "building": {
+    "name": "House 4",
+    "center": [
+     -75,
+     0,
+     -30
+    ],
+    "size": [
+     20,
+     24
+    ],
+    "floors": 2,
+    "mat": "wall",
+    "door": {
+     "side": "S"
+    },
+    "skin": "gh_house"
+   }
+  },
+  {
+   "building": {
+    "name": "House 5",
+    "center": [
+     -45,
+     0,
+     30
+    ],
+    "size": [
+     20,
+     24
+    ],
+    "floors": 2,
+    "mat": "wall",
+    "door": {
+     "side": "S"
+    },
+    "skin": "gh_house"
+   }
+  },
+  {
+   "building": {
+    "name": "House 6",
+    "center": [
+     -15,
+     0,
+     -30
+    ],
+    "size": [
+     20,
+     24
+    ],
+    "floors": 2,
+    "mat": "wall",
+    "door": {
+     "side": "S"
+    },
+    "skin": "gh_house"
+   }
+  },
+  {
+   "building": {
+    "name": "House 7",
+    "center": [
+     15,
+     0,
+     30
+    ],
+    "size": [
+     20,
+     24
+    ],
+    "floors": 2,
+    "mat": "wall",
+    "door": {
+     "side": "S"
+    },
+    "skin": "gh_house"
+   }
+  },
+  {
+   "building": {
+    "name": "House 8",
+    "center": [
+     45,
+     0,
+     -30
+    ],
+    "size": [
+     20,
+     24
+    ],
+    "floors": 2,
+    "mat": "wall",
+    "door": {
+     "side": "S"
+    },
+    "skin": "gh_house"
+   }
+  },
+  {
+   "building": {
+    "name": "House 9",
+    "center": [
+     75,
+     0,
+     30
+    ],
+    "size": [
+     20,
+     24
+    ],
+    "floors": 2,
+    "mat": "wall",
+    "door": {
+     "side": "S"
+    },
+    "skin": "gh_house"
+   }
+  },
+  {
+   "building": {
+    "name": "House 10",
+    "center": [
+     105,
+     0,
+     -30
+    ],
+    "size": [
+     20,
+     24
+    ],
+    "floors": 2,
+    "mat": "wall",
+    "door": {
+     "side": "S"
+    },
+    "skin": "gh_house"
+   }
+  },
+  {
+   "building": {
+    "name": "House 11",
+    "center": [
+     135,
+     0,
+     30
+    ],
+    "size": [
+     20,
+     24
+    ],
+    "floors": 2,
+    "mat": "wall",
+    "door": {
+     "side": "S"
+    },
+    "skin": "gh_house"
+   }
+  },
+  {
+   "building": {
+    "name": "House 12",
+    "center": [
+     165,
+     0,
+     -30
+    ],
+    "size": [
+     20,
+     24
+    ],
+    "floors": 2,
+    "mat": "wall",
+    "door": {
+     "side": "S"
+    },
+    "skin": "gh_house"
+   }
+  }
+ ]
+}

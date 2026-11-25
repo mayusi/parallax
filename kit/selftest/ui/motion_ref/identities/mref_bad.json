@@ -1,0 +1,79 @@
+{
+ "name": "mref_bad",
+ "about": "selftest identity: its motion was measured from the source game's menu (0.42 s, cubic, 0.08 s apart), then TYPED from taste - 0.18 s slams with a back ease, 0.03 s apart",
+ "world": "a realistic shooter (selftest only)",
+ "tokens": {
+  "bg": "#000000",
+  "text": "#f0f0ec",
+  "muted": "#a0a09c",
+  "accent": "#e0a020",
+  "danger": "#d04030",
+  "good": "#60b050",
+  "warn": "#e0a020",
+  "shadow": "#000000"
+ },
+ "fonts": {
+  "font": "RobotoCondensed",
+  "titleFont": "RobotoCondensed",
+  "monoFont": "RobotoMono"
+ },
+ "shape": {
+  "line": "#000000",
+  "fill": "#0a0c0e",
+  "fill_alpha": 0.5,
+  "width": 1,
+  "corner": "square",
+  "glow": "#f0f0ec",
+  "grain": 0.0,
+  "gloss": 0.0,
+  "shade": 0.0,
+  "shadow": 0,
+  "buttons": [
+   "accent"
+  ]
+ },
+ "minimums": {
+  "text": 14,
+  "button": 44,
+  "icon": 20
+ },
+ "radius": {
+  "s": 0,
+  "m": 0,
+  "l": 0
+ },
+ "bans": [
+  "crosshair: realistic shooters show only a small dot or nothing — no bracketed reticle",
+  "ammo counter: the player can feel the magazine; count down with sound, not a number on screen",
+  "compass / minimap: a tactical map is a separate interaction, not always visible",
+  "scope reticle: belongs inside the weapon's optic, not overlaid on the HUD",
+  "kill feed: a banner row of deaths is a competitive / arcade convention"
+ ],
+ "references": [
+  {
+   "game": "selftest reference (fictional)",
+   "screen": "selftest only — not a real game",
+   "image": "kit/selftest/ui/arcade_in_realistic/refs/dummy.png",
+   "measured": {
+    "bar_px": [
+     120,
+     8
+    ]
+   }
+  }
+ ],
+ "motion": {
+  "enter": {
+   "type": "slam",
+   "duration": 0.18,
+   "ease": "back"
+  },
+  "stagger": 0.03,
+  "measured": {
+   "clip": "menu_open.mp4",
+   "duration": 0.42,
+   "ease": "cubic",
+   "stagger": 0.08
+  }
+ }
+}

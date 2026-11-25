@@ -1,0 +1,41 @@
+[
+ {
+  "object": "fire extinguisher 5 lb abc",
+  "part": "overall",
+  "dim": "height",
+  "value": 387.4,
+  "unit": "mm",
+  "source": "https://origin-www.fishersci.com/shop/products/amerex-5-lb-multipurpose-extinguishers-4/p-39305",
+  "kind": "published",
+  "note": "",
+  "trust": "high",
+  "id": "2c1a8c63",
+  "added": "2026-10-16"
+ },
+ {
+  "object": "fire extinguisher 5 lb abc",
+  "part": "overall",
+  "dim": "height",
+  "value": 387.4,
+  "unit": "mm",
+  "source": "https://www.airgas.com/p/A61B402",
+  "kind": "published",
+  "note": "",
+  "trust": "high",
+  "id": "71c1b5b0",
+  "added": "2026-10-16"
+ },
+ {
+  "object": "fire extinguisher 5 lb abc",
+  "part": "body",
+  "dim": "diameter",
+  "value": 108.0,
+  "unit": "mm",
+  "source": "https://origin-www.fishersci.com/shop/products/amerex-5-lb-multipurpose-extinguishers-4/p-39305",
+  "kind": "published",
+  "note": "",
+  "trust": "high",
+  "id": "d9263fd6",
+  "added": "2026-10-16"
+ }
+]

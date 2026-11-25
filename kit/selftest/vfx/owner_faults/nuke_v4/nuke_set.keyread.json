@@ -1,0 +1,16 @@
+{
+ "set": "nuke_set",
+ "hue": [
+  177.0,
+  213.0
+ ],
+ "key": "3 cauliflower",
+ "scene_frame": "f_00.57.00.png",
+ "scene": {
+  "coverage": 0.1868,
+  "light": 1.0,
+  "layers": 2,
+  "detail": 3.84,
+  "pieces": 1
+ }
+}

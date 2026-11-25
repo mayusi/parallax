@@ -1,0 +1,44 @@
+[
+ {
+  "part": "overall",
+  "dim": "length",
+  "value": 838.2,
+  "unit": "mm",
+  "object": "m4 carbine",
+  "source": "https://en.wikipedia.org/wiki/M4_carbine",
+  "kind": "wikipedia",
+  "note": "infobox 'infobox weapon' (first value given)",
+  "trust": "medium",
+  "id": "b75400af",
+  "added": "2026-10-08",
+  "read_by": "kit"
+ },
+ {
+  "part": "barrel",
+  "dim": "length",
+  "value": 368.3,
+  "unit": "mm",
+  "object": "m4 carbine",
+  "source": "https://en.wikipedia.org/wiki/M4_carbine",
+  "kind": "wikipedia",
+  "note": "infobox 'infobox weapon' (first value given)",
+  "trust": "medium",
+  "id": "b05be82a",
+  "added": "2026-10-08",
+  "read_by": "kit"
+ },
+ {
+  "part": "overall",
+  "dim": "mass",
+  "value": 2.9166,
+  "unit": "kg",
+  "object": "m4 carbine",
+  "source": "https://en.wikipedia.org/wiki/M4_carbine",
+  "kind": "wikipedia",
+  "note": "infobox 'infobox weapon' (first value given)",
+  "trust": "medium",
+  "id": "f21b4748",
+  "added": "2026-10-08",
+  "read_by": "kit"
+ }
+]

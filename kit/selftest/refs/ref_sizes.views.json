@@ -1,0 +1,10 @@
+{
+ "asset": "_selftest_ref_sizes",
+ "note": "a selftest reference (kit refs views' format): a 1000 x 200 mm body with a 40 x 100 mm bracket standing on its top, 600-640 mm from its back, and a 120 x 60 mm knob under its front",
+ "size_mm": [100.0, 300.0, 1000.0],
+ "parts": {
+  "body": {"side": {"along_mm": [0.0, 1000.0], "across_mm": [0.0, 200.0], "size_mm": [1000.0, 200.0]}},
+  "bracket": {"side": {"along_mm": [600.0, 640.0], "across_mm": [200.0, 300.0], "size_mm": [40.0, 100.0]}},
+  "knob": {"side": {"along_mm": [820.0, 940.0], "across_mm": [-60.0, 0.0], "size_mm": [120.0, 60.0]}}
+ }
+}

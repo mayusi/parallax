@@ -1,0 +1,22 @@
+{
+ "duration": 0.06,
+ "fx": {
+  "normalize": -9.0
+ },
+ "layers": [
+  {
+   "source": "sine",
+   "freq": [
+    1300,
+    1500
+   ],
+   "env": {
+    "attack": 0.003,
+    "hold": 0.0,
+    "decay": 0.04,
+    "sustain": 0.0,
+    "release": 0.05
+   }
+  }
+ ]
+}

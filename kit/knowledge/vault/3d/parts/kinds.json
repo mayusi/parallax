@@ -1,0 +1,1204 @@
+{
+ "lane": "3d",
+ "version": 1,
+ "drafted": "2026-11-09 (parts libraries P0): from the words the 3D code and parts reviews already use - the builder calls of kit/blender/rbx.py (import_mesh 57, material 55, extrude 26, cylinder 25, box 24, cad 22, cut 21, tube 17, mirror 16, sphere 16, loft 13, project 9, wedge 9, pillow 5, sculpt 4, decal 4, carve 2, slab / relief / displace / sdf_fuse 1), the CAD revolves, the angle loops (the wine barrel's 30 staves), rbx_parts helpers (bolts 13, bolt 3, screws 2, handle 2, panel_line 2, groove 2, hanging_chain 2, knurl, rivet_ring, gem, weld), the parts reviews' words (barrel, slide, frame, housing, grip, pin, spring, screw, sight, hinge, rail, collar, lug, plate, ring, band...) and the scanned materials (scan=Wood049, Metal027 ...). Changed only when the replay says so.",
+ "axes": {
+  "form": "how it is made",
+  "role": "what it does",
+  "finish": "its surface",
+  "join": "how it is held on"
+ },
+ "look_fields": [
+  "material",
+  "scan",
+  "color",
+  "texture",
+  "pattern",
+  "engraving",
+  "decal",
+  "palette",
+  "ornament"
+ ],
+ "part_axes": [
+  "role"
+ ],
+ "name_words_ignore": [
+  "point",
+  "light",
+  "stand",
+  "stands",
+  "body",
+  "frame",
+  "case",
+  "cover",
+  "bar",
+  "plate",
+  "screen",
+  "catch",
+  "band",
+  "base",
+  "edge",
+  "tip",
+  "head",
+  "ring",
+  "shell",
+  "box",
+  "block",
+  "leg",
+  "legs",
+  "foot",
+  "feet",
+  "mount",
+  "rod",
+  "pull",
+  "window",
+  "door",
+  "lid",
+  "stock",
+  "slide",
+  "glass",
+  "flame",
+  "hold"
+ ],
+ "knowhow_axes": [
+  "form",
+  "role"
+ ],
+ "kinds": [
+  {
+   "id": "turned",
+   "axis": "form",
+   "label": "turned / revolved profile (lathe)",
+   "words": [
+    "turned",
+    "lathe",
+    "revolve",
+    "revolved",
+    "revolved profile",
+    "spun",
+    "turning",
+    "round band",
+    "rotationally symmetric",
+    "profile turned"
+   ],
+   "code": [
+    "\\brevolve\\(",
+    "\\bRevolve\\(",
+    "rbx_lathe",
+    "\\blathe\\(",
+    "[\"']kind[\"']\\s*:\\s*[\"']revolve"
+   ],
+   "siblings": [
+    "swept"
+   ]
+  },
+  {
+   "id": "radial_array",
+   "axis": "form",
+   "label": "copies round a circle (radial array)",
+   "words": [
+    "radial array",
+    "copies round a circle",
+    "evenly round",
+    "evenly spaced around",
+    "around a circle",
+    "spoke",
+    "spokes",
+    "stave",
+    "staves",
+    "bolt circle",
+    "polar array",
+    "radial",
+    "petals",
+    "teeth round"
+   ],
+   "code": [
+    "(?s)for \\w+ in range\\(.{0,240}?(?:radians\\(|math\\.cos|math\\.sin|\\bphi\\b|\\bangle\\b|math\\.tau|2 \\* math\\.pi|\\bstep\\b)",
+    "rivet_ring\\("
+   ],
+   "siblings": [
+    "linear_array"
+   ]
+  },
+  {
+   "id": "linear_array",
+   "axis": "form",
+   "label": "copies along a line",
+   "words": [
+    "row of",
+    "rows of",
+    "copies along",
+    "evenly spaced along",
+    "rungs",
+    "slats",
+    "teeth",
+    "serrations",
+    "ribs along",
+    "array along",
+    "a line of"
+   ],
+   "code": [
+    "(?s)for \\w+ in range\\(.{0,200}?(?:\\* ?pitch|\\* ?gap|\\* ?spacing|\\* ?dx|\\* ?dz)"
+   ],
+   "siblings": [
+    "radial_array"
+   ]
+  },
+  {
+   "id": "mirrored",
+   "axis": "form",
+   "label": "mirrored pair",
+   "words": [
+    "mirrored",
+    "mirror",
+    "left and right",
+    "both sides",
+    "symmetric pair",
+    "pair of"
+   ],
+   "code": [
+    "a\\.mirror\\(",
+    "mirror\\s*=\\s*True"
+   ]
+  },
+  {
+   "id": "extruded",
+   "axis": "form",
+   "label": "extruded outline",
+   "words": [
+    "extruded",
+    "extrude",
+    "extrusion",
+    "flat profile",
+    "side profile",
+    "outline"
+   ],
+   "code": [
+    "a\\.extrude\\(",
+    "\\bextrude\\("
+   ],
+   "siblings": [
+    "boxy"
+   ]
+  },
+  {
+   "id": "lofted",
+   "axis": "form",
+   "label": "lofted between sections",
+   "words": [
+    "lofted",
+    "loft",
+    "sections",
+    "cross sections",
+    "tapering section"
+   ],
+   "code": [
+    "a\\.loft\\(",
+    "\\bloft\\("
+   ],
+   "siblings": [
+    "swept"
+   ]
+  },
+  {
+   "id": "swept",
+   "axis": "form",
+   "label": "swept along a path (tube, rod, wire)",
+   "words": [
+    "swept",
+    "sweep",
+    "tube",
+    "rod",
+    "wire",
+    "pipe",
+    "bent tube",
+    "coil",
+    "hose"
+   ],
+   "code": [
+    "a\\.tube\\(",
+    "\\bsweep\\("
+   ],
+   "siblings": [
+    "turned",
+    "lofted"
+   ]
+  },
+  {
+   "id": "boxy",
+   "axis": "form",
+   "label": "boxy / blocky",
+   "words": [
+    "box",
+    "boxy",
+    "block",
+    "slab",
+    "plank",
+    "cuboid",
+    "rectangular"
+   ],
+   "code": [
+    "a\\.box\\(",
+    "\\bBox\\(",
+    "a\\.slab\\("
+   ],
+   "siblings": [
+    "extruded"
+   ]
+  },
+  {
+   "id": "hollow",
+   "axis": "form",
+   "label": "hollow shell with a wall",
+   "words": [
+    "hollow",
+    "shell",
+    "wall thickness",
+    "thin wall",
+    "not solid",
+    "solidify",
+    "hollowed",
+    "cavity",
+    "housing shell"
+   ],
+   "code": [
+    "[\"']shell[\"']\\s*:",
+    "\\bshell\\s*=",
+    "solidify",
+    "\\bWALL\\b",
+    "\\bwall\\s*="
+   ],
+   "siblings": [
+    "holes"
+   ]
+  },
+  {
+   "id": "holes",
+   "axis": "form",
+   "label": "cut holes and slots",
+   "words": [
+    "hole",
+    "holes",
+    "drilled",
+    "bore",
+    "slot",
+    "slots",
+    "cutout",
+    "cut out",
+    "vent",
+    "vents",
+    "port",
+    "window cut",
+    "lightening holes",
+    "counterbore"
+   ],
+   "code": [
+    "Mode\\.SUBTRACT",
+    "a\\.cut\\(",
+    "\\bHole\\(",
+    "CounterBoreHole",
+    "a\\.carve\\("
+   ],
+   "siblings": [
+    "hollow"
+   ]
+  },
+  {
+   "id": "threaded",
+   "axis": "form",
+   "label": "threaded or knurled",
+   "words": [
+    "thread",
+    "threaded",
+    "knurl",
+    "knurled",
+    "knurling",
+    "screw thread",
+    "grip texture"
+   ],
+   "code": [
+    "knurl\\(",
+    "\\bthread"
+   ]
+  },
+  {
+   "id": "edge_treatment",
+   "axis": "form",
+   "label": "bevelled / chamfered / filleted edges",
+   "words": [
+    "bevel",
+    "bevelled",
+    "beveled",
+    "chamfer",
+    "chamfered",
+    "fillet",
+    "filleted",
+    "rounded edge",
+    "soft edge",
+    "edge wear"
+   ],
+   "code": [
+    "\\bbevel\\s*=",
+    "\\bchamfer\\(",
+    "\\bfillet\\(",
+    "top_chamfer"
+   ]
+  },
+  {
+   "id": "sculpted",
+   "axis": "form",
+   "label": "sculpted / organic",
+   "words": [
+    "sculpt",
+    "sculpted",
+    "organic",
+    "clay",
+    "sdf",
+    "skull",
+    "creature",
+    "face",
+    "muscle"
+   ],
+   "code": [
+    "a\\.sculpt\\(",
+    "sdf_fuse",
+    "a\\.displace\\("
+   ],
+   "siblings": [
+    "generated"
+   ]
+  },
+  {
+   "id": "generated",
+   "axis": "form",
+   "label": "generated mesh, then refined",
+   "words": [
+    "generated",
+    "generator",
+    "trellis",
+    "hunyuan",
+    "import mesh",
+    "scan mesh",
+    "downloaded model",
+    "reference mesh"
+   ],
+   "code": [
+    "a\\.import_mesh\\(",
+    "\\.gen\\.glb"
+   ],
+   "siblings": [
+    "sculpted"
+   ]
+  },
+  {
+   "id": "draped",
+   "axis": "form",
+   "label": "draped cloth",
+   "words": [
+    "cloth",
+    "drape",
+    "draped",
+    "fabric",
+    "coat",
+    "cloak",
+    "cape",
+    "garment",
+    "pillow",
+    "cushion",
+    "banner",
+    "flag"
+   ],
+   "code": [
+    "rbx_garment",
+    "a\\.pillow\\(",
+    "\\bdrape"
+   ]
+  },
+  {
+   "id": "relief",
+   "axis": "form",
+   "label": "relief / engraving / text",
+   "words": [
+    "relief",
+    "engraving",
+    "engraved",
+    "embossed",
+    "carved",
+    "lettering",
+    "text",
+    "inscription",
+    "markings",
+    "logo"
+   ],
+   "code": [
+    "a\\.text\\(",
+    "a\\.relief\\(",
+    "\\bengrav",
+    "a\\.decal\\(",
+    "a\\.project\\("
+   ]
+  },
+  {
+   "id": "grip",
+   "axis": "role",
+   "label": "grip / handle",
+   "words": [
+    "grip",
+    "handle",
+    "hilt",
+    "haft",
+    "stock",
+    "handgrip",
+    "knob",
+    "pull"
+   ],
+   "siblings": [
+    "housing"
+   ]
+  },
+  {
+   "id": "housing",
+   "axis": "role",
+   "label": "housing / body / frame",
+   "words": [
+    "housing",
+    "body",
+    "frame",
+    "receiver",
+    "casing",
+    "case",
+    "shell",
+    "chassis",
+    "slide",
+    "carcass",
+    "cabinet"
+   ],
+   "siblings": [
+    "panel",
+    "base"
+   ]
+  },
+  {
+   "id": "hub",
+   "axis": "role",
+   "label": "hub / axle / boss",
+   "words": [
+    "hub",
+    "axle",
+    "boss",
+    "spindle",
+    "shaft",
+    "centre bore",
+    "center bore",
+    "bearing",
+    "newel"
+   ],
+   "siblings": [
+    "strut"
+   ]
+  },
+  {
+   "id": "strut",
+   "axis": "role",
+   "label": "strut / spoke / rib / bar",
+   "words": [
+    "spoke",
+    "spokes",
+    "strut",
+    "struts",
+    "rib",
+    "ribs",
+    "brace",
+    "stave",
+    "staves",
+    "slat",
+    "rung",
+    "bar",
+    "rod",
+    "baluster",
+    "leg",
+    "legs"
+   ],
+   "siblings": [
+    "hub",
+    "rim"
+   ]
+  },
+  {
+   "id": "rim",
+   "axis": "role",
+   "label": "rim / ring / band",
+   "words": [
+    "rim",
+    "ring",
+    "band",
+    "hoop",
+    "collar",
+    "flange",
+    "barrel band",
+    "tyre",
+    "tire",
+    "wheel"
+   ],
+   "siblings": [
+    "lip",
+    "strut"
+   ]
+  },
+  {
+   "id": "lip",
+   "axis": "role",
+   "label": "lip / raised edge / bead",
+   "words": [
+    "lip",
+    "lips",
+    "raised edge",
+    "raised lip",
+    "bead",
+    "beading",
+    "rolled edge",
+    "rim edge",
+    "moulding",
+    "molding",
+    "cornice",
+    "skirt"
+   ],
+   "siblings": [
+    "rim"
+   ]
+  },
+  {
+   "id": "fastener",
+   "axis": "role",
+   "label": "fastener (bolt, screw, nut, pin, rivet)",
+   "words": [
+    "bolt",
+    "bolts",
+    "screw",
+    "screws",
+    "nut",
+    "nuts",
+    "lug nut",
+    "pin",
+    "pins",
+    "rivet",
+    "rivets",
+    "stud",
+    "washer",
+    "fastener"
+   ],
+   "code": [
+    "P\\.bolts?\\(",
+    "P\\.screws\\(",
+    "rivet_ring\\(",
+    "\\bbolt\\("
+   ],
+   "siblings": [
+    "hinge"
+   ]
+  },
+  {
+   "id": "hinge",
+   "axis": "role",
+   "label": "hinge / pivot / joint",
+   "words": [
+    "hinge",
+    "pivot",
+    "joint",
+    "swivel",
+    "trunnion",
+    "knuckle",
+    "axis pin",
+    "folding"
+   ],
+   "code": [
+    "a\\.joint\\("
+   ],
+   "siblings": [
+    "fastener",
+    "spring"
+   ]
+  },
+  {
+   "id": "spring",
+   "axis": "role",
+   "label": "spring / mechanism part",
+   "words": [
+    "spring",
+    "springs",
+    "plunger",
+    "catch",
+    "latch",
+    "trigger",
+    "hammer",
+    "striker",
+    "sear",
+    "lever",
+    "detent",
+    "mechanism"
+   ],
+   "siblings": [
+    "hinge"
+   ]
+  },
+  {
+   "id": "blade",
+   "axis": "role",
+   "label": "blade / edge / point",
+   "words": [
+    "blade",
+    "cutting edge",
+    "blade edge",
+    "sharp edge",
+    "point",
+    "fuller",
+    "bevel edge",
+    "spike",
+    "knife",
+    "sword"
+   ],
+   "siblings": [
+    "grip"
+   ]
+  },
+  {
+   "id": "tube",
+   "axis": "role",
+   "label": "barrel / tube / pipe / muzzle",
+   "words": [
+    "barrel",
+    "muzzle",
+    "tube",
+    "pipe",
+    "bore",
+    "nozzle",
+    "chimney",
+    "spout",
+    "suppressor",
+    "launch tube"
+   ],
+   "siblings": [
+    "rim"
+   ]
+  },
+  {
+   "id": "glass",
+   "axis": "role",
+   "label": "glass / lens / pane",
+   "words": [
+    "glass",
+    "lens",
+    "pane",
+    "window",
+    "globe",
+    "chimney glass",
+    "screen",
+    "visor"
+   ],
+   "siblings": [
+    "light"
+   ]
+  },
+  {
+   "id": "light",
+   "axis": "role",
+   "label": "light source",
+   "words": [
+    "light",
+    "lamp",
+    "lantern",
+    "mantle",
+    "bulb",
+    "flame",
+    "candle",
+    "glow",
+    "emitter",
+    "led"
+   ],
+   "siblings": [
+    "glass"
+   ]
+  },
+  {
+   "id": "ornament",
+   "axis": "role",
+   "label": "ornament / gem / decoration",
+   "words": [
+    "ornament",
+    "ornamental",
+    "decoration",
+    "decorative",
+    "gem",
+    "jewel",
+    "charm",
+    "finial",
+    "filigree",
+    "scroll",
+    "crest"
+   ],
+   "code": [
+    "P\\.gem\\("
+   ],
+   "siblings": [
+    "relief"
+   ]
+  },
+  {
+   "id": "base",
+   "axis": "role",
+   "label": "base / foot / plinth / stand",
+   "words": [
+    "base",
+    "foot",
+    "feet",
+    "plinth",
+    "stand",
+    "pedestal",
+    "footing",
+    "socle",
+    "mount"
+   ],
+   "siblings": [
+    "housing"
+   ]
+  },
+  {
+   "id": "panel",
+   "axis": "role",
+   "label": "panel / door / lid / cover",
+   "words": [
+    "panel",
+    "door",
+    "lid",
+    "cover",
+    "hatch",
+    "plate",
+    "side plate",
+    "drawer",
+    "shutter",
+    "flap"
+   ],
+   "code": [
+    "P\\.panel_line\\("
+   ],
+   "siblings": [
+    "housing"
+   ]
+  },
+  {
+   "id": "strap",
+   "axis": "role",
+   "label": "strap / belt / chain / rope",
+   "words": [
+    "strap",
+    "belt",
+    "sling",
+    "chain",
+    "rope",
+    "cord",
+    "lanyard",
+    "lashing",
+    "bindings"
+   ],
+   "code": [
+    "hanging_chain\\("
+   ],
+   "siblings": [
+    "rim"
+   ]
+  },
+  {
+   "id": "sight",
+   "axis": "role",
+   "label": "sight / scope / rail",
+   "words": [
+    "sight",
+    "sights",
+    "scope",
+    "rail",
+    "picatinny",
+    "optic",
+    "reticle",
+    "front sight",
+    "rear sight"
+   ],
+   "siblings": [
+    "housing"
+   ]
+  },
+  {
+   "id": "container",
+   "axis": "role",
+   "label": "container / vessel / bowl",
+   "words": [
+    "container",
+    "vessel",
+    "bowl",
+    "cup",
+    "jug",
+    "pot",
+    "bottle",
+    "vase",
+    "bucket",
+    "basin",
+    "drum",
+    "cask",
+    "crate",
+    "box body"
+   ],
+   "siblings": [
+    "housing"
+   ]
+  },
+  {
+   "id": "f_machined",
+   "axis": "finish",
+   "label": "machined / polished metal",
+   "words": [
+    "machined",
+    "polished",
+    "brushed",
+    "milled",
+    "alloy",
+    "aluminium",
+    "aluminum",
+    "chrome",
+    "stainless",
+    "bright metal"
+   ],
+   "siblings": [
+    "f_cast",
+    "f_painted"
+   ]
+  },
+  {
+   "id": "f_cast",
+   "axis": "finish",
+   "label": "cast / forged / dark metal",
+   "words": [
+    "cast",
+    "cast iron",
+    "forged",
+    "wrought",
+    "iron",
+    "steel",
+    "blued",
+    "gunmetal",
+    "parkerized",
+    "blackened",
+    "dark metal"
+   ],
+   "code": [
+    "scan\\s*=\\s*[\"']Metal"
+   ],
+   "siblings": [
+    "f_machined",
+    "f_worn"
+   ]
+  },
+  {
+   "id": "f_painted",
+   "axis": "finish",
+   "label": "painted / coated",
+   "words": [
+    "painted",
+    "paint",
+    "enamel",
+    "powder coat",
+    "coated",
+    "lacquer",
+    "cerakote",
+    "anodized",
+    "anodised"
+   ],
+   "siblings": [
+    "f_cast"
+   ]
+  },
+  {
+   "id": "f_worn",
+   "axis": "finish",
+   "label": "wear / burnish / grime",
+   "words": [
+    "worn",
+    "wear",
+    "burnish",
+    "burnished",
+    "scratched",
+    "chipped",
+    "grime",
+    "rust",
+    "rusted",
+    "patina",
+    "weathered",
+    "edge wear"
+   ],
+   "siblings": [
+    "f_cast"
+   ]
+  },
+  {
+   "id": "f_brass",
+   "axis": "finish",
+   "label": "brass / copper / bronze",
+   "words": [
+    "brass",
+    "copper",
+    "bronze",
+    "gold",
+    "gilded",
+    "gilt"
+   ],
+   "siblings": [
+    "f_machined"
+   ]
+  },
+  {
+   "id": "f_wood",
+   "axis": "finish",
+   "label": "wood",
+   "words": [
+    "wood",
+    "wooden",
+    "oak",
+    "walnut",
+    "pine",
+    "timber",
+    "grain",
+    "plank",
+    "beech",
+    "mahogany"
+   ],
+   "code": [
+    "scan\\s*=\\s*[\"']Wood"
+   ],
+   "siblings": [
+    "f_leather"
+   ]
+  },
+  {
+   "id": "f_leather",
+   "axis": "finish",
+   "label": "leather",
+   "words": [
+    "leather",
+    "hide",
+    "suede"
+   ],
+   "code": [
+    "scan\\s*=\\s*[\"']Leather"
+   ],
+   "siblings": [
+    "f_cloth",
+    "f_wood"
+   ]
+  },
+  {
+   "id": "f_cloth",
+   "axis": "finish",
+   "label": "cloth / fabric",
+   "words": [
+    "cloth",
+    "fabric",
+    "linen",
+    "canvas",
+    "wool",
+    "silk",
+    "cotton",
+    "felt"
+   ],
+   "code": [
+    "scan\\s*=\\s*[\"']Fabric"
+   ],
+   "siblings": [
+    "f_leather"
+   ]
+  },
+  {
+   "id": "f_stone",
+   "axis": "finish",
+   "label": "stone / brick / plaster",
+   "words": [
+    "stone",
+    "brick",
+    "marble",
+    "granite",
+    "concrete",
+    "plaster",
+    "rock",
+    "slate",
+    "masonry"
+   ],
+   "code": [
+    "scan\\s*=\\s*[\"'](?:Rock|Bricks|Concrete|Marble|Tiles)"
+   ]
+  },
+  {
+   "id": "f_glass",
+   "axis": "finish",
+   "label": "glass / crystal",
+   "words": [
+    "glass",
+    "crystal",
+    "clear",
+    "transparent",
+    "frosted"
+   ],
+   "siblings": [
+    "f_gem"
+   ]
+  },
+  {
+   "id": "f_gem",
+   "axis": "finish",
+   "label": "gem / jewel",
+   "words": [
+    "gem",
+    "jewel",
+    "ruby",
+    "sapphire",
+    "emerald",
+    "diamond",
+    "faceted"
+   ],
+   "siblings": [
+    "f_glass"
+   ]
+  },
+  {
+   "id": "f_polymer",
+   "axis": "finish",
+   "label": "polymer / plastic / rubber",
+   "words": [
+    "polymer",
+    "plastic",
+    "rubber",
+    "nylon",
+    "resin",
+    "abs",
+    "matte plastic"
+   ]
+  },
+  {
+   "id": "f_ceramic",
+   "axis": "finish",
+   "label": "ceramic / glazed",
+   "words": [
+    "ceramic",
+    "glazed",
+    "glaze",
+    "porcelain",
+    "pottery",
+    "delft",
+    "earthenware",
+    "terracotta"
+   ]
+  },
+  {
+   "id": "f_glow",
+   "axis": "finish",
+   "label": "glow / emissive",
+   "words": [
+    "glow",
+    "glowing",
+    "emissive",
+    "neon",
+    "luminous",
+    "lit"
+   ]
+  },
+  {
+   "id": "j_weld",
+   "axis": "join",
+   "label": "welded / brazed",
+   "words": [
+    "weld",
+    "welded",
+    "brazed",
+    "soldered",
+    "fused"
+   ],
+   "code": [
+    "P\\.weld\\("
+   ]
+  },
+  {
+   "id": "j_pin",
+   "axis": "join",
+   "label": "pinned / riveted / peened",
+   "words": [
+    "pinned",
+    "pin through",
+    "riveted",
+    "rivet",
+    "peened",
+    "peen",
+    "cross pin"
+   ],
+   "siblings": [
+    "j_bolt"
+   ]
+  },
+  {
+   "id": "j_bolt",
+   "axis": "join",
+   "label": "bolted / screwed",
+   "words": [
+    "bolted",
+    "screwed",
+    "bolt on",
+    "screws into",
+    "threaded into",
+    "lug nuts"
+   ],
+   "siblings": [
+    "j_pin"
+   ]
+  },
+  {
+   "id": "j_press",
+   "axis": "join",
+   "label": "press fit / seated / slid on",
+   "words": [
+    "press fit",
+    "press-fit",
+    "pressed",
+    "seated",
+    "slides onto",
+    "slid on",
+    "friction fit",
+    "rides in",
+    "dovetail"
+   ],
+   "siblings": [
+    "j_pin"
+   ]
+  },
+  {
+   "id": "j_hinge",
+   "axis": "join",
+   "label": "hinged / pivots on",
+   "words": [
+    "hinged",
+    "pivots on",
+    "pivots about",
+    "swings on",
+    "rotates on"
+   ]
+  },
+  {
+   "id": "j_glue",
+   "axis": "join",
+   "label": "glued / sewn / tied",
+   "words": [
+    "glued",
+    "sewn",
+    "stitched",
+    "tied",
+    "lashed",
+    "wrapped",
+    "bound"
+   ]
+  }
+ ]
+}

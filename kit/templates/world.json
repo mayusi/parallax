@@ -1,0 +1,23 @@
+{
+ "name": "__NAME__",
+ "scale": "r6",
+ "palette": {
+  "ground": { "material": "Concrete", "color": [96, 98, 104] },
+  "tile": { "material": "Slate", "color": [70, 72, 80] },
+  "wall": { "material": "Brick", "color": [138, 86, 66] },
+  "trim": { "material": "Metal", "color": [52, 56, 64] },
+  "crate": { "material": "WoodPlanks", "color": [150, 108, 64] },
+  "spawn": { "material": "Neon", "color": [80, 220, 120] }
+ },
+ "build": [
+  { "floor": { "name": "Ground", "center": [0, 0, 0], "size": [160, 160], "mat": "ground" } },
+  { "floor": { "name": "Plaza", "center": [0, 0.5, 0], "size": [60, 60], "thickness": 0.5, "mat": "tile", "checker": [10, "ground"] } },
+  { "ring": { "name": "ArenaWall", "center": [0, 0, 0], "radius": 70, "height": 14, "thickness": 3, "segments": 24, "mat": "wall", "gaps": 4 } },
+  { "wall": { "name": "Cover", "from": [-20, -36], "to": [20, -36], "height": 6, "thickness": 2, "mat": "wall", "gaps": [{ "at": 20, "width": 6, "height": 4.5 }] } },
+  { "stairs": { "name": "Steps", "start": [24, 0, 30], "dir": "+X", "steps": 6, "rise": 1, "run": 2, "width": 8, "mat": "trim" } },
+  { "grid": { "name": "Pillars", "origin": [-40, 0, -40], "count": [3, 3], "spacing": [40, 40], "part": { "name": "Pillar", "size": [3, 18, 3], "mat": "trim", "shape": "Block" } } },
+  { "scatter": { "name": "Crates", "center": [0, 0, 45], "area": [70, 30], "count": 10, "seed": 7, "gap": 1.5, "part": { "name": "Crate", "size": [[3, 3, 3], [5, 5, 5]], "mat": "crate" } } },
+  { "spawn": { "pos": [0, 0.75, -10], "mat": "spawn" } },
+  { "spawn": { "pos": [0, 0.75, 10], "mat": "spawn" } }
+ ]
+}

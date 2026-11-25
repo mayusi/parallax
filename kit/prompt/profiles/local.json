@@ -1,0 +1,14 @@
+{
+  "name": "local",
+  "kind": "orchestrator",
+  "format": "json_micro",
+  "budget": 450,
+  "section_budgets": {"context": 60, "guardrails": 170, "objective": 140, "gates": 80},
+  "order": ["objective", "guardrails", "gates", "context"],
+  "rationale": false,
+  "chain_of_thought": "strip",
+  "cot_phrases": ["think step by step", "think carefully", "let's think", "lets think", "chain of thought"],
+  "max_tasks": 1,
+  "why": "a small local model (Qwen3-VL-4B) breaks on compound questions: one focus per call, flat JSON, a YES/NO or JSON answer",
+  "banned_phrases": ["make it good", "make it nice", "make it cool", "make it better", "high quality", "amazing"]
+}

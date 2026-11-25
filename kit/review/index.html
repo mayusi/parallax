@@ -1,0 +1,204 @@
+<!doctype html>
+<!-- kit review: ONE piece's stages on one page (kit/cmd/review.luau serves it on 127.0.0.1; kit/lib/review.luau says
+     what a stage is). The page holds no rules: it draws what /api/review answers and sends a click to /api/act, where
+     the kit runs its own command. Every text is put in the page as TEXT, never as markup. Every request carries the
+     page's own token; a click also says WHAT IT SAW (the stage's "seen"), so a yes is never taken for a sheet that
+     was redrawn while he was typing. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>kit review</title>
+<style>
+  :root { --bg:#14161a; --panel:#1d2026; --line:#2c313a; --ink:#e8e8ee; --dim:#9a9ea8; --ok:#5fcf80; --wait:#ffb040;
+          --bad:#ff6b6b; --look:#60c4ff; --btn:#2f6fed; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--ink); font:15px/1.45 "Segoe UI", system-ui, sans-serif; }
+  header { padding:18px 24px 10px; border-bottom:1px solid var(--line); display:flex; gap:14px; align-items:baseline; flex-wrap:wrap; }
+  h1 { margin:0; font-size:22px; font-weight:600; }
+  .lane { color:var(--dim); }
+  .dry { background:var(--wait); color:#111; padding:2px 10px; border-radius:10px; font-weight:600; font-size:13px; }
+  main { padding:18px 24px 60px; max-width:1500px; }
+  .note { margin:0 0 18px; padding:10px 14px; border-left:3px solid var(--look); background:#171a1f; color:var(--ink); }
+  .stage { background:var(--panel); border:1px solid var(--line); border-radius:10px; margin:0 0 18px; padding:16px 18px; }
+  .top { display:flex; gap:12px; align-items:center; flex-wrap:wrap; }
+  .n { color:var(--dim); font-weight:600; }
+  h2 { margin:0; font-size:18px; font-weight:600; }
+  .chip { padding:2px 10px; border-radius:10px; font-size:12px; font-weight:700; letter-spacing:.04em; text-transform:uppercase; color:#111; }
+  .missing { background:#6b7280; color:#fff; } .waiting, .changed { background:var(--wait); }
+  .approved, .scored { background:var(--ok); } .look { background:var(--look); } .waived { background:#b9a3ff; }
+  .says { margin:8px 0 0; color:var(--ink); }
+  .record { margin:8px 0 0; padding:8px 12px; border-left:3px solid var(--ok); background:#171a1f; }
+  .record .when { color:var(--dim); font-size:13px; }
+  .make { margin:8px 0 0; color:var(--dim); font-size:13px; }
+  code { font:13px Consolas, monospace; background:#111317; padding:2px 6px; border-radius:4px; color:#cfd3dc; }
+  .pics { display:grid; grid-template-columns:repeat(auto-fill, minmax(420px, 1fr)); gap:12px; margin:14px 0 0; align-items:start; }
+  .pics.one { grid-template-columns:1fr; }
+  figure { margin:0; background:#101216; border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+  figure img, figure video { display:block; width:100%; height:auto; }
+  figcaption { padding:6px 10px; color:var(--dim); font-size:13px; }
+  .act { margin:14px 0 0; display:flex; gap:10px; align-items:flex-start; flex-wrap:wrap; }
+  textarea, input { background:#101216; color:var(--ink); border:1px solid var(--line); border-radius:6px; padding:8px 10px; font:inherit; }
+  textarea { flex:1 1 420px; min-height:64px; resize:vertical; }
+  input.score { width:150px; } input.route { flex:1 1 320px; }
+  button { border:0; border-radius:6px; padding:9px 16px; font:inherit; font-weight:600; cursor:pointer; color:#fff; background:#3a404b; }
+  button.yes { background:var(--btn); } button.redo { background:#8a4b2a; }
+  button:disabled { opacity:.5; cursor:default; }
+  .answer { margin:10px 0 0; padding:8px 12px; border-radius:6px; font-size:14px; white-space:pre-wrap; }
+  .answer.good { background:#16301f; color:#bff0cd; } .answer.no { background:#3a1c1c; color:#ffd0d0; }
+  .hint { color:var(--dim); font-size:13px; margin:6px 0 0; }
+  #status { color:var(--dim); font-size:13px; margin-left:auto; }
+</style>
+</head>
+<body>
+<header>
+  <h1 id="name">kit review</h1><span class="lane" id="lane"></span><span class="dry" id="dry" hidden>DRY RUN - nothing is recorded</span>
+  <span id="status">loading</span>
+</header>
+<main><p class="note" id="note" hidden></p><div id="stages"></div></main>
+<script>
+"use strict";
+const TOKEN = "__REVIEW_TOKEN__";
+const MINE = { "X-Review-Token": TOKEN };
+const WORDS = { missing: "not made", waiting: "waiting for you", approved: "approved", changed: "changed - look again",
+                waived: "waived", look: "to look at", scored: "scored" };
+let stamp = "", answers = {}, notes = {}, drawn = 0;
+
+function el(tag, cls, text) {
+  const e = document.createElement(tag);
+  if (cls) e.className = cls;
+  if (text !== undefined) e.textContent = text;
+  return e;
+}
+
+async function act(stage, action, box) {
+  const words = box.querySelector("textarea").value;
+  const score = box.querySelector("input.score"), route = box.querySelector("input.route");
+  for (const b of box.querySelectorAll("button")) b.disabled = true;
+  let answer;
+  try {
+    const r = await fetch("/api/act", { method: "POST", headers: Object.assign({ "Content-Type": "application/json" }, MINE),
+      body: JSON.stringify({ stage: stage.key, action, words, seen: stage.seen,
+                             score: score ? score.value : undefined, route: route ? route.value : undefined }) });
+    const d = await r.json();
+    answer = { good: r.ok && d.ok, text: (d.message || d.error || "no answer") + (d.next ? "\nnext: " + d.next : "") };
+  } catch (e) {
+    answer = { good: false, text: "the page could not reach kit review (is it still running?)" };
+  }
+  answers[stage.key] = answer;
+  if (answer.good) notes[stage.key] = "";
+  await load(true);
+}
+
+function draw(data) {
+  document.getElementById("name").textContent = data.name;
+  document.title = "review - " + data.name;
+  document.getElementById("lane").textContent = ({ "3d": "3D model", vfx: "effect", anim: "animation", world: "world" })[data.lane] || data.lane;
+  document.getElementById("dry").hidden = !data.dry;
+  const note = document.getElementById("note");
+  note.hidden = !data.note;
+  note.textContent = data.note || "";
+  const host = document.getElementById("stages");
+  for (const t of host.querySelectorAll("textarea")) notes[t.dataset.stage] = t.value;   // keep what he was typing
+  host.replaceChildren();
+  drawn += 1;
+  data.stages.forEach((s, i) => {
+    const shown = Array.isArray(s.pictures) ? s.pictures : [], can = Array.isArray(s.actions) ? s.actions : [];
+    const card = el("section", "stage");
+    const top = el("div", "top");
+    top.append(el("span", "n", String(i + 1)), el("h2", "", s.title), el("span", "chip " + s.state, WORDS[s.state] || s.state));
+    card.append(top, el("p", "says", s.says));
+    if (s.record) {
+      const r = el("div", "record");
+      r.append(el("div", "", "“" + s.record.words + "”"), el("div", "when", (s.record.score ? s.record.score + " - " : "") + s.record.date));
+      card.append(r);
+    }
+    if (s.make) {
+      const m = el("p", "make", "to make it: ");
+      m.append(el("code", "", s.make));
+      card.append(m);
+    }
+    if (shown.length) {
+      const pics = el("div", "pics" + (shown.length === 1 || s.wide ? " one" : ""));
+      for (const p of shown) {
+        const fig = el("figure"), a = el("a"), img = el("img");
+        // (the token is in the address because an <img> cannot send a header; a redrawn page shows the picture as it is now)
+        const url = "/file?p=" + encodeURIComponent(p.path) + "&k=" + TOKEN + "&v=" + drawn;
+        if (/\.mp4$/i.test(p.path)) { // a stage's video (the timing animatic): played here, never started by itself
+          const video = el("video");
+          video.src = url; video.controls = true; video.loop = true; video.muted = true; video.playsInline = true; video.preload = "metadata";
+          fig.append(video, el("figcaption", "", p.label + " (press play; it loops)"));
+          pics.append(fig);
+          continue;
+        }
+        a.href = url; a.target = "_blank"; a.rel = "noopener";
+        img.src = url; img.alt = p.label;
+        a.append(img);
+        fig.append(a, el("figcaption", "", p.label + " (click for full size)"));
+        pics.append(fig);
+      }
+      card.append(pics);
+    }
+    if (can.length) {
+      const box = el("div", "act");
+      const note_ = el("textarea");
+      note_.dataset.stage = s.key;
+      note_.placeholder = can.includes("verdict") ? "your words on the finished piece"
+        : can.includes("approve") ? "your words: a plain yes approves it; or what to change" : "your note: what to do again";
+      note_.value = notes[s.key] || "";
+      box.append(note_);
+      if (can.includes("verdict")) {
+        const score = el("input", "score"); score.placeholder = "0-10 / keep / redo";
+        const route = el("input", "route"); route.placeholder = "at 3 or less: what failed (the route)";
+        const b = el("button", "yes", "Record verdict");
+        b.onclick = () => act(s, "verdict", box);
+        box.append(score, route, b);
+      }
+      if (can.includes("approve")) {
+        const b = el("button", "yes", "Approve");
+        b.onclick = () => act(s, "approve", box);
+        box.append(b);
+      }
+      if (can.includes("redo")) {
+        const b = el("button", "redo", "Redo");
+        b.onclick = () => act(s, "redo", box);
+        box.append(b);
+      }
+      card.append(box);
+      card.append(el("p", "hint", can.includes("approve")
+        ? "Approve records your yes, in the words you wrote, for exactly what is shown here now. Redo puts your note on the board for the session."
+        : "Redo puts your note on the board for the session."));
+    }
+    const a = answers[s.key];
+    if (a) card.append(el("div", "answer " + (a.good ? "good" : "no"), a.text));
+    host.append(card);
+  });
+}
+
+async function load(force) {
+  try {
+    if (!force) {
+      const r = await fetch("/api/stamp", { headers: MINE });
+      if (!r.ok) throw new Error("refused");
+      const s = await r.json();
+      if (s.stamp === stamp) { document.getElementById("status").textContent = "up to date"; return; }
+    }
+    const r = await fetch("/api/review", { headers: MINE });
+    if (!r.ok) {   // (kit review was started again: this page's token is the old one's)
+      document.getElementById("status").textContent = "this page is out of date: reload it";
+      return;
+    }
+    const data = await r.json();
+    stamp = data.stamp;
+    draw(data);
+    document.getElementById("status").textContent = "up to date";
+  } catch (e) {
+    document.getElementById("status").textContent = "kit review is not answering";
+  }
+}
+load(true);
+// (while he is typing, the page is not redrawn under him: a stage that changed meanwhile is caught by the click's "seen")
+setInterval(() => { if (!document.hidden && !document.activeElement.matches("textarea, input")) load(false); }, 4000);
+</script>
+</body>
+</html>

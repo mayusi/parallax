@@ -1,0 +1,58 @@
+[
+ {
+  "object": "glock 17",
+  "part": "overall",
+  "dim": "length",
+  "value": 204.0,
+  "unit": "mm",
+  "source": "https://www.wikidata.org/wiki/Q172172",
+  "kind": "wikidata",
+  "note": "unchecked",
+  "trust": "medium",
+  "id": "6454c934",
+  "added": "2026-10-08",
+  "read_by": "kit"
+ },
+ {
+  "object": "glock 17",
+  "part": "overall",
+  "dim": "height",
+  "value": 138.0,
+  "unit": "mm",
+  "source": "https://www.wikidata.org/wiki/Q172172",
+  "kind": "wikidata",
+  "note": "unchecked",
+  "trust": "medium",
+  "id": "19b85f3b",
+  "added": "2026-10-08",
+  "read_by": "kit"
+ },
+ {
+  "object": "glock 17",
+  "part": "overall",
+  "dim": "width",
+  "value": 30.0,
+  "unit": "mm",
+  "source": "https://www.wikidata.org/wiki/Q172172",
+  "kind": "wikidata",
+  "note": "unchecked",
+  "trust": "medium",
+  "id": "6f7b6340",
+  "added": "2026-10-08",
+  "read_by": "kit"
+ },
+ {
+  "object": "glock 17",
+  "part": "overall",
+  "dim": "mass",
+  "value": 0.71,
+  "unit": "kg",
+  "source": "https://www.wikidata.org/wiki/Q172172",
+  "kind": "wikidata",
+  "note": "unchecked",
+  "trust": "medium",
+  "id": "f4dd2b61",
+  "added": "2026-10-08",
+  "read_by": "kit"
+ }
+]

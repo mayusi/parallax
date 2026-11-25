@@ -1,0 +1,30 @@
+{
+  "name": "FxCut1",
+  "anim": "FxCut1Clip",
+  "frames": "from_anim",
+  "hitstop": 0.07,
+  "sfx": [
+    {
+      "frame": 10,
+      "event": "FxSwing",
+      "weight": 0.4
+    }
+  ],
+  "onHit": {
+    "sfx": "FxHit",
+    "weight": 0.4
+  },
+  "cancel": {
+    "into": [
+      "FxCut2"
+    ],
+    "from": 23,
+    "to": 40
+  },
+  "vfx": [
+    {
+      "frame": 17,
+      "preset": "fx_slash"
+    }
+  ]
+}

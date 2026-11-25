@@ -1,0 +1,29 @@
+{
+ "version": 3,
+ "mode": "burst",
+ "duration": 5.5,
+ "about": "G2, the 2-fighter scene's calibration probe (LIMITATIONS_FIXES_V4 3.4 step 1 + 13.3.1): NOT a piece to judge for its look - the measuring set the browser player and the Studio booth record in the 24-stud 2-fighter arena (kit/vfx/scenes/g2.json) under each judging sky, so kit/vfx/calibrate.py can fit CAL from data. Its phases are calibrate's: CHARGE (0.6 - 2.3 s) three held cards side by side above the fighters (seen side by side from the duel view) at LightEmission 0, 0.5 and 1 between the fighters; HIT (2.5 s) the attacker's chop lands on the victim's chest - a beam along the cut, a light, warm-white sparks and the victim's rim flash (light only, no blood); TAIL (to ~4 s) a fading afterglow; BASE (the last second) the arena alone.",
+ "booth": {
+  "scene": "g2",
+  "sky": "night",
+  "views": ["duel", "hero", "cine"],
+  "motion": { "raise": 0.6, "swingAt": 2.4, "swingTime": 0.14 }
+ },
+ "points": {
+  "probe0": [0, 6.8, -1.6],
+  "probe5": [0, 6.8, -3.25],
+  "probe10": [0, 6.8, -4.9]
+ },
+ "layers": [
+  { "name": "probe_le0", "kind": "sprite", "at": 0.6, "count": 1, "point": "probe0", "texture": "glow", "lifetime": [1.7, 1.7], "size": [[0, 1.2], [1, 1.2]], "color": [255, 200, 140], "lightEmission": 0, "brightness": 1, "speed": [0, 0], "transparency": [[0, 0.2], [0.9, 0.2], [1, 1]] },
+  { "name": "probe_le5", "kind": "sprite", "at": 0.6, "count": 1, "point": "probe5", "texture": "glow", "lifetime": [1.7, 1.7], "size": [[0, 1.2], [1, 1.2]], "color": [255, 200, 140], "lightEmission": 0.5, "brightness": 1, "speed": [0, 0], "transparency": [[0, 0.2], [0.9, 0.2], [1, 1]] },
+  { "name": "probe_le10", "kind": "sprite", "at": 0.6, "count": 1, "point": "probe10", "texture": "glow", "lifetime": [1.7, 1.7], "size": [[0, 1.2], [1, 1.2]], "color": [255, 200, 140], "lightEmission": 1, "brightness": 1, "speed": [0, 0], "transparency": [[0, 0.2], [0.9, 0.2], [1, 1]] },
+  { "name": "cut_beam", "kind": "beam", "at": 2.5, "life": 0.22, "from": "@victimChest^1.2", "to": "@victimChest^-1.4", "width": [[0, 0.5], [0.3, 0.3], [1, 0]], "color": [[0, [255, 246, 230]], [1, [255, 214, 160]]], "fade": [[0, 0], [0.5, 0.2], [1, 1]], "softEnds": 0.1, "segments": 1 },
+  { "name": "hit_core", "kind": "sprite", "at": 2.5, "count": 1, "point": "@victimChest", "texture": "glow", "lifetime": [0.12, 0.12], "size": [[0, 2.4], [1, 3.6]], "color": [255, 244, 225], "lightEmission": 1, "brightness": 2, "speed": [0, 0], "transparency": [[0, 0], [1, 1]] },
+  { "name": "hit_sparks", "kind": "sprite", "at": 2.5, "count": 22, "point": "@victimChest", "texture": "spark", "lifetime": [0.16, 0.3], "size": [[0, 0], [0.12, 0.9], [1, 0]], "color": [255, 232, 196], "lightEmission": 1, "brightness": 2, "speed": [18, 34], "direction": "Back", "spread": 55, "orientation": "VelocityParallel", "acceleration": [0, -30, 0], "transparency": [[0, 0], [0.4, 0.1], [1, 1]] },
+  { "name": "victim_flash", "kind": "highlight", "at": 2.5, "life": 0.18, "target": "@victim", "fill": [255, 250, 240], "outline": [255, 236, 200], "fillTransparency": [[0, 0.55], [1, 1]], "outlineTransparency": [[0, 0], [1, 1]] },
+  { "name": "hit_light", "kind": "light", "at": 2.5, "life": 0.4, "point": "@victimChest", "color": [255, 226, 186], "range": 14, "brightness": [[0, 8], [0.3, 3], [1, 0]] },
+  { "name": "afterglow", "kind": "sprite", "at": 2.62, "count": 1, "point": "@victimChest", "texture": "glow", "lifetime": [1.4, 1.4], "size": [[0, 1.6], [1, 2.2]], "color": [255, 196, 140], "lightEmission": 1, "brightness": 1, "speed": [0, 0], "transparency": [[0, 0.5], [1, 1]] },
+  { "name": "hit_shake", "kind": "shake", "at": 2.5, "life": 0.25, "amplitude": [[0, 0.6], [1, 0]] }
+ ]
+}

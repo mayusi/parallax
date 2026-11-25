@@ -1,0 +1,97 @@
+{
+ "name": "sim",
+ "about": "Clicker Kingdom — a Roblox pet / clicker simulator: candy-bright, chunky white-and-navy bubbles with thick outlines, gloss on top, bouncy motion, huge numbers, illustrated icons with outlines; everything reads from across the room on a phone",
+ "world": "a sunny toy world; the UI is a sticker sheet of glossy bubbles over it",
+ "tokens": {
+  "bg": "#0f1b36",
+  "panel": "#fff8ea",
+  "panel2": "#eadfca",
+  "line": "#1b2a4a",
+  "accent": "#ffc93c",
+  "accent2": "#ff9f1c",
+  "text": "#ffffff",
+  "textDark": "#1b2a4a",
+  "muted": "#7f8caa",
+  "danger": "#ff4d4d",
+  "good": "#4cd964",
+  "warn": "#ffb020",
+  "focus": "#3aa0ff",
+  "purple": "#b26bff",
+  "pink": "#ff4da6",
+  "shadow": "#0b1220",
+  "rarity_common": "#9aa5b1",
+  "rarity_uncommon": "#4cd964",
+  "rarity_rare": "#3aa0ff",
+  "rarity_epic": "#b26bff",
+  "rarity_legendary": "#ffc93c",
+  "rarity_mythic": "#ff4da6"
+ },
+ "fonts": { "font": "FredokaOne", "titleFont": "LuckiestGuy", "monoFont": "FredokaOne" },
+ "minimums": { "text": 16, "button": 56, "icon": 40 },
+ "radius": { "s": 12, "m": 18, "l": 26 },
+ "roles": {
+  "title": { "size": 40, "font": "titleFont" },
+  "heading": { "size": 28, "font": "titleFont" },
+  "body": { "size": 22, "font": "font" },
+  "hint": { "size": 16, "font": "font", "color": "muted" },
+  "number": { "size": 36, "font": "titleFont" },
+  "huge": { "size": 56, "font": "titleFont" }
+ },
+ "shape": {
+  "line": "#1b2a4a",
+  "line2": "#ffffff",
+  "fill": "#fff8ea",
+  "fill2": "#ffffff",
+  "fill_alpha": 1.0,
+  "width": 5,
+  "corner": "round",
+  "chamfer": 22,
+  "glow": "#fff1a8",
+  "grain": 0.2,
+  "gloss": 0.32,
+  "shade": 0.16,
+  "shadow": 6,
+  "card": "#fff8ea",
+  "danger": "#ff4d4d",
+  "good": "#4cd964",
+  "buttons": ["good", "danger", "focus", "accent", "purple", "panel", "pink"]
+ },
+ "motion": {
+  "enter": { "type": "bounce", "duration": 0.55, "ease": "elastic" },
+  "stagger": 0.05,
+  "hover": "grow",
+  "press": "sink"
+ },
+ "bans": [
+  "thin hairline frames and flourishes (that is the souls identity)",
+  "serif or grotesque faces (Fredoka One / Luckiest Guy only)",
+  "dark text on dark, white text without an outline over the world",
+  "a slow fade — this world pops and bounces",
+  "indigo-on-white gradients and glass",
+  "one outline weight for everything: panels 5, buttons 5, chips 4, cards 6"
+ ],
+ "references": [
+  {
+   "game": "Pet Simulator 99 (Big Games)",
+   "screen": "HUD",
+   "take": "currencies top-left as white pills with the icon overlapping the left end, a huge rounded number and a green plus; a vertical stack of big square bubble buttons on the left (Shop, Pets, Eggs, Rebirth, Codes...) each with an illustrated icon and a label under it; the equipped pets as a row of card slots along the bottom; a progress pill top-centre for the current goal; every bubble has a thick navy outline, a white top gloss and a short drop shadow; all text white with a dark outline over the world",
+   "measured": { "left_button_px_1080p": 88, "currency_pill_px": [260, 56], "pet_slot_px": 96, "outline_px": 5, "number_px": 36 },
+   "source": "the game as played (2024-2026 builds); community notes: most UI is image-based ImageButtons with custom graphics (DevForum 'Unique or good looking ui', 2914121)"
+  },
+  {
+   "game": "Pet Simulator X / Bee Swarm Simulator / Adopt Me",
+   "screen": "Shop and inventory",
+   "take": "one big rounded panel with a chunky title banner overlapping its top edge, a red circular close button on the corner, tabs as pills, a scrolling grid of item cards with a rarity-coloured frame and header, the price as a pill with the currency icon, the primary action a green bubble; the selected card gets a thicker glow",
+   "measured": { "panel_frac": [0.72, 0.78], "card_px": [160, 212], "title_px": 40, "close_px": 64, "tab_px": [140, 48] },
+   "source": "the games as played; DevForum critique on a Pet-Sim-X-style UI (2297137): 'try making the outlines thinner', 'the title text larger', 'buttons on the left all larger', the backdrop should move; 'extremely unoriginal' is the failure mode"
+  },
+  {
+   "game": "simulator genre",
+   "screen": "Egg hatch / rebirth / daily",
+   "take": "the egg on a burst of rays with 'Hatch 1 / Hatch 3' bubbles priced in gems and a chance list by rarity; rebirth as a dramatic confirm card with the multiplier gain huge; daily rewards as a 7-day grid with today pulsing and claimed days greyed with a check",
+   "measured": { "hatch_button_px": [220, 64], "burst_px": 420, "daily_cell_px": 110 },
+   "source": "the genre as played"
+  }
+ ],
+ "lettering": {"style": "flat", "font": "luckiestguy", "fill": "text", "ink": "line", "outline": 0.09, "shadow": 0.07, "shadow_color": "shadow", "lean": -2, "track": 0.03, "evidence": "the sim identity's own rules (bans: 'white text without an outline over the world', outline weights 5 at 48 px = 0.1 em, chunky drop shadow 6): the typed Luckiest Guy titles became lettered art (hero_typed_glyph gate, 2026-10-16)"}
+}

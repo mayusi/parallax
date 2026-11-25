@@ -1,0 +1,21 @@
+# Every lesson, newest dates first within each department.
+filters:
+  and:
+    - 'kind == "lesson"'
+properties:
+  area:
+    displayName: Dept
+  date:
+    displayName: Date
+  by:
+    displayName: By
+views:
+  - type: table
+    name: Lessons by department
+    groupBy:
+      property: area
+      direction: ASC
+    order:
+      - date
+      - file.name
+      - by

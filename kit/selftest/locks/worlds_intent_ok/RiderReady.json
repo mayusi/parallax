@@ -1,0 +1,62 @@
+{
+ "_note": "POSITIVE fixture for the loading-intent lock: players at 40 studs a second who drop 300 studs; a project that keeps 160 studs loaded, streams in to 1,024 and pauses a player outside loaded ground; the landing named as an arrival; a landmark that says it never streams out. The lock says nothing of it.",
+ "name": "RiderReady",
+ "scale": "r6",
+ "streaming": {
+  "cell": 256,
+  "speed": 40,
+  "fall": 300,
+  "arrivals": [
+   {
+    "name": "Under the cliff",
+    "pos": [
+     0,
+     1,
+     0
+    ]
+   }
+  ]
+ },
+ "palette": {
+  "ground": {
+   "material": "Concrete",
+   "color": [
+    96,
+    98,
+    104
+   ]
+  }
+ },
+ "build": [
+  {
+   "floor": {
+    "name": "Ground",
+    "center": [
+     0,
+     0,
+     0
+    ],
+    "size": [
+     600,
+     600
+    ],
+    "mat": "ground"
+   }
+  },
+  {
+   "tower": {
+    "name": "Watch tower",
+    "center": [
+     100,
+     0,
+     100
+    ],
+    "radius": 8,
+    "height": 40,
+    "mat": "ground",
+    "landmark": true,
+    "stream": "always"
+   }
+  }
+ ]
+}

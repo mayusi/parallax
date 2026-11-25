@@ -1,0 +1,164 @@
+{
+ "ebgaramond": {
+  "EBGaramond-Italic[wght].ttf": {
+   "sha256": "bba2c4499c93c9612b90b9825d32b07da52fce2fe57562a1eb6b833553f93c4e",
+   "size": 754468
+  },
+  "EBGaramond[wght].ttf": {
+   "sha256": "ef9512f92f6d579e5dc75af59a5a4b1b8b47d2eda89e00b954d44520e5369027",
+   "size": 851176
+  },
+  "METADATA.pb": {
+   "sha256": "be94098be975a66281842ed599baefa14959eff9da14c87250678e905f6043f2",
+   "size": 1457
+  },
+  "OFL.txt": {
+   "sha256": "0985066662eb755ed3683ae5482a81a9195b49ce3f7e165cc2388b3dbece7dd7",
+   "size": 4398
+  }
+ },
+ "fredoka": {
+  "Fredoka[wdth,wght].ttf": {
+   "sha256": "2ba02e68b152868aef9ba28e24b3648c7d457fe6f25c761f2c2c53fb61a73fc8",
+   "size": 159184
+  },
+  "METADATA.pb": {
+   "sha256": "17f260d0faf7c588c9331a9a1b720b55c2b871563423f42704c8cbb0953a574a",
+   "size": 933
+  },
+  "OFL.txt": {
+   "sha256": "5c9e7eee5c6b25f4b05b8d53b2e470ea4962f9ced742d044a98f7d95d1375bab",
+   "size": 4388
+  }
+ },
+ "michroma": {
+  "METADATA.pb": {
+   "sha256": "be476631b50b6b77bc57c038642b8e8abe7b5b1dcb57b2e6cc4aeb20dd5b31f2",
+   "size": 796
+  },
+  "Michroma-Regular.ttf": {
+   "sha256": "b62301163788bc5b7f8fcac0b74b184e34e1827e577b499ecb724da065098f87",
+   "size": 64344
+  },
+  "OFL.txt": {
+   "sha256": "33c39ce59a45bfb0dae3280e98bdb46be59d6d68efc62d4dc5fae90a26d2f393",
+   "size": 4395
+  }
+ },
+ "montserrat": {
+  "METADATA.pb": {
+   "sha256": "c48dbcaee013b8f6a33e7e6a79191adbf098a36839367d9750598594ff664e5f",
+   "size": 6727
+  },
+  "Montserrat-Italic[wght].ttf": {
+   "sha256": "51607f316bc020e59f03cbf51543eecffbea501c0b31d73e5b82927c5cca442c",
+   "size": 762376
+  },
+  "Montserrat[wght].ttf": {
+   "sha256": "0f7b311b2f3279e4eef9b2f968bcdbab6e28f4daeb1f049f4f278a902bcd82f7",
+   "size": 744936
+  },
+  "OFL.txt": {
+   "sha256": "8b7141c03fa4f8d44e6345d5d4931709290f0f67875e452e95ac1fd3a027802e",
+   "size": 4400
+  }
+ },
+ "oswald": {
+  "METADATA.pb": {
+   "sha256": "3d5119d2e99a15e7c2973937d10a77e7aa1fc6a28fe173b02e059485aa596097",
+   "size": 4396
+  },
+  "OFL.txt": {
+   "sha256": "0fd731a904b729a4e02eaf5e8ebd06783edd9abe400e8882760160230675b652",
+   "size": 4483
+  },
+  "Oswald[wght].ttf": {
+   "sha256": "5b38c246e255a12f5712d640d56bcced0472466fc68983d2d0410ec0457c2817",
+   "size": 172088
+  }
+ },
+ "limelight": {
+  "Limelight-Regular.ttf": {
+   "sha256": "f5bf8a9159adfc5b9c756c85d812a4fd1299b8916fefdf39ad4b24ade6d8d0cf",
+   "size": 132292
+  },
+  "METADATA.pb": {
+   "sha256": "ea20170615fe028b2ce7bdccb7bfdb5a39a36deedac10a4b04bf973c7ca8bf15",
+   "size": 763
+  },
+  "OFL.txt": {
+   "sha256": "6b53fb03a50914cc382f4d025ee595c17c43f24ae870f840bc51969d3e316c7e",
+   "size": 4399
+  }
+ },
+ "shrikhand": {
+  "METADATA.pb": {
+   "sha256": "af3d1b5a427ac116b9d28fc672d5a5ed7e6e7c10f50c6ea3615396143435cb4b",
+   "size": 621
+  },
+  "OFL.txt": {
+   "sha256": "325e890b8b26fe0a683c3ba24c506d902bdd7034d9c47bd7fa2bb72b5433b9c9",
+   "size": 4463
+  },
+  "Shrikhand-Regular.ttf": {
+   "sha256": "8ba32f6d6a96fb8dbc92fc1acfbc4d2123d5348063d89b2c3dd784e7afcb81af",
+   "size": 220804
+  }
+ },
+ "lilitaone": {
+  "LilitaOne-Regular.ttf": {
+   "sha256": "f5b641c45c69d772ee4eda687bc9fda411d5cad6b0b45371491da4580cbc8d59",
+   "size": 28092
+  },
+  "METADATA.pb": {
+   "sha256": "e580e1c3c344299b94e7ac05dc578b5f7d3253b37a0bae7ff3e91c9f7a8c47bd",
+   "size": 616
+  },
+  "OFL.txt": {
+   "sha256": "255d5debbb80eb2ea762644311f266a279e8778f00156655a516e2b7781a63e1",
+   "size": 4392
+  }
+ },
+ "bungee": {
+  "Bungee-Regular.ttf": {
+   "sha256": "c4f5361ce120af3e6b9156d0bf379fa19cda2ea0cd18ac01fd99596c6bf66e3f",
+   "size": 118996
+  },
+  "METADATA.pb": {
+   "sha256": "ec1a73318ff76d666c2e3cad5948b6799f4a9ed6d6af59e787f4e5372c291edf",
+   "size": 846
+  },
+  "OFL.txt": {
+   "sha256": "d5787a50dde5be6c6daecab9ed459939b1bc37cff0d0e00257eaf1ec2cf4c16c",
+   "size": 4473
+  }
+ },
+ "luckiestguy": {
+  "LICENSE.txt": {
+   "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30",
+   "size": 11358
+  },
+  "LuckiestGuy-Regular.ttf": {
+   "sha256": "cfbdd68a039f92df51cf3721506af6242e64594c6325fe0bedbeff3fe385d980",
+   "size": 73320
+  },
+  "METADATA.pb": {
+   "sha256": "79e13dc76e9b06b87d58f3ed018259c49f6356ec88cc831ae99200c7ac05bf16",
+   "size": 709
+  }
+ },
+ "kaushanscript": {
+  "KaushanScript-Regular.ttf": {
+   "sha256": "6d8d379d9bba98178bee476d68114c8f83812c18005ecccf679e70f60e03d8f6",
+   "size": 210672
+  },
+  "METADATA.pb": {
+   "sha256": "a800aed7ce1ba7d9ccba6cc2dc9430c3569f1c9db225c84bea1232c23464e215",
+   "size": 740
+  },
+  "OFL.txt": {
+   "sha256": "3336bf5d4e7eedba48ecb831f37bf676e901c39f2e6a422cceadd9d2ffa55be8",
+   "size": 4492
+  }
+ }
+}

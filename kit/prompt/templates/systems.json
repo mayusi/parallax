@@ -1,0 +1,136 @@
+{
+  "lane": "systems",
+  "start": "lune run kit start code",
+  "keywords": {
+    "system": 3,
+    "systems": 3,
+    "script": 3,
+    "scripts": 2,
+    "code": 3,
+    "combat": 2,
+    "damage": 3,
+    "hitbox": 3,
+    "hitboxes": 3,
+    "remote": 3,
+    "remotes": 3,
+    "server": 3,
+    "client": 2,
+    "data": 2,
+    "datastore": 3,
+    "save": 2,
+    "inventory": 2,
+    "shop": 1,
+    "npc": 3,
+    "npcs": 3,
+    "round": 2,
+    "rounds": 2,
+    "cooldown": 3,
+    "cooldowns": 3,
+    "stun": 3,
+    "hitstop": 3,
+    "combo": 1,
+    "ability": 2,
+    "abilities": 2,
+    "exploit": 3,
+    "lag": 2,
+    "bug": 2,
+    "fix": 1,
+    "feel": 1,
+    "knockback": 3
+  },
+  "invariants": [
+    {
+      "id": "authority",
+      "value": "the server is the authority: clients ask through RemoteEvents, the server rate-limits (RateLimit), validates every argument (Guard), applies the rules, then acts",
+      "why": "kit audit fails on unvalidated remote arguments"
+    },
+    {
+      "id": "pure_shared",
+      "value": "shared modules are pure: no game:GetService, no Instance.new",
+      "why": "kit/harness/AGENTS.parallax.md"
+    },
+    {
+      "id": "moves_data",
+      "value": "combat moves as data: frame data from the animation, a server hit loop",
+      "why": "the systems lane's route"
+    },
+    {
+      "id": "clock",
+      "value": "one combat clock: workspace:GetServerTimeNow()",
+      "why": "LIMITATIONS_FIXES_V4 13.1"
+    },
+    {
+      "id": "proof",
+      "value": "tested pure rules, fuzzing, and playtests in Studio that fail on any console error",
+      "why": "proof that means it"
+    },
+    {
+      "id": "never_edit_tests",
+      "value": "a test, gate or fixture is never edited to make something pass",
+      "why": "kit/harness/AGENTS.parallax.md"
+    }
+  ],
+  "slots": [
+    {
+      "id": "scope",
+      "kind": "scope",
+      "weight": 1.0,
+      "resolved_by": [
+        "one ",
+        "single",
+        "whole",
+        "full",
+        "system",
+        "fix",
+        "bug",
+        "add",
+        "new"
+      ],
+      "question": "What should change?",
+      "options": [
+        "*A The one system named, with its spec and a playtest",
+        "B A wider refactor (name the systems)"
+      ]
+    }
+  ],
+  "steps": [
+    "lune run kit start code (boot sheet, graveyard page)",
+    "the rule as a pure function with a spec first (frktest)",
+    "the remote schema (assets/net/<System>.net.json, lune run kit net) with Guard and RateLimit",
+    "the server system; lune run kit audit and lune run kit test",
+    "a Studio playtest (lune run kit playtest run <name> --studio <id>)"
+  ],
+  "done_when": [
+    "lune run kit test",
+    "lune run kit audit",
+    "lune run kit verify --profile core",
+    "lune run kit playtest run <name> --studio <id>"
+  ],
+  "context_files": [
+    "src/kit/Moves.luau",
+    "src/kit/Guard.luau",
+    "src/kit/RateLimit.luau",
+    "kit/cmd/net.luau"
+  ],
+  "api": [
+    "RemoteEvent.OnServerEvent",
+    "Workspace.GetServerTimeNow",
+    "Players.PlayerAdded",
+    "DataStoreService.GetDataStore",
+    "WorldRoot.Blockcast"
+  ],
+  "engine_caps": [
+    "a background Studio window steps the server in bursts",
+    "a client can send any argument: validate every one"
+  ],
+  "failure_lexicon": {
+    "lag": "read Stats.HeartbeatTime; hit windows checked between server steps (MovesRules.hitboxesBetween)",
+    "exploit": "Guard on every remote argument and RateLimit on every remote",
+    "desync": "one clock: workspace:GetServerTimeNow()"
+  },
+  "dsl": {
+    "heartbeat_ms_max": 16.6
+  },
+  "tool_subject": null,
+  "families_key": null
+}

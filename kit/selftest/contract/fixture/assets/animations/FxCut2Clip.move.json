@@ -1,0 +1,9 @@
+{
+  "name": "FxCut2Clip",
+  "fps": 60,
+  "sword": {
+    "length": 3.6,
+    "grip": 0.5,
+    "kind": "straight"
+  }
+}

@@ -1,0 +1,61 @@
+{
+ "_note": "NEGATIVE fixture: must fail validation. Never fix.",
+ "mode": "burst",
+ "duration": 30,
+ "elements": [
+  {
+   "kind": "particles",
+   "texture": "nope",
+   "rate": 900,
+   "lifetime": 25,
+   "size": [
+    [
+     0.2,
+     1
+    ],
+    [
+     0.1,
+     2
+    ]
+   ],
+   "transparency": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "Grid4x4",
+    "fps": 60
+   }
+  },
+  {
+   "kind": "shake",
+   "intensity": 9
+  },
+  {
+   "kind": "beam",
+   "to": "nowhere"
+  },
+  {
+   "kind": "sound",
+   "name": "has spaces!"
+  },
+  {
+   "kind": "screen",
+   "flash": 3
+  },
+  {
+   "kind": "flash",
+   "delay": 99,
+   "size": [
+    1,
+    2
+   ]
+  }
+ ]
+}

@@ -1,0 +1,217 @@
+{
+  "lane": "vfx",
+  "start": "lune run kit start vfx",
+  "keywords": {
+    "vfx": 3,
+    "effect": 2,
+    "effects": 2,
+    "fire": 2,
+    "flame": 2,
+    "flames": 2,
+    "water": 1,
+    "aura": 3,
+    "explosion": 3,
+    "explode": 2,
+    "beam": 2,
+    "laser": 2,
+    "lightning": 2,
+    "slash": 2,
+    "impact": 2,
+    "particle": 3,
+    "particles": 3,
+    "smoke": 2,
+    "spark": 2,
+    "sparks": 2,
+    "glow": 2,
+    "shockwave": 3,
+    "ultimate": 2,
+    "ult": 2,
+    "blast": 2,
+    "nuke": 3,
+    "magic": 2,
+    "energy": 2,
+    "ink": 1,
+    "trail": 2,
+    "flash": 1,
+    "kamehameha": 3,
+    "rasengan": 3,
+    "getsuga": 3,
+    "hinokami": 3,
+    "purple": 1,
+    "domain": 2,
+    "summon": 1
+  },
+  "invariants": [
+    {
+      "id": "source_frames",
+      "value": "build from the source scene's real frames: lune run kit vfx breakdown <set> --clip <file> --fps 2, then --dense round each beat",
+      "why": "attacks built from lore text and memory were scored 2/10 (hollow_purple_v1, konosuba_explosion)"
+    },
+    {
+      "id": "chart_first",
+      "value": "the chart and ONE test frame are approved by the owner before the full build (lune run kit vfx chart <set>)",
+      "why": "two FlameArc redos came from building before the owner saw a frame"
+    },
+    {
+      "id": "originality",
+      "value": "the look comes from this subject's own source frames at anime quality: never re-skin the last success and never swap the genre to be different; a big reinterpretation shows ONE test frame and asks first",
+      "why": "Delaware v1 read like the last showpiece, then the comic-book genre swap was called trash (0/10)"
+    },
+    {
+      "id": "player_not_studio",
+      "value": "make and judge the effect alone in the browser player, never in Roblox Studio and never on an animated rig",
+      "why": "owner 2026-10-16: Studio-made VFX 'horrendous', the player-made ones were loved"
+    },
+    {
+      "id": "hybrid",
+      "value": "runtime mesh shells for volume WITH flipbook cards for the hand-drawn silhouette",
+      "why": "all-mesh auras were rejected; the hybrid saiyan_ssj_3d scored 9/10"
+    },
+    {
+      "id": "layer_mix",
+      "value": "about 44% of layers non-additive, a dark twin behind every bright shape, layer lives near 0.58 s, front-loaded curves",
+      "why": "measured on 232 professional effects; all-additive reads washed out"
+    },
+    {
+      "id": "budget",
+      "value": "VfxBudget <= 0.5 ms a frame; flashes at most 3 a second (WCAG)",
+      "why": "V4 arena gate and photosensitivity"
+    },
+    {
+      "id": "no_gore",
+      "value": "no blood or gore of any kind; embers cool through orange to grey ash, never deep red dots",
+      "why": "Roblox moderates the account that uploads blood or gore"
+    }
+  ],
+  "slots": [
+    {
+      "id": "source",
+      "kind": "taste",
+      "weight": 0.45,
+      "resolved_by": [
+        "demon slayer",
+        "tanjiro",
+        "hinokami",
+        "jjk",
+        "jujutsu",
+        "gojo",
+        "naruto",
+        "dbz",
+        "dragon ball",
+        "saiyan",
+        "bleach",
+        "konosuba",
+        "one piece",
+        "clip",
+        "scene",
+        "episode",
+        "reference",
+        "like "
+      ],
+      "question": "Which source scene should the effect's frames come from?",
+      "options": [
+        "*A Name the anime scene or clip and its episode (the breakdown reads its real frames)",
+        "B An original effect: one test frame first for the owner to approve"
+      ]
+    },
+    {
+      "id": "palette",
+      "kind": "taste",
+      "weight": 0.3,
+      "resolved_by": [
+        "crimson",
+        "red",
+        "orange",
+        "gold",
+        "amber",
+        "blue",
+        "indigo",
+        "cyan",
+        "purple",
+        "violet",
+        "green",
+        "white",
+        "black",
+        "colour",
+        "color",
+        "palette"
+      ],
+      "question": "What colour plan should the effect follow?",
+      "options": [
+        "*A The source scene's own colours, measured from its frames",
+        "B A named palette (say the two or three colours)"
+      ]
+    },
+    {
+      "id": "scope",
+      "kind": "scope",
+      "weight": 0.25,
+      "resolved_by": [
+        "single",
+        "one ",
+        "whole",
+        "full",
+        "sequence",
+        "combo",
+        "set of",
+        "all "
+      ],
+      "question": "How much should be built this round?",
+      "options": [
+        "*A One beat or one effect, chart and test frame first",
+        "B The whole multi-shot sequence (V5) after the chart is approved"
+      ]
+    }
+  ],
+  "steps": [
+    "lune run kit start vfx (the boot sheet, golden and graveyard pages)",
+    "kit vfx breakdown <set> --clip <file> --fps 2, then --dense round every beat: lead-in, hit frame, frames held, fade",
+    "kit vfx chart <set> and one test frame; ask the owner and record kit approve vfx <name> --stage style",
+    "build beat by beat in the player (kit vfx <name>); kit vfx dailies <name> shows the scene above ours at the same times",
+    "show the owner, then kit verdict vfx <name> <0-10> \"<their words>\""
+  ],
+  "done_when": [
+    "lune run kit vfx <name>",
+    "lune run kit vfx dailies <name>",
+    "lune run kit verify --profile core",
+    "kit verdict vfx <name> recorded from the owner's words"
+  ],
+  "context_files": [
+    "kit/vfx/breakdown.py",
+    "kit/vfx/timing.py",
+    "kit/vfx/dailies.py",
+    "kit/vfx/player/player.js",
+    "src/kit/VfxStage.luau"
+  ],
+  "api": [
+    "ParticleEmitter.Rate",
+    "ParticleEmitter.Lifetime",
+    "Beam.TextureLength",
+    "Beam.FaceCamera",
+    "Workspace.GetServerTimeNow"
+  ],
+  "engine_caps": [
+    "a Beam is at most 50 studs wide; a giant column is a mesh",
+    "a Beam texture runs its vertical axis along the beam",
+    "a ParticleEmitter with TimeScale 0 still emits: disable rate emitters during holds",
+    "sound / screen / shake radius at most 1000"
+  ],
+  "failure_lexicon": {
+    "floaty": "the key beat arrives within 1 frame of the hit and holds at least 0.73 s, measured by kit vfx dailies",
+    "slow": "the key beat arrives within 1 frame of the hit; lead-in measured from the scene, never guessed",
+    "washed": "about 44% non-additive layers and a dark twin behind every bright shape",
+    "plastic": "air and energy are never solid surfaces: textured flaring shells and feathered discs facing the flow",
+    "generic": "the look comes from this subject's own source frames, never the last showpiece's",
+    "cool": "the hit frame, the hold and the fade are measured from the source scene"
+  },
+  "dsl": {
+    "hold_s": 0.75,
+    "dark_backing_ratio": 0.44,
+    "non_additive_share": 0.44,
+    "life_median_s": 0.58,
+    "budget_ms": 0.5,
+    "flash_hz_max": 3
+  },
+  "tool_subject": "an anime attack effect frame",
+  "families_key": "vfx"
+}

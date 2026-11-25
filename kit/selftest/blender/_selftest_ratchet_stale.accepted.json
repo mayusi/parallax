@@ -1,0 +1,22 @@
+{
+  "asset": "_selftest_ratchet_stale",
+  "score": 50,
+  "raw": 50.0,
+  "iteration": 1,
+  "components": {
+    "silhouette": 0.5,
+    "detail": 0.5,
+    "empty": 0.5,
+    "variety": 0.5,
+    "geometry": 0.5,
+    "materials": 0.5,
+    "surface": 0.5,
+    "texture": 0.5,
+    "markings": 0.5,
+    "craft": 1.0
+  },
+  "measure": 1,
+  "script_sha": "0000000000000000",
+  "tris": 12,
+  "note": "selftest: a floor measured by OTHER measuring code (measure 1) and made by ANOTHER script (sha 0...0): it cannot vouch for this build, which must FAIL (design.ratchet=). Never bump this record."
+}

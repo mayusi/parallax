@@ -1,0 +1,168 @@
+{
+  "schema": 1,
+  "lane": "sfx",
+  "default_case": "sfx:combat_impact_set",
+  "cases": [
+    {
+      "case_id": "sfx:combat_impact_set",
+      "label": "Weapon Swings, Hits, Blocks, Explosions, Ability Sound Set",
+      "triggers": {
+        "keywords": ["combat", "impact", "swing", "hit", "block", "explosion", "ability", "weapon", "sound-set", "sfx-set"],
+        "requires_both": []
+      },
+      "tier": "complex",
+      "budget_minutes": 30,
+      "required_tools_ordered": [
+        "parallax sfx find (Creator Store / CC0 / Sonniss GDC, --describe via CLAP)",
+        "parallax sfx listen (Owner picks <=3 refs/class -> references.json)",
+        "parallax sfx identity --from refs",
+        "parallax sfx new sound / sets/<set>.json (real recordings layered with synth, roles transient/body/sub/mechanical/tail/sweetener/air, seeded noise, round-robin, +/-2 LU class loudness)",
+        "parallax sfx match --to <ref>",
+        "parallax sfx sheet --ref <ref> (LOOK!)",
+        "parallax sfx listen (Owner Booth)",
+        "parallax sfx av --video <cap> --at <Hit> (<=+/-1f)",
+        "parallax sfx catalog (Audio API graph)",
+        "parallax upload"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "SYNTH_ONLY_WEAPON", "pattern": "synth_only_weapon_set", "why": "Synth-only sword/weapon sets are graveyard (4-5/10); real layered recordings are required for the material and impact to read." },
+        { "id": "UNSEEDED_NOISE", "pattern": "unseeded_short_noise_bursts", "why": "Unseeded short noise bursts produce identical variance on every hit, which the ear recognises as robotic." },
+        { "id": "SOUND_ALONE", "pattern": "judge_sound_without_hit_video", "why": "Judging sound alone without the hit video misses AV sync drift and impact frame alignment." },
+        { "id": "MASKING_LAYERS", "pattern": "masking_layers_same_band", "why": "Masking layers in the same frequency band cancel each other out and thin the impact." }
+      ],
+      "mandatory_gates": ["refs_approval_lock", "set_dna_gate", "masking_gate", "loudness_band", "av_offset<=1f", "audio_upload_gate", "sfx_acoustic_sync Studio playtest"],
+      "owner_stops": ["refs", "booth", "verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "build a sword hit sound set with real layered recordings and AV sync check",
+        "create a combat impact sfx set with round-robin hits and owner booth approval",
+        "make an explosion ability sound with transient/body/tail layers and CLAP find"
+      ]
+    },
+    {
+      "case_id": "sfx:ambience_acoustic_space",
+      "label": "World Ambience, Room Reverb, Wind, Echoes",
+      "triggers": {
+        "keywords": ["ambience", "ambient", "reverb", "wind", "echo", "acoustic", "space", "attenuation", "soundscape"],
+        "requires_both": []
+      },
+      "tier": "complex",
+      "budget_minutes": 30,
+      "required_tools_ordered": [
+        "parallax sfx direction <Piece> --new",
+        "parallax sfx sketch (beds + events + vetted OpenAIR CC-BY IRs)",
+        "parallax sfx board (Owner Pick)",
+        "parallax sfx soundscript",
+        "runtime Audio API (SoundService.AcousticSimulationEnabled=true, AngleAttenuation, pooled AudioReverb, WindVoice, GustEvents, EchoZones on unified clock)",
+        "Studio playtest"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "LEGACY_SOUND", "pattern": "legacy_sound_soundgroup", "why": "Legacy Sound/SoundGroup bypasses the spatial Audio API graph and loses AngleAttenuation and AudioReverb." },
+        { "id": "OSCLOCK_ECHO", "pattern": "os_clock_echo_zones", "why": "Mixing os.clock() in EchoZones/Ambience causes drift from the unified simulation clock and desynchronises audio events." }
+      ],
+      "mandatory_gates": ["direction_pick_lock", "audio_api_graph_audit", "no_os_clock_audio", "studio_playtest"],
+      "owner_stops": ["direction", "board", "verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "build a cave reverb ambience with OpenAIR IR and acoustic simulation enabled",
+        "create a wind ambience soundscape with GustEvents and AngleAttenuation",
+        "design a room echo zone with pooled AudioReverb on the unified clock"
+      ]
+    },
+    {
+      "case_id": "sfx:ui_click_feedback",
+      "label": "UI Clicks, Hovers, Confirms, Error Tones",
+      "triggers": {
+        "keywords": ["click", "hover", "confirm", "error", "tone", "ui-sound", "feedback", "beep", "chime", "tick"],
+        "requires_both": []
+      },
+      "tier": "simple",
+      "budget_minutes": 10,
+      "required_tools_ordered": [
+        "parallax sfx refs",
+        "short seeded transients + tactile layers",
+        "parallax sfx sheet",
+        "parallax sfx listen",
+        "parallax sfx catalog (bus AudioFilter + AudioCompressor)",
+        "parallax upload"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "CLIPPING_TAIL", "pattern": "clipping_silent_tail", "why": "Clipping or silent tails fail the audio upload gate loudness and clipping checks." },
+        { "id": "UNSEEDED_CLICK", "pattern": "unseeded_click_variance", "why": "Un-seeded click variance produces identical sounds on every press, which the ear immediately detects as robotic." }
+      ],
+      "mandatory_gates": ["audio_upload_gate (<=48kHz, no clip/silence)", "owner_verdict"],
+      "owner_stops": ["verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "make a UI click feedback set with seeded transients and AudioCompressor",
+        "build confirm and error tones with AudioFilter bus and no-clip tails",
+        "create hover and click sounds with tactile layers and sfx listen approval"
+      ]
+    },
+    {
+      "case_id": "sfx:loop_music_bed",
+      "label": "Seamless Looping Beds & Music Stems",
+      "triggers": {
+        "keywords": ["music", "loop", "bed", "stem", "soundtrack", "track", "seamless", "looping", "lufs"],
+        "requires_both": []
+      },
+      "tier": "complex",
+      "budget_minutes": 30,
+      "required_tools_ordered": [
+        "vetted source/composition",
+        "zero-crossing seamless loop check",
+        "BS.1770 LUFS loudness target",
+        "Music bus Audio API graph (unified clock)",
+        "parallax upload"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "LOOP_POP", "pattern": "click_pop_at_loop_boundary", "why": "A click/pop at the loop boundary is audible every cycle and fails the loop_seam_check gate." },
+        { "id": "MUSIC_CLOCK", "pattern": "os_clock_music_luau", "why": "Using os.clock() in Music.luau causes drift from the unified simulation clock and desyncs music from game events." }
+      ],
+      "mandatory_gates": ["loop_seam_check", "lufs_target", "audio_upload_gate"],
+      "owner_stops": ["verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "create a seamless looping music bed with LUFS target and zero-crossing check",
+        "build a battle theme with stems and seamless loop on the unified music clock",
+        "make a looping ambient soundtrack with BS.1770 loudness and no loop pop"
+      ]
+    },
+    {
+      "case_id": "sfx:downloaded_asset_vet",
+      "label": "Ingesting Any External SFX Pack or Recording",
+      "triggers": {
+        "keywords": ["download", "external", "pack", "import", "ingest", "vet", "license", "freesound", "cc0-audio"],
+        "requires_both": []
+      },
+      "tier": "simple",
+      "budget_minutes": 10,
+      "required_tools_ordered": [
+        "parallax-vet (2 sources, license, SHA-256) + VETLOG.md + owner yes",
+        "parallax audio-check",
+        "parallax sfx index (--licence measure-only if non-shippable)"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "REJECT_NC", "pattern": "freesound_nc_bbc_remaRC_pixabay_gpl", "why": "HARD REJECT: Freesound-NC, BBC RemArc, Pixabay, GPL/NC packs are not licensable for commercial Roblox games." }
+      ],
+      "mandatory_gates": ["vetlog_entry", "license_allowlist", "audio_check"],
+      "owner_stops": ["verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "vet and ingest a CC0 Sonniss GDC audio pack with two-source license check",
+        "import an external sound recording and add to VETLOG with owner approval",
+        "download a CC-BY sfx pack, verify license and run audio-check before indexing"
+      ]
+    }
+  ]
+}

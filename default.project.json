@@ -1,0 +1,27 @@
+{
+  "name": "Parallax",
+  "tree": {
+    "$className": "DataModel",
+    "ReplicatedStorage": {
+      "$className": "ReplicatedStorage",
+      "kit": {
+        "$path": "src/kit"
+      }
+    },
+    "ServerScriptService": {
+      "$className": "ServerScriptService",
+      "KitServer": {
+        "$path": "src/kit/server"
+      }
+    },
+    "StarterPlayer": {
+      "$className": "StarterPlayer",
+      "StarterPlayerScripts": {
+        "$className": "StarterPlayerScripts",
+        "KitClient": {
+          "$path": "src/kit/client"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,72 @@
+[
+ {
+  "object": "bordeaux barrique 225 l",
+  "part": "overall",
+  "dim": "height",
+  "value": 950.0,
+  "unit": "mm",
+  "source": "https://www.hellopro.fr/tonnelet-2000495-5598234-produit.html",
+  "kind": "published",
+  "note": "Tonnellerie Gillet, Bordeaux Export",
+  "quote": "Hauteur : 0,95 m",
+  "trust": "high",
+  "id": "b657bd3b",
+  "added": "2026-10-17"
+ },
+ {
+  "object": "bordeaux barrique 225 l",
+  "part": "belly",
+  "dim": "diameter",
+  "value": 690.0,
+  "unit": "mm",
+  "source": "https://www.hellopro.fr/tonnelet-2000495-5598234-produit.html",
+  "kind": "published",
+  "note": "Tonnellerie Gillet",
+  "quote": "Diam\u00e8tre en bouge : 0,69 m",
+  "trust": "high",
+  "id": "d30c3132",
+  "added": "2026-10-17"
+ },
+ {
+  "object": "bordeaux barrique 225 l",
+  "part": "head",
+  "dim": "diameter",
+  "value": 550.0,
+  "unit": "mm",
+  "source": "https://www.hellopro.fr/tonnelet-2000495-5598234-produit.html",
+  "kind": "published",
+  "note": "Tonnellerie Gillet",
+  "quote": "Diam\u00e8tre en t\u00eate : 0,55 m",
+  "trust": "high",
+  "id": "a6a49c89",
+  "added": "2026-10-17"
+ },
+ {
+  "object": "bordeaux barrique 225 l",
+  "part": "overall",
+  "dim": "height",
+  "value": 950.0,
+  "unit": "mm",
+  "source": "https://winegrowers.info/wine-equip/oak-barriques/info.htm",
+  "kind": "published",
+  "note": "",
+  "quote": "a Bordeaux type barrique is 225 litres (95 cm high, 68.5 cm diameter at the centre)",
+  "trust": "high",
+  "id": "b859ead9",
+  "added": "2026-10-17"
+ },
+ {
+  "object": "bordeaux barrique 225 l",
+  "part": "belly",
+  "dim": "diameter",
+  "value": 685.0,
+  "unit": "mm",
+  "source": "https://winegrowers.info/wine-equip/oak-barriques/info.htm",
+  "kind": "published",
+  "note": "",
+  "quote": "a Bordeaux type barrique is 225 litres (95 cm high, 68.5 cm diameter at the centre)",
+  "trust": "high",
+  "id": "fd1447da",
+  "added": "2026-10-17"
+ }
+]

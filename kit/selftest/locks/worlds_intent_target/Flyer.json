@@ -1,0 +1,36 @@
+{
+ "_note": "NEGATIVE fixture for the loading-intent lock: players at 300 studs a second (1,200 studs in 4 s); the game keeps 1,200 loaded and pauses outside loaded ground, but streams in to Roblox's own 1,024 - under the minimum. The lock must name the target radius. Never fix.",
+ "name": "Flyer",
+ "scale": "r6",
+ "streaming": {
+  "cell": 256,
+  "speed": 300
+ },
+ "palette": {
+  "ground": {
+   "material": "Concrete",
+   "color": [
+    96,
+    98,
+    104
+   ]
+  }
+ },
+ "build": [
+  {
+   "floor": {
+    "name": "Ground",
+    "center": [
+     0,
+     0,
+     0
+    ],
+    "size": [
+     600,
+     600
+    ],
+    "mat": "ground"
+   }
+  }
+ ]
+}

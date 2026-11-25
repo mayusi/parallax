@@ -1,0 +1,17 @@
+{
+ "lane": "ui",
+ "about": "The UI lane's fixed questions for the parts library (P0): new screens in a brief's words (keywords = what a session would type into today's library search), written before any method was run on them. Every method's top answers are pooled and labelled blind by two labellers (labels.json); `kit parts ui eval` scores each method on them. Add a question only from real work, never to suit a method.",
+ "written": "2026-11-09",
+ "questions": [
+  {"id": "ui-q01", "piece": "ammo_counter_hud", "brief": "ammo counter HUD: a revolver cylinder showing the rounds left, a number for the spare ammo, a reload prompt when it is empty", "keywords": "ammo counter cylinder reload"},
+  {"id": "ui-q02", "piece": "quest_tracker", "brief": "quest tracker: a small panel on the right with the quest title, two objectives with check marks, a progress count", "keywords": "quest objective tracker panel"},
+  {"id": "ui-q03", "piece": "skill_tree", "brief": "skill tree: nodes joined by lines on a dark board, locked and unlocked states, a tooltip with the skill's cost, a points counter", "keywords": "skill tree node tooltip points"},
+  {"id": "ui-q04", "piece": "boss_intro_card", "brief": "boss intro card: the boss's name in big lettering slides in with a subtitle, a portrait, a health bar fills up under it", "keywords": "boss name title card health bar"},
+  {"id": "ui-q05", "piece": "inventory_grid", "brief": "inventory: a grid of item slots with rarity borders, a stack count on each slot, an item details panel, a weight bar", "keywords": "inventory grid slot rarity"},
+  {"id": "ui-q06", "piece": "daily_reward_calendar", "brief": "daily reward: seven day cards in a row, the claimed days greyed out, today's card glowing with a claim button, a streak counter", "keywords": "daily reward claim streak card"},
+  {"id": "ui-q07", "piece": "minimap_compass", "brief": "minimap: a round map in the corner with a compass ring, objective markers, the player's arrow in the centre", "keywords": "minimap compass map marker"},
+  {"id": "ui-q08", "piece": "combo_meter", "brief": "combo meter: a hit counter that pops bigger on each hit, a style rank letter, a timer bar that drains", "keywords": "combo counter rank timer"},
+  {"id": "ui-q09", "piece": "settings_menu", "brief": "settings menu: tabs for audio, graphics and controls, sliders for the volume, toggles, a back button", "keywords": "settings tabs slider toggle"},
+  {"id": "ui-q10", "piece": "death_screen", "brief": "death screen: the screen fades dark red, big 'YOU DIED' lettering, a respawn countdown and a button to return", "keywords": "death screen lettering respawn"}
+ ]
+}

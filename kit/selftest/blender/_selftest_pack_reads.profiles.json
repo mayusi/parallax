@@ -1,0 +1,5 @@
+{"source": "kit/selftest/blender/_selftest_pack_reads.png", "anchor": "slab", "length_mm": 120.0, "top_mm": 0.0,
+ "frame": "f = mm forward of the anchor's rear end, h = mm up (the anchor's top at top_mm)",
+ "outline": [[0, 0], [120, 0], [120, -40], [0, -40]], "holes": [],
+ "parts": {"slab": [[0, 0], [120, 0], [120, -28], [96, -40], [0, -40]]},
+ "extents": {"slab": [0, 120, -40, 0]}}

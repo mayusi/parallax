@@ -1,0 +1,73 @@
+{
+ "_help": "kit-built effect meshes (assets/effects/meshes/*.json -> lune run kit vfx). Import <file> in Studio, then lune run kit asset-id <file> <id>. Until id is set the runtime shows `fallback` at `size`.",
+ "charge_spiral": {
+  "id": "",
+  "fallback": "Cylinder",
+  "size": [
+   2.4,
+   4.6,
+   2.4
+  ],
+  "file": "build/vfxmeshes/charge_spiral.fbx"
+ },
+ "dust_wall": {
+  "id": "",
+  "fallback": "Cylinder",
+  "size": [
+   2.6,
+   1.0,
+   2.6
+  ],
+  "file": "build/vfxmeshes/dust_wall.fbx"
+ },
+ "glyph_ring": {
+  "id": "",
+  "fallback": "Cylinder",
+  "size": [
+   7.391,
+   0.05,
+   7.391
+  ],
+  "file": "build/vfxmeshes/glyph_ring.fbx"
+ },
+ "impact_spikes": {
+  "id": "",
+  "fallback": "Ball",
+  "size": [
+   5.006,
+   2.939,
+   4.217
+  ],
+  "file": "build/vfxmeshes/impact_spikes.fbx"
+ },
+ "shock_ring": {
+  "id": "",
+  "fallback": "Cylinder",
+  "size": [
+   2.0,
+   0.05,
+   2.0
+  ],
+  "file": "build/vfxmeshes/shock_ring.fbx"
+ },
+ "shockwave_dome": {
+  "id": "",
+  "fallback": "Ball",
+  "size": [
+   2.0,
+   0.6,
+   2.0
+  ],
+  "file": "build/vfxmeshes/shockwave_dome.fbx"
+ },
+ "slash_crescent": {
+  "id": "",
+  "fallback": "Block",
+  "size": [
+   6.09,
+   0.05,
+   3.124
+  ],
+  "file": "build/vfxmeshes/slash_crescent.fbx"
+ }
+}

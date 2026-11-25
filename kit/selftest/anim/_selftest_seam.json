@@ -1,0 +1,9 @@
+{
+ "name": "_selftest_seam",
+ "loop": true,
+ "priority": "Idle",
+ "keys": [
+  { "t": 0, "ease": "Linear", "pose": { "Head": [0, 0, 0] } },
+  { "t": 1, "ease": "Linear", "pose": { "Head": [40, 0, 0] } }
+ ]
+}

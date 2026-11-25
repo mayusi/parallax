@@ -1,0 +1,907 @@
+{
+ "schema": 1,
+ "attribution": "100STYLE dataset - Ian Mason, Sebastian Starke, Taku Komura (2022), CC BY 4.0, doi 10.1145/3522618",
+ "about": "per-style locomotion STATISTICS only (R6 chords); no motion kept",
+ "styles": {
+  "Aeroplane": {
+   "period": 1.131,
+   "leg": 30.2,
+   "arm": 282.2,
+   "twist": 13.1,
+   "lean": -15.0,
+   "bob_per_leg": 0.024,
+   "speed_rel": 0.8
+  },
+  "Akimbo": {
+   "period": 1.424,
+   "leg": 37.8,
+   "arm": 12.8,
+   "twist": 10.0,
+   "lean": -8.7,
+   "bob_per_leg": 0.032,
+   "speed_rel": 0.81
+  },
+  "Angry": {
+   "period": 0.886,
+   "leg": 45.9,
+   "arm": 50.9,
+   "twist": 15.2,
+   "lean": -8.8,
+   "bob_per_leg": 0.081,
+   "speed_rel": 1.34
+  },
+  "ArmsAboveHead": {
+   "period": 1.331,
+   "leg": 40.8,
+   "arm": 139.1,
+   "twist": 16.4,
+   "lean": -3.5,
+   "bob_per_leg": 0.038,
+   "speed_rel": 0.88
+  },
+  "ArmsBehindBack": {
+   "period": 1.429,
+   "leg": 39.9,
+   "arm": 26.2,
+   "twist": 6.8,
+   "lean": -4.9,
+   "bob_per_leg": 0.034,
+   "speed_rel": 0.8
+  },
+  "ArmsBySide": {
+   "period": 1.381,
+   "leg": 38.0,
+   "arm": 8.7,
+   "twist": 10.9,
+   "lean": -2.5,
+   "bob_per_leg": 0.032,
+   "speed_rel": 0.81
+  },
+  "ArmsFolded": {
+   "period": 1.413,
+   "leg": 39.9,
+   "arm": 11.5,
+   "twist": 7.2,
+   "lean": -1.9,
+   "bob_per_leg": 0.035,
+   "speed_rel": 0.79
+  },
+  "Balance": {
+   "period": 2.302,
+   "leg": 29.1,
+   "arm": 47.0,
+   "twist": 12.5,
+   "lean": -9.5,
+   "bob_per_leg": 0.028,
+   "speed_rel": 0.4
+  },
+  "BeatChest": {
+   "period": 1.538,
+   "leg": 37.4,
+   "arm": 60.8,
+   "twist": 10.5,
+   "lean": -3.7,
+   "bob_per_leg": 0.03,
+   "speed_rel": 0.74
+  },
+  "BentForward": {
+   "period": 1.142,
+   "leg": 34.3,
+   "arm": 34.5,
+   "twist": 13.0,
+   "lean": -35.6,
+   "bob_per_leg": 0.053,
+   "speed_rel": 0.9
+  },
+  "BentKnees": {
+   "period": 1.463,
+   "leg": 41.4,
+   "arm": 12.1,
+   "twist": 9.3,
+   "lean": -4.5,
+   "bob_per_leg": 0.108,
+   "speed_rel": 0.76
+  },
+  "BigSteps": {
+   "period": 1.544,
+   "leg": 67.0,
+   "arm": 32.8,
+   "twist": 22.1,
+   "lean": -6.5,
+   "bob_per_leg": 0.146,
+   "speed_rel": 1.21
+  },
+  "BouncyLeft": {
+   "period": 1.097,
+   "leg": 42.7,
+   "arm": 19.4,
+   "twist": 16.1,
+   "lean": -5.9,
+   "bob_per_leg": 0.168,
+   "speed_rel": 1.06
+  },
+  "BouncyRight": {
+   "period": 1.109,
+   "leg": 41.5,
+   "arm": 18.2,
+   "twist": 15.4,
+   "lean": -5.3,
+   "bob_per_leg": 0.181,
+   "speed_rel": 1.02
+  },
+  "Cat": {
+   "period": 1.658,
+   "leg": 51.2,
+   "arm": 61.5,
+   "twist": 24.5,
+   "lean": -2.0,
+   "bob_per_leg": 0.076,
+   "speed_rel": 0.89
+  },
+  "Chicken": {
+   "period": 1.063,
+   "leg": 25.3,
+   "arm": 41.9,
+   "twist": 7.7,
+   "lean": -32.3,
+   "bob_per_leg": 0.114,
+   "speed_rel": 0.72
+  },
+  "CrossOver": {
+   "period": 1.764,
+   "leg": 39.0,
+   "arm": 19.6,
+   "twist": 22.3,
+   "lean": -2.2,
+   "bob_per_leg": 0.039,
+   "speed_rel": 0.65
+  },
+  "Crouched": {
+   "period": 1.221,
+   "leg": 32.2,
+   "arm": 19.2,
+   "twist": 8.8,
+   "lean": -26.5,
+   "bob_per_leg": 0.09,
+   "speed_rel": 0.81
+  },
+  "CrowdAvoidance": {
+   "period": 1.454,
+   "leg": 36.5,
+   "arm": 26.7,
+   "twist": 28.3,
+   "lean": -4.2,
+   "bob_per_leg": 0.033,
+   "speed_rel": 0.75
+  },
+  "Depressed": {
+   "period": 1.464,
+   "leg": 31.8,
+   "arm": 27.6,
+   "twist": 10.1,
+   "lean": -10.7,
+   "bob_per_leg": 0.037,
+   "speed_rel": 0.69
+  },
+  "Dinosaur": {
+   "period": 1.686,
+   "leg": 45.0,
+   "arm": 18.0,
+   "twist": 10.8,
+   "lean": -21.8,
+   "bob_per_leg": 0.141,
+   "speed_rel": 0.78
+  },
+  "DragLeftLeg": {
+   "period": 1.304,
+   "leg": 25.4,
+   "arm": 13.0,
+   "twist": 14.3,
+   "lean": -4.8,
+   "bob_per_leg": 0.079,
+   "speed_rel": 0.59
+  },
+  "DragRightLeg": {
+   "period": 1.479,
+   "leg": 25.9,
+   "arm": 14.6,
+   "twist": 14.8,
+   "lean": -5.3,
+   "bob_per_leg": 0.088,
+   "speed_rel": 0.56
+  },
+  "Drunk": {
+   "period": 1.462,
+   "leg": 42.9,
+   "arm": 64.9,
+   "twist": 27.7,
+   "lean": -4.8,
+   "bob_per_leg": 0.076,
+   "speed_rel": 0.99
+  },
+  "DuckFoot": {
+   "period": 1.463,
+   "leg": 28.1,
+   "arm": 17.2,
+   "twist": 10.0,
+   "lean": -3.6,
+   "bob_per_leg": 0.029,
+   "speed_rel": 0.59
+  },
+  "Elated": {
+   "period": 1.161,
+   "leg": 54.2,
+   "arm": 113.8,
+   "twist": 21.3,
+   "lean": -4.8,
+   "bob_per_leg": 0.137,
+   "speed_rel": 1.31
+  },
+  "FairySteps": {
+   "period": 2.572,
+   "leg": 27.1,
+   "arm": 9.4,
+   "twist": 11.5,
+   "lean": -3.6,
+   "bob_per_leg": 0.02,
+   "speed_rel": 0.33
+  },
+  "Flapping": {
+   "period": 1.063,
+   "leg": 35.9,
+   "arm": 152.3,
+   "twist": 14.1,
+   "lean": -2.2,
+   "bob_per_leg": 0.06,
+   "speed_rel": 0.99
+  },
+  "FlickLegs": {
+   "period": 1.626,
+   "leg": 30.8,
+   "arm": 9.9,
+   "twist": 17.0,
+   "lean": -4.3,
+   "bob_per_leg": 0.026,
+   "speed_rel": 0.47
+  },
+  "Followed": {
+   "period": 0.998,
+   "leg": 39.0,
+   "arm": 39.2,
+   "twist": 30.8,
+   "lean": -3.3,
+   "bob_per_leg": 0.047,
+   "speed_rel": 1.13
+  },
+  "GracefulArms": {
+   "period": 1.291,
+   "leg": 41.4,
+   "arm": 60.2,
+   "twist": 13.3,
+   "lean": -6.2,
+   "bob_per_leg": 0.037,
+   "speed_rel": 0.93
+  },
+  "HandsBetweenLegs": {
+   "period": 1.251,
+   "leg": 35.2,
+   "arm": 24.3,
+   "twist": 11.9,
+   "lean": -70.9,
+   "bob_per_leg": 0.118,
+   "speed_rel": 1.01
+  },
+  "HandsInPockets": {
+   "period": 1.386,
+   "leg": 42.4,
+   "arm": 9.9,
+   "twist": 10.1,
+   "lean": -7.5,
+   "bob_per_leg": 0.038,
+   "speed_rel": 0.86
+  },
+  "Heavyset": {
+   "period": 1.257,
+   "leg": 42.6,
+   "arm": 19.6,
+   "twist": 24.8,
+   "lean": -4.6,
+   "bob_per_leg": 0.041,
+   "speed_rel": 0.93
+  },
+  "HighKnees": {
+   "period": 1.512,
+   "leg": 39.7,
+   "arm": 10.7,
+   "twist": 10.7,
+   "lean": -1.7,
+   "bob_per_leg": 0.044,
+   "speed_rel": 0.62
+  },
+  "InTheDark": {
+   "period": 1.218,
+   "leg": 24.3,
+   "arm": 78.8,
+   "twist": 15.2,
+   "lean": 0.8,
+   "bob_per_leg": 0.026,
+   "speed_rel": 0.59
+  },
+  "KarateChop": {
+   "period": 2.045,
+   "leg": 45.1,
+   "arm": 86.6,
+   "twist": 17.5,
+   "lean": -2.6,
+   "bob_per_leg": 0.05,
+   "speed_rel": 0.72
+  },
+  "Kick": {
+   "period": 2.206,
+   "leg": 72.6,
+   "arm": 15.0,
+   "twist": 13.1,
+   "lean": 0.7,
+   "bob_per_leg": 0.046,
+   "speed_rel": 0.57
+  },
+  "LawnMower": {
+   "period": 1.31,
+   "leg": 36.1,
+   "arm": 58.0,
+   "twist": 12.5,
+   "lean": -9.2,
+   "bob_per_leg": 0.038,
+   "speed_rel": 0.81
+  },
+  "LeanBack": {
+   "period": 1.203,
+   "leg": 30.0,
+   "arm": 18.6,
+   "twist": 16.7,
+   "lean": 17.4,
+   "bob_per_leg": 0.058,
+   "speed_rel": 0.64
+  },
+  "LeanLeft": {
+   "period": 1.106,
+   "leg": 32.9,
+   "arm": 30.9,
+   "twist": 14.2,
+   "lean": -10.6,
+   "bob_per_leg": 0.043,
+   "speed_rel": 0.86
+  },
+  "LeanRight": {
+   "period": 1.125,
+   "leg": 29.7,
+   "arm": 25.8,
+   "twist": 13.4,
+   "lean": -6.6,
+   "bob_per_leg": 0.032,
+   "speed_rel": 0.72
+  },
+  "LeftHop": {
+   "period": 0.458,
+   "leg": 16.6,
+   "arm": 39.1,
+   "twist": 22.6,
+   "lean": -7.8,
+   "bob_per_leg": 0.163,
+   "speed_rel": 0.71
+  },
+  "LegsApart": {
+   "period": 1.276,
+   "leg": 26.4,
+   "arm": 23.3,
+   "twist": 18.2,
+   "lean": -7.1,
+   "bob_per_leg": 0.054,
+   "speed_rel": 0.68
+  },
+  "LimpLeft": {
+   "period": 1.294,
+   "leg": 24.4,
+   "arm": 11.3,
+   "twist": 9.1,
+   "lean": -6.4,
+   "bob_per_leg": 0.05,
+   "speed_rel": 0.61
+  },
+  "LimpRight": {
+   "period": 1.277,
+   "leg": 28.0,
+   "arm": 16.8,
+   "twist": 9.6,
+   "lean": -7.6,
+   "bob_per_leg": 0.049,
+   "speed_rel": 0.65
+  },
+  "LookUp": {
+   "period": 1.205,
+   "leg": 28.3,
+   "arm": 13.7,
+   "twist": 17.8,
+   "lean": 6.2,
+   "bob_per_leg": 0.028,
+   "speed_rel": 0.65
+  },
+  "Lunge": {
+   "period": 2.256,
+   "leg": 70.8,
+   "arm": 15.8,
+   "twist": 17.4,
+   "lean": -2.4,
+   "bob_per_leg": 0.239,
+   "speed_rel": 0.86
+  },
+  "March": {
+   "period": 1.05,
+   "leg": 29.9,
+   "arm": 47.2,
+   "twist": 12.4,
+   "lean": -0.3,
+   "bob_per_leg": 0.039,
+   "speed_rel": 0.78
+  },
+  "Monk": {
+   "period": 1.622,
+   "leg": 33.3,
+   "arm": 7.6,
+   "twist": 5.0,
+   "lean": -4.6,
+   "bob_per_leg": 0.026,
+   "speed_rel": 0.6
+  },
+  "Morris": {
+   "period": 1.219,
+   "leg": 48.3,
+   "arm": 77.3,
+   "twist": 23.3,
+   "lean": -5.5,
+   "bob_per_leg": 0.14,
+   "speed_rel": 1.1
+  },
+  "Neutral": {
+   "period": 1.385,
+   "leg": 39.5,
+   "arm": 23.0,
+   "twist": 15.3,
+   "lean": -2.9,
+   "bob_per_leg": 0.032,
+   "speed_rel": 0.82
+  },
+  "Old": {
+   "period": 1.815,
+   "leg": 16.9,
+   "arm": 8.8,
+   "twist": 6.5,
+   "lean": -26.0,
+   "bob_per_leg": 0.014,
+   "speed_rel": 0.29
+  },
+  "OnHeels": {
+   "period": 1.142,
+   "leg": 22.5,
+   "arm": 37.3,
+   "twist": 26.2,
+   "lean": -8.9,
+   "bob_per_leg": 0.021,
+   "speed_rel": 0.55
+  },
+  "OnPhoneLeft": {
+   "period": 1.424,
+   "leg": 40.8,
+   "arm": 77.4,
+   "twist": 16.0,
+   "lean": -2.6,
+   "bob_per_leg": 0.036,
+   "speed_rel": 0.84
+  },
+  "OnPhoneRight": {
+   "period": 1.417,
+   "leg": 40.1,
+   "arm": 23.8,
+   "twist": 13.9,
+   "lean": -3.7,
+   "bob_per_leg": 0.034,
+   "speed_rel": 0.8
+  },
+  "OnToesBentForward": {
+   "period": 1.194,
+   "leg": 28.6,
+   "arm": 25.4,
+   "twist": 6.4,
+   "lean": -44.3,
+   "bob_per_leg": 0.05,
+   "speed_rel": 0.78
+  },
+  "OnToesCrouched": {
+   "period": 1.239,
+   "leg": 28.0,
+   "arm": 13.7,
+   "twist": 7.0,
+   "lean": -24.3,
+   "bob_per_leg": 0.071,
+   "speed_rel": 0.7
+  },
+  "PendulumHands": {
+   "period": 0.94,
+   "leg": 19.6,
+   "arm": 30.3,
+   "twist": 7.3,
+   "lean": -17.0,
+   "bob_per_leg": 0.052,
+   "speed_rel": 0.58
+  },
+  "Penguin": {
+   "period": 1.223,
+   "leg": 11.7,
+   "arm": 6.2,
+   "twist": 8.0,
+   "lean": -3.8,
+   "bob_per_leg": 0.011,
+   "speed_rel": 0.28
+  },
+  "PigeonToed": {
+   "period": 1.56,
+   "leg": 17.3,
+   "arm": 11.8,
+   "twist": 13.0,
+   "lean": -5.5,
+   "bob_per_leg": 0.022,
+   "speed_rel": 0.4
+  },
+  "Proud": {
+   "period": 1.272,
+   "leg": 43.3,
+   "arm": 51.5,
+   "twist": 12.3,
+   "lean": -1.7,
+   "bob_per_leg": 0.051,
+   "speed_rel": 0.99
+  },
+  "Punch": {
+   "period": 1.632,
+   "leg": 40.6,
+   "arm": 80.7,
+   "twist": 25.8,
+   "lean": 0.0,
+   "bob_per_leg": 0.035,
+   "speed_rel": 0.75
+  },
+  "Quail": {
+   "period": 0.828,
+   "leg": 20.5,
+   "arm": 20.9,
+   "twist": 6.4,
+   "lean": -16.3,
+   "bob_per_leg": 0.059,
+   "speed_rel": 0.67
+  },
+  "RaisedLeftArm": {
+   "period": 1.282,
+   "leg": 40.3,
+   "arm": 60.6,
+   "twist": 13.3,
+   "lean": -4.8,
+   "bob_per_leg": 0.034,
+   "speed_rel": 0.9
+  },
+  "RaisedRightArm": {
+   "period": 1.302,
+   "leg": 41.7,
+   "arm": 14.8,
+   "twist": 15.8,
+   "lean": -5.8,
+   "bob_per_leg": 0.039,
+   "speed_rel": 0.91
+  },
+  "RightHop": {
+   "period": 73.135,
+   "leg": 33.1,
+   "arm": 35.6,
+   "twist": 19.6,
+   "lean": -8.7,
+   "bob_per_leg": 0.175,
+   "speed_rel": 0.74
+  },
+  "Roadrunner": {
+   "period": 1.032,
+   "leg": 40.2,
+   "arm": 60.1,
+   "twist": 10.5,
+   "lean": -28.8,
+   "bob_per_leg": 0.126,
+   "speed_rel": 1.14
+  },
+  "Robot": {
+   "period": 0.948,
+   "leg": 11.5,
+   "arm": 19.4,
+   "twist": 8.8,
+   "lean": -5.3,
+   "bob_per_leg": 0.017,
+   "speed_rel": 0.36
+  },
+  "Rocket": {
+   "period": 1.135,
+   "leg": 31.5,
+   "arm": 89.0,
+   "twist": 7.5,
+   "lean": -39.5,
+   "bob_per_leg": 0.043,
+   "speed_rel": 0.83
+  },
+  "Rushed": {
+   "period": 0.792,
+   "leg": 49.0,
+   "arm": 68.8,
+   "twist": 24.5,
+   "lean": -8.7,
+   "bob_per_leg": 0.112,
+   "speed_rel": 1.63
+  },
+  "ShieldedLeft": {
+   "period": 1.199,
+   "leg": 37.6,
+   "arm": 114.6,
+   "twist": 9.4,
+   "lean": -22.7,
+   "bob_per_leg": 0.075,
+   "speed_rel": 0.93
+  },
+  "ShieldedRight": {
+   "period": 1.197,
+   "leg": 38.7,
+   "arm": 13.0,
+   "twist": 11.4,
+   "lean": -19.3,
+   "bob_per_leg": 0.08,
+   "speed_rel": 0.95
+  },
+  "Skip": {
+   "period": 1.313,
+   "leg": 49.5,
+   "arm": 59.8,
+   "twist": 15.4,
+   "lean": -2.8,
+   "bob_per_leg": 0.178,
+   "speed_rel": 1.15
+  },
+  "SlideFeet": {
+   "period": 1.782,
+   "leg": 34.2,
+   "arm": 13.8,
+   "twist": 8.2,
+   "lean": -1.2,
+   "bob_per_leg": 0.025,
+   "speed_rel": 0.53
+  },
+  "SpinAntiClock": {
+   "period": 2.094,
+   "leg": 19.2,
+   "arm": 15.2,
+   "twist": 11.2,
+   "lean": -5.5,
+   "bob_per_leg": 0.021,
+   "speed_rel": 0.45
+  },
+  "SpinClock": {
+   "period": 1.338,
+   "leg": 23.5,
+   "arm": 15.0,
+   "twist": 11.9,
+   "lean": -9.5,
+   "bob_per_leg": 0.027,
+   "speed_rel": 0.48
+  },
+  "Star": {
+   "period": 1.1,
+   "leg": 25.0,
+   "arm": 37.2,
+   "twist": 11.1,
+   "lean": -12.5,
+   "bob_per_leg": 0.042,
+   "speed_rel": 0.73
+  },
+  "StartStop": {
+   "period": 3.096,
+   "leg": 22.7,
+   "arm": 7.3,
+   "twist": 8.0,
+   "lean": -6.5,
+   "bob_per_leg": 0.021,
+   "speed_rel": 0.31
+  },
+  "Stiff": {
+   "period": 1.133,
+   "leg": 26.4,
+   "arm": 30.7,
+   "twist": 18.1,
+   "lean": -2.4,
+   "bob_per_leg": 0.024,
+   "speed_rel": 0.64
+  },
+  "Strutting": {
+   "period": 1.318,
+   "leg": 32.6,
+   "arm": 34.3,
+   "twist": 17.3,
+   "lean": 1.9,
+   "bob_per_leg": 0.028,
+   "speed_rel": 0.72
+  },
+  "Superman": {
+   "period": 1.078,
+   "leg": 37.0,
+   "arm": 66.1,
+   "twist": 16.5,
+   "lean": -14.0,
+   "bob_per_leg": 0.045,
+   "speed_rel": 1.02
+  },
+  "Swat": {
+   "period": 1.149,
+   "leg": 42.4,
+   "arm": 87.1,
+   "twist": 18.5,
+   "lean": -10.5,
+   "bob_per_leg": 0.084,
+   "speed_rel": 1.04
+  },
+  "Sweep": {
+   "period": 1.296,
+   "leg": 24.7,
+   "arm": 37.9,
+   "twist": 13.2,
+   "lean": -60.0,
+   "bob_per_leg": 0.07,
+   "speed_rel": 0.71
+  },
+  "Swimming": {
+   "period": 1.376,
+   "leg": 34.8,
+   "arm": 77.1,
+   "twist": 17.8,
+   "lean": -9.6,
+   "bob_per_leg": 0.031,
+   "speed_rel": 0.77
+  },
+  "SwingArmsRound": {
+   "period": 1.493,
+   "leg": 34.8,
+   "arm": 72.7,
+   "twist": 25.4,
+   "lean": -5.9,
+   "bob_per_leg": 0.03,
+   "speed_rel": 0.7
+  },
+  "SwingShoulders": {
+   "period": 1.514,
+   "leg": 44.3,
+   "arm": 49.3,
+   "twist": 59.5,
+   "lean": -3.3,
+   "bob_per_leg": 0.042,
+   "speed_rel": 0.8
+  },
+  "Teapot": {
+   "period": 1.316,
+   "leg": 38.7,
+   "arm": 73.1,
+   "twist": 14.7,
+   "lean": -4.4,
+   "bob_per_leg": 0.034,
+   "speed_rel": 0.86
+  },
+  "Tiptoe": {
+   "period": 1.221,
+   "leg": 31.6,
+   "arm": 21.8,
+   "twist": 12.5,
+   "lean": -3.2,
+   "bob_per_leg": 0.044,
+   "speed_rel": 0.79
+  },
+  "TogetherStep": {
+   "period": 2.776,
+   "leg": 38.0,
+   "arm": 13.9,
+   "twist": 8.9,
+   "lean": -5.5,
+   "bob_per_leg": 0.058,
+   "speed_rel": 0.63
+  },
+  "TwoFootJump": {
+   "period": 30.259,
+   "leg": 22.6,
+   "arm": 38.7,
+   "twist": 9.2,
+   "lean": -23.2,
+   "bob_per_leg": 0.313,
+   "speed_rel": 0.74
+  },
+  "WalkingStickLeft": {
+   "period": 1.464,
+   "leg": 39.8,
+   "arm": 32.5,
+   "twist": 13.5,
+   "lean": -2.9,
+   "bob_per_leg": 0.033,
+   "speed_rel": 0.77
+  },
+  "WalkingStickRight": {
+   "period": 1.508,
+   "leg": 40.4,
+   "arm": 19.3,
+   "twist": 12.2,
+   "lean": -2.8,
+   "bob_per_leg": 0.033,
+   "speed_rel": 0.76
+  },
+  "Waving": {
+   "period": 1.484,
+   "leg": 39.7,
+   "arm": 65.3,
+   "twist": 17.0,
+   "lean": -0.7,
+   "bob_per_leg": 0.034,
+   "speed_rel": 0.77
+  },
+  "WhirlArms": {
+   "period": 1.627,
+   "leg": 38.5,
+   "arm": 163.3,
+   "twist": 29.3,
+   "lean": -2.4,
+   "bob_per_leg": 0.04,
+   "speed_rel": 0.74
+  },
+  "WideLegs": {
+   "period": 1.228,
+   "leg": 20.5,
+   "arm": 12.3,
+   "twist": 11.0,
+   "lean": -6.0,
+   "bob_per_leg": 0.039,
+   "speed_rel": 0.6
+  },
+  "WiggleHips": {
+   "period": 1.903,
+   "leg": 32.2,
+   "arm": 18.4,
+   "twist": 11.4,
+   "lean": -4.0,
+   "bob_per_leg": 0.019,
+   "speed_rel": 0.57
+  },
+  "WildArms": {
+   "period": 1.597,
+   "leg": 40.2,
+   "arm": 195.4,
+   "twist": 19.5,
+   "lean": -8.1,
+   "bob_per_leg": 0.044,
+   "speed_rel": 0.75
+  },
+  "WildLegs": {
+   "period": 2.084,
+   "leg": 72.5,
+   "arm": 17.7,
+   "twist": 13.2,
+   "lean": -1.8,
+   "bob_per_leg": 0.049,
+   "speed_rel": 0.55
+  },
+  "Zombie": {
+   "period": 1.454,
+   "leg": 28.9,
+   "arm": 58.8,
+   "twist": 13.3,
+   "lean": -9.3,
+   "bob_per_leg": 0.034,
+   "speed_rel": 0.63
+  }
+ }
+}

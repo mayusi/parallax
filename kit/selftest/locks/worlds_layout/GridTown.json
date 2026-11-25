@@ -1,0 +1,39 @@
+{
+ "_note": "NEGATIVE fixture for the world lane's LAYOUT lock (kit/lib/lanelocks.luau LaneLocks.world): a \"city\" step, the regular grid of box blocks the town plan replaces. The lock must name it. Never fix.",
+ "name": "GridTown",
+ "scale": "r6",
+ "build": [
+  {
+   "floor": {
+    "name": "Ground",
+    "center": [
+     0,
+     -1,
+     0
+    ],
+    "size": [
+     320,
+     320
+    ],
+    "thickness": 2,
+    "mat": "ground"
+   }
+  },
+  {
+   "city": {
+    "name": "GridBlocks",
+    "center": [
+     0,
+     0,
+     0
+    ],
+    "area": [
+     240,
+     240
+    ],
+    "mat": "wall",
+    "glass": "glass"
+   }
+  }
+ ]
+}

@@ -1,0 +1,180 @@
+{
+  "schema": 1,
+  "lane": "ui",
+  "default_case": "ui:menu_shop_dialog",
+  "cases": [
+    {
+      "case_id": "ui:new_identity_hero_screen",
+      "label": "First Screen of a New Game Visual Identity",
+      "triggers": {
+        "keywords": ["identity", "hero-screen", "heroscreen", "brand", "visual-identity", "game-identity", "ui-identity", "new-identity"],
+        "requires_both": []
+      },
+      "tier": "hero",
+      "budget_minutes": 60,
+      "required_tools_ordered": [
+        "parallax ui direct new (3-5 directions as world objects)",
+        "parallax ui check",
+        "parallax ui board (Owner Pick)",
+        "parallax ui refs <identity> (>=2 stills of exact screen type at >=1080p, 1:1 REFS.md)",
+        "parallax ui identity <id> --from refs",
+        "hero pieces (render/trace/ink/letter/spin)",
+        "parallax ui new screen + parallax ui gauge",
+        "parallax ui --motion",
+        "parallax ui look (phone/tablet/desktop)",
+        "parallax ui judge (2 fresh + owner)",
+        "parallax upload",
+        "parallax ui booth / ui_storybook.luau"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "CONTACT_SHEET", "pattern": "gallery_contact_sheet", "why": "Gallery/contact sheets at 760x940 cap are too small for hero detail; each piece needs 1:1 ref crops." },
+        { "id": "FLAT_PIL", "pattern": "typed_glyphs_flat_pil_rectangles", "why": "Typed glyphs + flat PIL rectangles read as AI slop — no visual language, no identity." },
+        { "id": "FLUX_CHARACTER", "pattern": "flux_standin_known_character", "why": "Using FLUX as a stand-in for known characters produces off-model renders that break the identity." }
+      ],
+      "mandatory_gates": ["direct_pick_lock", "refs>=2_1080p", "identity_lock", "ui_compile_gates", "ui_look_recorded", "library_ui_saved", "upload_ids_complete"],
+      "owner_stops": ["direction_pick", "board", "verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "create the first hero-screen for a new game-identity with ink and letter pieces",
+        "build a new-identity screen from scratch with owner direction and 1080p refs",
+        "design an original game ui-identity title screen with 3 directions, refs and a hero route"
+      ]
+    },
+    {
+      "case_id": "ui:realistic_minimal_hud",
+      "label": "Realistic Tactical / Shooter / Grounded HUD",
+      "triggers": {
+        "keywords": ["realistic", "tactical", "shooter", "grounded", "minimal", "hud", "military", "survival"],
+        "requires_both": []
+      },
+      "tier": "complex",
+      "budget_minutes": 30,
+      "required_tools_ordered": [
+        "absence-first design (report only what player cannot feel)",
+        "identity with owner-approved banned_components list",
+        "condensed type + soft edge",
+        "parallax ui --motion",
+        "parallax ui look",
+        "parallax ui hudsize",
+        "parallax upload",
+        "Studio proof"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "ARCADE_PAINT", "pattern": "arcade_checklist_muted_paint", "why": "Arcade checklist UI in muted paint adds non-essential elements that break the absence-first rule." },
+        { "id": "HUD_GRAVEYARD", "pattern": "plate_cutout_chrome_glow_halo_pill", "why": "plate/cutout/chrome/glow/halo/pill/gloss/minimap nodes are graveyard patterns from FieldHud_v1 (1/10 score)." }
+      ],
+      "mandatory_gates": ["banned_components_error", "hudsize_floor", "top_left_260x58_clear", "ui_look_recorded"],
+      "owner_stops": ["verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "build a minimal tactical HUD with absence-first design and no glow/halo nodes",
+        "create a grounded shooter HUD with condensed type and owner-approved banned list",
+        "design a realistic military HUD that only shows what the player cannot feel"
+      ]
+    },
+    {
+      "case_id": "ui:stylized_anime_hud",
+      "label": "High-Style Anime / Character-Action HUD (Persona, Strive)",
+      "triggers": {
+        "keywords": ["anime", "persona", "strive", "stylized", "cel", "scissor", "character-action", "letterbox", "flashy"],
+        "requires_both": []
+      },
+      "tier": "hero",
+      "budget_minutes": 60,
+      "required_tools_ordered": [
+        "parallax ui letter (glyph-per-face/scissor cuts/tilt/overlap)",
+        "official 2D key art through parallax ui ink --mode cel",
+        "parallax ui render / spin plates",
+        "parallax ui reel (ghost drain, rolling counters, hits)",
+        "Ui.luau springs/choreography",
+        "parallax ui look",
+        "parallax upload",
+        "parallax ui booth"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "HALFTONE_3D", "pattern": "3d_render_halftone_filter", "why": "3D render through halftone filter produces a 'splat' that is not stylized anime — it is a mock-up not a real technique." },
+        { "id": "SINGLE_FACE", "pattern": "single_display_face_persona", "why": "A single display face for a Persona-style screen misses the multi-panel layout fundamental to that style." },
+        { "id": "TORN_PLATES", "pattern": "torn_plates_p5_style", "why": "Torn plate patterns for P5 style must be built with letter/ink, not PIL crop transforms." },
+        { "id": "RANSOM_LISTS", "pattern": "ransom_lettering_on_lists", "why": "Ransom lettering on item/skill lists creates unreadable UI; use letter only on hero type." }
+      ],
+      "mandatory_gates": ["identity_lock", "wcag_flash<=3/s", "ui_reel_checked", "ui_look_recorded", "upload_ids_complete"],
+      "owner_stops": ["verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "build a Persona-style stylized anime HUD with scissor cuts and cel-ink art",
+        "create a Guilty Strive-inspired character-action HUD with letter and spin plates",
+        "design a character-action style screen with reel motion and spring choreography"
+      ]
+    },
+    {
+      "case_id": "ui:code_driven_runtime_hud",
+      "label": "Runtime Luau-Sized HUD (e.g., ChamberHud)",
+      "triggers": {
+        "keywords": ["runtime", "luau", "code-driven", "hud", "chamber", "dynamic", "resize", "responsive", "size-contract"],
+        "requires_both": [
+          ["runtime", "luau", "code-driven", "size-contract", "responsive"],
+          ["hud", "screen", "ui"]
+        ]
+      },
+      "tier": "complex",
+      "budget_minutes": 30,
+      "required_tools_ordered": [
+        "author size contract assets/ui/huds/<Hud>.json (code path, block helper, resize fn, owner-approved ref sizes, floor >=0.8x)",
+        "parallax ui hudsize at 1080p & desktop sizes",
+        "Studio playtest"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "SHRINK_HUD", "pattern": "shrink_hud_below_ratio", "why": "Shrinking HUD blocks below owner-approved ratio is a graveyard pattern (sg_hud5 0.58x scored 3/10)." }
+      ],
+      "mandatory_gates": ["hudsize_gate (hard fail in verify)"],
+      "owner_stops": ["verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "build a code-driven runtime HUD with size contract and hudsize validation",
+        "create a Luau-resizable HUD with owner-approved block ratios and 1080p check",
+        "design a responsive hud screen with declared floor ratios and Studio playtest"
+      ]
+    },
+    {
+      "case_id": "ui:menu_shop_dialog",
+      "label": "Menus, Shops, Settings, Status Sheets, Dialogs",
+      "triggers": {
+        "keywords": ["menu", "shop", "settings", "dialog", "status", "inventory", "modal", "popup", "screen", "panel"],
+        "requires_both": []
+      },
+      "tier": "simple",
+      "budget_minutes": 10,
+      "required_tools_ordered": [
+        "existing identity",
+        "Flex / StyleQuery / PreferredTextSize + bind store",
+        "touch targets + gamepad focus (FirstFocus/Nav) + WCAG <=3/s",
+        "parallax ui --motion",
+        "parallax ui look",
+        "ui_storybook.luau Studio playtest"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "UNREADABLE_PHONE", "pattern": "unreadable_phone_tablet_layout", "why": "Unreadable phone/tablet layouts fail the touch target gate and break accessibility." },
+        { "id": "HARDCODED_PX", "pattern": "hardcoded_pixel_offsets", "why": "Hardcoded pixel offsets ignore PreferredTextSize and break accessibility scaling." },
+        { "id": "MISSING_FOCUS", "pattern": "missing_focus_nav", "why": "Missing gamepad/keyboard focus navigation makes the UI unusable on console and gamepad." }
+      ],
+      "mandatory_gates": ["readability_gate", "touch_target_gate", "wcag_flash<=3/s", "ui_look_recorded", "studio_storybook"],
+      "owner_stops": [],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "build an inventory screen with touch targets, gamepad focus and phone layout",
+        "create a shop dialog with Flex layout and PreferredTextSize support",
+        "design a settings panel with motion, WCAG flash check and storybook playtest"
+      ]
+    }
+  ]
+}

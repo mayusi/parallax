@@ -1,0 +1,208 @@
+{
+  "schema": 1,
+  "lane": "anim",
+  "default_case": "anim:single_strike_ability",
+  "cases": [
+    {
+      "case_id": "anim:attack_combo_string",
+      "label": "Multi-Hit Attack String (M1 Combo, Weapon Moveset)",
+      "triggers": {
+        "keywords": ["combo", "string", "moveset", "m1", "multi-hit", "sequence", "chain", "links", "attacks"],
+        "requires_both": [
+          ["combo", "string", "moveset", "m1", "chain"],
+          ["attack", "hit", "strike", "set"]
+        ]
+      },
+      "tier": "hero",
+      "budget_minutes": 60,
+      "required_tools_ordered": [
+        "parallax anim dossier new (Schema 2 measured phases + private 3det ref frames)",
+        "parallax anim design <Set> (Owner Stop 1: cuts, heights, bodies, frames, links: pose|blend, zero cousins)",
+        "parallax anim block <Move> --sheet (Owner Stop 2: poses-first held at timing)",
+        "author from scratch (spring engine, 60 fps KeyframeSequence)",
+        "parallax anim <Name> gates",
+        "parallax anim sheet (open keys/ at full size)",
+        "parallax anim picks (4-12 real-time player-cam GIFs, Owner Pick)",
+        "parallax anim play Studio proof"
+      ],
+      "v4_upgrade_tools": [
+        { "path": "kit/anim/swing_mechanics.py", "when_present": "Auto-activates as mandatory orchestrator once V4 A3 lands on main." }
+      ],
+      "forbidden_tools": [
+        { "id": "COUSINS", "pattern": "combo_one_by_one_no_design", "why": "Designing combo moves one-by-one without a set design produces 'cousin' animations that are too similar." },
+        { "id": "DENSE_NO_BLOCK", "pattern": "dense_motion_no_blocked_poses", "why": "Jumping straight to dense motion without blocked poses skips the foundational shape-language check." },
+        { "id": "SPLICE_CATALOG", "pattern": "splice_catalog_poses", "why": "Splicing catalog poses for combat animations produces unoriginal motion that fails the originality rule." },
+        { "id": "CURVE_ANIM", "pattern": "curve_animation_30hz", "why": "CurveAnimation (30 Hz) for 60 fps strikes loses half the frames and reads as choppy." }
+      ],
+      "mandatory_gates": ["dossier_schema2", "design_approval_lock", "cousin_dist>=2.8st", "pose_link<=6deg", "blocking_approval_lock", "in_hand", "collide_repair", "motion_gates", "studio_play"],
+      "owner_stops": ["design", "blocking", "picks", "verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "build a 5-hit M1 sword combo string with set design and blocking passes",
+        "create a full katana moveset with chain links and no cousin animations",
+        "make a multi-hit attack sequence for a character's combat moveset"
+      ]
+    },
+    {
+      "case_id": "anim:single_strike_ability",
+      "label": "Standalone Strike, Sword Skill, Kick, Ultimate Attack",
+      "triggers": {
+        "keywords": ["strike", "ability", "kick", "ultimate", "standalone", "skill", "slash", "single", "blow", "finisher", "special"],
+        "requires_both": []
+      },
+      "tier": "complex",
+      "budget_minutes": 30,
+      "required_tools_ordered": [
+        "parallax anim dossier new (Schema 2 + ref frames)",
+        "skip design step",
+        "parallax anim block <Move> --sheet (Owner Stop 1)",
+        "author from scratch (60 fps)",
+        "parallax anim <Name> gates (in_hand, blade_path, grip_solve via derive.py if needed)",
+        "parallax anim sheet + parallax anim picks",
+        "parallax anim play Studio proof"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "SKIP_BLOCKING", "pattern": "skip_blocking_strike", "why": "Skipping blocking on strike/sword/kick moves produces floating poses with no held moments." },
+        { "id": "DERIVE_AFTER_GRIP", "pattern": "derive_after_grip_solve", "why": "Running kit anim derive after grip_solve drops the weapon/hands from the rig." },
+        { "id": "OBJ_COPY_R6", "pattern": "obj_copy_r6_armature", "why": "obj.copy() on the R6 armature creates linked duplicates that modify the base rig." }
+      ],
+      "mandatory_gates": ["dossier_schema2", "blocking_approval_lock", "in_hand", "hit_timing", "readable", "no_statue", "studio_play"],
+      "owner_stops": ["blocking", "verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "animate a standalone sword skill with blocking and grip_solve for a finisher",
+        "build a single powerful kick ability with blocking pass and Studio proof",
+        "create an ultimate strike animation for a sword special attack"
+      ]
+    },
+    {
+      "case_id": "anim:locomotion_cycle",
+      "label": "Walk, Run, Sprint, Idle, Wallrun, Air Loop",
+      "triggers": {
+        "keywords": ["walk", "run", "sprint", "idle", "locomotion", "cycle", "loop", "movement", "gait", "wallrun", "airloop"],
+        "requires_both": []
+      },
+      "tier": "complex",
+      "budget_minutes": 30,
+      "required_tools_ordered": [
+        "parallax anim dossier new",
+        "parallax anim new <Name> --gait <kind> / --cycle <kind>",
+        "parallax anim <Name> (seam continuity, planted feet, zero slide)",
+        "AnimLayers upper/additive split for combat overlays",
+        "parallax anim sheet",
+        "Studio 2-client test"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "UNLOOPED_POP", "pattern": "unlooped_seam_pop", "why": "Unlooped seam pops break the cycle continuity and read as a hitch every loop." },
+        { "id": "TORSO_TWIST", "pattern": "twist_torso_instead_of_uppertorso", "why": "Twisting Torso instead of UpperTorso breaks R6 rig hierarchy and misaligns the head." },
+        { "id": "MISSING_UPPER", "pattern": "missing_remote_upper_replication", "why": "Missing remote <Name>Upper replication means the upper body layer is not replicated to other clients." }
+      ],
+      "mandatory_gates": ["seam_gate", "planted_feet", "no_pop", "anim_client_layers Studio playtest"],
+      "owner_stops": ["verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "animate a smooth run cycle with planted feet and proper UpperTorso twist",
+        "build a walk/run/sprint locomotion set with seam continuity and idle blend",
+        "create a wallrun animation cycle with AnimLayers combat overlay split"
+      ]
+    },
+    {
+      "case_id": "anim:fp_weapon_rig",
+      "label": "First-Person Firearm / Tool Animation",
+      "triggers": {
+        "keywords": ["first-person", "fps", "firstperson", "viewmodel", "fp", "firearm", "reload", "aim", "scope"],
+        "requires_both": []
+      },
+      "tier": "complex",
+      "budget_minutes": 30,
+      "required_tools_ordered": [
+        "fp_weapon builder + in_hand + grip_solve",
+        "parallax anim sheet",
+        "Studio playtest"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "FRAME_WELD", "pattern": "reweld_fp_tool_every_frame", "why": "Re-welding the first-person tool every frame causes visible jitter and misalignment." },
+        { "id": "FLOAT_FRAMES", "pattern": "floating_weapon_frames", "why": "Floating weapon frames between keyframes read as ghosting in first-person view." }
+      ],
+      "mandatory_gates": ["in_hand", "grip_solve", "studio_play"],
+      "owner_stops": ["verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "build a first-person rifle reload animation with grip_solve and fp_weapon builder",
+        "create an FPS viewmodel animation set with aim and idle states",
+        "animate a first-person tool equip with proper in_hand and grip_solve"
+      ]
+    },
+    {
+      "case_id": "anim:vetted_import_adapt",
+      "label": "Importing Vetted CC0/CC-BY Animation Clip",
+      "triggers": {
+        "keywords": ["import", "vetted", "cc0", "cc-by", "clip", "retarget", "adapt", "mixamo", "bvh"],
+        "requires_both": []
+      },
+      "tier": "simple",
+      "budget_minutes": 10,
+      "required_tools_ordered": [
+        "parallax-vet + VETLOG.md",
+        "parallax anim import <file> --clip <Clip> --as <Name>",
+        "parallax anim measure --vs <Ref>",
+        "derive / grip_solve",
+        "parallax anim <Name> gates",
+        "parallax anim look --rig R6",
+        "Studio proof"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "UNVETTED_PACK", "pattern": "unvetted_motion_pack", "why": "Unvetted/NC/GPL motion packs may not be licensed for commercial use in Roblox." },
+        { "id": "NO_R6_RETARGET", "pattern": "ship_without_r6_retarget", "why": "Shipping without R6 retarget + in_hand check produces bone misalignment on the R6 character." }
+      ],
+      "mandatory_gates": ["vetlog_entry", "motion_gates", "in_hand", "studio_play"],
+      "owner_stops": ["verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "import a CC0 motion capture clip and retarget it to R6 with grip_solve",
+        "vet and adapt a CC-BY walking clip from mixamo for the R6 rig",
+        "bring in a vetted BVH clip and adapt it with anim measure and R6 retarget"
+      ]
+    },
+    {
+      "case_id": "anim:hit_reaction_transition",
+      "label": "Hitstun, Guard Block, Stance Transition",
+      "triggers": {
+        "keywords": ["hitstun", "guard", "block", "reaction", "transition", "stagger", "recoil", "flinch", "stance", "recovery"],
+        "requires_both": []
+      },
+      "tier": "simple",
+      "budget_minutes": 10,
+      "required_tools_ordered": [
+        "parallax anim dossier new",
+        "author short snappy transition (haltWindow, blendAsks)",
+        "parallax anim <Name>",
+        "parallax anim sheet",
+        "Studio 2-client playtest"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "LONG_FLOATY", "pattern": "long_floaty_reaction", "why": "Long floaty reactions read as slow and punish the player too long; keep transitions snappy." },
+        { "id": "UNTESTED_BLEND", "pattern": "untested_blend_seams", "why": "Un-tested blend seams produce visible pops when transitioning between states in a 2-client test." }
+      ],
+      "mandatory_gates": ["motion_gates", "haltWindow_spec", "studio_2client"],
+      "owner_stops": [],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "build a hitstun reaction with snappy haltWindow and proper blend seams",
+        "create a guard block transition with tested 2-client blend",
+        "animate a stance change transition that is snappy and seam-free"
+      ]
+    }
+  ]
+}

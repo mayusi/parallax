@@ -1,0 +1,194 @@
+{
+ "_note": "POSITIVE twin of _selftest_scale: the same pieces at the r6 sheet's numbers (1 x 2 steps, a 4.5 x 7.5 door, a 3 rail, a 10-wide alley, a 13 ceiling, a 48 flush run wall) must PASS.",
+ "name": "SelftestScaleFixed",
+ "scale": "r6",
+ "palette": {
+  "ground": {
+   "material": "Concrete",
+   "color": [
+    96,
+    98,
+    104
+   ]
+  },
+  "spawn": {
+   "material": "Neon",
+   "color": [
+    80,
+    220,
+    120
+   ]
+  }
+ },
+ "build": [
+  {
+   "floor": {
+    "name": "Ground",
+    "center": [
+     0,
+     -1,
+     0
+    ],
+    "size": [
+     160,
+     160
+    ],
+    "thickness": 2,
+    "mat": "ground"
+   }
+  },
+  {
+   "part": {
+    "name": "WallA",
+    "size": [
+     2,
+     16,
+     60
+    ],
+    "pos": [
+     -6,
+     8,
+     0
+    ],
+    "mat": "ground"
+   }
+  },
+  {
+   "part": {
+    "name": "WallB",
+    "size": [
+     2,
+     16,
+     60
+    ],
+    "pos": [
+     6,
+     8,
+     0
+    ],
+    "mat": "ground"
+   }
+  },
+  {
+   "fit": {
+    "kind": "alley",
+    "name": "Alley",
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "from": [
+     0,
+     -25
+    ],
+    "to": [
+     0,
+     25
+    ]
+   }
+  },
+  {
+   "stairs": {
+    "name": "Stairs",
+    "start": [
+     30,
+     0,
+     -10
+    ],
+    "dir": "+Z",
+    "steps": 6,
+    "rise": 1,
+    "run": 2,
+    "width": 6,
+    "mat": "ground"
+   }
+  },
+  {
+   "part": {
+    "name": "Rail",
+    "size": [
+     20,
+     3,
+     0.6
+    ],
+    "pos": [
+     -40,
+     1.5,
+     30
+    ],
+    "mat": "ground",
+    "fit": "rail"
+   }
+  },
+  {
+   "fit": {
+    "kind": "door",
+    "name": "Door",
+    "pos": [
+     -40,
+     0,
+     -30
+    ],
+    "size": [
+     4.5,
+     7.5,
+     1
+    ]
+   }
+  },
+  {
+   "fit": {
+    "kind": "room",
+    "name": "Hall",
+    "pos": [
+     60,
+     0,
+     -40
+    ],
+    "size": [
+     16,
+     13,
+     16
+    ]
+   }
+  },
+  {
+   "part": {
+    "name": "RunWall",
+    "size": [
+     48,
+     16,
+     2
+    ],
+    "pos": [
+     0,
+     8,
+     60
+    ],
+    "mat": "ground",
+    "fit": "runwall"
+   }
+  },
+  {
+   "spawn": {
+    "pos": [
+     40,
+     0,
+     40
+    ],
+    "mat": "spawn"
+   }
+  },
+  {
+   "spawn": {
+    "pos": [
+     -40,
+     0,
+     40
+    ],
+    "mat": "spawn"
+   }
+  }
+ ]
+}

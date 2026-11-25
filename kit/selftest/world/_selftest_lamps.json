@@ -1,0 +1,18 @@
+{
+ "_note": "NEGATIVE fixture for the lamp check: the street the owner judged on 2026-10-28 (District 9/10 but \"I hate the fact that you added a lamp everywhere\"), rebuilt with the kit's own row generator at its OLD lamp spacing (every 24 studs) on both sides of a 240-stud street. kit world check must FAIL it with a 'design:' error. Never fix.",
+ "name": "SelftestLamps",
+ "scale": "r6",
+ "palette": {
+  "ground": { "material": "Cobblestone", "color": [96, 92, 88] },
+  "iron": { "material": "Metal", "color": [40, 40, 44] },
+  "glow": { "material": "Neon", "color": [255, 196, 120] },
+  "spawn": { "material": "Neon", "color": [80, 220, 120] }
+ },
+ "build": [
+  { "floor": { "name": "Street", "center": [0, 0, 0], "size": [260, 60], "mat": "ground" } },
+  { "row": { "name": "LampsNorth", "points": [[-120, -12], [120, -12]], "every": 24, "item": "lamp", "mat": "iron", "light": "glow" } },
+  { "row": { "name": "LampsSouth", "points": [[-120, 12], [120, 12]], "every": 24, "item": "lamp", "mat": "iron", "light": "glow" } },
+  { "spawn": { "pos": [-100, 0, 0], "mat": "spawn" } },
+  { "spawn": { "pos": [100, 0, 0], "mat": "spawn" } }
+ ]
+}

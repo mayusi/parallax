@@ -1,0 +1,155 @@
+{
+  "lane": "ui",
+  "start": "lune run kit start ui",
+  "keywords": {
+    "ui": 3,
+    "gui": 3,
+    "hud": 3,
+    "menu": 3,
+    "menus": 3,
+    "screen": 2,
+    "screens": 2,
+    "button": 3,
+    "buttons": 3,
+    "shop": 3,
+    "inventory": 2,
+    "health": 2,
+    "bar": 1,
+    "bars": 1,
+    "healthbar": 3,
+    "dialog": 3,
+    "popup": 3,
+    "font": 2,
+    "fonts": 2,
+    "icon": 2,
+    "icons": 2,
+    "slop": 1,
+    "clean": 1,
+    "layout": 2,
+    "settings": 2,
+    "lobby": 1,
+    "scoreboard": 3,
+    "death": 1,
+    "panel": 2
+  },
+  "invariants": [
+    {
+      "id": "identity",
+      "value": "an identity pack decides tokens, type, shape language, drawn plates, motion and bans before any screen (assets/ui/identities/<name>.json)",
+      "why": "identity-first: one game and no other"
+    },
+    {
+      "id": "source_first",
+      "value": "real references from games played, grabbed before the design",
+      "why": "ActionHud_v1 1/10: 'WHY DIDN'T U GRAB REFERENCES'"
+    },
+    {
+      "id": "no_slop",
+      "value": "drawn plates and real fonts; flat tinted rectangles and typed glyphs are the AI-slop look",
+      "why": "owner: 'GENUINE AI SLOP' on flat PIL boxes"
+    },
+    {
+      "id": "gates",
+      "value": "readability, touch size and AI-tells gates; previews at phone, tablet and desktop with the real fonts",
+      "why": "the gates of lune run kit ui"
+    },
+    {
+      "id": "motion",
+      "value": "springs, choreographed enters, bar ghosts, rolling counters through the kit Ui runtime",
+      "why": "the loved craft-process UI"
+    }
+  ],
+  "slots": [
+    {
+      "id": "identity",
+      "kind": "taste",
+      "weight": 0.5,
+      "resolved_by": [
+        "dmc",
+        "persona",
+        "souls",
+        "anime",
+        "gothic",
+        "sci-fi",
+        "scifi",
+        "minimal",
+        "fantasy",
+        "neon",
+        "strive",
+        "umbra",
+        "identity",
+        "style"
+      ],
+      "question": "Which identity should the screen belong to?",
+      "options": [
+        "*A The active game's identity pack",
+        "B A new identity from named reference games"
+      ]
+    },
+    {
+      "id": "screen",
+      "kind": "scope",
+      "weight": 0.5,
+      "resolved_by": [
+        "hud",
+        "menu",
+        "shop",
+        "inventory",
+        "health",
+        "dialog",
+        "settings",
+        "death",
+        "scoreboard",
+        "lobby",
+        "loading"
+      ],
+      "question": "Which screen is it?",
+      "options": [
+        "*A The combat HUD (health, stamina, cooldowns)",
+        "B A menu screen (name it)"
+      ]
+    }
+  ],
+  "steps": [
+    "lune run kit start ui (boot sheet, golden and graveyard pages)",
+    "references from real games; the identity pack (kit ui identities)",
+    "lune run kit ui plan <Screen>, then the spec compiled and previewed at three sizes with motion",
+    "lune run kit ui <Screen> --motion: the gates and the preview sheets",
+    "a fresh reviewer for bugs, the owner for quality: kit verdict ui <name> <0-10> \"<their words>\""
+  ],
+  "done_when": [
+    "lune run kit ui <Screen> --motion",
+    "lune run kit verify --profile core",
+    "kit verdict ui <name> recorded from the owner's words"
+  ],
+  "context_files": [
+    "kit/cmd/content.luau",
+    "src/kit/Ui.luau",
+    "assets/ui/identities/<name>.json",
+    "assets/ui/screens/<Screen>.json"
+  ],
+  "api": [
+    "UIListLayout.FillDirection",
+    "UIStroke.Thickness",
+    "TextLabel.TextScaled",
+    "GuiService.TopbarInset",
+    "UISizeConstraint.MaxSize"
+  ],
+  "engine_caps": [
+    "touch targets at least 44 px on a phone",
+    "text below 14 px is unreadable on a phone"
+  ],
+  "failure_lexicon": {
+    "slop": "drawn plates, real fonts and the identity's shape language from real game references",
+    "clean": "one primary focus per screen (squint test), readable at phone size, generous spacing",
+    "cheap": "drawn plates and motion through the Ui runtime, never flat rectangles",
+    "busy": "one primary focus per screen; secondary elements quieter by value and size"
+  },
+  "dsl": {
+    "flash_hz_max": 3,
+    "touch_px_min": 44,
+    "text_px_min": 14
+  },
+  "tool_subject": "a game interface plate",
+  "families_key": "ui"
+}

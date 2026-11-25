@@ -1,0 +1,4 @@
+# ~/.cache/roblox-kit/envs/mitsuba (Python 3.11): Mitsuba 3 + Dr.Jit. Owner-approved 2026-10-06 (VETLOG.md).
+# mitsuba's only dependency is drjit==1.5.0 (typing_extensions only below Python 3.11).
+mitsuba==3.9.1 --hash=sha256:35af853a5edab15be1dad3e685033bd7166b372e23cac13584d7a66569e8bfcd
+drjit==1.5.0 --hash=sha256:459a78a485a3f374c4e5cd61fa639cbe5db3c3e8ac054cf9b723e8b85066b3aa

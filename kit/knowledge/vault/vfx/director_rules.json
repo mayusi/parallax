@@ -1,0 +1,211 @@
+{
+ "about": "The creative director's TASTE RULES: lessons that a number can check, run on every preset by `kit vfx director lint <name>` (and inside review). A rule is born from a recording or a verdict that went wrong; add one whenever a lesson is measurable (type = one of the checks in kit/vfx/director.py LINTS). The point: a mistake caught once is caught forever, on every future effect. Every rule is CALIBRATED: `kit vfx director calibrate` runs it on the loved set (it must never fire there) and the rejected set (it should) - a rule that condemns a loved piece is narrowed until it holds.",
+ "rules": [
+  {
+   "id": "swarm-trail-hair",
+   "type": "swarm_trails",
+   "max": 300,
+   "since": "2026-10-24",
+   "piece": "ember_murmuration round 1",
+   "lesson": "trails on a flock of hundreds draw HAIR, not birds: a murmuration is dots; keep trails for sparks and scatter (a few hundred at most)"
+  },
+  {
+   "id": "swarm-dots-too-small",
+   "type": "swarm_dot_size",
+   "min_ratio": 0.0055,
+   "since": "2026-10-24",
+   "piece": "ember_murmuration round 2",
+   "lesson": "a swarm dot under ~0.55% of the camera distance (0.15 studs at 30) vanishes: the mass is there but does not read (trailed swarms read as streaks and are exempt: nuke_v4)"
+  },
+  {
+   "id": "ground-plate",
+   "type": "mesh_footprint",
+   "max_ratio": 0.6,
+   "since": "2026-10-24",
+   "piece": "ember_murmuration round 1",
+   "min_band": 0.2,
+   "lesson": "a WIDE-band ground ring (band >= 0.2 of its radius, or strands) wider than ~0.6 of the hero camera's distance fills the floor as a flat plate; size it to the effect (thin travelling rings are fine - until they reach ~0.9 of the camera distance and sweep past it as fat bands: resonance round 3)"
+  },
+  {
+   "id": "grey-smoke-rocks",
+   "type": "grey_smoke",
+   "skies": [
+    "sunset",
+    "day"
+   ],
+   "since": "2026-10-24",
+   "piece": "ember_murmuration round 1",
+   "max_lum": 240,
+   "lesson": "grey or pale unlit cel smoke under a warm / day sky reads as a stack of grey ROCKS - even tinted rosy [236, 214, 206] (round 3): the cel shadow bands go grey under that light; drop it, light it (lightEmission) or use a dust that belongs to the scene"
+  },
+  {
+   "id": "untextured-neon-mesh",
+   "type": "neon_untextured_mesh",
+   "since": "2026-10-15",
+   "piece": "rasengan",
+   "lesson": "untextured Neon reads as plastic when it is a SHARE of the effect (>= 20 % of the meshes) or a VOLUME (sphere / spikes / cone / spiral ...); air / energy is never a solid surface (rasengan 'looks horrible', the all-mesh saiyans 'so bad'). Calibrated: a few accent rings are fine (starblade 9.5, saiyan_ssj_3d 9.0)",
+   "max_share": 0.2
+  },
+  {
+   "id": "glow-decal-light-ground",
+   "type": "glow_decal_light_ground",
+   "grounds": [
+    "Sand",
+    "Limestone",
+    "Concrete",
+    "SmoothPlastic",
+    "Marble",
+    "Salt",
+    "Snow"
+   ],
+   "min_size": 8,
+   "since": "2026-10-24",
+   "piece": "sumi_seal round 1",
+   "lesson": "a big glowing ground decal in a saturated colour on a LIGHT ground (sand) reads as a flat coloured plate (vermilion cracks became a pink disc) - mute it or keep the ground answer to crest / rocks / dust"
+  },
+  {
+   "id": "few-giant-puffs",
+   "type": "few_big_puffs",
+   "max_count": 5,
+   "min_size": 10,
+   "since": "2026-10-24",
+   "piece": "sumi_seal round 1, ember_murmuration round 1",
+   "lesson": "a handful of giant CEL smoke puffs (<= 5 particles, >= 10 studs) reads as a stack of ROCKS / a tower, not a bloom: more, smaller, faster puffs with a wider spread. (Lit simulated smoke is exempt: one sim sprite is a whole volume - nuke_v4, loved at 8.7, is a single 140-stud sprite; the rule once flagged lit steam, 2026-10-24)"
+  },
+  {
+   "id": "light-paints-plate",
+   "type": "coloured_light_light_ground",
+   "grounds": [
+    "Sand",
+    "Limestone",
+    "Concrete",
+    "SmoothPlastic",
+    "Marble",
+    "Salt",
+    "Snow"
+   ],
+   "max_height": 3,
+   "min_brightness": 6,
+   "since": "2026-10-24",
+   "piece": "sumi_seal round 2, gravity_lance round 1",
+   "lesson": "a bright saturated point light near a LIGHT ground paints a coloured disc on it that reads as a flat plate (vermilion -> pink, violet -> lilac); keep hit lights white-ish, high, or off a light floor"
+  },
+  {
+   "id": "echo-dish",
+   "type": "echo_stack",
+   "max_copies": 2,
+   "since": "2026-10-24",
+   "piece": "resonance round 2",
+   "lesson": "echoes of a translucent Neon RING stack into one solid dish (4 notes x 4 copies of a 0.12 band = a teal bowl): one echo at most, hairline width"
+  },
+  {
+   "id": "neon-band-light-ground",
+   "type": "neon_band_light_ground",
+   "grounds": [
+    "Sand",
+    "Limestone",
+    "Concrete",
+    "SmoothPlastic",
+    "Marble",
+    "Salt",
+    "Snow"
+   ],
+   "min_band": 0.2,
+   "since": "2026-10-24",
+   "piece": "sumi_seal round 3, gravity_lance round 2",
+   "lesson": "a wide-band (>= 0.2 of its radius) saturated Neon ground ring is translucent: on a LIGHT ground it reads as a coloured plate at ANY size (vermilion -> pink, violet -> lilac) - a dark ground, an ink / opaque ring, or no crest"
+  },
+  {
+   "id": "rim-pearls",
+   "type": "strong_rim_small",
+   "max_size": 1.0,
+   "min_transparency": 0.6,
+   "since": "2026-10-24",
+   "piece": "quicksilver round 1",
+   "lesson": "a strong rim (transparency < 0.6) on a SMALL mesh (< 1 stud) makes it a glowing pearl - energy, not matter; for a material's sheen keep the rim faint (>= 0.75) and in the object's own colour"
+  },
+  {
+   "id": "frames-need-shapes",
+   "type": "frames_drawable",
+   "since": "2026-10-24",
+   "piece": "hoarfrost rounds 1-4",
+   "lesson": "impact frames draw only lit Lambert shapes (actor, debris, Lambert swarms -> ink) and bright saturated layers (-> energy); at a framed hit something drawable must be alive AND grown - hoarfrost's frames at a Glass, still-flat eruption were empty for 4 rounds. Move the frames to the beat whose shapes are drawable at their peak"
+  },
+  {
+   "id": "cut-frames-need-arc",
+   "type": "cut_frames_arc",
+   "min_head": 0.2,
+   "since": "2026-10-24",
+   "piece": "sandfall round 1",
+   "lesson": "slash frames (draw.slash / split, lines 'cut') read the cut line from an ARC alive at the hit; a sweep starting at zero length has no centreline there and the frames draw nothing - enter the cut partly drawn or keep a guide arc alive across the hit"
+  },
+  {
+   "id": "lit-puff-swarm",
+   "type": "lit_puff_swarm",
+   "max_cards": 2,
+   "since": "2026-11-10",
+   "piece": "quenchstrike 6, nuke_v3, nuke_v2 8 (their judged versions)",
+   "lesson": "smoke / steam / dust is ONE simulated event card, never a swarm of LIT puff cards: each lit card is lit on its own and reads as a lump (cotton balls, rocks) - quenchstrike 'The Effects like Smoke looks horrible' (27 lit gpu_smoke puffs), nuke_v3 'the smoke looks bad around' and nuke_v2 'the smoke around it' (4-6 lit puff emitters round the mushroom) vs nuke_v4 8.7 (the same mushroom + ONE simulated surge card). Simulate the event (kit/vfx/gpusim.py surge / stem / swirl) as one lit card; unlit sim puffs blending into one wall are fine (starblade 9.5)",
+   "evidence": [
+    {
+     "piece": "quenchstrike",
+     "score": 6,
+     "words": "The Effects like Smoke looks horrible",
+     "judged": "kit/selftest/vfx/owner_faults/quenchstrike/preset.json"
+    },
+    {
+     "piece": "nuke_v3",
+     "words": "the smoke looks bad around and the explosion cutzx off at the top",
+     "judged": "kit/selftest/vfx/owner_faults/nuke_v3/preset.json"
+    },
+    {
+     "piece": "nuke_v2",
+     "score": 8,
+     "words": "could be improved in ways like the smoke around it and how it fades",
+     "judged": "kit/selftest/vfx/owner_faults/nuke_v2/preset.json"
+    }
+   ]
+  },
+  {
+   "id": "untextured-solid-mesh",
+   "type": "untextured_solid_mesh",
+   "max_share": 0.2,
+   "void_lum": 40,
+   "since": "2026-11-10",
+   "piece": "quicksilver 6 (its judged version)",
+   "lesson": "an untextured SOLID mesh (SmoothPlastic / Plastic / Metal ..., no texture, no surface) reads as low-quality plastic when it is a share of the effect (>= 20 % of the meshes) or a VOLUME (sphere, tube, spikes ...): quicksilver's 8 untextured SmoothPlastic meshes - 'Meshs ... very low quality'. Skin it (a texture made for its UV axis, or a surface); not asked: Glass, ForceField, a mirror (reflectance >= 0.3), a near-black void. untextured-neon-mesh asks Neon",
+   "evidence": [
+    {
+     "piece": "quicksilver",
+     "score": 6,
+     "words": "Meshs and Impact frames very low quality",
+     "judged": "kit/selftest/vfx/owner_faults/quicksilver/preset.json"
+    }
+   ]
+  },
+  {
+   "id": "thin-stack",
+   "type": "thin_stack",
+   "max_kinds": 5,
+   "max_sprite_share": 0.75,
+   "since": "2026-11-11",
+   "piece": "flame_arc (its judged version, REDO 2026-11-11)",
+   "lesson": "a whole technique built as a THIN stack - few kinds of layer, mostly flat sprites - reads cheap beside his loved pieces: flame_arc (REDO 2026-11-11: 'Does not look high quality ... genuine dookie') was 61 layers of 5 kinds, 85 % sprites; flame_arc_keybeat (REDO 2026-11-10) 10 layers of 3 kinds, 80 % sprites. His loved pieces use 7-13 kinds and at most 67 % sprites; starblade r6 (9.5) is 148 layers of 13 kinds - mesh shells, beams, lights, screen + fov + shake, decals, debris, a trail, a glow, sound. Build the key beat's look from meshes + rendered textures + light + camera + ground, not from more sprites",
+   "evidence": [
+    {
+     "piece": "flame_arc",
+     "score": null,
+     "words": "it's generally so bad. Does not look high quality. Does not look like the thing you want ... This looks like genuine dookie",
+     "judged": "kit/selftest/vfx/owner_faults/flame_arc/preset.json"
+    },
+    {
+     "piece": "flame_arc_keybeat",
+     "score": null,
+     "words": "even if it's just a slash, it just doesn't look good. It doesn't look high quality",
+     "judged": "kit/selftest/vfx/owner_faults/flame_arc_keybeat/preset.json"
+    }
+   ]
+  }
+ ],
+ "praised": {}
+}

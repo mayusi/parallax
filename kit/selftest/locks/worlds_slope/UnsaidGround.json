@@ -1,0 +1,37 @@
+{
+ "_note": "NEGATIVE fixture for the world lane's lock on a town's ground (kit/lib/lanelocks.luau LaneLocks.unsaidSlopes): a town step that says neither \"slope\": { rise, toward } nor \"slope\": false. The lock must name it. Never fix.",
+ "name": "UnsaidGround",
+ "scale": "r6",
+ "build": [
+  {
+   "town": {
+    "name": "Old Town",
+    "center": [
+     0,
+     0,
+     0
+    ],
+    "area": [
+     256,
+     224
+    ],
+    "seed": 3,
+    "gates": [
+     "S"
+    ],
+    "bend": 0,
+    "market": false,
+    "yards": false,
+    "skins": "gh",
+    "house": {
+     "rooms": false
+    },
+    "mats": {
+     "street": "cobble",
+     "wall": "plaster",
+     "roof": "slate"
+    }
+   }
+  }
+ ]
+}

@@ -1,0 +1,26 @@
+name: parallax-ci
+on: [push, pull_request]
+jobs:
+  checks:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      # installs Rokit and the pinned tools from rokit.toml (`rokit install --no-trust-check`): a CI machine has no
+      # terminal to answer Rokit's trust prompt, so a plain `rokit install` here would stop on the first tool
+      - uses: CompeyDev/setup-rokit@v0.2.1
+      # the pinned Wally (0.3.2) installs what wally.lock records and has no --locked flag: fail if the lock moved
+      - run: wally install
+      - run: git diff --exit-code wally.lock
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: python -m pip install numpy scipy pillow matplotlib pytest
+      # the git hooks and any connected AI client's config are in step (the repo ships no client files)
+      - run: lune run parallax harness --check
+      # the kit's Luau specs
+      - run: lune run parallax test kit
+      # the knowledge vault: every note healthy, and in step with kit/lessons (--check fails when anything is unfiled)
+      - run: lune run parallax vault check
+      - run: python kit/scripts/vault_migrate.py --check
+# `lune run parallax verify` and `lune run parallax selftest` need the full toolchain (Blender 5.2, ffmpeg, Node,
+# Roblox Studio for playtests): run them locally before every release.

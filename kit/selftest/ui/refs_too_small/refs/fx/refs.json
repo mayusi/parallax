@@ -1,0 +1,23 @@
+{
+ "schema": 1,
+ "stills": [
+  {
+   "file": "a.png",
+   "size": [
+    960,
+    540
+   ],
+   "kind": "hud",
+   "typed": "tag"
+  },
+  {
+   "file": "b.png",
+   "size": [
+    960,
+    540
+   ],
+   "kind": "hud",
+   "typed": "tag"
+  }
+ ]
+}

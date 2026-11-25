@@ -1,0 +1,35 @@
+{
+ "_note": "POSITIVE fixture: the project turns streaming on in Rojo's explicit form, { \"Bool\": true }. The world lane's lock on the game's streaming switch (kit/lib/lanelocks.luau LaneLocks.streamSwitch). Never fix.",
+ "name": "StreamsBool",
+ "scale": "r6",
+ "streaming": {
+  "cell": 256
+ },
+ "palette": {
+  "ground": {
+   "material": "Concrete",
+   "color": [
+    96,
+    98,
+    104
+   ]
+  }
+ },
+ "build": [
+  {
+   "floor": {
+    "name": "Ground",
+    "center": [
+     0,
+     0,
+     0
+    ],
+    "size": [
+     600,
+     600
+    ],
+    "mat": "ground"
+   }
+  }
+ ]
+}

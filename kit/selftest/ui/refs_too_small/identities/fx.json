@@ -1,0 +1,26 @@
+{
+ "name": "fx",
+ "fonts": {
+  "font": "Oswald"
+ },
+ "shape": {
+  "line": "#000000"
+ },
+ "bans": [
+  "typed hero words"
+ ],
+ "minimums": {
+  "text": 14
+ },
+ "references": [
+  {
+   "image": "kit/selftest/ui/refs_too_small/refs/fx/a.png",
+   "measured": {
+    "bar_px": [
+     400,
+     30
+    ]
+   }
+  }
+ ]
+}

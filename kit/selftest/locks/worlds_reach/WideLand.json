@@ -1,0 +1,52 @@
+{
+ "_note": "NEGATIVE fixture for the world lane's STREAMING lock (kit/lib/lanelocks.luau LaneLocks.reach): a played floor 1,400 studs across built by a grid of slabs (a generator with no centre and size of its own) and no \"streaming\" block. The lock must name it with its measured reach. Never fix.",
+ "name": "WideLand",
+ "scale": "r6",
+ "palette": {
+  "ground": {
+   "material": "Concrete",
+   "color": [
+    96,
+    98,
+    104
+   ]
+  }
+ },
+ "build": [
+  {
+   "grid": {
+    "origin": [
+     -700,
+     0,
+     -100
+    ],
+    "count": [
+     8,
+     2
+    ],
+    "spacing": [
+     200,
+     200
+    ],
+    "part": {
+     "size": [
+      190,
+      2,
+      190
+     ],
+     "mat": "ground"
+    }
+   }
+  },
+  {
+   "spawn": {
+    "pos": [
+     0,
+     2,
+     0
+    ],
+    "mat": "ground"
+   }
+  }
+ ]
+}

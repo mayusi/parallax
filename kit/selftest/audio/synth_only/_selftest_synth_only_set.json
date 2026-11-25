@@ -1,0 +1,19 @@
+{
+ "_note": "NEGATIVE fixture: must fail the synth-only gate (owner verdict 2026-10-13: 'pure synth is audio slop'). Every layer is synthesised; no sample key anywhere. Never fix.",
+ "about": "selftest — pure synth sword hit for the synth-only gate",
+ "variations": 1,
+ "loudness": -16,
+ "dna": {
+  "ring":  { "role": "tail",      "source": "modal", "modes": [[1240, 0.9, 1.0]], "gain": 0.4 },
+  "crack": { "role": "transient", "source": "click",
+             "env": { "attack": 0.0003, "decay": 0.006, "sustain": 0, "release": 0.002 } }
+ },
+ "members": {
+  "sword_hit_synth": {
+   "class": "hit",
+   "duration": 0.6,
+   "use": ["crack", "ring"],
+   "weights": [0.5]
+  }
+ }
+}

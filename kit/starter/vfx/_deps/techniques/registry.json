@@ -1,0 +1,92 @@
+{
+  "flow_vortex_caustics": {
+    "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+    "file": "build/textures/flow_vortex_caustics.png",
+    "grid": 4,
+    "id": ""
+  },
+  "glow": {
+    "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+    "file": "vfx/out/glow.png",
+    "grid": 1,
+    "id": ""
+  },
+  "lens_dirt": {
+    "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+    "file": "build/textures/lens_dirt.png",
+    "grid": 1,
+    "id": ""
+  },
+  "lens_fringe": {
+    "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+    "file": "build/textures/lens_fringe.png",
+    "grid": 1,
+    "id": ""
+  },
+  "lens_vignette": {
+    "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+    "file": "build/textures/lens_vignette.png",
+    "grid": 1,
+    "id": ""
+  },
+  "lens_zoom": {
+    "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+    "file": "build/textures/lens_zoom.png",
+    "grid": 1,
+    "id": ""
+  },
+  "mask_fbm": {
+    "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+    "file": "build/textures/mask_fbm.png",
+    "grid": 1,
+    "id": ""
+  },
+  "mask_swirl": {
+    "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+    "file": "build/textures/mask_swirl.png",
+    "grid": 1,
+    "id": ""
+  },
+  "ring": {
+    "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+    "file": "vfx/out/ring.png",
+    "grid": 1,
+    "id": ""
+  },
+  "smoke": {
+    "fallback": "rbxasset://textures/particles/smoke_main.dds",
+    "file": "vfx/out/smoke.png",
+    "grid": 4,
+    "id": ""
+  },
+  "smoke_lit": {
+    "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+    "file": "build/textures/smoke_lit.png",
+    "grid": 8,
+    "id": ""
+  },
+  "smoke_lit_back": {
+    "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+    "file": "build/textures/smoke_lit_back.png",
+    "grid": 8,
+    "id": ""
+  },
+  "smoke_lit_left": {
+    "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+    "file": "build/textures/smoke_lit_left.png",
+    "grid": 8,
+    "id": ""
+  },
+  "smoke_lit_right": {
+    "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+    "file": "build/textures/smoke_lit_right.png",
+    "grid": 8,
+    "id": ""
+  },
+  "spark": {
+    "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+    "file": "vfx/out/spark.png",
+    "grid": 1,
+    "id": ""
+  }
+}

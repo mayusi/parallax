@@ -1,0 +1,192 @@
+{
+  "lane": "3d",
+  "start": "lune run kit start 3d",
+  "keywords": {
+    "model": 3,
+    "3d": 3,
+    "mesh": 3,
+    "prop": 3,
+    "props": 3,
+    "sword": 2,
+    "katana": 2,
+    "gun": 3,
+    "pistol": 3,
+    "rifle": 3,
+    "weapon": 2,
+    "weapons": 2,
+    "shield": 3,
+    "armor": 3,
+    "armour": 3,
+    "helmet": 3,
+    "car": 2,
+    "rim": 2,
+    "vehicle": 3,
+    "chest": 1,
+    "barrel": 2,
+    "crate": 3,
+    "texture": 2,
+    "textures": 2,
+    "sculpt": 3,
+    "blender": 3,
+    "scabbard": 3,
+    "hilt": 3,
+    "blade": 1,
+    "build": 1,
+    "asset": 2,
+    "ornament": 3,
+    "engraving": 3,
+    "statue": 3,
+    "lamp": 2,
+    "furniture": 2
+  },
+  "invariants": [
+    {
+      "id": "refs_first",
+      "value": "references first, per part: real pictures and sourced sizes before any shape (a dossier for a real object); add only detail the real object has, never detail to move a score",
+      "why": "owner ruling 10-07; the score-chased starter props were graded 1/100"
+    },
+    {
+      "id": "sheet",
+      "value": "the model sheet is approved by the owner before any shape (lune run kit sheet <asset>; kit approve 3d <name> --stage sheet)",
+      "why": "H1: the cheap approval before the expensive build"
+    },
+    {
+      "id": "blockout",
+      "value": "the blockout is approved before detail (kit approve 3d <name> --stage blockout)",
+      "why": "H2"
+    },
+    {
+      "id": "scale",
+      "value": "real-world size: 1 stud = 0.28 m; an R6 is 5 studs tall; a sword about 1 x 4.5 x 0.3 studs",
+      "why": "design.size_vs_target gate"
+    },
+    {
+      "id": "maps",
+      "value": "maps at 1028 px/m on a hero, 257 px/m on a prop, Roblox keeps up to 4096",
+      "why": "3D sharpness bar measured 11-12"
+    },
+    {
+      "id": "part_by_part",
+      "value": "build part by part through kit plan <asset>; organic parts picture-first against a checked reference (redraw large, generate, fold, sharpen), never typed from words as primitives",
+      "why": "the dragon sword typed from SDF primitives: 'WEIRD AND UGLY' (1/10); the picture-first route amazed the owner"
+    },
+    {
+      "id": "look_large",
+      "value": "every round looked at large beside its reference, never judged on a score",
+      "why": "gates and judge scores are not quality"
+    }
+  ],
+  "slots": [
+    {
+      "id": "finish",
+      "kind": "taste",
+      "weight": 0.35,
+      "resolved_by": [
+        "steel",
+        "iron",
+        "bronze",
+        "gold",
+        "wood",
+        "worn",
+        "aged",
+        "rusty",
+        "clean",
+        "polished",
+        "painted",
+        "realistic",
+        "stylized",
+        "stylised",
+        "metal",
+        "leather"
+      ],
+      "question": "What finish and style should the model have?",
+      "options": [
+        "*A Realistic, the materials of its real references",
+        "B Stylized: name the art style"
+      ]
+    },
+    {
+      "id": "reference",
+      "kind": "taste",
+      "weight": 0.35,
+      "resolved_by": [
+        "reference",
+        "from ",
+        "based on",
+        "real ",
+        "photo",
+        "picture",
+        "dossier"
+      ],
+      "question": "What is the model's real source?",
+      "options": [
+        "*A A real object: the dossier gathers its pictures and sizes",
+        "B An original design: a concept sheet for the owner first"
+      ]
+    },
+    {
+      "id": "tier",
+      "kind": "scope",
+      "weight": 0.3,
+      "resolved_by": [
+        "hero",
+        "prop",
+        "background",
+        "aaa",
+        "showcase",
+        "low poly",
+        "lowpoly"
+      ],
+      "question": "Which tier is it?",
+      "options": [
+        "*A Hero (held or seen up close)",
+        "B Prop (seen at a distance)"
+      ]
+    }
+  ],
+  "steps": [
+    "lune run kit start 3d, then lune run kit plan <asset> (the locked stage order)",
+    "brief and every reference per part; the model sheet (kit sheet <asset>) approved by the owner",
+    "a generated or CAD blockout; the owner approves it",
+    "shape, surface (layered materials, colour plan), mechanism: lune run kit asset <name>",
+    "look large beside the reference (kit look closeup), show the owner, kit verdict 3d <name> <0-10> \"<their words>\""
+  ],
+  "done_when": [
+    "lune run kit asset <name>",
+    "lune run kit sheet <asset> --check",
+    "lune run kit verify --profile core",
+    "kit verdict 3d <name> recorded from the owner's words"
+  ],
+  "context_files": [
+    "kit/cmd/plan.luau",
+    "kit/blender/rbx.py",
+    "assets/models/build_<name>.py",
+    "assets/models/<name>.brief.md"
+  ],
+  "api": [
+    "MeshPart.TextureID",
+    "SurfaceAppearance.ColorMapContent",
+    "SurfaceAppearance.NormalMapContent",
+    "MeshPart.CollisionFidelity"
+  ],
+  "engine_caps": [
+    "a texture's download is a 1024 copy; a game keeps up to 4096",
+    "at most 100 unique PBR maps in a scene (arena budget)",
+    "at most 8 EditableMeshes live"
+  ],
+  "failure_lexicon": {
+    "blurry": "maps at 1028 px/m on a hero; crop and look at 1:1 beside the reference",
+    "fake": "every part from its real reference and its sourced size",
+    "flat": "a layered material: base, wear, dirt and dust from measured scans, a three-grey value read",
+    "blobby": "hard parts by CAD, organic parts picture-first and sharpened",
+    "generic": "this object's own references, never the last model's look"
+  },
+  "dsl": {
+    "px_per_m_hero": 1028,
+    "px_per_m_prop": 257,
+    "map_cap": 4096,
+    "stud_m": 0.28
+  },
+  "tool_subject": "a game-ready 3D hero prop",
+  "families_key": "3d"
+}

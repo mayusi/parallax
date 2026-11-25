@@ -1,0 +1,17 @@
+{
+ "lane": "vfx",
+ "about": "The VFX lane's fixed questions for the parts library (P0): new effects in a brief's words (keywords = what a session would type into today's library search), written before any method was run on them. Every method's top answers are pooled and labelled blind by two labellers (labels.json); `kit parts vfx eval` scores each method on them. Add a question only from real work, never to suit a method.",
+ "written": "2026-11-09",
+ "questions": [
+  {"id": "vfx-q01", "piece": "lightning_strike", "brief": "lightning strike: dark clouds gather overhead, a jagged bolt cracks down to the ground, a white flash and a burst of sparks, a scorched ring on the ground", "keywords": "lightning bolt flash sparks scorch"},
+  {"id": "vfx-q02", "piece": "healing_aura", "brief": "healing aura: soft green motes rise around the body in a slow spiral, a gentle glow pulses at the feet, leaves drift, then it fades out", "keywords": "heal aura motes glow spiral"},
+  {"id": "vfx-q03", "piece": "meteor_impact", "brief": "meteor impact: a burning rock streaks down with a fire trail, hits with a huge explosion, a shockwave ring, flying rocks and a dust cloud, a crater left behind", "keywords": "meteor fire explosion shockwave crater"},
+  {"id": "vfx-q04", "piece": "ice_spike_eruption", "brief": "ice spikes: frost cracks spread across the ground, a line of ice spikes bursts upward one after another, shards fly, cold mist lingers", "keywords": "ice spikes frost shards mist"},
+  {"id": "vfx-q05", "piece": "teleport_dash", "brief": "teleport dash: the body breaks into dark particles, a streak of afterimages along the path, it reappears in a puff of smoke with a flash", "keywords": "teleport dash afterimage smoke flash"},
+  {"id": "vfx-q06", "piece": "sword_wave", "brief": "sword wave: a slash releases a crescent of energy that flies forward, cutting a trench in the ground, and explodes where it hits", "keywords": "slash crescent wave trench"},
+  {"id": "vfx-q07", "piece": "summoning_circle", "brief": "summoning circle: a glowing magic circle with runes draws itself on the floor, light columns rise from it, a creature's silhouette forms in a flash", "keywords": "magic circle runes light pillar"},
+  {"id": "vfx-q08", "piece": "poison_cloud", "brief": "poison cloud: a green toxic gas spreads low over the ground, bubbles pop, drips fall, damage ticks with small flashes", "keywords": "poison gas cloud bubbles green"},
+  {"id": "vfx-q09", "piece": "ground_pound", "brief": "ground pound: the fighter lands from the air, the ground cracks in a star, rocks fly up, a dust ring rolls outward, the camera shakes", "keywords": "ground slam cracks rocks dust shake"},
+  {"id": "vfx-q10", "piece": "charged_laser", "brief": "charged laser: energy gathers into a bright core between the hands, then fires a thick beam with a glowing halo, sparks where it hits", "keywords": "charge core beam laser sparks"}
+ ]
+}

@@ -1,0 +1,61 @@
+{
+ "schema": 1,
+ "about": "loved-clip physics STATISTICS (MuJoCo inverse dynamics) - no poses",
+ "categories": {
+  "locomotion": {
+   "clips": 47,
+   "torque_rate_p95": {
+    "Head": 276.05,
+    "Left Arm": 513.83,
+    "Left Leg": 1276.011,
+    "Right Arm": 576.469,
+    "Right Leg": 1105.789
+   },
+   "balance_outside_p90": 0.945
+  },
+  "combat": {
+   "clips": 155,
+   "torque_rate_p95": {
+    "Head": 1470.974,
+    "Left Arm": 1986.432,
+    "Left Leg": 1711.875,
+    "Right Arm": 1874.642,
+    "Right Leg": 1769.663
+   },
+   "balance_outside_p90": 1.0
+  },
+  "dance_emote": {
+   "clips": 116,
+   "torque_rate_p95": {
+    "Head": 496.363,
+    "Left Arm": 918.817,
+    "Left Leg": 627.505,
+    "Right Arm": 836.562,
+    "Right Leg": 696.558
+   },
+   "balance_outside_p90": 0.647
+  },
+  "idle": {
+   "clips": 12,
+   "torque_rate_p95": {
+    "Head": 66.382,
+    "Left Arm": 170.021,
+    "Left Leg": 184.711,
+    "Right Arm": 575.598,
+    "Right Leg": 151.491
+   },
+   "balance_outside_p90": 0.951
+  },
+  "other": {
+   "clips": 7,
+   "torque_rate_p95": {
+    "Head": 788.268,
+    "Left Arm": 4920.793,
+    "Left Leg": 1074.625,
+    "Right Arm": 2627.062,
+    "Right Leg": 915.076
+   },
+   "balance_outside_p90": 0.58
+  }
+ }
+}

@@ -1,0 +1,18 @@
+{
+ "engine": "fx",
+ "recipe": "import",
+ "about": "selftest: an imported sheet under an inked sheet's name - NOT the scene's drawings",
+ "frames": 16,
+ "grid": 4,
+ "cell": 256,
+ "play": {
+  "mode": "Loop",
+  "fps": 12,
+  "blend": false
+ },
+ "post": {
+  "alpha": "coverage",
+  "tonemap": false,
+  "border": 0
+ }
+}

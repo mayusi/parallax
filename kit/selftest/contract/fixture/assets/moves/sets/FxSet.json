@@ -1,0 +1,15 @@
+{
+  "name": "FxSet",
+  "moves": [
+    "FxCut1",
+    "FxCut2"
+  ],
+  "combo": [
+    "FxCut1",
+    "FxCut2"
+  ],
+  "parry": {
+    "anim": "FxParry",
+    "sfx": "FxParry"
+  }
+}

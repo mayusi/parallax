@@ -1,0 +1,30 @@
+[
+ {
+  "part": "overall",
+  "dim": "length",
+  "value": 260.35,
+  "unit": "mm",
+  "object": "colt single action army",
+  "source": "https://en.wikipedia.org/wiki/Colt_Single_Action_Army",
+  "kind": "wikipedia",
+  "read_by": "kit",
+  "note": "infobox 'infobox weapon' (first value given)",
+  "trust": "medium",
+  "id": "6ba10cbb",
+  "added": "2026-11-10"
+ },
+ {
+  "part": "overall",
+  "dim": "mass",
+  "value": 1.0478,
+  "unit": "kg",
+  "object": "colt single action army",
+  "source": "https://en.wikipedia.org/wiki/Colt_Single_Action_Army",
+  "kind": "wikipedia",
+  "read_by": "kit",
+  "note": "infobox 'infobox weapon' (first value given)",
+  "trust": "medium",
+  "id": "a1c67ae0",
+  "added": "2026-11-10"
+ }
+]

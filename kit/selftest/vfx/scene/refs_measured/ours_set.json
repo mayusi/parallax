@@ -1,0 +1,18 @@
+{
+ "bands": [
+  {
+   "share": 1.0,
+   "rgb": [
+    255,
+    200,
+    100
+   ]
+  }
+ ],
+ "from": [
+  "games/OtherGame/build/vfx/refs/a.png",
+  "build/vfx/b.png",
+  "build/vfx/c.png",
+  "f1"
+ ]
+}

@@ -1,0 +1,72 @@
+{
+ "name": "tactical",
+ "about": "selftest identity: a minimal realistic HUD that bans arcade components (crosshair, ammo counter, compass/minimap, scope, kill feed)",
+ "world": "a realistic shooter (selftest only)",
+ "tokens": {
+  "bg": "#000000",
+  "text": "#f0f0ec",
+  "muted": "#a0a09c",
+  "accent": "#e0a020",
+  "danger": "#d04030",
+  "good": "#60b050",
+  "warn": "#e0a020",
+  "shadow": "#000000"
+ },
+ "fonts": {
+  "font": "RobotoCondensed",
+  "titleFont": "RobotoCondensed",
+  "monoFont": "RobotoMono"
+ },
+ "shape": {
+  "line": "#000000",
+  "fill": "#0a0c0e",
+  "fill_alpha": 0.5,
+  "width": 1,
+  "corner": "square",
+  "glow": "#f0f0ec",
+  "grain": 0.0,
+  "gloss": 0.0,
+  "shade": 0.0,
+  "shadow": 0,
+  "buttons": [
+   "accent"
+  ]
+ },
+ "minimums": {
+  "text": 14,
+  "button": 44,
+  "icon": 20
+ },
+ "radius": {
+  "s": 0,
+  "m": 0,
+  "l": 0
+ },
+ "bans": [
+  "crosshair: realistic shooters show only a small dot or nothing \u2014 no bracketed reticle",
+  "ammo counter: the player can feel the magazine; count down with sound, not a number on screen",
+  "compass / minimap: a tactical map is a separate interaction, not always visible",
+  "scope reticle: belongs inside the weapon's optic, not overlaid on the HUD",
+  "kill feed: a banner row of deaths is a competitive / arcade convention"
+ ],
+ "banned_components": [
+  "crosshair",
+  "ammo",
+  "compass",
+  "scope",
+  "feed"
+ ],
+ "references": [
+  {
+   "game": "selftest reference (fictional)",
+   "screen": "selftest only \u2014 not a real game",
+   "image": "kit/selftest/ui/arcade_in_realistic/refs/dummy.png",
+   "measured": {
+    "bar_px": [
+     120,
+     8
+    ]
+   }
+  }
+ ]
+}

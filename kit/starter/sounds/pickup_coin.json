@@ -1,0 +1,39 @@
+{
+ "duration": 0.4,
+ "layers": [
+  {
+   "source": "square",
+   "freq": 988,
+   "length": 0.08,
+   "gain": 0.5,
+   "filter": {
+    "type": "lowpass",
+    "cutoff": 5000
+   },
+   "env": {
+    "attack": 0.001,
+    "hold": 0.0,
+    "decay": 0.06,
+    "sustain": 0.5,
+    "release": 0.01
+   }
+  },
+  {
+   "source": "square",
+   "freq": 1319,
+   "delay": 0.07,
+   "gain": 0.5,
+   "filter": {
+    "type": "lowpass",
+    "cutoff": 5000
+   },
+   "env": {
+    "attack": 0.001,
+    "hold": 0.0,
+    "decay": 0.25,
+    "sustain": 0.0,
+    "release": 0.05
+   }
+  }
+ ]
+}

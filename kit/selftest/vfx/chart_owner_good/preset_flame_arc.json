@@ -1,0 +1,4567 @@
+{
+ "version": 3,
+ "mode": "burst",
+ "duration": 3.4,
+ "about": "Flame Arc (Demon Slayer), the whole dance from its scene breakdown (refs_measured/flame_arc_set.beats.md): the blade igniting, the thick ~300-degree crescent with a wide white-yellow inner band and a torn burning rim (held on its full extent), the long low ribbon dragged across the frame, the gold clash sparks, the embers and soot as the fire dies; the effect alone, no rig",
+ "scene": {
+  "set": "flame_arc_owner_set",
+  "colours": "flame_arc_owner_set_scene"
+ },
+ "palette": {
+  "fire": [
+   205,
+   87,
+   36
+  ],
+  "flame": [
+   239,
+   151,
+   82
+  ],
+  "pale": [
+   249,
+   191,
+   126
+  ],
+  "white": [
+   254,
+   239,
+   206
+  ],
+  "ember": [
+   255,
+   120,
+   40
+  ],
+  "ember_red": [
+   150,
+   42,
+   18
+  ],
+  "soot": [
+   38,
+   34,
+   32
+  ],
+  "gold": [
+   255,
+   196,
+   90
+  ]
+ },
+ "hits": [
+  0.433,
+  1.93
+ ],
+ "hitstop": [
+  {
+   "at": 0.433,
+   "hold": 0.12
+  },
+  {
+   "at": 1.93,
+   "hold": 0.06
+  }
+ ],
+ "points": {
+  "center": [
+   0.0,
+   3.6,
+   0.0
+  ],
+  "contact": [
+   1.7,
+   2.4,
+   0.6
+  ]
+ },
+ "booth": {
+  "scene": "bare",
+  "sky": "night",
+  "ground": "Grass",
+  "views": [
+   "hero",
+   "low"
+  ],
+  "motion": {
+   "weapon": false,
+   "actor": false
+  },
+  "viewDefs": {
+   "hero": {
+    "pos": [
+     1.6,
+     3.3,
+     6.6
+    ],
+    "look": [
+     -0.9,
+     3.0,
+     0
+    ],
+    "fov": 58
+   },
+   "low": {
+    "pos": [
+     3.0,
+     1.2,
+     9.0
+    ],
+    "look": [
+     0,
+     3.0,
+     0
+    ],
+    "fov": 56
+   }
+  }
+ },
+ "layers": [
+  {
+   "name": "ignite_0",
+   "beat": 0,
+   "kind": "sprite",
+   "at": 0.0,
+   "count": 2,
+   "point": [
+    -1.6,
+    2.5,
+    0.4
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.38,
+    0.45
+   ],
+   "size": [
+    [
+     0,
+     1.0
+    ],
+    [
+     0.4,
+     1.9
+    ],
+    [
+     1,
+     1.4
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    0.6,
+    2.0
+   ],
+   "direction": "Top",
+   "spread": 35,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.372,
+     0.1
+    ],
+    [
+     0.62,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   }
+  },
+  {
+   "name": "blade_glow_0",
+   "beat": 0,
+   "kind": "sprite",
+   "at": 0.0,
+   "count": 1,
+   "point": [
+    -1.6,
+    2.5,
+    0.4
+   ],
+   "texture": "kn_light_01",
+   "lifetime": [
+    0.32,
+    0.32
+   ],
+   "size": [
+    [
+     0,
+     0.4
+    ],
+    [
+     0.2,
+     1.1
+    ],
+    [
+     1,
+     0.6
+    ]
+   ],
+   "color": "flame",
+   "lightEmission": 1,
+   "brightness": 1.6,
+   "speed": [
+    0,
+    0
+   ],
+   "transparency": [
+    [
+     0,
+     0.1
+    ],
+    [
+     0.6,
+     0.4
+    ],
+    [
+     1,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "ignite_1",
+   "beat": 0,
+   "kind": "sprite",
+   "at": 0.03,
+   "count": 2,
+   "point": [
+    -0.92,
+    2.92,
+    0.4
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.38,
+    0.45
+   ],
+   "size": [
+    [
+     0,
+     1.0
+    ],
+    [
+     0.4,
+     1.9
+    ],
+    [
+     1,
+     1.4
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    0.6,
+    2.0
+   ],
+   "direction": "Top",
+   "spread": 35,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.372,
+     0.1
+    ],
+    [
+     0.62,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   }
+  },
+  {
+   "name": "blade_glow_1",
+   "beat": 0,
+   "kind": "sprite",
+   "at": 0.03,
+   "count": 1,
+   "point": [
+    -0.92,
+    2.92,
+    0.4
+   ],
+   "texture": "kn_light_01",
+   "lifetime": [
+    0.32,
+    0.32
+   ],
+   "size": [
+    [
+     0,
+     0.4
+    ],
+    [
+     0.2,
+     1.1
+    ],
+    [
+     1,
+     0.6
+    ]
+   ],
+   "color": "flame",
+   "lightEmission": 1,
+   "brightness": 1.6,
+   "speed": [
+    0,
+    0
+   ],
+   "transparency": [
+    [
+     0,
+     0.1
+    ],
+    [
+     0.6,
+     0.4
+    ],
+    [
+     1,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "ignite_2",
+   "beat": 0,
+   "kind": "sprite",
+   "at": 0.06,
+   "count": 2,
+   "point": [
+    -0.24,
+    3.34,
+    0.4
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.38,
+    0.45
+   ],
+   "size": [
+    [
+     0,
+     1.0
+    ],
+    [
+     0.4,
+     1.9
+    ],
+    [
+     1,
+     1.4
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    0.6,
+    2.0
+   ],
+   "direction": "Top",
+   "spread": 35,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.372,
+     0.1
+    ],
+    [
+     0.62,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   }
+  },
+  {
+   "name": "blade_glow_2",
+   "beat": 0,
+   "kind": "sprite",
+   "at": 0.06,
+   "count": 1,
+   "point": [
+    -0.24,
+    3.34,
+    0.4
+   ],
+   "texture": "kn_light_01",
+   "lifetime": [
+    0.32,
+    0.32
+   ],
+   "size": [
+    [
+     0,
+     0.4
+    ],
+    [
+     0.2,
+     1.1
+    ],
+    [
+     1,
+     0.6
+    ]
+   ],
+   "color": "flame",
+   "lightEmission": 1,
+   "brightness": 1.6,
+   "speed": [
+    0,
+    0
+   ],
+   "transparency": [
+    [
+     0,
+     0.1
+    ],
+    [
+     0.6,
+     0.4
+    ],
+    [
+     1,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "ignite_3",
+   "beat": 0,
+   "kind": "sprite",
+   "at": 0.09,
+   "count": 2,
+   "point": [
+    0.44,
+    3.76,
+    0.4
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.38,
+    0.45
+   ],
+   "size": [
+    [
+     0,
+     1.0
+    ],
+    [
+     0.4,
+     1.9
+    ],
+    [
+     1,
+     1.4
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    0.6,
+    2.0
+   ],
+   "direction": "Top",
+   "spread": 35,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.372,
+     0.1
+    ],
+    [
+     0.62,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   }
+  },
+  {
+   "name": "blade_glow_3",
+   "beat": 0,
+   "kind": "sprite",
+   "at": 0.09,
+   "count": 1,
+   "point": [
+    0.44,
+    3.76,
+    0.4
+   ],
+   "texture": "kn_light_01",
+   "lifetime": [
+    0.32,
+    0.32
+   ],
+   "size": [
+    [
+     0,
+     0.4
+    ],
+    [
+     0.2,
+     1.1
+    ],
+    [
+     1,
+     0.6
+    ]
+   ],
+   "color": "flame",
+   "lightEmission": 1,
+   "brightness": 1.6,
+   "speed": [
+    0,
+    0
+   ],
+   "transparency": [
+    [
+     0,
+     0.1
+    ],
+    [
+     0.6,
+     0.4
+    ],
+    [
+     1,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "ignite_4",
+   "beat": 0,
+   "kind": "sprite",
+   "at": 0.12,
+   "count": 2,
+   "point": [
+    1.12,
+    4.18,
+    0.4
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.38,
+    0.45
+   ],
+   "size": [
+    [
+     0,
+     1.0
+    ],
+    [
+     0.4,
+     1.9
+    ],
+    [
+     1,
+     1.4
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    0.6,
+    2.0
+   ],
+   "direction": "Top",
+   "spread": 35,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.372,
+     0.1
+    ],
+    [
+     0.62,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   }
+  },
+  {
+   "name": "blade_glow_4",
+   "beat": 0,
+   "kind": "sprite",
+   "at": 0.12,
+   "count": 1,
+   "point": [
+    1.12,
+    4.18,
+    0.4
+   ],
+   "texture": "kn_light_01",
+   "lifetime": [
+    0.32,
+    0.32
+   ],
+   "size": [
+    [
+     0,
+     0.4
+    ],
+    [
+     0.2,
+     1.1
+    ],
+    [
+     1,
+     0.6
+    ]
+   ],
+   "color": "flame",
+   "lightEmission": 1,
+   "brightness": 1.6,
+   "speed": [
+    0,
+    0
+   ],
+   "transparency": [
+    [
+     0,
+     0.1
+    ],
+    [
+     0.6,
+     0.4
+    ],
+    [
+     1,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "ignite_5",
+   "beat": 0,
+   "kind": "sprite",
+   "at": 0.15,
+   "count": 2,
+   "point": [
+    1.8,
+    4.6,
+    0.4
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.38,
+    0.45
+   ],
+   "size": [
+    [
+     0,
+     1.0
+    ],
+    [
+     0.4,
+     1.9
+    ],
+    [
+     1,
+     1.4
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    0.6,
+    2.0
+   ],
+   "direction": "Top",
+   "spread": 35,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.372,
+     0.1
+    ],
+    [
+     0.62,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   }
+  },
+  {
+   "name": "blade_glow_5",
+   "beat": 0,
+   "kind": "sprite",
+   "at": 0.15,
+   "count": 1,
+   "point": [
+    1.8,
+    4.6,
+    0.4
+   ],
+   "texture": "kn_light_01",
+   "lifetime": [
+    0.32,
+    0.32
+   ],
+   "size": [
+    [
+     0,
+     0.4
+    ],
+    [
+     0.2,
+     1.1
+    ],
+    [
+     1,
+     0.6
+    ]
+   ],
+   "color": "flame",
+   "lightEmission": 1,
+   "brightness": 1.6,
+   "speed": [
+    0,
+    0
+   ],
+   "transparency": [
+    [
+     0,
+     0.1
+    ],
+    [
+     0.6,
+     0.4
+    ],
+    [
+     1,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "arc_halo",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.3,
+   "count": 1,
+   "point": [
+    0.0,
+    3.6,
+    -0.6
+   ],
+   "texture": "kn_light_01",
+   "lifetime": [
+    0.75,
+    0.75
+   ],
+   "size": [
+    [
+     0,
+     6
+    ],
+    [
+     0.25,
+     13
+    ],
+    [
+     1,
+     11
+    ]
+   ],
+   "color": "fire",
+   "lightEmission": 1,
+   "brightness": 1.0,
+   "speed": [
+    0,
+    0
+   ],
+   "transparency": [
+    [
+     0,
+     0.9
+    ],
+    [
+     0.3,
+     0.82
+    ],
+    [
+     1,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "arc_twin",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.3,
+   "count": 1,
+   "point": [
+    0.0,
+    3.6,
+    0.0
+   ],
+   "texture": "hk_dance_arc",
+   "lifetime": [
+    0.5533333333333333,
+    0.5533333333333333
+   ],
+   "size": [
+    [
+     0,
+     12.420000000000002
+    ],
+    [
+     1,
+     12.88
+    ]
+   ],
+   "color": [
+    110,
+    24,
+    8
+   ],
+   "lightEmission": 0,
+   "brightness": 1.0,
+   "speed": [
+    0,
+    0
+   ],
+   "zOffset": -0.6,
+   "transparency": [
+    [
+     0,
+     0.1
+    ],
+    [
+     0.7,
+     0.3
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   }
+  },
+  {
+   "name": "arc",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.3,
+   "count": 1,
+   "point": [
+    0.0,
+    3.6,
+    0.0
+   ],
+   "texture": "hk_dance_arc",
+   "lifetime": [
+    0.5533333333333333,
+    0.5533333333333333
+   ],
+   "size": 11.5,
+   "color": [
+    255,
+    255,
+    255
+   ],
+   "lightEmission": 1,
+   "brightness": 1.2,
+   "speed": [
+    0,
+    0
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   }
+  },
+  {
+   "name": "arc_tongue_0",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.304,
+   "count": 3,
+   "point": [
+    -3.468,
+    -0.533,
+    0.0
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.48,
+    0.55
+   ],
+   "size": [
+    [
+     0,
+     2.6
+    ],
+    [
+     0.4,
+     4.4
+    ],
+    [
+     1,
+     3.4
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    0.6,
+    2.0
+   ],
+   "direction": "Top",
+   "spread": 35,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.48,
+     0.1
+    ],
+    [
+     0.8,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   }
+  },
+  {
+   "name": "arc_spark_0",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.324,
+   "count": 3,
+   "point": [
+    -3.4,
+    -0.452,
+    0.0
+   ],
+   "texture": "hk_spark",
+   "lifetime": [
+    0.25,
+    0.5
+   ],
+   "size": [
+    [
+     0,
+     0.75
+    ],
+    [
+     1,
+     0.262
+    ]
+   ],
+   "color": "gold",
+   "lightEmission": 1,
+   "brightness": 2.0,
+   "speed": [
+    6,
+    12
+   ],
+   "spread": 180,
+   "orientation": "VelocityParallel",
+   "drag": 2.5,
+   "acceleration": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "name": "arc_tongue_1",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.318,
+   "count": 3,
+   "point": [
+    -5.102,
+    1.843,
+    0.0
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.48,
+    0.55
+   ],
+   "size": [
+    [
+     0,
+     2.6
+    ],
+    [
+     0.4,
+     4.4
+    ],
+    [
+     1,
+     3.4
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    0.6,
+    2.0
+   ],
+   "direction": "Top",
+   "spread": 35,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.48,
+     0.1
+    ],
+    [
+     0.8,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   }
+  },
+  {
+   "name": "arc_spark_1",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.338,
+   "count": 3,
+   "point": [
+    -5.002,
+    1.878,
+    0.0
+   ],
+   "texture": "hk_spark",
+   "lifetime": [
+    0.25,
+    0.5
+   ],
+   "size": [
+    [
+     0,
+     0.75
+    ],
+    [
+     1,
+     0.262
+    ]
+   ],
+   "color": "gold",
+   "lightEmission": 1,
+   "brightness": 2.0,
+   "speed": [
+    6,
+    12
+   ],
+   "spread": 180,
+   "orientation": "VelocityParallel",
+   "drag": 2.5,
+   "acceleration": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "name": "arc_tongue_2",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.332,
+   "count": 3,
+   "point": [
+    -5.278,
+    4.722,
+    0.0
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.48,
+    0.55
+   ],
+   "size": [
+    [
+     0,
+     2.6
+    ],
+    [
+     0.4,
+     4.4
+    ],
+    [
+     1,
+     3.4
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    0.6,
+    2.0
+   ],
+   "direction": "Top",
+   "spread": 35,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.48,
+     0.1
+    ],
+    [
+     0.8,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   }
+  },
+  {
+   "name": "arc_spark_2",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.352,
+   "count": 3,
+   "point": [
+    -5.174,
+    4.7,
+    0.0
+   ],
+   "texture": "hk_spark",
+   "lifetime": [
+    0.25,
+    0.5
+   ],
+   "size": [
+    [
+     0,
+     0.75
+    ],
+    [
+     1,
+     0.262
+    ]
+   ],
+   "color": "gold",
+   "lightEmission": 1,
+   "brightness": 2.0,
+   "speed": [
+    6,
+    12
+   ],
+   "spread": 180,
+   "orientation": "VelocityParallel",
+   "drag": 2.5,
+   "acceleration": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "name": "arc_tongue_3",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.346,
+   "count": 3,
+   "point": [
+    -3.946,
+    7.28,
+    0.0
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.48,
+    0.55
+   ],
+   "size": [
+    [
+     0,
+     2.6
+    ],
+    [
+     0.4,
+     4.4
+    ],
+    [
+     1,
+     3.4
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    0.6,
+    2.0
+   ],
+   "direction": "Top",
+   "spread": 35,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.48,
+     0.1
+    ],
+    [
+     0.8,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   }
+  },
+  {
+   "name": "arc_spark_3",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.366,
+   "count": 3,
+   "point": [
+    -3.869,
+    7.208,
+    0.0
+   ],
+   "texture": "hk_spark",
+   "lifetime": [
+    0.25,
+    0.5
+   ],
+   "size": [
+    [
+     0,
+     0.75
+    ],
+    [
+     1,
+     0.262
+    ]
+   ],
+   "color": "gold",
+   "lightEmission": 1,
+   "brightness": 2.0,
+   "speed": [
+    6,
+    12
+   ],
+   "spread": 180,
+   "orientation": "VelocityParallel",
+   "drag": 2.5,
+   "acceleration": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "name": "arc_tongue_4",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.36,
+   "count": 3,
+   "point": [
+    -1.487,
+    8.787,
+    0.0
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.48,
+    0.55
+   ],
+   "size": [
+    [
+     0,
+     2.6
+    ],
+    [
+     0.4,
+     4.4
+    ],
+    [
+     1,
+     3.4
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    0.6,
+    2.0
+   ],
+   "direction": "Top",
+   "spread": 35,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.48,
+     0.1
+    ],
+    [
+     0.8,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   }
+  },
+  {
+   "name": "arc_spark_4",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.38,
+   "count": 3,
+   "point": [
+    -1.458,
+    8.685,
+    0.0
+   ],
+   "texture": "hk_spark",
+   "lifetime": [
+    0.25,
+    0.5
+   ],
+   "size": [
+    [
+     0,
+     0.75
+    ],
+    [
+     1,
+     0.262
+    ]
+   ],
+   "color": "gold",
+   "lightEmission": 1,
+   "brightness": 2.0,
+   "speed": [
+    6,
+    12
+   ],
+   "spread": 180,
+   "orientation": "VelocityParallel",
+   "drag": 2.5,
+   "acceleration": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "name": "arc_tongue_5",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.373,
+   "count": 3,
+   "point": [
+    1.397,
+    8.812,
+    0.0
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.48,
+    0.55
+   ],
+   "size": [
+    [
+     0,
+     2.6
+    ],
+    [
+     0.4,
+     4.4
+    ],
+    [
+     1,
+     3.4
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    0.6,
+    2.0
+   ],
+   "direction": "Top",
+   "spread": 35,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.48,
+     0.1
+    ],
+    [
+     0.8,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   }
+  },
+  {
+   "name": "arc_spark_5",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.393,
+   "count": 3,
+   "point": [
+    1.369,
+    8.71,
+    0.0
+   ],
+   "texture": "hk_spark",
+   "lifetime": [
+    0.25,
+    0.5
+   ],
+   "size": [
+    [
+     0,
+     0.75
+    ],
+    [
+     1,
+     0.262
+    ]
+   ],
+   "color": "gold",
+   "lightEmission": 1,
+   "brightness": 2.0,
+   "speed": [
+    6,
+    12
+   ],
+   "spread": 180,
+   "orientation": "VelocityParallel",
+   "drag": 2.5,
+   "acceleration": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "name": "arc_tongue_6",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.387,
+   "count": 3,
+   "point": [
+    3.881,
+    7.348,
+    0.0
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.48,
+    0.55
+   ],
+   "size": [
+    [
+     0,
+     2.6
+    ],
+    [
+     0.4,
+     4.4
+    ],
+    [
+     1,
+     3.4
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    0.6,
+    2.0
+   ],
+   "direction": "Top",
+   "spread": 35,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.48,
+     0.1
+    ],
+    [
+     0.8,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   }
+  },
+  {
+   "name": "arc_spark_6",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.407,
+   "count": 3,
+   "point": [
+    3.805,
+    7.275,
+    0.0
+   ],
+   "texture": "hk_spark",
+   "lifetime": [
+    0.25,
+    0.5
+   ],
+   "size": [
+    [
+     0,
+     0.75
+    ],
+    [
+     1,
+     0.262
+    ]
+   ],
+   "color": "gold",
+   "lightEmission": 1,
+   "brightness": 2.0,
+   "speed": [
+    6,
+    12
+   ],
+   "spread": 180,
+   "orientation": "VelocityParallel",
+   "drag": 2.5,
+   "acceleration": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "name": "arc_tongue_7",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.401,
+   "count": 3,
+   "point": [
+    5.258,
+    4.814,
+    0.0
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.48,
+    0.55
+   ],
+   "size": [
+    [
+     0,
+     2.6
+    ],
+    [
+     0.4,
+     4.4
+    ],
+    [
+     1,
+     3.4
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    0.6,
+    2.0
+   ],
+   "direction": "Top",
+   "spread": 35,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.48,
+     0.1
+    ],
+    [
+     0.8,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   }
+  },
+  {
+   "name": "arc_spark_7",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.421,
+   "count": 3,
+   "point": [
+    5.154,
+    4.79,
+    0.0
+   ],
+   "texture": "hk_spark",
+   "lifetime": [
+    0.25,
+    0.5
+   ],
+   "size": [
+    [
+     0,
+     0.75
+    ],
+    [
+     1,
+     0.262
+    ]
+   ],
+   "color": "gold",
+   "lightEmission": 1,
+   "brightness": 2.0,
+   "speed": [
+    6,
+    12
+   ],
+   "spread": 180,
+   "orientation": "VelocityParallel",
+   "drag": 2.5,
+   "acceleration": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "name": "arc_tongue_8",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.415,
+   "count": 3,
+   "point": [
+    5.132,
+    1.933,
+    0.0
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.48,
+    0.55
+   ],
+   "size": [
+    [
+     0,
+     2.6
+    ],
+    [
+     0.4,
+     4.4
+    ],
+    [
+     1,
+     3.4
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    0.6,
+    2.0
+   ],
+   "direction": "Top",
+   "spread": 35,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.48,
+     0.1
+    ],
+    [
+     0.8,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   }
+  },
+  {
+   "name": "arc_spark_8",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.435,
+   "count": 3,
+   "point": [
+    5.031,
+    1.965,
+    0.0
+   ],
+   "texture": "hk_spark",
+   "lifetime": [
+    0.25,
+    0.5
+   ],
+   "size": [
+    [
+     0,
+     0.75
+    ],
+    [
+     1,
+     0.262
+    ]
+   ],
+   "color": "gold",
+   "lightEmission": 1,
+   "brightness": 2.0,
+   "speed": [
+    6,
+    12
+   ],
+   "spread": 180,
+   "orientation": "VelocityParallel",
+   "drag": 2.5,
+   "acceleration": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "name": "arc_tongue_9",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.428,
+   "count": 3,
+   "point": [
+    3.54,
+    -0.472,
+    0.0
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.48,
+    0.55
+   ],
+   "size": [
+    [
+     0,
+     2.6
+    ],
+    [
+     0.4,
+     4.4
+    ],
+    [
+     1,
+     3.4
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    0.6,
+    2.0
+   ],
+   "direction": "Top",
+   "spread": 35,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.48,
+     0.1
+    ],
+    [
+     0.8,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   }
+  },
+  {
+   "name": "arc_spark_9",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.448,
+   "count": 3,
+   "point": [
+    3.471,
+    -0.392,
+    0.0
+   ],
+   "texture": "hk_spark",
+   "lifetime": [
+    0.25,
+    0.5
+   ],
+   "size": [
+    [
+     0,
+     0.75
+    ],
+    [
+     1,
+     0.262
+    ]
+   ],
+   "color": "gold",
+   "lightEmission": 1,
+   "brightness": 2.0,
+   "speed": [
+    6,
+    12
+   ],
+   "spread": 180,
+   "orientation": "VelocityParallel",
+   "drag": 2.5,
+   "acceleration": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "name": "arc_chunk_0",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.338,
+   "count": 2,
+   "point": [
+    -4.403,
+    -0.364,
+    0.0
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.42,
+    0.52
+   ],
+   "size": [
+    [
+     0,
+     1.4
+    ],
+    [
+     0.4,
+     2.4
+    ],
+    [
+     1,
+     1.6
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    3.0,
+    6.5
+   ],
+   "direction": "Top",
+   "spread": 25,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.48,
+     0.1
+    ],
+    [
+     0.8,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   },
+   "rotate": [
+    0,
+    0,
+    132
+   ]
+  },
+  {
+   "name": "arc_chunk_1",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.353,
+   "count": 2,
+   "point": [
+    -5.852,
+    2.673,
+    0.0
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.42,
+    0.52
+   ],
+   "size": [
+    [
+     0,
+     1.4
+    ],
+    [
+     0.4,
+     2.4
+    ],
+    [
+     1,
+     1.6
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    3.0,
+    6.5
+   ],
+   "direction": "Top",
+   "spread": 25,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.48,
+     0.1
+    ],
+    [
+     0.8,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   },
+   "rotate": [
+    0,
+    0,
+    99
+   ]
+  },
+  {
+   "name": "arc_chunk_2",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.367,
+   "count": 2,
+   "point": [
+    -5.413,
+    6.01,
+    0.0
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.42,
+    0.52
+   ],
+   "size": [
+    [
+     0,
+     1.4
+    ],
+    [
+     0.4,
+     2.4
+    ],
+    [
+     1,
+     1.6
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    3.0,
+    6.5
+   ],
+   "direction": "Top",
+   "spread": 25,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.48,
+     0.1
+    ],
+    [
+     0.8,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   },
+   "rotate": [
+    0,
+    0,
+    66
+   ]
+  },
+  {
+   "name": "arc_chunk_3",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.382,
+   "count": 2,
+   "point": [
+    -3.227,
+    8.569,
+    0.0
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.42,
+    0.52
+   ],
+   "size": [
+    [
+     0,
+     1.4
+    ],
+    [
+     0.4,
+     2.4
+    ],
+    [
+     1,
+     1.6
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    3.0,
+    6.5
+   ],
+   "direction": "Top",
+   "spread": 25,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.48,
+     0.1
+    ],
+    [
+     0.8,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   },
+   "rotate": [
+    0,
+    0,
+    33
+   ]
+  },
+  {
+   "name": "arc_chunk_4",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.397,
+   "count": 2,
+   "point": [
+    0.0,
+    9.525,
+    0.0
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.42,
+    0.52
+   ],
+   "size": [
+    [
+     0,
+     1.4
+    ],
+    [
+     0.4,
+     2.4
+    ],
+    [
+     1,
+     1.6
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    3.0,
+    6.5
+   ],
+   "direction": "Top",
+   "spread": 25,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.48,
+     0.1
+    ],
+    [
+     0.8,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   },
+   "rotate": [
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "name": "arc_chunk_5",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.411,
+   "count": 2,
+   "point": [
+    3.227,
+    8.569,
+    0.0
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.42,
+    0.52
+   ],
+   "size": [
+    [
+     0,
+     1.4
+    ],
+    [
+     0.4,
+     2.4
+    ],
+    [
+     1,
+     1.6
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    3.0,
+    6.5
+   ],
+   "direction": "Top",
+   "spread": 25,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.48,
+     0.1
+    ],
+    [
+     0.8,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   },
+   "rotate": [
+    0,
+    0,
+    -33
+   ]
+  },
+  {
+   "name": "arc_chunk_6",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.426,
+   "count": 2,
+   "point": [
+    5.413,
+    6.01,
+    0.0
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.42,
+    0.52
+   ],
+   "size": [
+    [
+     0,
+     1.4
+    ],
+    [
+     0.4,
+     2.4
+    ],
+    [
+     1,
+     1.6
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    3.0,
+    6.5
+   ],
+   "direction": "Top",
+   "spread": 25,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.48,
+     0.1
+    ],
+    [
+     0.8,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   },
+   "rotate": [
+    0,
+    0,
+    -66
+   ]
+  },
+  {
+   "name": "arc_chunk_7",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.441,
+   "count": 2,
+   "point": [
+    5.852,
+    2.673,
+    0.0
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.42,
+    0.52
+   ],
+   "size": [
+    [
+     0,
+     1.4
+    ],
+    [
+     0.4,
+     2.4
+    ],
+    [
+     1,
+     1.6
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    3.0,
+    6.5
+   ],
+   "direction": "Top",
+   "spread": 25,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.48,
+     0.1
+    ],
+    [
+     0.8,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   },
+   "rotate": [
+    0,
+    0,
+    -99
+   ]
+  },
+  {
+   "name": "arc_chunk_8",
+   "beat": 1,
+   "kind": "sprite",
+   "at": 0.455,
+   "count": 2,
+   "point": [
+    4.403,
+    -0.364,
+    0.0
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.42,
+    0.52
+   ],
+   "size": [
+    [
+     0,
+     1.4
+    ],
+    [
+     0.4,
+     2.4
+    ],
+    [
+     1,
+     1.6
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    3.0,
+    6.5
+   ],
+   "direction": "Top",
+   "spread": 25,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.48,
+     0.1
+    ],
+    [
+     0.8,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   },
+   "rotate": [
+    0,
+    0,
+    -132
+   ]
+  },
+  {
+   "name": "ribbon_twin",
+   "beat": 2,
+   "kind": "mesh",
+   "shape": "arc",
+   "at": 0.85,
+   "life": 1.0,
+   "point": [
+    0.0,
+    1.45,
+    0.7200000000000001
+   ],
+   "rotate": [
+    0,
+    0,
+    -90
+   ],
+   "params": {
+    "radius": 18.0,
+    "width": 1.9,
+    "arc": 50.0,
+    "taper": 0.5,
+    "skew": 0.7,
+    "segments": 96,
+    "jag": 0.3,
+    "seed": 11,
+    "twist": 50,
+    "vertical": 1
+   },
+   "texture": "hk_ribbon",
+   "surface": 0.5,
+   "material": "Neon",
+   "color": [
+    120,
+    28,
+    10
+   ],
+   "uvScroll": [
+    -1.6,
+    0
+   ],
+   "sweep": {
+    "head": [
+     [
+      0,
+      0
+     ],
+     [
+      0.45,
+      1
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "tail": [
+     [
+      0,
+      0
+     ],
+     [
+      0.4,
+      0
+     ],
+     [
+      1,
+      1
+     ]
+    ]
+   },
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.8,
+     0.2
+    ],
+    [
+     1,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "ribbon",
+   "beat": 2,
+   "kind": "mesh",
+   "shape": "arc",
+   "at": 0.85,
+   "life": 1.0,
+   "point": [
+    0.0,
+    1.6,
+    0.8
+   ],
+   "rotate": [
+    0,
+    0,
+    -90
+   ],
+   "params": {
+    "radius": 18.0,
+    "width": 1.3,
+    "arc": 50.0,
+    "taper": 0.5,
+    "skew": 0.7,
+    "segments": 96,
+    "jag": 0.25,
+    "seed": 7,
+    "twist": 50,
+    "vertical": 1
+   },
+   "texture": "hk_ribbon",
+   "surface": 4,
+   "material": "Neon",
+   "color": [
+    255,
+    150,
+    95
+   ],
+   "uvScroll": [
+    -1.6,
+    0
+   ],
+   "sweep": {
+    "head": [
+     [
+      0,
+      0
+     ],
+     [
+      0.45,
+      1
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "tail": [
+     [
+      0,
+      0
+     ],
+     [
+      0.4,
+      0
+     ],
+     [
+      1,
+      1
+     ]
+    ]
+   },
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.8,
+     0.2
+    ],
+    [
+     1,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "ribbon_core",
+   "beat": 2,
+   "kind": "mesh",
+   "shape": "arc",
+   "at": 0.85,
+   "life": 1.0,
+   "point": [
+    0.0,
+    1.812,
+    0.88
+   ],
+   "rotate": [
+    0,
+    0,
+    -90
+   ],
+   "params": {
+    "radius": 18.0,
+    "width": 0.45,
+    "arc": 50.0,
+    "taper": 0.5,
+    "skew": 0.7,
+    "segments": 96,
+    "jag": 0.1,
+    "seed": 5,
+    "twist": 50,
+    "vertical": 1
+   },
+   "texture": "hk_ribbon",
+   "surface": 6,
+   "material": "Neon",
+   "color": [
+    255,
+    236,
+    200
+   ],
+   "uvScroll": [
+    -1.6,
+    0
+   ],
+   "sweep": {
+    "head": [
+     [
+      0,
+      0
+     ],
+     [
+      0.45,
+      1
+     ],
+     [
+      1,
+      1
+     ]
+    ],
+    "tail": [
+     [
+      0,
+      0
+     ],
+     [
+      0.4,
+      0
+     ],
+     [
+      1,
+      1
+     ]
+    ]
+   },
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.8,
+     0.2
+    ],
+    [
+     1,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "ribbon_tongue_0",
+   "beat": 2,
+   "kind": "sprite",
+   "at": 0.85,
+   "count": 3,
+   "point": [
+    -7.607,
+    3.218,
+    0.9
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.48,
+    0.55
+   ],
+   "size": [
+    [
+     0,
+     1.6
+    ],
+    [
+     0.4,
+     3.0
+    ],
+    [
+     1,
+     2.3
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    0.6,
+    2.0
+   ],
+   "direction": "Top",
+   "spread": 35,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.372,
+     0.1
+    ],
+    [
+     0.62,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   }
+  },
+  {
+   "name": "ribbon_tongue_1",
+   "beat": 2,
+   "kind": "sprite",
+   "at": 0.94,
+   "count": 3,
+   "point": [
+    -4.659,
+    2.145,
+    0.9
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.48,
+    0.55
+   ],
+   "size": [
+    [
+     0,
+     1.6
+    ],
+    [
+     0.4,
+     3.0
+    ],
+    [
+     1,
+     2.3
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    0.6,
+    2.0
+   ],
+   "direction": "Top",
+   "spread": 35,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.372,
+     0.1
+    ],
+    [
+     0.62,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   }
+  },
+  {
+   "name": "ribbon_tongue_2",
+   "beat": 2,
+   "kind": "sprite",
+   "at": 1.03,
+   "count": 3,
+   "point": [
+    -1.569,
+    1.6,
+    0.9
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.48,
+    0.55
+   ],
+   "size": [
+    [
+     0,
+     1.6
+    ],
+    [
+     0.4,
+     3.0
+    ],
+    [
+     1,
+     2.3
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    0.6,
+    2.0
+   ],
+   "direction": "Top",
+   "spread": 35,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.372,
+     0.1
+    ],
+    [
+     0.62,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   }
+  },
+  {
+   "name": "ribbon_tongue_3",
+   "beat": 2,
+   "kind": "sprite",
+   "at": 1.12,
+   "count": 3,
+   "point": [
+    1.569,
+    1.6,
+    0.9
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.48,
+    0.55
+   ],
+   "size": [
+    [
+     0,
+     1.6
+    ],
+    [
+     0.4,
+     3.0
+    ],
+    [
+     1,
+     2.3
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    0.6,
+    2.0
+   ],
+   "direction": "Top",
+   "spread": 35,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.372,
+     0.1
+    ],
+    [
+     0.62,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   }
+  },
+  {
+   "name": "ribbon_tongue_4",
+   "beat": 2,
+   "kind": "sprite",
+   "at": 1.21,
+   "count": 3,
+   "point": [
+    4.659,
+    2.145,
+    0.9
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.48,
+    0.55
+   ],
+   "size": [
+    [
+     0,
+     1.6
+    ],
+    [
+     0.4,
+     3.0
+    ],
+    [
+     1,
+     2.3
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    0.6,
+    2.0
+   ],
+   "direction": "Top",
+   "spread": 35,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.372,
+     0.1
+    ],
+    [
+     0.62,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   }
+  },
+  {
+   "name": "ribbon_tongue_5",
+   "beat": 2,
+   "kind": "sprite",
+   "at": 1.3,
+   "count": 3,
+   "point": [
+    7.607,
+    3.218,
+    0.9
+   ],
+   "texture": "hk_tongue2_gpu",
+   "lifetime": [
+    0.48,
+    0.55
+   ],
+   "size": [
+    [
+     0,
+     1.6
+    ],
+    [
+     0.4,
+     3.0
+    ],
+    [
+     1,
+     2.3
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      240,
+      215
+     ]
+    ],
+    [
+     0.35,
+     "flame"
+    ],
+    [
+     0.7,
+     "fire"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.5,
+   "speed": [
+    0.6,
+    2.0
+   ],
+   "direction": "Top",
+   "spread": 35,
+   "acceleration": [
+    0,
+    5,
+    0
+   ],
+   "rotation": [
+    -25,
+    25
+   ],
+   "zOffset": 0.4,
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.372,
+     0.1
+    ],
+    [
+     0.62,
+     1
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   }
+  },
+  {
+   "name": "clash_core",
+   "beat": 3,
+   "kind": "sprite",
+   "at": 1.9,
+   "count": 1,
+   "point": [
+    1.7,
+    2.4,
+    0.6
+   ],
+   "texture": "kn_light_01",
+   "lifetime": [
+    0.14,
+    0.14
+   ],
+   "size": [
+    [
+     0,
+     1.2
+    ],
+    [
+     0.2,
+     5.0
+    ],
+    [
+     1,
+     2.0
+    ]
+   ],
+   "color": "white",
+   "lightEmission": 1,
+   "brightness": 3.0,
+   "speed": [
+    0,
+    0
+   ],
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.5,
+     0.2
+    ],
+    [
+     1,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "clash_sparks",
+   "beat": 3,
+   "kind": "sprite",
+   "at": 1.9,
+   "count": 70,
+   "point": [
+    1.7,
+    2.4,
+    0.6
+   ],
+   "texture": "hk_spark",
+   "lifetime": [
+    0.25,
+    0.55
+   ],
+   "size": [
+    [
+     0,
+     0.9
+    ],
+    [
+     1,
+     0.315
+    ]
+   ],
+   "color": [
+    [
+     0,
+     "white"
+    ],
+    [
+     0.3,
+     "gold"
+    ],
+    [
+     1,
+     "ember"
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 2.2,
+   "speed": [
+    10,
+    26
+   ],
+   "spread": 180,
+   "orientation": "VelocityParallel",
+   "drag": 2.5,
+   "acceleration": [
+    0,
+    -18,
+    0
+   ]
+  },
+  {
+   "name": "clash_embers",
+   "beat": 3,
+   "kind": "swarm",
+   "at": 1.9,
+   "life": 1.2,
+   "count": 90,
+   "point": [
+    1.7,
+    2.4,
+    0.6
+   ],
+   "radius": 0.3,
+   "lifetime": [
+    0.6,
+    1.1
+   ],
+   "speed": [
+    5,
+    13
+   ],
+   "size": [
+    [
+     0,
+     0.13
+    ],
+    [
+     0.6,
+     0.1
+    ],
+    [
+     1,
+     0.0
+    ]
+   ],
+   "color": [
+    [
+     0,
+     "gold"
+    ],
+    [
+     0.5,
+     "ember"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "material": "Neon",
+   "gravity": 10,
+   "drag": 1.4,
+   "seed": 1909
+  },
+  {
+   "name": "clash_light",
+   "beat": 3,
+   "kind": "light",
+   "at": 1.9,
+   "life": 0.45,
+   "point": [
+    1.7,
+    2.8,
+    2.0
+   ],
+   "color": "gold",
+   "range": 18,
+   "brightness": [
+    [
+     0,
+     12
+    ],
+    [
+     0.2,
+     5
+    ],
+    [
+     1,
+     0
+    ]
+   ]
+  },
+  {
+   "name": "clash_kick",
+   "beat": 3,
+   "kind": "shake",
+   "at": 1.9,
+   "life": 0.25,
+   "amplitude": [
+    [
+     0,
+     0.5
+    ],
+    [
+     1,
+     0
+    ]
+   ]
+  },
+  {
+   "name": "embers",
+   "beat": 4,
+   "kind": "swarm",
+   "at": 2.2,
+   "life": 1.2,
+   "count": 110,
+   "point": [
+    0.0,
+    3.6,
+    0.0
+   ],
+   "radius": 5.29,
+   "lifetime": [
+    0.8,
+    1.15
+   ],
+   "speed": [
+    0.5,
+    1.8
+   ],
+   "size": [
+    [
+     0,
+     0.12
+    ],
+    [
+     0.7,
+     0.09
+    ],
+    [
+     1,
+     0.0
+    ]
+   ],
+   "color": [
+    [
+     0,
+     "pale"
+    ],
+    [
+     0.5,
+     "ember"
+    ],
+    [
+     1,
+     "ember_red"
+    ]
+   ],
+   "material": "Neon",
+   "gravity": 0,
+   "drag": 1.0,
+   "attract": {
+    "point": [
+     0.0,
+     11.0,
+     0.0
+    ],
+    "strength": 2.0
+   },
+   "seed": 2207
+  },
+  {
+   "name": "soot",
+   "beat": 4,
+   "kind": "swarm",
+   "at": 2.3000000000000003,
+   "life": 1.1,
+   "count": 60,
+   "point": [
+    0.0,
+    3.6,
+    0.0
+   ],
+   "radius": 4.232,
+   "lifetime": [
+    0.7,
+    1.0
+   ],
+   "speed": [
+    0.3,
+    1.2
+   ],
+   "size": [
+    [
+     0,
+     0.1
+    ],
+    [
+     1,
+     0.0
+    ]
+   ],
+   "color": "soot",
+   "material": "SmoothPlastic",
+   "gravity": 0,
+   "drag": 1.2,
+   "attract": {
+    "point": [
+     0.0,
+     10.0,
+     0.0
+    ],
+    "strength": 1.2
+   },
+   "seed": 2211
+  },
+  {
+   "name": "fire_light",
+   "beat": 1,
+   "kind": "light",
+   "at": 0.0,
+   "life": 3.0,
+   "point": [
+    0.0,
+    3.6,
+    1.4
+   ],
+   "color": "flame",
+   "range": 12,
+   "brightness": [
+    [
+     0,
+     1
+    ],
+    [
+     0.12,
+     4
+    ],
+    [
+     0.3,
+     2.5
+    ],
+    [
+     0.62,
+     2
+    ],
+    [
+     0.75,
+     1
+    ],
+    [
+     1,
+     0
+    ]
+   ]
+  }
+ ]
+}

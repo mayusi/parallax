@@ -1,0 +1,14 @@
+{
+ "name": "VramFlashBad",
+ "about": "selftest bad fixture (V4 UI-X 6.4: the VRAM guard + WCAG 2.3.1 flashes): a CanvasGroup inside a CanvasGroup, a hit marker inside a fading card (a CanvasGroup too), a shimmer every 0.3 s (4 passes a second), a glitch split every 0.3 s and a glint loop at speed 12",
+ "theme": { "bg": "#101218", "text": "#f0f2f5", "accent": "#e8b04a" },
+ "root": { "type": "panel", "name": "Root", "children": [
+  { "type": "canvas", "name": "Card", "size": [400, 240], "pos": [40, 40], "children": [
+   { "type": "canvas", "name": "Inner", "size": [200, 120], "pos": [10, 10] },
+   { "type": "hitmarker", "name": "Hit", "size": 12 }
+  ] },
+  { "type": "label", "name": "Title", "text": "STAGE CLEAR", "textSize": 40, "size": [400, 60], "pos": [40, 320],
+    "fx": [{ "kind": "shimmer", "period": 0.3 }, { "kind": "split", "every": 0.3, "dur": 0.03 }] },
+  { "type": "button", "name": "Go", "text": "GO", "size": [160, 56], "pos": [40, 400], "motion": { "loop": { "type": "glint", "speed": 12 } } }
+ ] }
+}

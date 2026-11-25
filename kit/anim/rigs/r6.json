@@ -1,0 +1,360 @@
+{
+  "classes": {
+    "Head": "Part",
+    "HumanoidRootPart": "Part",
+    "Left Arm": "Part",
+    "Left Leg": "Part",
+    "Right Arm": "Part",
+    "Right Leg": "Part",
+    "Torso": "Part"
+  },
+  "hipHeight": 0,
+  "jointType": "Motor6D",
+  "joints": {
+    "Head": {
+      "c0": [
+        0,
+        1,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      "c1": [
+        0,
+        -0.5,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      "joint": "Neck",
+      "parent": "Torso"
+    },
+    "Left Arm": {
+      "c0": [
+        -1,
+        0.5,
+        0,
+        0,
+        0,
+        -1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "c1": [
+        0.5,
+        0.5,
+        0,
+        0,
+        0,
+        -1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "joint": "Left Shoulder",
+      "parent": "Torso"
+    },
+    "Left Leg": {
+      "c0": [
+        -1,
+        -1,
+        0,
+        0,
+        0,
+        -1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "c1": [
+        -0.5,
+        1,
+        0,
+        0,
+        0,
+        -1,
+        0,
+        1,
+        0,
+        1,
+        0,
+        0
+      ],
+      "joint": "Left Hip",
+      "parent": "Torso"
+    },
+    "Right Arm": {
+      "c0": [
+        1,
+        0.5,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        -1,
+        0,
+        0
+      ],
+      "c1": [
+        -0.5,
+        0.5,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        -1,
+        0,
+        0
+      ],
+      "joint": "Right Shoulder",
+      "parent": "Torso"
+    },
+    "Right Leg": {
+      "c0": [
+        1,
+        -1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        -1,
+        0,
+        0
+      ],
+      "c1": [
+        0.5,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0,
+        -1,
+        0,
+        0
+      ],
+      "joint": "Right Hip",
+      "parent": "Torso"
+    },
+    "Torso": {
+      "c0": [
+        0,
+        0,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      "c1": [
+        0,
+        0,
+        0,
+        -1,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        1,
+        0
+      ],
+      "joint": "RootJoint",
+      "parent": "HumanoidRootPart"
+    }
+  },
+  "order": [
+    "Torso",
+    "Head",
+    "Left Arm",
+    "Left Leg",
+    "Right Arm",
+    "Right Leg"
+  ],
+  "rest": {
+    "Head": [
+      0,
+      1.5,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    "HumanoidRootPart": [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    "Left Arm": [
+      -1.5,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    "Left Leg": [
+      -0.5,
+      -2,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    "Right Arm": [
+      1.5,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    "Right Leg": [
+      0.5,
+      -2,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    "Torso": [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ]
+  },
+  "rig": "R6",
+  "root": "HumanoidRootPart",
+  "schema": 1,
+  "sizes": {
+    "Head": [
+      2,
+      1,
+      1
+    ],
+    "HumanoidRootPart": [
+      2,
+      2,
+      1
+    ],
+    "Left Arm": [
+      1,
+      2,
+      1
+    ],
+    "Left Leg": [
+      1,
+      2,
+      1
+    ],
+    "Right Arm": [
+      1,
+      2,
+      1
+    ],
+    "Right Leg": [
+      1,
+      2,
+      1
+    ],
+    "Torso": [
+      2,
+      2,
+      1
+    ]
+  },
+  "source": {
+    "date": "2026-10-10",
+    "file": "_artifacts/anim/rig_probe_2026-10-10.json",
+    "probe": "kit anim rig --probe (Studio MCP execute_luau, Edit datamodel, Players:CreateHumanoidModelFromDescription with a default HumanoidDescription; models destroyed after reading)"
+  }
+}

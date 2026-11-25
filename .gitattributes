@@ -1,0 +1,10 @@
+# Every text file checks out with LF on every OS (core.autocrlf=true included): the kit's own tools write LF, and its
+# specs count bytes and hash files, so a CRLF checkout would differ from what the kit wrote and fail its own gates.
+* text=auto eol=lf
+# stylua.toml requires Unix line endings: keep Luau sources LF in every checkout (core.autocrlf=true writes CRLF,
+# which made every merge show phantom changes and the format check fail)
+*.luau text eol=lf
+*.lua text eol=lf
+# Windows batch scripts keep CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf

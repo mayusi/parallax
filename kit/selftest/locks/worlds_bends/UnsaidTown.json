@@ -1,0 +1,31 @@
+{
+ "_note": "NEGATIVE fixture for the world lane's lock on a town's streets (kit/lib/lanelocks.luau LaneLocks.unsaidTownBends): a town step that says neither \"bend\": <degrees> nor \"bend\": 0. The lock must name it. Never fix.",
+ "name": "UnsaidTown",
+ "scale": "r6",
+ "build": [
+  {
+   "town": {
+    "name": "Old Town",
+    "center": [
+     0,
+     0,
+     0
+    ],
+    "area": [
+     256,
+     224
+    ],
+    "seed": 3,
+    "gates": [
+     "S"
+    ],
+    "skins": "gh",
+    "mats": {
+     "street": "cobble",
+     "wall": "plaster",
+     "roof": "slate"
+    }
+   }
+  }
+ ]
+}

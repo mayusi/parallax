@@ -1,0 +1,16 @@
+{
+ "set": "flame_arc_set",
+ "hue": [
+  5.0,
+  55.0
+ ],
+ "key": "1 key the dance arc",
+ "scene_frame": "f_00.12.00.png",
+ "scene": {
+  "coverage": 0.3329,
+  "light": 0.1987,
+  "layers": 4,
+  "detail": 18.2,
+  "pieces": 10
+ }
+}

@@ -1,0 +1,12 @@
+# Obsidian keeps per-machine state here; only the shared settings (graph colours, plugins, templates) are committed
+.obsidian/workspace*.json
+.obsidian/cache
+.obsidian/plugins/
+.obsidian/themes/
+.trash/
+_inbox-drafts/
+# never shared: which community plugins are switched on (a vault that turns plugins on for whoever opens it is how
+# shared-vault attacks spread), and each person's own theme and hotkeys
+.obsidian/community-plugins.json
+.obsidian/appearance.json
+.obsidian/hotkeys.json

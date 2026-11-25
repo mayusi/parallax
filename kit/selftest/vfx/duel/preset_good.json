@@ -1,0 +1,11 @@
+{
+ "version": 3,
+ "mode": "burst",
+ "duration": 1.5,
+ "about": "selftest fixture (kit/selftest/vfx/duel/run.py good): a strike in G2 - booth.scene g2, sparks and a rim flash on the scene's own victim anchors (light only).",
+ "booth": { "scene": "g2", "views": ["duel"] },
+ "layers": [
+  { "name": "sparks", "kind": "sprite", "at": 0.2, "count": 8, "point": "@victimChest", "texture": "spark", "lifetime": [0.2, 0.3], "size": [[0, 0.6], [1, 0]], "color": [255, 232, 196], "lightEmission": 1, "speed": [12, 20], "spread": 50 },
+  { "name": "flash", "kind": "highlight", "at": 0.2, "life": 0.15, "target": "@victim", "fill": [255, 250, 240], "outline": [255, 236, 200] }
+ ]
+}

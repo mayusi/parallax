@@ -1,0 +1,41 @@
+[
+ {
+  "object": "ar-15 carbine gas system",
+  "part": "gas tube",
+  "dim": "length",
+  "value": 247.65,
+  "unit": "mm",
+  "source": "https://outdoorsportsusa.com/AR-15-Gas-Blocks-and-Gas-Tubes",
+  "kind": "published",
+  "note": "",
+  "trust": "high",
+  "id": "aea7ee9b",
+  "added": "2026-10-08"
+ },
+ {
+  "object": "ar-15 carbine gas system",
+  "part": "gas block",
+  "dim": "journal diameter",
+  "value": 19.05,
+  "unit": "mm",
+  "source": "https://outdoorsportsusa.com/AR-15-Gas-Blocks-and-Gas-Tubes",
+  "kind": "published",
+  "note": "",
+  "trust": "high",
+  "id": "e1d08217",
+  "added": "2026-10-08"
+ },
+ {
+  "object": "ar-15 carbine gas system",
+  "part": "gas system",
+  "dim": "length (receiver face to gas port)",
+  "value": 185.42,
+  "unit": "mm",
+  "source": "https://www.riflespeed.com/Choose-your-Gas-Control_ep_41.html",
+  "kind": "published",
+  "note": "",
+  "trust": "high",
+  "id": "b8fcde67",
+  "added": "2026-10-08"
+ }
+]

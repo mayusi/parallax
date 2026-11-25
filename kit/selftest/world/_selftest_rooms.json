@@ -1,0 +1,103 @@
+{
+ "_note": "A house cut into ROOMS by rule (kit/lib/worldrooms.luau): 30 x 34, two floors, a stair hall, partitions with one doorway each. One spawn stands outside its front door, one in its far corner room: kit world check must PASS - the walk from one to the other goes through the front door and the rooms' own doorways, each held to the r6 sheet.",
+ "name": "SelftestRooms",
+ "scale": "r6",
+ "palette": {
+  "ground": {
+   "material": "Concrete",
+   "color": [
+    96,
+    98,
+    104
+   ]
+  },
+  "wall": {
+   "material": "Brick",
+   "color": [
+    140,
+    120,
+    104
+   ]
+  },
+  "plank": {
+   "material": "WoodPlanks",
+   "color": [
+    120,
+    90,
+    60
+   ]
+  },
+  "spawn": {
+   "material": "Neon",
+   "color": [
+    80,
+    220,
+    120
+   ]
+  }
+ },
+ "build": [
+  {
+   "floor": {
+    "name": "Ground",
+    "center": [
+     0,
+     -1,
+     0
+    ],
+    "size": [
+     120,
+     120
+    ],
+    "thickness": 2,
+    "mat": "ground"
+   }
+  },
+  {
+   "building": {
+    "name": "House",
+    "center": [
+     0,
+     0,
+     0
+    ],
+    "size": [
+     30,
+     34
+    ],
+    "floors": 2,
+    "mat": "wall",
+    "slab": "plank",
+    "roof": "gable",
+    "roofCollide": false,
+    "stairs": true,
+    "rooms": true,
+    "door": {
+     "side": "S",
+     "width": 5,
+     "height": 8.5
+    }
+   }
+  },
+  {
+   "spawn": {
+    "pos": [
+     0,
+     0,
+     34
+    ],
+    "mat": "spawn"
+   }
+  },
+  {
+   "spawn": {
+    "pos": [
+     10.5,
+     0.1,
+     -12.5
+    ],
+    "mat": "spawn"
+   }
+  }
+ ]
+}

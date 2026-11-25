@@ -1,0 +1,25 @@
+{
+ "duration": 0.45,
+ "variations": 3,
+ "layers": [
+  {
+   "source": "noise",
+   "color": "pink",
+   "filter": {
+    "type": "bandpass",
+    "cutoff": [
+     400,
+     3000
+    ],
+    "q": 1.2
+   },
+   "env": {
+    "attack": 0.15,
+    "hold": 0.0,
+    "decay": 0.25,
+    "sustain": 0.0,
+    "release": 0.05
+   }
+  }
+ ]
+}

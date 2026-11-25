@@ -1,0 +1,50 @@
+# Every owner verdict in the vault, one table per department (open in Obsidian 1.9+: Bases).
+# Click a column header to sort. Edit verdicts through `lune run kit verdict` or the inbox, never here.
+filters:
+  and:
+    - 'kind == "verdict"'
+properties:
+  file.name:
+    displayName: Note
+  name:
+    displayName: Piece
+  score:
+    displayName: Score /10
+  date:
+    displayName: Date
+  source:
+    displayName: Source
+  area:
+    displayName: Dept
+views:
+  - type: table
+    name: By department
+    groupBy:
+      property: area
+      direction: ASC
+    order:
+      - name
+      - score
+      - date
+      - source
+      - file.name
+  - type: table
+    name: Loved (7+)
+    filters:
+      and:
+        - 'score >= 7'
+    order:
+      - area
+      - name
+      - score
+      - date
+  - type: table
+    name: Rejected (3 or less)
+    filters:
+      and:
+        - 'score <= 3'
+    order:
+      - area
+      - name
+      - score
+      - date

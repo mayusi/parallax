@@ -1,0 +1,120 @@
+{
+ "version": 3,
+ "mode": "burst",
+ "duration": 1,
+ "palette": {
+  "gold": [
+   255,
+   205,
+   96
+  ],
+  "ember": [
+   140,
+   60,
+   14
+  ]
+ },
+ "points": {},
+ "layers": [
+  {
+   "name": "crest",
+   "kind": "sprite",
+   "texture": "gloria_crest",
+   "at": 0,
+   "count": 4,
+   "lifetime": [
+    0.4,
+    0.6
+   ],
+   "size": 2,
+   "color": "gold",
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "lightEmission": 0
+  },
+  {
+   "name": "rays",
+   "kind": "sprite",
+   "texture": "gloria_rays",
+   "at": 0,
+   "count": 4,
+   "lifetime": [
+    0.4,
+    0.6
+   ],
+   "size": 2,
+   "color": "gold",
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "lightEmission": 0
+  },
+  {
+   "name": "smoke",
+   "kind": "sprite",
+   "texture": "gloria_smoke",
+   "at": 0,
+   "count": 4,
+   "lifetime": [
+    0.4,
+    0.6
+   ],
+   "size": 2,
+   "color": "ember",
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "lightEmission": 0
+  },
+  {
+   "name": "soft",
+   "kind": "sprite",
+   "texture": "soft_glow",
+   "at": 0,
+   "count": 4,
+   "lifetime": [
+    0.4,
+    0.6
+   ],
+   "size": 2,
+   "color": "gold",
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "lightEmission": 0
+  }
+ ],
+ "about": "the same look, but the owner asked for it in the beat sheet (selftest)",
+ "scene": {
+  "set": "asked_set"
+ }
+}

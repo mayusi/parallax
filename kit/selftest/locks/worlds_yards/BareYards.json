@@ -1,0 +1,36 @@
+{
+ "_note": "NEGATIVE fixture for the world lane's lock on a town's yards (kit/lib/lanelocks.luau LaneLocks.unsaidYards): a town step that says neither \"yards\": true nor \"yards\": false. The lock must name it. Never fix.",
+ "name": "BareYards",
+ "scale": "r6",
+ "build": [
+  {
+   "town": {
+    "name": "Old Town",
+    "center": [
+     0,
+     0,
+     0
+    ],
+    "area": [
+     256,
+     224
+    ],
+    "seed": 3,
+    "gates": [
+     "S"
+    ],
+    "bend": 0,
+    "market": false,
+    "skins": "gh",
+    "house": {
+     "rooms": false
+    },
+    "mats": {
+     "street": "cobble",
+     "wall": "plaster",
+     "roof": "slate"
+    }
+   }
+  }
+ ]
+}

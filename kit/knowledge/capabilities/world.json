@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "lane": "world",
+  "menu": [
+    {"tool": "W3 modular PBR MeshPart kit (15-20 pieces)", "when": "town/courtyard — shared trim sheets beat unique geometry"},
+    {"tool": "parallax world terrain --dem <GeoTIFF>", "when": "natural terrain biome from real elevation data (Copernicus GLO-30)"},
+    {"tool": "parallax world terrain --stream + --erosion", "when": "river valley or coastline needing realistic drainage and incision"},
+    {"tool": "parallax world town step", "when": "placing a modular town with facades, yards, slope, lamps and market"},
+    {"tool": "W5 Realistic lighting (<=16 shadow lights)", "when": "any exterior environment needing consistent in-engine lighting"},
+    {"tool": "kit/world/hlod.py HLOD rings", "when": ">1024 stud world needing culled distant geometry"},
+    {"tool": "parallax world check", "when": "validates R6 jump arcs, spawn fairness, sightlines, parts budget"},
+    {"tool": "parallax world studio --capture", "when": "eye-level in-engine proof at the world's key stations"},
+    {"tool": "interior_v2 rooms: true", "when": "multi-room building needing reachability validation"},
+    {"tool": "curve: true declaration", "when": "road/path turns >20 degrees to prevent geometry kinks"}
+  ],
+  "ladder": [
+    {"from": "box_part_world (MeshPart=0)", "to": "W3 modular PBR MeshPart kit", "when": "any town, courtyard or architectural environment"},
+    {"from": "noise_thermal_erosion_only", "to": "terrain --dem GeoTIFF + --stream river", "when": "natural terrain needs realistic drainage and ridgelines"},
+    {"from": "primitive_part_foliage", "to": "vetted CC0 rock/tree/cliff meshes (<=20k tris)", "when": "biome needs readable natural silhouettes"},
+    {"from": "no_streaming_cells", "to": "streaming declaration + hlod.py rings", "when": "world exceeds 1024 studs in any dimension"},
+    {"from": "scatter_before_roads", "to": "roads FIRST then scatter", "when": "any road network is part of the world layout"}
+  ],
+  "floor": [
+    ">=6 sourced reference stills measured into REFS.md before greybox",
+    "world direction approved by owner before W1 greybox",
+    "world check (0 errors) before look render",
+    "Studio walk-through before marking done"
+  ]
+}

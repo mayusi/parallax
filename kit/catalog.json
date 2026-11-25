@@ -1,0 +1,39 @@
+{
+  "_help": "Vetted libraries for `lune run kit add <name>`. Every entry was checked (two sources, license, maintainer, source scan) and logged in VETLOG.md before it was added here. Versions are pinned; bump only after re-vetting.",
+  "profilestore": {
+    "wally": "lm-loleris/profilestore@1.0.3",
+    "alias": "ProfileStore",
+    "realm": "server",
+    "license": "Apache-2.0",
+    "vetted": "2026-10-04",
+    "about": "player data saving with session locking — no lost or duplicated items (by loleris; NOT the 2jammers copy)",
+    "usage": "local ProfileStore = require(game:GetService(\"ServerScriptService\").ServerPackages.ProfileStore)\nlocal Store = ProfileStore.New(\"PlayerData\", { Coins = 0, Inventory = {} })\n-- on PlayerAdded: local profile = Store:StartSessionAsync(`{player.UserId}`, { Cancel = function() return player.Parent ~= Players end })\n-- profile.Data.Coins += 10 (server only); on PlayerRemoving: profile:EndSession()"
+  },
+  "trove": {
+    "wally": "sleitnick/trove@1.8.0",
+    "alias": "Trove",
+    "realm": "shared",
+    "license": "MIT",
+    "vetted": "2026-10-04",
+    "about": "cleanup of connections, instances and threads in one place — prevents memory leaks",
+    "usage": "local Trove = require(game:GetService(\"ReplicatedStorage\").Packages.Trove)\nlocal trove = Trove.new()\ntrove:Connect(part.Touched, onTouch)\ntrove:Add(Instance.new(\"Part\"))\n-- later: trove:Destroy() disconnects and destroys everything it holds"
+  },
+  "cmdr": {
+    "wally": "evaera/cmdr@1.13.1",
+    "alias": "Cmdr",
+    "realm": "shared",
+    "license": "MIT",
+    "vetted": "2026-10-04",
+    "about": "in-game admin/debug console (F2) — give items, teleport, set values while testing",
+    "usage": "-- server: local Cmdr = require(game:GetService(\"ReplicatedStorage\").Packages.Cmdr)\n-- Cmdr:RegisterDefaultCommands(); Cmdr.Registry:RegisterHook(\"BeforeRun\", function(ctx) if not isAdmin(ctx.Executor) then return \"no\" end end)\n-- client: require(ReplicatedStorage:WaitForChild(\"CmdrClient\")):SetActivationKeys({ Enum.KeyCode.F2 })"
+  },
+  "zap": {
+    "rokit": "red-blox/zap@0.6.29",
+    "alias": "zap",
+    "license": "MIT",
+    "vetted": "2026-10-04",
+    "sha256": "5ab088cc5e8354f9afeb63ffcc99c5aeb79a8f9c4c95bad7de4e5f5c9251aac2 (zap-0.6.29-windows-x86_64.zip)",
+    "about": "networking compiler: describe remotes in a .zap file, get fast, typed, auto-validated client/server code",
+    "usage": "-- net.zap:  opt server_output = \"src/server/Net.luau\"  opt client_output = \"src/client/Net.luau\"\n--           event Hit = { from: Client, type: Reliable, call: SingleAsync, data: struct { target: Vector3 } }\n-- then: zap net.zap   (server: Net.Hit.SetCallback(function(player, data) ... end); client: Net.Hit.Fire({ target = pos }))"
+  }
+}

@@ -1,0 +1,9 @@
+{
+ "name": "good_queries",
+ "about": "selftest control: a phone breakpoint and a gamepad one, exported",
+ "tokens": { "bg": "#101318", "panel": "#1c212b", "text": "#f3f5f9", "accent": "#d8c27a" },
+ "queries": {
+  "Phone": { "when": { "MaxSize": [900, 500] }, "rules": { ".KitTitle": { "TextSize": 28 } } },
+  "Pad": { "when": { "PreferredInput": "Gamepad" }, "rules": { "UIStroke": { "Thickness": 3 } } }
+ }
+}

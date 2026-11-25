@@ -1,0 +1,67 @@
+{
+ "duration": 3.0,
+ "loop": true,
+ "fx": {
+  "normalize": -4.0
+ },
+ "layers": [
+  {
+   "source": "saw",
+   "freq": 95,
+   "filter": {
+    "type": "lowpass",
+    "cutoff": 900
+   },
+   "env": {
+    "attack": 0.0,
+    "decay": 0.0,
+    "sustain": 1.0,
+    "release": 0.0
+   }
+  },
+  {
+   "source": "saw",
+   "freq": 97.5,
+   "filter": {
+    "type": "lowpass",
+    "cutoff": 900
+   },
+   "env": {
+    "attack": 0.0,
+    "decay": 0.0,
+    "sustain": 1.0,
+    "release": 0.0
+   }
+  },
+  {
+   "source": "square",
+   "freq": 190,
+   "gain": 0.15,
+   "filter": {
+    "type": "lowpass",
+    "cutoff": 1200
+   },
+   "env": {
+    "attack": 0.0,
+    "decay": 0.0,
+    "sustain": 1.0,
+    "release": 0.0
+   }
+  },
+  {
+   "source": "noise",
+   "color": "pink",
+   "gain": 0.12,
+   "filter": {
+    "type": "bandpass",
+    "cutoff": 2000
+   },
+   "env": {
+    "attack": 0.0,
+    "decay": 0.0,
+    "sustain": 1.0,
+    "release": 0.0
+   }
+  }
+ ]
+}

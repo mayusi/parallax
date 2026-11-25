@@ -1,0 +1,40 @@
+{
+ "about": "Family playbooks (2026-11-08, sprint 5: proposal 12 of board/plans/archive/2026-11-08-pipeline-rag-learning-research.md). A lane's families, each named by its words as kit/lib/families.luau spells them (lower case, a plural's s off from 4 letters, stop words kept). A lesson's family is its own `family:` field, else the family its headline (gist or first sentence) names, else 3+ distinct words of one family in its body (a clear winner); a piece's family comes from its own field first (an animation dossier's category, a UI spec's kind), else from its words. Ranking prefers the piece's family (kit/lib/families.luau). A word that names two families of one lane is left out of both. Left out as naming two things in one lane: barrel (a gun's, a wine barrel), box / case (a SAM box, 'in case'), chest (a body's, a container), trunk, guard, press, slide (a gun part, a verb); vfx cut / glow / ray / strike; ui rank / title / setting / option; anim aim. Body words (knee, elbow, fist) are no family: every sword or run lesson says them. A piece's NAME comes before its own field (GunTrick is a gun move, though its dossier says idle).",
+ "3d": {
+  "firearm": ["gun", "pistol", "rifle", "shotgun", "revolver", "glock", "firearm", "handgun", "magazine", "trigger", "holster", "silverballer", "muzzle"],
+  "blade": ["sword", "katana", "blade", "knife", "dagger", "scythe", "claymore", "greatsword", "sheath", "scabbard", "hilt"],
+  "furniture": ["table", "chair", "bed", "cupboard", "dresser", "counter", "stool", "shelf", "desk", "washstand", "bench", "cabinet", "wardrobe", "sofa", "drawer", "tester"],
+  "clothing": ["boot", "coat", "armour", "armor", "cloth", "clothing", "outfit", "shirt", "trouser", "cape", "glove", "hat", "helmet", "hood", "jacket", "cloak", "sleeve"],
+  "building": ["wall", "door", "window", "house", "roof", "arch", "stair", "pillar", "column", "facade", "shophouse", "townhouse", "lintel"],
+  "container": ["bottle", "jug", "cup", "bowl", "pot", "sack", "crate", "basket", "kist", "jar", "bucket", "cask", "keg"],
+  "plant": ["ivy", "tree", "bush", "flower", "grass", "leaf", "vine", "moss", "plant"],
+  "light": ["lamp", "lantern", "candle", "chandelier", "torch", "sconce", "candlestick"]
+ },
+ "vfx": {
+  "slash": ["slash", "sword", "blade", "getsuga", "arc", "swing", "sweep", "celestial"],
+  "aura": ["aura", "saiyan", "ssj", "flame", "shell", "charge", "charging", "transform"],
+  "beam": ["beam", "laser", "cannon", "hollow", "purple", "kamehameha"],
+  "explosion": ["explosion", "nuke", "boom", "shockwave", "detonation", "mushroom", "debri"],
+  "impact": ["impact", "punch", "crack", "blackflash"],
+  "projectile": ["projectile", "bullet", "orb", "fireball", "missile", "arrow", "zoltraak", "tracer"]
+ },
+ "ui": {
+  "hud": ["hud", "health", "gauge", "ammo", "meter", "crosshair", "minimap", "stamina", "combo"],
+  "menu": ["menu", "shop", "inventory", "loading", "lobby", "pause", "store"],
+  "card": ["card", "reveal", "episode", "banner", "popup", "toast", "notification"]
+ },
+ "anim": {
+  "sword": ["sword", "katana", "greatsword", "blade", "slash", "claymore", "kiriage", "iaigiri", "sheath", "kaeshi"],
+  "gun": ["gun", "pistol", "shoot", "reload", "gunslinger", "gunplay", "holster"],
+  "unarmed": ["punch", "kick", "uppercut", "roundhouse", "hook", "jab", "muay", "thai", "boxer", "headhook"],
+  "locomotion": ["run", "walk", "sprint", "jump", "dash", "fall", "roll", "climb", "gait", "stride", "locomotion"],
+  "reaction": ["stagger", "knockback", "react", "reaction", "flinch", "death", "stun"],
+  "idle": ["idle", "stance", "breathing", "breath"]
+ },
+ "world": {
+  "arena": ["arena", "cage", "duel", "pvp", "battleground", "ring", "pit"],
+  "town": ["town", "city", "street", "market", "district", "village", "ruin"],
+  "nature": ["island", "forest", "mountain", "river", "valley", "terrain", "beach", "cave", "isle"],
+  "interior": ["room", "interior", "hall", "nave", "cathedral", "chamber", "tavern"]
+ }
+}

@@ -1,0 +1,9 @@
+DevPackages/
+Packages/
+ServerPackages/
+# kit
+build/
+kit/types/
+# kit
+_scratch/
+_artifacts/

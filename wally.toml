@@ -1,0 +1,17 @@
+[package]
+name = "mayusi/parallax"
+version = "3.1.0"
+registry = "https://github.com/UpliftGames/wally-index"
+realm = "shared"
+license = "MIT"
+authors = ["mayusi"]
+
+[dependencies]
+# Add shared deps here, e.g.:
+# Promise = "evaera/promise@2.0.1"
+# ReactLua = "jsdotlua/jest-globals@3.10.0"  # in-engine tests (see DECISIONS 3/6)
+
+[server-dependencies]
+
+[dev-dependencies]
+Frktest = "itsfrank/frktest@0.0.2"

@@ -1,0 +1,26 @@
+{
+  "schema": 1,
+  "lane": "qa",
+  "menu": [
+    {"tool": "parallax audit", "when": "catching unguarded remotes and backdoor patterns before ship"},
+    {"tool": "parallax selftest", "when": "proving all content gates catch their intended bad fixtures"},
+    {"tool": "parallax playtest bundle/run", "when": "in-engine scenario with 0 console errors + perf budget check"},
+    {"tool": "parallax bug (regression spec)", "when": "recording a fixed bug so it cannot silently reappear"},
+    {"tool": "parallax mutate --regressions", "when": "proving every registered regression is still caught by specs"},
+    {"tool": "parallax accept (>=7 owner work)", "when": "locking an owner-approved build as the quality floor"},
+    {"tool": "qa.perf (clientMemoryMb<=1100, highlights<=31)", "when": "checking every playtest meets the memory and render budget"},
+    {"tool": "console/JSON assertion proof", "when": "verifying any in-engine behaviour — never screen_capture"}
+  ],
+  "ladder": [
+    {"from": "loosen_gate_to_pass", "to": "diagnose root cause + fix + regression spec", "when": "a gate fails"},
+    {"from": "retry_flaky_no_diagnosis", "to": "isolate + root-cause + fix flake", "when": "a test fails non-deterministically"},
+    {"from": "close_bug_no_regression", "to": "parallax bug + replant + mutate --regressions", "when": "any bug is fixed"},
+    {"from": "screen_capture_qa", "to": "console + JSON assertion", "when": "verifying any in-engine state or error"}
+  ],
+  "floor": [
+    "parallax audit + selftest (0 errors) before any release",
+    "qa.perf budget met in every playtest run",
+    "every fixed bug has a regression spec that the specs catch when replanted",
+    "Studio playtest with 0 console errors before sign-off"
+  ]
+}

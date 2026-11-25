@@ -1,0 +1,12 @@
+{
+ "lane": "code",
+ "about": "The code lane's fixed questions for the parts library (P0): 5 new systems in a brief's words (fewer than the visual lanes: code has 2 verdicts; the count is stated in every eval). Written before any method was run on them; labelled blind by two labellers (labels.json). Add a question only from real work, never to suit a method.",
+ "written": "2026-11-09",
+ "questions": [
+  {"id": "code-q01", "piece": "dash_ability", "brief": "dash ability system: the client asks to dash, the server checks the cooldown and the direction, moves the character, and tells the other clients to play the effect"},
+  {"id": "code-q02", "piece": "coin_shop", "brief": "coin shop: players buy items with coins, the server checks the price and the balance, saves the purchase, and the UI updates"},
+  {"id": "code-q03", "piece": "round_system", "brief": "round system: an intermission, then a match with a timer, the winner is announced, everyone respawns in the lobby"},
+  {"id": "code-q04", "piece": "projectile_weapon", "brief": "projectile weapon: the client fires, the server spawns a bullet that travels with gravity, raycasts each step and applies damage on a hit"},
+  {"id": "code-q05", "piece": "patrol_enemy", "brief": "patrolling enemy NPC: walks between waypoints, chases the nearest player in range, attacks with a cooldown, returns when the player leaves"}
+ ]
+}

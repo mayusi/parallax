@@ -1,0 +1,87 @@
+{
+  "name": "FxSet",
+  "combo": [
+    "FxCut1",
+    "FxCut2"
+  ],
+  "health": 100,
+  "parry": {
+    "anim": "FxParry",
+    "sfx": "FxParry"
+  },
+  "moves": {
+    "FxCut1": {
+      "name": "FxCut1",
+      "anim": "FxCut1Clip",
+      "frames": {
+        "fps": 60,
+        "startup": 18,
+        "active": 4,
+        "recovery": 20
+      },
+      "hitstop": 0.07,
+      "sfx": [
+        {
+          "frame": 10,
+          "event": "FxSwing",
+          "weight": 0.4
+        }
+      ],
+      "onHit": {
+        "sfx": "FxHit",
+        "weight": 0.4
+      },
+      "cancel": {
+        "into": [
+          "FxCut2"
+        ],
+        "from": 23,
+        "to": 40
+      },
+      "vfx": [
+        {
+          "frame": 17,
+          "preset": "fx_slash"
+        }
+      ],
+      "hitboxes": [
+        {
+          "frames": [
+            18,
+            21
+          ]
+        }
+      ]
+    },
+    "FxCut2": {
+      "name": "FxCut2",
+      "anim": "FxCut2Clip",
+      "frames": {
+        "fps": 60,
+        "startup": 20,
+        "active": 4,
+        "recovery": 24
+      },
+      "hitstop": 0.1,
+      "sfx": [
+        {
+          "frame": 12,
+          "event": "FxSwing",
+          "weight": 0.9
+        }
+      ],
+      "onHit": {
+        "sfx": "FxHit",
+        "weight": 0.9
+      },
+      "hitboxes": [
+        {
+          "frames": [
+            20,
+            23
+          ]
+        }
+      ]
+    }
+  }
+}

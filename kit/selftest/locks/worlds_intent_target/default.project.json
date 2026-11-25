@@ -1,0 +1,14 @@
+{
+ "name": "fixture",
+ "tree": {
+  "$className": "DataModel",
+  "Workspace": {
+   "$className": "Workspace",
+   "$properties": {
+    "StreamingEnabled": true,
+    "StreamingMinRadius": 1200,
+    "StreamingIntegrityMode": "PauseOutsideLoadedArea"
+   }
+  }
+ }
+}

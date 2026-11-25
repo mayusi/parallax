@@ -1,0 +1,108 @@
+{
+ "name": "SimDaily",
+ "identity": "sim",
+ "quality": "hero",
+ "focus": "Daily.Card.Title.Txt",
+ "kind": "menu",
+ "enabled": false,
+ "insets": "none",
+ "scale": { "phone": 0.5, "tablet": 0.72 },
+ "root": {
+  "type": "panel",
+  "name": "Daily",
+  "size": ["100%", "100%"],
+  "color": "bg",
+  "transparency": 0.4,
+  "children": [
+   {
+    "type": "panel", "name": "Card", "plate": "bubble_panel", "shadow": 10, "size": [1280, 600], "pos": ["50%", "52%"], "anchor": "center",
+    "at": { "phone": { "size": ["96%", "92%"] } },
+    "motion": { "enter": { "type": "bounce", "duration": 0.6 }, "stagger": 0.05 },
+    "children": [
+     {
+      "type": "panel", "name": "Title", "plate": "banner_accent", "shadow": true, "size": [540, 92], "pos": ["50%", -36], "anchor": "top", "z": 3,
+      "motion": { "enter": { "type": "drop", "delay": 0.15, "duration": 0.5, "ease": "back" } },
+      "children": [
+       { "type": "image", "name": "Icon", "image": "art:sim/icon_gift", "fit": "fit", "size": [84, 84], "pos": [10, "50%-6"], "anchor": "left", "z": 4, "motion": { "loop": { "type": "wobble", "speed": 0.6 } } },
+       {"type": "label", "name": "Txt", "text": "DAILY REWARDS", "size": [420, 56], "pos": [104, "50%-5"], "anchor": "left", "lettering": {"size": 64}}
+      ]
+     },
+     { "type": "imagebutton", "name": "Close", "plate": "close", "size": [72, 72], "pos": ["100%-6", -6], "anchor": "topright", "z": 4,
+       "motion": { "enter": { "type": "pop", "delay": 0.3 }, "hover": "grow", "press": "sink" } },
+
+     { "type": "label", "name": "Streak", "text": "LOGIN STREAK", "role": "heading", "textSize": 26, "textColor": "textDark", "size": [300, 32], "pos": [60, 78], "align": "left", "motion": { "enter": "fade" } },
+     { "type": "panel", "name": "StreakBar", "size": ["100%-420", 40], "pos": ["100%-60", 76], "anchor": "topright",
+       "motion": { "enter": "fade" },
+       "children": [
+        { "type": "bar", "name": "Bar", "size": ["100%", 36], "pos": [0, "50%"], "anchor": "left", "value": 0.43, "fill": "accent", "track": true, "fillGloss": true, "radius": 18,
+          "motion": { "enter": { "type": "wipe", "delay": 0.4, "duration": 0.9, "ease": "sine" } } },
+        { "type": "label", "name": "Txt", "text": "3 / 7 DAYS", "role": "heading", "textSize": 20, "textColor": "text", "textOutline": "line", "textOutlineWidth": 4, "size": ["100%", 28], "pos": ["50%", "50%"], "anchor": "center", "z": 3 }
+       ] },
+
+     {
+      "type": "panel", "name": "Days", "size": ["100%-60", 260], "pos": ["50%", 150], "anchor": "top",
+      "layout": { "dir": "horizontal", "gap": 12, "align": "center", "justify": "center" },
+      "motion": { "stagger": 0.06 },
+      "children": [
+       { "type": "panel", "name": "D1", "plate": "bubble_panel", "shadow": true, "size": [150, 190], "motion": { "enter": "bounce" },
+         "children": [
+          { "type": "label", "name": "Day", "text": "DAY 1", "role": "heading", "textSize": 20, "textColor": "muted", "size": ["100%", 26], "pos": [0, 10] },
+          { "type": "image", "name": "Icon", "image": "art:sim/icon_coin", "fit": "fit", "size": [90, 90], "pos": ["50%", 38], "anchor": "top", "imageAlpha": 0.55 },
+          { "type": "plate", "name": "Ok", "plate": "check", "size": [56, 56], "pos": ["100%-2", 2], "anchor": "center", "z": 5 },
+          { "type": "panel", "name": "Done", "plate": "pill_good", "size": [120, 34], "pos": ["50%", "100%-8"], "anchor": "bottom", "z": 4,
+            "children": [ { "type": "label", "name": "Txt", "text": "CLAIMED", "role": "heading", "textSize": 16, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": ["100%", "100%"] } ] }
+         ] },
+       { "type": "panel", "name": "D2", "plate": "bubble_panel", "shadow": true, "size": [150, 190], "motion": { "enter": "bounce" },
+         "children": [
+          { "type": "label", "name": "Day", "text": "DAY 2", "role": "heading", "textSize": 20, "textColor": "muted", "size": ["100%", 26], "pos": [0, 10] },
+          { "type": "image", "name": "Icon", "image": "art:sim/icon_coin", "fit": "fit", "size": [90, 90], "pos": ["50%", 38], "anchor": "top", "imageAlpha": 0.55 },
+          { "type": "plate", "name": "Ok", "plate": "check", "size": [56, 56], "pos": ["100%-2", 2], "anchor": "center", "z": 5 },
+          { "type": "panel", "name": "Done", "plate": "pill_good", "size": [120, 34], "pos": ["50%", "100%-8"], "anchor": "bottom", "z": 4,
+            "children": [ { "type": "label", "name": "Txt", "text": "CLAIMED", "role": "heading", "textSize": 16, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": ["100%", "100%"] } ] }
+         ] },
+       { "type": "panel", "name": "D3", "plate": "bubble_panel", "shadow": true, "size": [150, 190], "motion": { "enter": "bounce" },
+         "children": [
+          { "type": "label", "name": "Day", "text": "DAY 3", "role": "heading", "textSize": 20, "textColor": "muted", "size": ["100%", 26], "pos": [0, 10] },
+          { "type": "image", "name": "Icon", "image": "art:sim/icon_gem", "fit": "fit", "size": [90, 90], "pos": ["50%", 38], "anchor": "top", "imageAlpha": 0.55 },
+          { "type": "plate", "name": "Ok", "plate": "check", "size": [56, 56], "pos": ["100%-2", 2], "anchor": "center", "z": 5 },
+          { "type": "panel", "name": "Done", "plate": "pill_good", "size": [120, 34], "pos": ["50%", "100%-8"], "anchor": "bottom", "z": 4,
+            "children": [ { "type": "label", "name": "Txt", "text": "CLAIMED", "role": "heading", "textSize": 16, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": ["100%", "100%"] } ] }
+         ] },
+       { "type": "panel", "name": "D4", "plate": "bubble_accent", "shadow": true, "size": [180, 226], "motion": { "enter": { "type": "bounce", "duration": 0.7 }, "loop": { "type": "breathe", "speed": 1.2 } },
+         "children": [
+          { "type": "label", "name": "Day", "text": "DAY 4", "role": "heading", "textSize": 24, "textColor": "text", "textOutline": "line", "textOutlineWidth": 4, "size": ["100%", 28], "pos": [0, 10] },
+          { "type": "plate", "name": "Glow", "plate": "burst", "size": [200, 200], "pos": ["50%", 106], "anchor": "center", "imageAlpha": 0.55, "color": "danger", "motion": { "loop": { "type": "spin", "speed": 0.2 } } },
+          { "type": "image", "name": "Icon", "image": "art:sim/icon_chest", "fit": "fit", "size": [116, 116], "pos": ["50%", 42], "anchor": "top", "motion": { "loop": { "type": "float", "speed": 1 } } },
+          { "type": "panel", "name": "Amount", "plate": "pill_danger", "shadow": true, "size": [140, 44], "pos": ["50%", "100%-8"], "anchor": "bottom", "z": 4,
+            "motion": { "loop": { "type": "pulse", "speed": 1 } },
+            "children": [ { "type": "label", "name": "Txt", "text": "CLAIM!", "role": "heading", "textSize": 22, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": ["100%", "100%"] } ] }
+         ] },
+       { "type": "panel", "name": "D5", "plate": "bubble_panel", "shadow": true, "size": [150, 190], "motion": { "enter": "bounce" },
+         "children": [
+          { "type": "label", "name": "Day", "text": "DAY 5", "role": "heading", "textSize": 20, "textColor": "textDark", "size": ["100%", 26], "pos": [0, 10] },
+          { "type": "image", "name": "Icon", "image": "art:sim/icon_potion", "fit": "fit", "size": [90, 90], "pos": ["50%", 38], "anchor": "top" },
+          { "type": "label", "name": "Amount", "text": "x2 LUCK", "role": "heading", "textSize": 18, "textColor": "textDark", "size": ["100%", 26], "pos": [0, "100%-10"], "anchor": "bottomleft" }
+         ] },
+       { "type": "panel", "name": "D6", "plate": "bubble_panel", "shadow": true, "size": [150, 190], "motion": { "enter": "bounce" },
+         "children": [
+          { "type": "label", "name": "Day", "text": "DAY 6", "role": "heading", "textSize": 20, "textColor": "textDark", "size": ["100%", 26], "pos": [0, 10] },
+          { "type": "image", "name": "Icon", "image": "art:sim/icon_gem", "fit": "fit", "size": [90, 90], "pos": ["50%", 38], "anchor": "top" },
+          { "type": "label", "name": "Amount", "text": "150 GEMS", "role": "heading", "textSize": 18, "textColor": "textDark", "size": ["100%", 26], "pos": [0, "100%-10"], "anchor": "bottomleft" }
+         ] },
+       { "type": "panel", "name": "D7", "plate": "bubble_purple", "shadow": true, "size": [190, 240], "motion": { "enter": "bounce" },
+         "children": [
+          { "type": "label", "name": "Day", "text": "DAY 7", "role": "heading", "textSize": 24, "textColor": "text", "textOutline": "line", "textOutlineWidth": 4, "size": ["100%", 28], "pos": [0, 10] },
+          { "type": "plate", "name": "Glow", "plate": "burst", "size": [200, 200], "pos": ["50%", 112], "anchor": "center", "imageAlpha": 0.4, "motion": { "loop": { "type": "spin", "speed": 0.12 } } },
+          { "type": "image", "name": "Icon", "image": "art:sim/icon_egg", "fit": "fit", "size": [130, 130], "pos": ["50%", 42], "anchor": "top", "motion": { "loop": { "type": "float", "speed": 0.8 } } },
+          { "type": "panel", "name": "Amount", "plate": "pill_accent", "shadow": true, "size": [150, 40], "pos": ["50%", "100%-8"], "anchor": "bottom", "z": 4,
+            "children": [ { "type": "label", "name": "Txt", "text": "RARE EGG", "role": "heading", "textSize": 18, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": ["100%", "100%"] } ] }
+         ] }
+      ]
+     },
+
+     { "type": "label", "name": "Hint", "text": "Come back tomorrow for DAY 5 — streaks reset after 48 h", "role": "body", "textSize": 24, "textColor": "textDark", "size": ["100%-80", 32], "pos": ["50%", "100%-26"], "anchor": "bottom", "motion": { "enter": { "type": "fade", "delay": 0.5 } } }
+    ]
+   }
+  ]
+ }
+}

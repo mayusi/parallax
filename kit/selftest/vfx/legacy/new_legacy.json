@@ -1,0 +1,12 @@
+{
+  "version": 3,
+  "duration": 2,
+  "about": "selftest: a piece made after 2026-11-18 carrying the four legacy keys - the build must REFUSE it (kit/lib/vfxlegacy.luau)",
+  "points": { "muzzle": [0, 4, -3], "ground0": [0, 0, 0] },
+  "layers": [
+    { "name": "sparks", "kind": "sprite", "at": 0, "point": "muzzle", "texture": "glow", "count": 12, "lifetime": 0.4, "speed": [20, 30], "spreadAngle": [30, 30] },
+    { "name": "wall", "kind": "sprite", "at": 0, "point": "ground0", "texture": "glow", "count": 1, "lifetime": 1, "size": [[0, 40], [1, 80]] },
+    { "name": "shake", "kind": "shake", "at": 0.1, "life": 0.5, "amplitude": [[0, 1], [1, 0]], "frequency": 12 },
+    { "name": "punch", "kind": "fov", "at": 0.1, "life": 0.5, "fov": [[0, 0], [0.2, 6], [1, 0]] }
+  ]
+}

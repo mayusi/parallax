@@ -1,0 +1,21 @@
+{
+ "_help": "selftest registry",
+ "m_arc": {
+  "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+  "file": "build/textures/m_arc.png",
+  "grid": 4,
+  "id": ""
+ },
+ "m_streaks": {
+  "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+  "file": "build/textures/m_streaks.png",
+  "grid": 1,
+  "id": ""
+ },
+ "m_ring_dz": {
+  "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+  "file": "build/textures/m_ring_dz.png",
+  "grid": 4,
+  "id": ""
+ }
+}

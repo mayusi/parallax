@@ -1,0 +1,73 @@
+{
+ "schema": 1,
+ "duration": 3.4,
+ "about": "the effect's clock per beat (edited by hand 2026-10-16: one Dance strike - ignite, the arc with a hit-stop at full extent, the ribbon trailing as the swing finishes, sparks at contact, embers; re-timed by hand 2026-11-11 for the WHOLE dance after the owner's REDO of flame_arc_keybeat - 'you're saying dance, so you're saying dance, the whole thing basically': every beat on its own moment - ignite, the arc held on its full extent, the ribbon across the frame, the clash, the embers) - re-run kit vfx chart after an edit",
+ "beats": [
+  {
+   "beat": "0 ignition",
+   "scene": [
+    10.0,
+    10.7
+   ],
+   "t": 0.0,
+   "len": 0.3,
+   "hold": 0.0,
+   "slow": 1.0,
+   "key": false
+  },
+  {
+   "beat": "1 key the dance arc",
+   "scene": [
+    10.7,
+    13.5
+   ],
+   "t": 0.3,
+   "len": 0.4,
+   "hold": 0.12,
+   "slow": 1.0,
+   "key": true
+  },
+  {
+   "beat": "2 trailing ribbon",
+   "scene": [
+    13.5,
+    22.3
+   ],
+   "t": 0.85,
+   "len": 1.0,
+   "hold": 0.0,
+   "slow": 1.0,
+   "key": false
+  },
+  {
+   "beat": "3 clash sparks",
+   "scene": [
+    42.1,
+    46.0
+   ],
+   "t": 1.9,
+   "len": 0.3,
+   "hold": 0.06,
+   "slow": 1.0,
+   "key": false
+  },
+  {
+   "beat": "4 embers",
+   "scene": [
+    57.0,
+    60.0
+   ],
+   "t": 2.2,
+   "len": 1.2,
+   "hold": 0.0,
+   "slow": 1.0,
+   "key": false
+  }
+ ],
+ "approved": {
+  "by": "owner",
+  "date": "2026-10-16",
+  "words": "(fixture) the owner's own approval of the 2.2 s plan",
+  "plan": "2.20|0.00,0.18,0.00,0;0.18,0.32,0.12,1;0.38,0.70,0.00,0;0.42,0.30,0.06,0;0.80,1.40,0.00,0"
+ }
+}

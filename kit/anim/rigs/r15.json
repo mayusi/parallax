@@ -1,0 +1,837 @@
+{
+  "classes": {
+    "Head": "MeshPart",
+    "HumanoidRootPart": "Part",
+    "LeftFoot": "MeshPart",
+    "LeftHand": "MeshPart",
+    "LeftLowerArm": "MeshPart",
+    "LeftLowerLeg": "MeshPart",
+    "LeftUpperArm": "MeshPart",
+    "LeftUpperLeg": "MeshPart",
+    "LowerTorso": "MeshPart",
+    "RightFoot": "MeshPart",
+    "RightHand": "MeshPart",
+    "RightLowerArm": "MeshPart",
+    "RightLowerLeg": "MeshPart",
+    "RightUpperArm": "MeshPart",
+    "RightUpperLeg": "MeshPart",
+    "UpperTorso": "MeshPart"
+  },
+  "hipHeight": 2.19242,
+  "jointType": "AnimationConstraint",
+  "joints": {
+    "Head": {
+      "c0": [
+        0,
+        0.84903,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "c1": [
+        0,
+        -0.5758,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "joint": "Neck",
+      "parent": "UpperTorso"
+    },
+    "LeftFoot": {
+      "c0": [
+        0,
+        -0.59649,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "c1": [
+        0,
+        0.10602,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "joint": "LeftAnkle",
+      "parent": "LeftLowerLeg"
+    },
+    "LeftHand": {
+      "c0": [
+        0.00048,
+        -0.53217,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "c1": [
+        0.00047,
+        0.13157,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "joint": "LeftWrist",
+      "parent": "LeftLowerArm"
+    },
+    "LeftLowerArm": {
+      "c0": [
+        0.00048,
+        -0.35489,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "c1": [
+        0.00048,
+        0.27482,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "joint": "LeftElbow",
+      "parent": "LeftUpperArm"
+    },
+    "LeftLowerLeg": {
+      "c0": [
+        0,
+        -0.44935,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "c1": [
+        0,
+        0.41319,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "joint": "LeftKnee",
+      "parent": "LeftUpperLeg"
+    },
+    "LeftUpperArm": {
+      "c0": [
+        -0.9716,
+        0.59751,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "c1": [
+        0.50053,
+        0.41892,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "joint": "LeftShoulder",
+      "parent": "UpperTorso"
+    },
+    "LeftUpperLeg": {
+      "c0": [
+        -0.5,
+        -0.19997,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "c1": [
+        0,
+        0.47139,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "joint": "LeftHip",
+      "parent": "LowerTorso"
+    },
+    "LowerTorso": {
+      "c0": [
+        0,
+        -1,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "c1": [
+        0,
+        -0.19997,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "joint": "Root",
+      "parent": "HumanoidRootPart"
+    },
+    "RightFoot": {
+      "c0": [
+        0,
+        -0.59649,
+        0.00007,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "c1": [
+        0,
+        0.10602,
+        0.00008,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "joint": "RightAnkle",
+      "parent": "RightLowerLeg"
+    },
+    "RightHand": {
+      "c0": [
+        0,
+        -0.53217,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "c1": [
+        0,
+        0.13157,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "joint": "RightWrist",
+      "parent": "RightLowerArm"
+    },
+    "RightLowerArm": {
+      "c0": [
+        0,
+        -0.35501,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "c1": [
+        0,
+        0.27471,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "joint": "RightElbow",
+      "parent": "RightUpperArm"
+    },
+    "RightLowerLeg": {
+      "c0": [
+        0,
+        -0.44917,
+        -0.00002,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "c1": [
+        0,
+        0.41336,
+        0.00002,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "joint": "RightKnee",
+      "parent": "RightUpperLeg"
+    },
+    "RightUpperArm": {
+      "c0": [
+        0.9716,
+        0.59751,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "c1": [
+        -0.50053,
+        0.41892,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "joint": "RightShoulder",
+      "parent": "UpperTorso"
+    },
+    "RightUpperLeg": {
+      "c0": [
+        0.5,
+        -0.19997,
+        -0.00002,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "c1": [
+        0,
+        0.47139,
+        -0.00006,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "joint": "RightHip",
+      "parent": "LowerTorso"
+    },
+    "UpperTorso": {
+      "c0": [
+        0,
+        0.20002,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "c1": [
+        0,
+        -0.849,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        1
+      ],
+      "joint": "Waist",
+      "parent": "LowerTorso"
+    }
+  },
+  "order": [
+    "LowerTorso",
+    "RightUpperLeg",
+    "UpperTorso",
+    "Head",
+    "LeftUpperArm",
+    "LeftUpperLeg",
+    "RightLowerLeg",
+    "RightUpperArm",
+    "LeftLowerArm",
+    "LeftLowerLeg",
+    "RightFoot",
+    "RightLowerArm",
+    "LeftFoot",
+    "LeftHand",
+    "RightHand"
+  ],
+  "rest": {
+    "Head": [
+      0,
+      1.67385,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    "HumanoidRootPart": [
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    "LeftFoot": [
+      -0.5,
+      -3.03645,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    "LeftHand": [
+      -1.47214,
+      -0.86588,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    "LeftLowerArm": [
+      -1.47215,
+      -0.20213,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    "LeftLowerLeg": [
+      -0.5,
+      -2.33395,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    "LeftUpperArm": [
+      -1.47215,
+      0.42759,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    "LeftUpperLeg": [
+      -0.5,
+      -1.4714,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    "LowerTorso": [
+      0,
+      -0.80003,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    "RightFoot": [
+      0.5,
+      -3.03645,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    "RightHand": [
+      1.47215,
+      -0.86588,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    "RightLowerArm": [
+      1.47215,
+      -0.20213,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    "RightLowerLeg": [
+      0.5,
+      -2.33394,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    "RightUpperArm": [
+      1.47215,
+      0.42759,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    "RightUpperLeg": [
+      0.5,
+      -1.4714,
+      0.00005,
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ],
+    "UpperTorso": [
+      0,
+      0.249,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1,
+      0,
+      0,
+      0,
+      1
+    ]
+  },
+  "rig": "R15",
+  "root": "HumanoidRootPart",
+  "schema": 1,
+  "sizes": {
+    "Head": [
+      1.15898,
+      1.18201,
+      1.16064
+    ],
+    "HumanoidRootPart": [
+      2,
+      2,
+      1
+    ],
+    "LeftFoot": [
+      1.00887,
+      0.31199,
+      1.00107
+    ],
+    "LeftHand": [
+      0.98427,
+      0.31577,
+      1.02827
+    ],
+    "LeftLowerArm": [
+      1.00107,
+      1.11751,
+      1.00187
+    ],
+    "LeftLowerLeg": [
+      0.99284,
+      1.30066,
+      0.9728
+    ],
+    "LeftUpperArm": [
+      1.00107,
+      1.2416,
+      1.00187
+    ],
+    "LeftUpperLeg": [
+      0.99284,
+      1.36293,
+      0.9727
+    ],
+    "LowerTorso": [
+      1.99141,
+      0.40065,
+      1.004
+    ],
+    "RightFoot": [
+      1.00887,
+      0.31199,
+      1.00107
+    ],
+    "RightHand": [
+      0.98427,
+      0.31577,
+      1.02827
+    ],
+    "RightLowerArm": [
+      1.00107,
+      1.11751,
+      1.00187
+    ],
+    "RightLowerLeg": [
+      0.99284,
+      1.30066,
+      0.9728
+    ],
+    "RightUpperArm": [
+      1.00107,
+      1.2416,
+      1.00187
+    ],
+    "RightUpperLeg": [
+      0.99284,
+      1.36293,
+      0.9727
+    ],
+    "UpperTorso": [
+      1.94321,
+      1.69803,
+      1.004
+    ]
+  },
+  "source": {
+    "date": "2026-10-10",
+    "file": "_artifacts/anim/rig_probe_2026-10-10.json",
+    "probe": "kit anim rig --probe (Studio MCP execute_luau, Edit datamodel, Players:CreateHumanoidModelFromDescription with a default HumanoidDescription; models destroyed after reading)"
+  }
+}

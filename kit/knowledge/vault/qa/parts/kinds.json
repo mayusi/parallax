@@ -1,0 +1,34 @@
+{
+ "lane": "qa",
+ "version": 1,
+ "drafted": "2026-11-09 (parts libraries P0): QA's own words (not code's: departments stay separate) - the kinds of test the kit runs (frktest specs, fuzz, mutation testing, playtests, selftest fixtures, regressions, Python unit tests, performance probes) and the bug patterns they catch (NaN / inf, nil, wrong types, boundaries, operator flips, timing, unvalidated remotes, saved data, crashes, UI flow, performance). Changed only when the replay says so.",
+ "axes": {
+  "test": "the kind of test",
+  "bug": "the bug pattern it catches",
+  "area": "what it tests"
+ },
+ "look_fields": [],
+ "kinds": [
+  {"id": "t_spec", "axis": "test", "label": "unit spec (frktest)", "words": ["spec", "unit test", "frktest", "check that", "test case", "assert"], "siblings": ["t_python"]},
+  {"id": "t_fuzz", "axis": "test", "label": "fuzzing (hostile inputs)", "words": ["fuzz", "fuzzing", "hostile", "random input", "garbage input"], "siblings": ["t_mutate"]},
+  {"id": "t_mutate", "axis": "test", "label": "mutation testing", "words": ["mutate", "mutation", "mutant", "survivor", "survivors", "kill rate", "mutation case"], "siblings": ["t_fuzz"]},
+  {"id": "t_playtest", "axis": "test", "label": "playtest in Studio", "words": ["playtest", "play test", "in studio", "in-engine", "t check", "t wait", "server and client", "probe"], "siblings": ["t_perf"]},
+  {"id": "t_selftest", "axis": "test", "label": "gate selftest fixture", "words": ["selftest", "fixture", "fixtures", "bad on purpose", "gate catches", "gate"], "siblings": ["t_spec"]},
+  {"id": "t_regression", "axis": "test", "label": "regression (a bug that came back)", "words": ["regression", "regressions", "came back", "replay", "accept ratchet", "accepted"], "siblings": ["t_spec"]},
+  {"id": "t_python", "axis": "test", "label": "Python unit test (pipeline tools)", "words": ["python test", "unittest", "pytest", "test file"], "siblings": ["t_spec"]},
+  {"id": "t_perf", "axis": "test", "label": "performance probe", "words": ["performance", "perf", "frame time", "memory", "fps", "probe", "budget", "slow"], "siblings": ["t_playtest"]},
+  {"id": "b_nan", "axis": "bug", "label": "NaN / infinity", "words": ["nan", "inf", "infinity", "not a number", "divide by zero", "non-finite"], "siblings": ["b_type"]},
+  {"id": "b_nil", "axis": "bug", "label": "nil / missing", "words": ["nil", "missing", "absent", "undefined", "none", "empty"], "siblings": ["b_type"]},
+  {"id": "b_type", "axis": "bug", "label": "wrong type", "words": ["wrong type", "type", "string instead", "table instead", "nested table", "typeof"], "siblings": ["b_nil", "b_nan"]},
+  {"id": "b_boundary", "axis": "bug", "label": "boundary / off by one", "words": ["boundary", "off by one", "off-by-one", "edge case", "zero", "negative", "max", "min", "limit", "round"], "siblings": ["b_operator"]},
+  {"id": "b_operator", "axis": "bug", "label": "operator / boolean flip", "words": ["operator", "flip", "boolean", "inverted", "less than", "greater than", "and or"], "siblings": ["b_boundary"]},
+  {"id": "b_timing", "axis": "bug", "label": "timing / race / cooldown", "words": ["timing", "race", "cooldown", "too early", "too late", "window", "hitstop", "wait", "order"], "siblings": ["b_abuse"]},
+  {"id": "b_abuse", "axis": "bug", "label": "exploit / unvalidated remote / spam", "words": ["exploit", "exploiter", "unvalidated", "remote", "spam", "rate limit", "cheat", "server authority", "backdoor"], "siblings": ["b_timing"]},
+  {"id": "b_data", "axis": "bug", "label": "saved data / loss", "words": ["data loss", "saved data", "save", "datastore", "session", "rollback"]},
+  {"id": "b_crash", "axis": "bug", "label": "crash / error", "words": ["crash", "error", "errors", "throws", "console error", "exception", "fails"]},
+  {"id": "b_flow", "axis": "bug", "label": "UI / game flow", "words": ["ui flow", "flow", "stuck", "softlock", "cannot continue", "screen", "button does nothing"]},
+  {"id": "a_net", "axis": "area", "label": "remotes and server", "words": ["remote", "remotes", "server", "net", "guard", "ratelimit"]},
+  {"id": "a_combat", "axis": "area", "label": "combat / moves", "words": ["combat", "moves", "hit", "damage", "knockback", "hitstop", "parry", "combo"]},
+  {"id": "a_content", "axis": "area", "label": "content gates (3D, VFX, UI, world, anim, sound)", "words": ["vfx", "ui", "world", "anim", "animation", "sound", "sfx", "model", "3d", "texture", "preset"]}
+ ]
+}

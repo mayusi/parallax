@@ -1,0 +1,12 @@
+{
+ "lane": "qa",
+ "about": "The QA lane's fixed questions for the parts library (P0): 5 new things to test, in QA's own words (fewer than the visual lanes: QA has no verdicts yet; the count is stated in every eval). Written before any method was run on them; labelled blind by two labellers (labels.json). Add a question only from real work, never to suit a method.",
+ "written": "2026-11-09",
+ "questions": [
+  {"id": "qa-q01", "piece": "damage_remote_test", "brief": "test a damage remote: hostile arguments (NaN, huge numbers, wrong types, nil), spam from one player, an exploiter calling it for another player"},
+  {"id": "qa-q02", "piece": "save_data_test", "brief": "test saved data: the player leaves mid-save, the data store errors, an old save format loads, values out of range"},
+  {"id": "qa-q03", "piece": "combo_timing_test", "brief": "test a combo's timing: inputs too early and too late, the hit-stop window, the next attack only inside the window"},
+  {"id": "qa-q04", "piece": "shop_flow_test", "brief": "test the shop UI flow: open, buy, not enough coins, close, reopen; no soft lock, every button responds"},
+  {"id": "qa-q05", "piece": "vfx_preset_check", "brief": "check a new VFX preset before it ships: the layer budget, no missing textures, the timeline fits the duration"}
+ ]
+}

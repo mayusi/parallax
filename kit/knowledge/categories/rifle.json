@@ -1,0 +1,42 @@
+{
+ "category": "rifle",
+ "about": "A long gun or carbine (an AR-pattern rifle or pistol, a bolt-action, a sniper rifle). What its dossier must hold before modelling and where reliable data is found. AR-pattern parts are standardised: the military drawings and the makers' parts lists agree, and every part has a common name (upper receiver, lower receiver, bolt carrier group, buffer tube, handguard, muzzle device).",
+ "bar": 80,
+ "min_px_per_mm": 1.5,
+ "frame": {"length": ["overall.length", "overall.length (stock collapsed)", "overall.length (brace collapsed)"], "height": ["overall.height"], "width": ["overall.width"]},
+ "facts": [
+  ["overall.length", "overall.length (stock collapsed)", "overall.length (brace collapsed)"],
+  "barrel.length",
+  "overall.height",
+  "overall.width",
+  ["handguard.length"],
+  ["overall.mass"]
+ ],
+ "views": ["side-left", "side-right", "top", "front", "rear"],
+ "closeups": [
+  {"id": "muzzle", "what": "the muzzle device: its slots, ports, length"},
+  {"id": "handguard", "what": "the handguard: its slots (M-LOK / KeyMod / rail), their pitch and count"},
+  {"id": "receivers", "what": "upper and lower receiver: ejection port, forward assist, magazine well, pins"},
+  {"id": "markings", "what": "every marking: text, place, size"},
+  {"id": "controls", "what": "safety selector, magazine release, bolt catch, charging handle"},
+  {"id": "stock", "what": "the stock or brace and the buffer tube"},
+  {"id": "grip", "what": "the pistol grip and its texture"},
+  {"id": "magazine", "what": "the magazine: body, ribs, floor plate"},
+  {"id": "sights", "what": "iron sights or the optic rail"}
+ ],
+ "anatomy_min": 15,
+ "tells_min": 2,
+ "models_min": 2,
+ "weights": {"facts": 30, "views": 25, "closeups": 15, "anatomy": 10, "models": 10, "reviews": 10},
+ "research": [
+  "1 the maker's own page for THIS model (primary): every published size, quoted (kit dossier fact ... --quote)",
+  "2 the maker's manual and parts list; for AR-pattern parts also the military technical manual (TM 9-1005-319-23&P: public domain, parts by number) — kit dossier part ... --quote",
+  "3 patents: the maker's patent list, kit refs patent <number> (design patents: orthographic views)",
+  "4 the maker's pictures: gallery, turntable, press kit (measure-only for a private asset)",
+  "5 the tells against its siblings (barrel length, handguard, muzzle device, stock or brace), each with a source",
+  "6 two or more reference models: kit library find / get / inspect -> kit dossier add --kind model --measure ...",
+  "7 close-ups of every hero feature (the close-up list): parts retailers' photos",
+  "8 the owner's own photos when the owner has the object: they count as primary",
+  "never: forum posts as facts; Wikidata's numbers as the model's; pages on machine host names (kit/knowledge/sources.json)"
+ ]
+}

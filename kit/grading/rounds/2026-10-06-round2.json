@@ -1,0 +1,57 @@
+{
+ "source": "the owner's grading page (round 2, 2026-10-06)",
+ "graded": "2026-10-06 (blind round 2)",
+ "about": "the 3 FRESH builds are imported (the fitted weights never saw them); 'repeats' were graded in round 1 too and are kept only to measure grade consistency: never imported (a second copy would leak into the fit's leave-one-out)",
+ "grades": [
+  {
+   "asset": "g_arming_sword_defaults",
+   "project": "Parallax/grading",
+   "object": "Knight's sword",
+   "owner": 70,
+   "note": "",
+   "script_sha": "45a38ec984fa60b4",
+   "tris": 652
+  },
+  {
+   "asset": "g_sword_measured",
+   "project": "Parallax/grading",
+   "object": "Knight's sword",
+   "owner": 51,
+   "note": "",
+   "script_sha": "e4ab666f639a787d",
+   "tris": 3276
+  },
+  {
+   "asset": "g_arming_sword",
+   "project": "Parallax/grading",
+   "object": "Knight's sword",
+   "owner": 71,
+   "note": "",
+   "script_sha": "21193392539b8438",
+   "tris": 644
+  }
+ ],
+ "repeats": [
+  {
+   "id": "m01",
+   "asset": "g_treasure_chest_old",
+   "round2_owner": 50,
+   "round1_owner": 49,
+   "judge": 16.9
+  },
+  {
+   "id": "m02",
+   "asset": "g_crate_mine",
+   "round2_owner": 80,
+   "round1_owner": 71,
+   "judge": 65.1
+  },
+  {
+   "id": "m06",
+   "asset": "g_sword_now",
+   "round2_owner": 30,
+   "round1_owner": 35,
+   "judge": 57.2
+  }
+ ]
+}

@@ -1,0 +1,14 @@
+{
+ "_note": "NEGATIVE fixture: must fail the set gates (a 'sub' layer at 2 kHz, identical takes, two hits 10 LU apart). Never fix.",
+ "variations": 3,
+ "pitch_spread": 0.0,
+ "dna": {
+  "fake_sub": { "role": "sub", "source": "sine", "freq": 2000, "env": { "attack": 0.001, "decay": 0.2, "sustain": 0, "release": 0.05 }, "gain": 0.6 },
+  "thud": { "role": "body", "source": "noise", "color": "brown", "seed": 3, "filter": { "type": "lowpass", "cutoff": 600 },
+            "env": { "attack": 0.001, "decay": 0.1, "sustain": 0, "release": 0.05 } }
+ },
+ "members": {
+  "loud_hit": { "class": "hit", "duration": 0.5, "use": ["fake_sub", "thud"], "loudness": -12 },
+  "quiet_hit": { "class": "hit", "duration": 0.5, "use": ["thud"], "loudness": -22 }
+ }
+}

@@ -1,0 +1,845 @@
+{
+ "version": 3,
+ "mode": "burst",
+ "duration": 18.0,
+ "about": "NUCLEAR EXPLOSION v4 (v3 rejected: smoke around + a cut-off top): one continuous GPU simulation fireball -> cap in a tall box + one simulated base surge, a slow drifting fade - realism from SIMULATION: a GPU-simulated mushroom cloud (fire -> smoke, cap, inversion, dust stem; lit by the sun's side) with the world flaring then darkening, the lens taking the flash, a condensation ring, a GPU-smoke ground surge, a dust crown, glowing debris with trails, a crater - assets/effects/generators/nuke_v4.py",
+ "scene": {
+  "set": "nuke_set",
+  "colours": "nuke_set_scene"
+ },
+ "points": {
+  "ground": [
+   0.0,
+   0.2,
+   0.0
+  ],
+  "burst": [
+   0,
+   9,
+   0
+  ]
+ },
+ "booth": {
+  "scene": "bare",
+  "sky": "day",
+  "ground": "Sand",
+  "wind": [
+   5,
+   0,
+   1
+  ],
+  "views": [
+   "hero",
+   "cine",
+   "combat"
+  ],
+  "motion": {
+   "weapon": false,
+   "actor": false
+  },
+  "viewDefs": {
+   "hero": {
+    "pos": [
+     55,
+     26,
+     165
+    ],
+    "look": [
+     0,
+     58,
+     0
+    ],
+    "fov": 60
+   },
+   "cine": {
+    "path": [
+     {
+      "t": 0.0,
+      "pos": [
+       45,
+       16,
+       110
+      ],
+      "look": [
+       0,
+       16,
+       0
+      ],
+      "fov": 52
+     },
+     {
+      "t": 2.0,
+      "pos": [
+       52,
+       20,
+       125
+      ],
+      "look": [
+       0,
+       24,
+       0
+      ],
+      "fov": 55
+     },
+     {
+      "t": 7.0,
+      "pos": [
+       60,
+       26,
+       150
+      ],
+      "look": [
+       0,
+       44,
+       0
+      ],
+      "fov": 60
+     },
+     {
+      "t": 14.0,
+      "pos": [
+       64,
+       30,
+       165
+      ],
+      "look": [
+       0,
+       58,
+       0
+      ],
+      "fov": 62
+     }
+    ]
+   }
+  }
+ },
+ "layers": [
+  {
+   "name": "flash_world",
+   "kind": "world",
+   "at": 0.0,
+   "life": 4.0,
+   "exposure": [
+    [
+     0,
+     0
+    ],
+    [
+     0.003,
+     2.4
+    ],
+    [
+     0.012,
+     1.0
+    ],
+    [
+     0.05,
+     0.35
+    ],
+    [
+     0.2,
+     0
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "sky": [
+    255,
+    244,
+    225
+   ],
+   "skyAmount": [
+    [
+     0,
+     1
+    ],
+    [
+     0.02,
+     0.6
+    ],
+    [
+     0.1,
+     0.1
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "fog": [
+    [
+     0,
+     1
+    ],
+    [
+     0.05,
+     1.5
+    ],
+    [
+     1,
+     1.1
+    ]
+   ],
+   "fogColor": [
+    255,
+    225,
+    185
+   ],
+   "fogAmount": [
+    [
+     0,
+     0.6
+    ],
+    [
+     0.2,
+     0.2
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "sunRays": [
+    [
+     0,
+     0
+    ],
+    [
+     0.01,
+     0.7
+    ],
+    [
+     0.3,
+     0.2
+    ],
+    [
+     1,
+     0
+    ]
+   ]
+  },
+  {
+   "name": "flash_lens",
+   "kind": "lens",
+   "at": 0.0,
+   "life": 2.5,
+   "vignette": [
+    [
+     0,
+     0
+    ],
+    [
+     0.02,
+     0.6
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "aberration": [
+    [
+     0,
+     0
+    ],
+    [
+     0.01,
+     1
+    ],
+    [
+     0.25,
+     0
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "dirt": [
+    [
+     0,
+     0
+    ],
+    [
+     0.01,
+     0.75
+    ],
+    [
+     0.5,
+     0.2
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "color": [
+    255,
+    236,
+    210
+   ]
+  },
+  {
+   "name": "flash_light",
+   "kind": "light",
+   "at": 0.0,
+   "life": 3.0,
+   "point": [
+    0,
+    10,
+    0
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      255,
+      250
+     ]
+    ],
+    [
+     0.3,
+     [
+      255,
+      210,
+      150
+     ]
+    ],
+    [
+     1,
+     [
+      255,
+      140,
+      70
+     ]
+    ]
+   ],
+   "range": 60,
+   "brightness": [
+    [
+     0,
+     40
+    ],
+    [
+     0.08,
+     22
+    ],
+    [
+     0.5,
+     8
+    ],
+    [
+     1,
+     0
+    ]
+   ]
+  },
+  {
+   "name": "fire_light",
+   "kind": "light",
+   "at": 0.4,
+   "life": 6.0,
+   "point": [
+    0,
+    22,
+    0
+   ],
+   "color": [
+    255,
+    150,
+    80
+   ],
+   "range": 60,
+   "brightness": [
+    [
+     0,
+     9
+    ],
+    [
+     0.4,
+     5
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "flicker": {
+    "amount": 0.25,
+    "rate": 6,
+    "seed": 1957
+   }
+  },
+  {
+   "name": "mushroom",
+   "kind": "sprite",
+   "at": 0.03,
+   "count": 1,
+   "point": [
+    0,
+    82.3529411764706,
+    0
+   ],
+   "lit": {
+    "top": "nk_mushroom2_gpu",
+    "left": "nk_mushroom2_gpu_left",
+    "right": "nk_mushroom2_gpu_right",
+    "back": "nk_mushroom2_gpu_back"
+   },
+   "lifetime": [
+    17.9,
+    17.9
+   ],
+   "size": [
+    [
+     0,
+     164.7058823529412
+    ],
+    [
+     1,
+     174.58823529411768
+    ]
+   ],
+   "color": [
+    255,
+    255,
+    255
+   ],
+   "lightEmission": 0,
+   "brightness": 1.2,
+   "speed": [
+    0.01,
+    0.01
+   ],
+   "drag": 0.05,
+   "wind": true,
+   "orientation": "FacingCameraWorldUp",
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.72,
+     0.03
+    ],
+    [
+     0.88,
+     0.45
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "8x8",
+    "fps": 8,
+    "mode": "OneShot"
+   }
+  },
+  {
+   "name": "fireball_glow",
+   "kind": "sprite",
+   "at": 0.03,
+   "count": 1,
+   "point": [
+    0,
+    14,
+    0
+   ],
+   "texture": "glow",
+   "lifetime": [
+    2.6,
+    2.6
+   ],
+   "size": [
+    [
+     0,
+     10
+    ],
+    [
+     0.05,
+     40
+    ],
+    [
+     0.4,
+     52
+    ],
+    [
+     1,
+     44
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      252,
+      240
+     ]
+    ],
+    [
+     0.35,
+     [
+      255,
+      210,
+      140
+     ]
+    ],
+    [
+     1,
+     [
+      255,
+      120,
+      60
+     ]
+    ]
+   ],
+   "lightEmission": 1,
+   "brightness": 1.8,
+   "speed": [
+    0,
+    0
+   ],
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.5,
+     0.45
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "zOffset": 6
+  },
+  {
+   "name": "condensation_ring",
+   "kind": "sprite",
+   "at": 1.0,
+   "count": 1,
+   "point": [
+    0,
+    30,
+    0
+   ],
+   "texture": "ring",
+   "lifetime": [
+    2.2,
+    2.2
+   ],
+   "size": [
+    [
+     0,
+     20
+    ],
+    [
+     0.5,
+     110
+    ],
+    [
+     1,
+     150
+    ]
+   ],
+   "color": [
+    245,
+    245,
+    248
+   ],
+   "lightEmission": 0,
+   "brightness": 1,
+   "speed": [
+    0.01,
+    0.01
+   ],
+   "orientation": "VelocityPerpendicular",
+   "direction": "Top",
+   "transparency": [
+    [
+     0,
+     1
+    ],
+    [
+     0.1,
+     0.55
+    ],
+    [
+     1,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "base_surge",
+   "kind": "sprite",
+   "at": 0.25,
+   "count": 1,
+   "point": [
+    0,
+    114.0,
+    0
+   ],
+   "lit": {
+    "top": "nk_surge_gpu",
+    "left": "nk_surge_gpu_left",
+    "right": "nk_surge_gpu_right",
+    "back": "nk_surge_gpu_back"
+   },
+   "lifetime": [
+    15.5,
+    15.5
+   ],
+   "size": 230.0,
+   "color": [
+    [
+     0,
+     [
+      255,
+      246,
+      232
+     ]
+    ],
+    [
+     1,
+     [
+      240,
+      234,
+      226
+     ]
+    ]
+   ],
+   "lightEmission": 0,
+   "brightness": 1.1,
+   "speed": [
+    0.01,
+    0.01
+   ],
+   "drag": 0.05,
+   "wind": true,
+   "orientation": "FacingCameraWorldUp",
+   "transparency": [
+    [
+     0,
+     1
+    ],
+    [
+     0.02,
+     0
+    ],
+    [
+     0.65,
+     0.15
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "flipbook": {
+    "layout": "8x8",
+    "fps": 8,
+    "mode": "OneShot"
+   },
+   "onMaterial": {
+    "Grass|LeafyGrass": {
+     "color": [
+      180,
+      172,
+      150
+     ]
+    }
+   }
+  },
+  {
+   "name": "crater",
+   "kind": "crater",
+   "at": 0.15,
+   "life": 17.8,
+   "point": [
+    0.0,
+    0.2,
+    0.0
+   ],
+   "radius": 16,
+   "depth": 5
+  },
+  {
+   "name": "debris_glow",
+   "kind": "swarm",
+   "at": 0.08,
+   "life": 4.5,
+   "count": 70,
+   "point": [
+    0,
+    4,
+    0
+   ],
+   "radius": 4,
+   "lifetime": [
+    2.2,
+    4.2
+   ],
+   "speed": [
+    35,
+    75
+   ],
+   "size": [
+    [
+     0,
+     0.9
+    ],
+    [
+     1,
+     0.5
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      230,
+      170
+     ]
+    ],
+    [
+     0.3,
+     [
+      255,
+      140,
+      60
+     ]
+    ],
+    [
+     1,
+     [
+      70,
+      50,
+      40
+     ]
+    ]
+   ],
+   "material": "Neon",
+   "gravity": 38,
+   "drag": 0.25,
+   "floor": {
+    "y": 0.3,
+    "bounce": 0.3
+   },
+   "trail": {
+    "lifetime": 0.35
+   },
+   "seed": 1957
+  },
+  {
+   "name": "pall",
+   "kind": "world",
+   "at": 3.5,
+   "life": 14.4,
+   "sun": [
+    [
+     0,
+     1
+    ],
+    [
+     0.5,
+     0.55
+    ],
+    [
+     1,
+     0.5
+    ]
+   ],
+   "ambient": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     0.8
+    ]
+   ],
+   "fog": [
+    [
+     0,
+     1
+    ],
+    [
+     0.5,
+     1.6
+    ],
+    [
+     1,
+     1.8
+    ]
+   ],
+   "fogColor": [
+    200,
+    175,
+    150
+   ],
+   "fogAmount": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0.45
+    ]
+   ]
+  },
+  {
+   "name": "shake",
+   "kind": "shake",
+   "at": 0.15,
+   "life": 2.4,
+   "amplitude": [
+    [
+     0,
+     3.2
+    ],
+    [
+     0.3,
+     1.6
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "frequency": 18
+  },
+  {
+   "name": "fov_kick",
+   "kind": "fov",
+   "at": 0.0,
+   "life": 0.9,
+   "fov": [
+    [
+     0,
+     0
+    ],
+    [
+     0.1,
+     10
+    ],
+    [
+     1,
+     0
+    ]
+   ]
+  }
+ ]
+}

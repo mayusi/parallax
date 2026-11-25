@@ -1,0 +1,28 @@
+[
+ {
+  "object": "ar-15 carbine buffer tube",
+  "part": "buffer tube",
+  "dim": "length",
+  "value": 184.15,
+  "unit": "mm",
+  "source": "https://www.mountsplus.com/milspec-buffer-tube.html",
+  "kind": "published",
+  "note": "",
+  "trust": "high",
+  "id": "86741bf9",
+  "added": "2026-10-08"
+ },
+ {
+  "object": "ar-15 carbine buffer tube",
+  "part": "buffer tube",
+  "dim": "outer diameter",
+  "value": 29.16,
+  "unit": "mm",
+  "source": "https://www.mountsplus.com/milspec-buffer-tube.html",
+  "kind": "published",
+  "note": "",
+  "trust": "high",
+  "id": "8dfde38e",
+  "added": "2026-10-08"
+ }
+]

@@ -1,0 +1,69 @@
+{
+ "_help": "id = rbxassetid://<n> after uploading vfx/out/<key>.png (Studio Asset Manager). Empty id -> fallback (built-in texture, flipbook disabled). grid must match the generated texture spec.",
+ "glow": {
+  "id": "",
+  "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+  "grid": 1,
+  "file": "vfx/out/glow.png"
+ },
+ "spark": {
+  "id": "",
+  "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+  "grid": 1,
+  "file": "vfx/out/spark.png"
+ },
+ "ring": {
+  "id": "",
+  "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+  "grid": 1,
+  "file": "vfx/out/ring.png"
+ },
+ "star": {
+  "id": "",
+  "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+  "grid": 1,
+  "file": "vfx/out/star.png"
+ },
+ "dust": {
+  "id": "",
+  "fallback": "rbxasset://textures/particles/smoke_main.dds",
+  "grid": 1,
+  "file": "vfx/out/dust.png"
+ },
+ "smoke": {
+  "id": "",
+  "fallback": "rbxasset://textures/particles/smoke_main.dds",
+  "grid": 4,
+  "file": "vfx/out/smoke.png"
+ },
+ "fire": {
+  "id": "",
+  "fallback": "rbxasset://textures/particles/fire_main.dds",
+  "grid": 4,
+  "file": "vfx/out/fire.png"
+ },
+ "vol_energy": {
+  "id": "",
+  "fallback": "rbxasset://textures/particles/smoke_main.dds",
+  "grid": 4,
+  "file": "build/textures/vol_energy.png"
+ },
+ "vol_explosion": {
+  "id": "",
+  "fallback": "rbxasset://textures/particles/smoke_main.dds",
+  "grid": 4,
+  "file": "build/textures/vol_explosion.png"
+ },
+ "vol_fire": {
+  "id": "",
+  "fallback": "rbxasset://textures/particles/smoke_main.dds",
+  "grid": 4,
+  "file": "build/textures/vol_fire.png"
+ },
+ "vol_smoke": {
+  "id": "",
+  "fallback": "rbxasset://textures/particles/smoke_main.dds",
+  "grid": 4,
+  "file": "build/textures/vol_smoke.png"
+ }
+}

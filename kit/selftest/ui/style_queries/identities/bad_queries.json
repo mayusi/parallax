@@ -1,0 +1,10 @@
+{
+ "name": "bad_queries",
+ "about": "selftest: breakpoints the engine would silently ignore - kit ui style must refuse the export",
+ "tokens": { "bg": "#101318", "panel": "#1c212b", "text": "#f3f5f9", "accent": "#d8c27a" },
+ "queries": {
+  "Wide": { "when": { "Width": 900 }, "rules": { ".KitTitle": { "TextSize": 28 } } },
+  "Never": { "when": { "MinSize": [1000, 800], "MaxSize": [900, 500] }, "rules": { ".KitTitle": { "TextSize": 28 } } },
+  "Empty": { "when": { "PreferredInput": "Gamepad" }, "rules": {} }
+ }
+}

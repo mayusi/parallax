@@ -1,0 +1,156 @@
+{
+ "schema": 1,
+ "about": "The owner's loaded words and what they PROVED to mean for a screen: each reading comes from a verdict (the vault's verdict page named in `evidence`) or a standing order. `kit ui direct new` finds these words in an ask and the brief must say how it reads each one (`reading`). Add an entry only from the owner's own words + a verdict; never invent one.",
+ "entries": [
+  {
+   "id": "realistic",
+   "match": [
+    "realistic",
+    "realism",
+    "real life",
+    "irl",
+    "grounded",
+    "mil-?sim",
+    "tactical"
+   ],
+   "reading": "realistic = ABSENCE: report only what the player cannot feel or see; no arcade checklist (minimap, HP number, round count, crosshair, grey boxes); status only when it applies; markers in the world",
+   "evidence": [
+    "ui/verdicts/fieldhud-v1--2026-10-12 (1/10: 'AI slop, I asked realistic')",
+    "ui/verdicts/fieldhud--2026-10-11 (8/10 on v2: 'OK great')"
+   ]
+  },
+  {
+   "id": "like-a-game",
+   "match": [
+    "(?i)\\blike (in )?(?!(it|this|that|the|a|an|to|how|when|i|you|u|me|them|we|what|if|so|and|or)\\b)[a-z0-9][\\w']+",
+    "(?i)inspired by",
+    "(?i)in the style of",
+    "(?i)the ui (when|while) (you|u) play"
+   ],
+   "reading": "'like <game>' = that game's REAL screens of the exact screen type, measured at 1:1 (kit ui refs + kit ui measure) before composing; its grammar, our own shapes",
+   "evidence": [
+    "ui/verdicts/dmchud-v1--2026-10-10 (1/10: 'WHY DIDN'T U GRAB REFERENCES MAN LIKE THE UI WHEN U PLAY')"
+   ]
+  },
+  {
+   "id": "persona",
+   "match": [
+    "persona",
+    "p5",
+    "phantom thie(f|ves)",
+    "ransom"
+   ],
+   "reading": "Persona is in the LETTERING: a face per glyph, mixed case, tilt, overlap, ink outline + a paper rim, a two-tone torn band; ransom for ONE word, a list is whole-word strips stepping right",
+   "evidence": [
+    "ui/verdicts/arcade5title-round3--2026-10-11 (1/10: 'one display face everywhere ... look ugly')",
+    "ui/verdicts/arcade5title--2026-10-11 (9.2: 'GENUINELY AMAZED')"
+   ]
+  },
+  {
+   "id": "character",
+   "match": [
+    "picture of",
+    "image of",
+    "portrait",
+    "character art",
+    "the character",
+    "render of"
+   ],
+   "reading": "a character or logo = the REAL official picture through the ink pipeline (kit ui ink), never a generated stand-in",
+   "evidence": [
+    "ui/verdicts/arcade5title-v7--2026-10-11 (1/10: 'the image of heroine looks bad ... grab a proper picture')"
+   ]
+  },
+  {
+   "id": "cooler",
+   "match": [
+    "cooler",
+    "more hype",
+    "hype",
+    "sick",
+    "fire",
+    "insane",
+    "crazy",
+    "goes hard",
+    "badass"
+   ],
+   "reading": "'cooler' = MOTION and a move taken from the source world (the smear card's v2 dash reel), not more decoration on the still",
+   "evidence": [
+    "ui/verdicts/witchsmearcard--2026-10-13 ('WOW' on v1; v2 = the dash reel after 'nice but could be cooler')"
+   ]
+  },
+  {
+   "id": "alive",
+   "match": [
+    "animated",
+    "alive",
+    "juicy",
+    "feel(s)? good",
+    "responsive",
+    "satisfying"
+   ],
+   "reading": "alive = an animated reel of the real moments (a hit, the ghost drain, the low pulse) in the screen's own grammar, judged as a reel",
+   "evidence": [
+    "ui/verdicts/arcade5health--2026-10-11 (9.2: 'AMAZING WORK SPLENDID' on the animated health bar + reel)"
+   ]
+  },
+  {
+   "id": "quality",
+   "match": [
+    "aaa",
+    "triple a",
+    "high quality",
+    "pro(fessional)?",
+    "polished",
+    "not ai",
+    "ai slop",
+    "better"
+   ],
+   "reading": "quality = change the MEDIUM (render, letter, ink, trace) built from measured real data; never polish a plateau, never typed glyphs + flat tints + rectangles",
+   "evidence": [
+    "ui/verdicts/dmchud-v1--2026-10-10 ('GENUINE AI SLOP')",
+    "vault ui/orders: keep raising the quality - change the medium",
+    "graveyard: polishing with PIL past a plateau"
+   ]
+  },
+  {
+   "id": "original",
+   "match": [
+    "original",
+    "unique",
+    "my own",
+    "never seen",
+    "fresh",
+    "new look",
+    "out of this world",
+    "creative",
+    "(its|it's|our|my) own thing",
+    "one of a kind"
+   ],
+   "reading": "original = its OWN visual language drawn from its own source world at the source's quality: the UI is an OBJECT of that world with its own verb and one signature moment only this game could have; never a genre swap, never the last success re-skinned; a big reinterpretation shows ONE test frame first",
+   "evidence": [
+    "vault shared/orders: the originality rule (2026-10-13)",
+    "vault shared/orders: creative direction first (2026-10-24)",
+    "the owner 2026-10-24: 'take my bullshit prompting and turn it into something out of this world'"
+   ]
+  },
+  {
+   "id": "simple",
+   "match": [
+    "simple",
+    "clean",
+    "minimal(ist)?",
+    "not cluttered",
+    "less",
+    "no clutter",
+    "clutter(ed)?",
+    "less is more"
+   ],
+   "reading": "simple = fewer things on screen, each one RICH (the FieldHud compass: one thin line, in-world markers); never an empty flat panel - a 'dead space' panel reads as unfinished",
+   "evidence": [
+    "ui/verdicts/fieldhud--2026-10-11 (8/10: 'realistic = absence')",
+    "preview gate: empty panel / dead space"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,9 @@
+{
+ "_note": "NEGATIVE fixture for the terrain ROUTE gate: a small terrain made by kit/world/terrain.py WITHOUT rivers (--size 256 --step 4 --seed 7 --relief 40 --erosion 2000 --thermal 25 --stream 0), its recorded recipe then edited to CLAIM the river route (\"stream\": 80, \"streamK\": 0.015). The gate re-makes it from that recipe and its heights do not come back: kit world check must FAIL it with a 'design:' error - a route written into the metadata is proved, never trusted. \"route_cache\": false: every run re-makes it (never a cached proof). Never fix.",
+ "name": "SelftestTerrainForged",
+ "lighting": "noon",
+ "checks": { "route_cache": false },
+ "terrain": [{ "heightmap": { "center": [0, 0, 0], "size": [256, 256], "source": "kit/selftest/world/terrain/_selftest_terrain_forged.hm.json",
+                              "material": "Grass", "rock": "Rock", "rockSlope": 38 } }],
+ "build": []
+}

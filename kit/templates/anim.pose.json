@@ -1,0 +1,23 @@
+{
+  "name": "__NAME__",
+  "axes": "stage: x right, y up from the floor, z forward (the character stands at the origin facing +z; rest: torso centre (0, 3, 0), right hand (1.5, 2, 0), feet (+-0.5, 0, 0))",
+  "fps": 60,
+  "loop": false,
+  "priority": "Action",
+  "sword": { "blade": 4.0, "grip_pitch": 60, "spacing": 0.55 },
+  "events": [{ "name": "Hit", "f": 30 }],
+  "keys": [
+    {
+      "f": 0,
+      "ease": "bezier",
+      "body": { "pos": [0, -0.45, 0], "lean": 10, "turn": 25, "tilt": -3 },
+      "head": { "look": [0, 0, 1] },
+      "right_arm": { "hand": [0.25, 1.95, 0.9], "blade": [-0.05, 0.42, 0.9] },
+      "left_arm": "hilt",
+      "right_foot": { "at": [0.85, -0.55], "lift": 0, "turn": 35 },
+      "left_foot": { "at": [-0.55, 0.75], "lift": 0, "turn": 5 }
+    },
+    { "f": 30, "body": { "pos": [0, -0.4, 0], "lean": 10, "turn": 22 } },
+    { "f": 60, "body": { "pos": [0, -0.35, 0], "lean": 8, "turn": 20 } }
+  ]
+}

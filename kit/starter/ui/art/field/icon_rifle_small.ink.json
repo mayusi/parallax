@@ -1,0 +1,20 @@
+{
+ "schema": 1,
+ "kind": "ink",
+ "mode": "icon",
+ "from": "build/renders/arp_ref_side_shaded.png",
+ "cutout": false,
+ "size": [
+  539,
+  204
+ ],
+ "outline_px": 7,
+ "fill_alpha": 0.2,
+ "halo": 0.55,
+ "halo_px": 6,
+ "lines": "none",
+ "line": 0.55,
+ "line_px": 3,
+ "paper": "#f0f0f0",
+ "made": "2026-10-11T21:20:02Z"
+}

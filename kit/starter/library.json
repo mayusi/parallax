@@ -1,0 +1,64 @@
+{
+  "anim": {},
+  "asset": {
+    "blaster": "sci-fi pistol (handheld) — side-profile body + grip, cut trigger guard, bore, vents, glowing cells",
+    "crate": "wooden supply crate — plank seams, metal frames on every side, brace, bolts, handles",
+    "lamp_post": "street lamp (10 studs) — stepped base, ringed pole, hex lantern with a separate glass group",
+    "sword": "knight sword (handheld) — outline-extruded blade, fuller groove, mirrored curved guard, wrapped grip",
+    "treasure_chest": "treasure chest — computed arched lid, wrapping gold bands, keyhole cut, feet",
+    "tree_stump": "SCULPTED organic prop (a.sculpt): a felled stump — trunk + flare blended, five tapered root strokes, lumps then sawn flat (keep), bark ridges stretched up the trunk (ridged noise), the cut as end grain (look end_grain, a.zone), sculpted bracket fungi and pebbles, wood chips and a sprout seated into it. Start any organic prop from it.",
+    "wine_barrel": "a measured barrel: staves as per-stave a.cad revolves of a traced profile, hoops, nails, boarded heads in the chime, bung; the owner: amazing"
+  },
+  "screen": {
+    "FieldHud": "FieldHud",
+    "SimCodes": "sim pack: SimCodes (identity sim, chunky plates, judged twice — the scale gaps are the next step)",
+    "SimDaily": "sim pack: SimDaily (identity sim, chunky plates, judged twice — the scale gaps are the next step)",
+    "SimEgg": "sim pack: SimEgg (identity sim, chunky plates, judged twice — the scale gaps are the next step)",
+    "SimHud": "sim pack: SimHud (identity sim, chunky plates, judged twice — the scale gaps are the next step)",
+    "SimPets": "sim pack: SimPets (identity sim, chunky plates, judged twice — the scale gaps are the next step)",
+    "SimRebirth": "sim pack: SimRebirth (identity sim, chunky plates, judged twice — the scale gaps are the next step)",
+    "SimSettings": "sim pack: SimSettings (identity sim, chunky plates, judged twice — the scale gaps are the next step)",
+    "SimShop": "sim pack: SimShop (identity sim, chunky plates, judged twice — the scale gaps are the next step)",
+    "hud_example": "in-game HUD — health/energy bars, ammo, hotbar",
+    "main_menu": "main menu — title, play/settings buttons, backdrop"
+  },
+  "sound": {
+    "alarm": "two-tone alarm loop",
+    "drone_loop": "low ambient drone loop",
+    "explosion_big": "large explosion with tail",
+    "explosion_small": "small explosion",
+    "gunshot": "punchy gunshot",
+    "hit_body": "body hit thud",
+    "impact_metal": "metal clang",
+    "keypad_beep": "short keypad beep",
+    "laser_shot": "sci-fi laser zap",
+    "missile_launch": "rocket launch whoosh",
+    "pickup_coin": "coin pickup chime",
+    "powerup": "rising power-up",
+    "sword_swing": "sword whoosh",
+    "ui_click": "UI click",
+    "ui_confirm": "UI confirm",
+    "ui_error": "UI error buzz",
+    "ui_hover": "UI hover tick",
+    "whoosh": "generic whoosh"
+  },
+  "system": {
+    "time_surge": "generic speed-burst / time-dilation mode — server-applied WalkSpeed boost with cooldown + spam limit, afterimage trail for everyone, owner-only cool grade + slowed world on your own screen"
+  },
+  "vfx": {
+    "dust_puff": "soft ground dust burst (landings, footsteps, small impacts)",
+    "hellfire_impact": "big fiery impact — fireball, embers, smoke column, light",
+    "hit_sparks": "fast metal spark burst (hits, ricochets)",
+    "laser_beam": "beam between two points with a glow",
+    "lightning_strike": "branching lightning with flash, shake and thunder",
+    "missile_exhaust": "attached exhaust trail (flame + smoke)",
+    "muzzle_flash": "short muzzle flash + light",
+    "nuke_v4": "Realism from SIMULATION (owner 8.7): one GPU-simulated cloud fireball -> cap as the hero (lit by the sun's side), a simulated base surge, the world flash + pall, lens marks, debris swarm, crater - the route for any big realistic smoke / fire / explosion",
+    "orbital_strike": "staged wind-up -> impact -> aftermath with sound, shake and screen flash",
+    "planetary_cannon": "planetary orbital cannon — glyph-ring charge, sky beam, shockwave dome, volumetric fireball, dust wall, mushroom smoke",
+    "time_surge": "attach: cyan / cobalt / gold afterimages (cycle) + owner-only cool grade/FOV + gold sparks"
+  },
+  "world": {
+    "BattlegroundsArena": "R6 battlegrounds arena: open centre for knockback, raised stage, breakables, edge buildings with stairs and roofs, cover, perimeter with exits, golden light; 0 errors / 0 warnings in kit world check, fair spawns (3 %)"
+  }
+}

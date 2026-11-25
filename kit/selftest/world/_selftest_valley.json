@@ -1,0 +1,12 @@
+{
+ "_note": "POSITIVE fixture: a heightmap world (kit world terrain) compiles, is walked by kit world check and passes.",
+ "name": "SelftestValley",
+ "palette": { "spawn": { "material": "Neon", "color": [80, 220, 120] } },
+ "lighting": "noon",
+ "terrain": [{ "heightmap": { "center": [0, 0, 0], "size": [256, 256], "source": "kit/selftest/world/terrain/_selftest_valley.hm.json",
+                              "material": "Grass", "rock": "Rock", "rockSlope": 38 } }],
+ "build": [
+  { "spawn": { "pos": [-10, 26, 0], "mat": "spawn" } },
+  { "spawn": { "pos": [10, 26, 0], "mat": "spawn" } }
+ ]
+}

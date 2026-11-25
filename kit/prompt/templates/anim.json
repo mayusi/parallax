@@ -1,0 +1,215 @@
+{
+  "lane": "anim",
+  "start": "lune run kit start anim",
+  "keywords": {
+    "anim": 3,
+    "animation": 3,
+    "animate": 3,
+    "animations": 3,
+    "swing": 2,
+    "slash": 2,
+    "attack": 2,
+    "combo": 3,
+    "punch": 3,
+    "kick": 3,
+    "roundhouse": 3,
+    "heavy": 1,
+    "floaty": 2,
+    "weight": 1,
+    "pose": 3,
+    "poses": 3,
+    "walk": 2,
+    "run": 1,
+    "sprint": 2,
+    "idle": 3,
+    "emote": 3,
+    "dodge": 2,
+    "dash": 2,
+    "block": 1,
+    "parry": 2,
+    "stance": 2,
+    "m1": 3,
+    "cutscene": 2,
+    "katana": 1,
+    "sword": 1,
+    "greatsword": 2,
+    "claymore": 2,
+    "fist": 2,
+    "fists": 2,
+    "hit": 1,
+    "reaction": 2,
+    "move": 1,
+    "moves": 1,
+    "feel": 1,
+    "spin": 1,
+    "jump": 1
+  },
+  "invariants": [
+    {
+      "id": "r6",
+      "value": "R6 rigs only, on the owner's rig",
+      "why": "owner verdict: R6 only"
+    },
+    {
+      "id": "dossier_first",
+      "value": "a move dossier of the real move before any key (lune run kit dossier, footage timings, the move research)",
+      "why": "owner MUST: move research first; Roblox-native references, non-Roblox sources read badly"
+    },
+    {
+      "id": "from_scratch",
+      "value": "authored from scratch by craft on the owner's rig (beat script, gesture specs, springs) as dense 60 fps curves, never assembled from a few eased key poses",
+      "why": "the Craft sets built from 8 key poses: 'genuinely horrible, 3/10 at best'"
+    },
+    {
+      "id": "fps60",
+      "value": "60 fps KeyframeSequence curves; the Hit lands on the fastest blade frame",
+      "why": "lune run kit anim gates the Hit against the speed peak"
+    },
+    {
+      "id": "feet",
+      "value": "planted feet: a planted sole moves at most 0.05 studs a frame",
+      "why": "sliding feet were the owner's named fault"
+    },
+    {
+      "id": "weapon_clear",
+      "value": "the weapon never passes through the body (at most 0.2 studs), or the contact is declared",
+      "why": "the motion gate of lune run kit anim"
+    },
+    {
+      "id": "clock",
+      "value": "a move's times are workspace:GetServerTimeNow() (the one combat clock)",
+      "why": "LIMITATIONS_FIXES_V4 13.1; os.clock() mixes clocks"
+    },
+    {
+      "id": "bar",
+      "value": "the bar is the native R6 HQ combat pack on the owner's rig, judged from the player's camera; calibrate on a finished native clip's dense curves, never copy its angle numbers",
+      "why": "owner: 'WOW THOSE ARE AMAZING' (HqM1a 9/10); RigRun2 matched every angle number and was 'genuinely horrible'"
+    }
+  ],
+  "slots": [
+    {
+      "id": "intent",
+      "kind": "taste",
+      "weight": 0.4,
+      "resolved_by": [
+        "calm",
+        "proper",
+        "aggressive",
+        "heavy",
+        "light",
+        "fast",
+        "slow",
+        "snappy",
+        "brutal",
+        "elegant",
+        "floaty"
+      ],
+      "question": "Which tempo should the move have?",
+      "options": [
+        "*A proper: the loved tempo thirds of the reference move",
+        "B calm: slower wind-up, long settle",
+        "C aggressive: short wind-up, hard snap"
+      ]
+    },
+    {
+      "id": "weapon",
+      "kind": "taste",
+      "weight": 0.3,
+      "resolved_by": [
+        "katana",
+        "sword",
+        "greatsword",
+        "claymore",
+        "fist",
+        "fists",
+        "unarmed",
+        "spear",
+        "axe",
+        "gun",
+        "pistol",
+        "dagger",
+        "scythe",
+        "kick",
+        "punch"
+      ],
+      "question": "What does the character hold?",
+      "options": [
+        "*A The weapon the move's dossier names",
+        "B Unarmed (fists and kicks)"
+      ]
+    },
+    {
+      "id": "scope",
+      "kind": "scope",
+      "weight": 0.3,
+      "resolved_by": [
+        "single",
+        "one ",
+        "combo",
+        "string",
+        "chain",
+        "set",
+        "pack",
+        "all "
+      ],
+      "question": "How much should be animated this round?",
+      "options": [
+        "*A One move, its key poses approved first",
+        "B A five-hit combo string after the first move is approved"
+      ]
+    }
+  ],
+  "steps": [
+    "lune run kit start anim (boot sheet, golden and graveyard pages)",
+    "the move dossier: real footage timings and the reference frames of each phase",
+    "key poses on a pose sheet beside the dossier's frames; the owner approves the blocking (kit approve anim <name> --stage blocking)",
+    "lune run kit anim <Name>: the motion gates (Hit vs speed peak, planted feet, pops, weapon clear) and the LOOK strips",
+    "show the owner from the player's camera, then kit verdict anim <name> <0-10> \"<their words>\""
+  ],
+  "done_when": [
+    "lune run kit anim <Name>",
+    "lune run kit verify --profile core",
+    "lune run kit playtest run anim_layers --studio <id>",
+    "kit verdict anim <name> recorded from the owner's words"
+  ],
+  "context_files": [
+    "kit/cmd/anim.luau",
+    "kit/anim/strip.py",
+    "kit/anim/proc_dossier.py",
+    "src/kit/Anim.luau",
+    "src/kit/Moves.luau"
+  ],
+  "api": [
+    "Animator.LoadAnimation",
+    "AnimationTrack.Play",
+    "KeyframeSequence",
+    "Workspace.GetServerTimeNow",
+    "Motor6D.Transform"
+  ],
+  "engine_caps": [
+    "an animation clip plays on game time",
+    "a server-owned NPC's Animator runs on the server",
+    "accessory welds follow the limb they are welded to"
+  ],
+  "failure_lexicon": {
+    "floaty": "weight: the pelvis drops 0.30-0.45 studs into the hit, a 3-frame snap hold on contact, planted feet",
+    "heavy": "weight: the pelvis drops 0.30-0.45 studs into the hit, hips turn before shoulders, the blade lags the hands by about 6 frames",
+    "stiff": "overlap: hips before shoulders, shoulders before the hands, a settle after the hit",
+    "arm": "the whole body drives the swing: a step, a crouch, hips before shoulders (never an arm-only swing on stilts)",
+    "snap": "no single-frame spikes: curves are dense 60 fps, the pop gate reads 0",
+    "slide": "planted feet: sole speed 0 while planted"
+  },
+  "dsl": {
+    "pelvis_drop_st": [
+      -0.45,
+      -0.3
+    ],
+    "whip_lag_f": 6,
+    "snap_hold_f": 3,
+    "intent": "proper",
+    "fps": 60,
+    "sole_slip_max_st": 0.05
+  },
+  "tool_subject": "an R6 character key pose",
+  "families_key": "anim"
+}

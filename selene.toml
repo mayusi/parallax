@@ -1,0 +1,2 @@
+std = "roblox"
+exclude = [".claude/**", "_scratch/**", "_artifacts/**", "kit/types/**", "build/**", "games/*/build/**", "DevPackages/**", "Packages/**", "ServerPackages/**"]

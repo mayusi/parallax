@@ -1,0 +1,38 @@
+{
+ "_note": "NEGATIVE fixture for the world lane's lock on how a town's houses are made (kit/lib/lanelocks.luau LaneLocks.unsaidFacades): a town step with \"skins\" that says neither \"facade\": true nor \"facade\": false. The lock must name it. Never fix.",
+ "name": "UnsaidFronts",
+ "scale": "r6",
+ "build": [
+  {
+   "town": {
+    "name": "Old Town",
+    "center": [
+     0,
+     0,
+     0
+    ],
+    "area": [
+     256,
+     224
+    ],
+    "seed": 3,
+    "gates": [
+     "S"
+    ],
+    "bend": 0,
+    "market": false,
+    "yards": false,
+    "skins": "gh",
+    "house": {
+     "rooms": false
+    },
+    "mats": {
+     "street": "cobble",
+     "wall": "plaster",
+     "roof": "slate"
+    },
+    "slope": false
+   }
+  }
+ ]
+}

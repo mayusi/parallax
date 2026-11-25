@@ -1,0 +1,14 @@
+{
+ "engine": "fx",
+ "recipe": "lit_variant",
+ "of": "smoke_lit",
+ "light": "right",
+ "frames": 64,
+ "grid": 8,
+ "cell": 128,
+ "about": "smoke_lit's bake re-rendered with the key light from the right (one simulation, several lightings): a `lit` variant",
+ "post": {
+  "alpha": "coverage",
+  "exposure": 1.2
+ }
+}

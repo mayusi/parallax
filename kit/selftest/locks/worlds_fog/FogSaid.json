@@ -1,0 +1,72 @@
+{
+ "_note": "POSITIVE fixture for the world lane's lock on low fog: the same world, its fog laid in the low ground. The lock must pass it.",
+ "scale": "r6",
+ "lighting": "overcast",
+ "terrain": [
+  {
+   "ground": {
+    "center": [
+     0,
+     0,
+     0
+    ],
+    "size": [
+     200,
+     200
+    ],
+    "material": "Grass",
+    "noise": {
+     "amplitude": 10,
+     "scale": 80,
+     "seed": 2
+    }
+   }
+  }
+ ],
+ "palette": {
+  "fog": {
+   "material": "SmoothPlastic",
+   "color": [
+    200,
+    206,
+    214
+   ]
+  }
+ },
+ "ambient": "rain",
+ "weather": {
+  "cycle": [
+   {
+    "ambient": "rain",
+    "minutes": 6,
+    "fog": 0.7
+   },
+   {
+    "ambient": "rain",
+    "minutes": 4,
+    "fog": 0.1
+   }
+  ],
+  "change": 40
+ },
+ "name": "FogSaid",
+ "build": [
+  {
+   "fog": {
+    "over": "low",
+    "below": 0,
+    "mat": "fog"
+   }
+  },
+  {
+   "spawn": {
+    "pos": [
+     0,
+     12,
+     0
+    ],
+    "mat": "fog"
+   }
+  }
+ ]
+}

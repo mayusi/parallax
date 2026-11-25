@@ -1,0 +1,135 @@
+{
+ "ClassName": "ScreenGui",
+ "Properties": {},
+ "Children": [
+  {
+   "Name": "Hud",
+   "ClassName": "Frame",
+   "Properties": {
+    "Position": {
+     "UDim2": [
+      [
+       0,
+       100
+      ],
+      [
+       0,
+       100
+      ]
+     ]
+    },
+    "Size": {
+     "UDim2": [
+      [
+       0,
+       600
+      ],
+      [
+       0,
+       400
+      ]
+     ]
+    },
+    "BackgroundTransparency": 0
+   },
+   "Children": [
+    {
+     "Name": "Play",
+     "ClassName": "Frame",
+     "Properties": {
+      "Position": {
+       "UDim2": [
+        [
+         0,
+         40
+        ],
+        [
+         0,
+         40
+        ]
+       ]
+      },
+      "Size": {
+       "UDim2": [
+        [
+         0,
+         200
+        ],
+        [
+         0,
+         60
+        ]
+       ]
+      },
+      "BackgroundTransparency": 0
+     },
+     "Children": []
+    },
+    {
+     "Name": "Options",
+     "ClassName": "Frame",
+     "Properties": {
+      "Position": {
+       "UDim2": [
+        [
+         0,
+         42
+        ],
+        [
+         0,
+         110
+        ]
+       ]
+      },
+      "Size": {
+       "UDim2": [
+        [
+         0,
+         200
+        ],
+        [
+         0,
+         60
+        ]
+       ]
+      },
+      "BackgroundTransparency": 0
+     },
+     "Children": []
+    },
+    {
+     "Name": "Quit",
+     "ClassName": "Frame",
+     "Properties": {
+      "Position": {
+       "UDim2": [
+        [
+         0,
+         40
+        ],
+        [
+         0,
+         183
+        ]
+       ]
+      },
+      "Size": {
+       "UDim2": [
+        [
+         0,
+         200
+        ],
+        [
+         0,
+         60
+        ]
+       ]
+      },
+      "BackgroundTransparency": 0
+     },
+     "Children": []
+    }
+   ]
+  }
+ ]
+}

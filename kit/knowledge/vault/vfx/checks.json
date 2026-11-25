@@ -1,0 +1,44 @@
+{
+ "lane": "vfx",
+ "about": "The owner's recurring words as checks on every effect (kit/checks/checks.py; the owner, 2026-11-08: 'your complaints turned into checks per lane'). Status by evidence only: proposed reports and never blocks; validated = caught 3+ effects the owner rejected with these words and spared 3+ the owner loved or kept. Run: lune run kit checks run vfx <effect>; keep honest: lune run kit checks validate vfx.",
+ "checks": [
+  {
+   "id": "vfx-static",
+   "words": [
+    "static",
+    "like his drawing",
+    "instead of the vfx flowing",
+    "like a drawing"
+   ],
+   "said": [
+    {
+     "verdict": "vfx/verdicts/katana-moveset--2026-10-19",
+     "quote": "the vfx looks so static its geniunly horrible man it looks like his drawing instead of the vfx flowing"
+    }
+   ],
+   "target": "effect",
+   "measure": "motion_energy",
+   "fails_when": "below",
+   "threshold": null,
+   "threshold_from": "none yet: the effect the owner called static (katana_moveset) has no recording; validate proposes one when a recorded effect the owner called static and the loved effects split",
+   "status": "proposed",
+   "validation": {
+    "date": "2026-11-11",
+    "caught": null,
+    "missed": null,
+    "false_alarms": null,
+    "spared": null,
+    "rejections_measured": 0,
+    "loved_measured": 10,
+    "caught_targets": [],
+    "alarm_targets": [],
+    "held_out_fit": [],
+    "loved_range": [
+     0.00346,
+     0.06776
+    ],
+    "rejected_range": null
+   }
+  }
+ ]
+}

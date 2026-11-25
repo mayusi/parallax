@@ -1,0 +1,9 @@
+{
+  "duration": 0.3,
+  "layers": [
+    {
+      "source": "noise",
+      "gain": 0.5
+    }
+  ]
+}

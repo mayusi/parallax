@@ -1,0 +1,8 @@
+{
+ "name": "_selftest_slide",
+ "priority": "Action",
+ "keys": [
+  { "t": 0, "ease": "Linear", "pose": { "Torso": { "rot": [0, 0, 0], "pos": [0, 0, 0] } } },
+  { "t": 1, "ease": "Linear", "pose": { "Torso": { "rot": [0, 0, 0], "pos": [6, 0, 0] } } }
+ ]
+}

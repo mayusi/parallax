@@ -1,0 +1,102 @@
+{
+ "name": "SimSettings",
+ "identity": "sim",
+ "quality": "hero",
+ "focus": "Settings.Card.Title.Txt",
+ "kind": "menu",
+ "enabled": false,
+ "insets": "none",
+ "scale": { "phone": 0.5, "tablet": 0.75 },
+ "root": {
+  "type": "panel",
+  "name": "Settings",
+  "size": ["100%", "100%"],
+  "color": "bg",
+  "transparency": 0.4,
+  "children": [
+   {
+    "type": "panel", "name": "Card", "plate": "bubble_panel", "shadow": 10, "size": [900, 760], "pos": ["50%", "52%"], "anchor": "center",
+    "motion": { "enter": { "type": "bounce", "duration": 0.6 }, "stagger": 0.05 },
+    "children": [
+     {
+      "type": "panel", "name": "Title", "plate": "banner_focus", "shadow": true, "size": [460, 92], "pos": ["50%", -36], "anchor": "top", "z": 3,
+      "motion": { "enter": { "type": "drop", "delay": 0.15, "duration": 0.5, "ease": "back" } },
+      "children": [
+       { "type": "image", "name": "Icon", "image": "art:sim/icon_cog", "fit": "fit", "size": [84, 84], "pos": [10, "50%-6"], "anchor": "left", "z": 4, "motion": { "loop": { "type": "spin", "speed": 0.15 } } },
+       {"type": "label", "name": "Txt", "text": "SETTINGS", "size": [330, 56], "pos": [104, "50%-5"], "anchor": "left", "lettering": {"size": 64}}
+      ]
+     },
+     { "type": "imagebutton", "name": "Close", "plate": "close", "size": [72, 72], "pos": ["100%-6", -6], "anchor": "topright", "z": 4,
+       "motion": { "enter": { "type": "pop", "delay": 0.3 }, "hover": "grow", "press": "sink" } },
+
+     {
+      "type": "panel", "name": "Rows", "size": ["100%-80", 530], "pos": ["50%", 76], "anchor": "top",
+      "layout": { "dir": "vertical", "gap": 10, "align": "center", "justify": "start" },
+      "motion": { "stagger": 0.05 },
+      "children": [
+       { "type": "panel", "name": "Music", "size": ["100%", 80], "motion": { "enter": "fade" }, "children": [
+         { "type": "panel", "name": "Ico", "plate": "bubble_focus", "shadow": true, "size": [64, 64], "pos": [4, "50%"], "anchor": "left",
+           "children": [ { "type": "image", "name": "Icon", "image": "art:sim/icon_star", "fit": "fit", "size": [48, 48], "pos": ["50%", "50%"], "anchor": "center" } ] },
+         { "type": "label", "name": "Lbl", "text": "MUSIC", "role": "heading", "textSize": 28, "textColor": "textDark", "size": [400, 34], "pos": [88, "50%"], "anchor": "left", "align": "left" },
+         { "type": "imagebutton", "name": "Toggle", "plate": "pill_good", "shadow": true, "size": [140, 60], "pos": ["100%-8", "50%"], "anchor": "right", "motion": { "hover": "grow", "press": "sink" },
+           "children": [
+            { "type": "label", "name": "Txt", "text": "ON", "role": "heading", "textSize": 22, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": [70, 30], "pos": [16, "50%"], "anchor": "left", "align": "left" },
+            { "type": "plate", "name": "Knob", "plate": "badge_panel", "size": [50, 50], "pos": ["100%-5", "50%"], "anchor": "right", "z": 3 } ] }
+        ] },
+       { "type": "panel", "name": "Sfx", "size": ["100%", 80], "motion": { "enter": "fade" }, "children": [
+         { "type": "panel", "name": "Ico", "plate": "bubble_accent", "shadow": true, "size": [64, 64], "pos": [4, "50%"], "anchor": "left",
+           "children": [ { "type": "image", "name": "Icon", "image": "art:sim/icon_bolt", "fit": "fit", "size": [48, 48], "pos": ["50%", "50%"], "anchor": "center" } ] },
+         { "type": "label", "name": "Lbl", "text": "SOUND EFFECTS", "role": "heading", "textSize": 28, "textColor": "textDark", "size": [400, 34], "pos": [88, "50%"], "anchor": "left", "align": "left" },
+         { "type": "imagebutton", "name": "Toggle", "plate": "pill_good", "shadow": true, "size": [140, 60], "pos": ["100%-8", "50%"], "anchor": "right", "motion": { "hover": "grow", "press": "sink" },
+           "children": [
+            { "type": "label", "name": "Txt", "text": "ON", "role": "heading", "textSize": 22, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": [70, 30], "pos": [16, "50%"], "anchor": "left", "align": "left" },
+            { "type": "plate", "name": "Knob", "plate": "badge_panel", "size": [50, 50], "pos": ["100%-5", "50%"], "anchor": "right", "z": 3 } ] }
+        ] },
+       { "type": "panel", "name": "Volume", "size": ["100%", 80], "motion": { "enter": "fade" }, "children": [
+         { "type": "panel", "name": "Ico", "plate": "bubble_pink", "shadow": true, "size": [64, 64], "pos": [4, "50%"], "anchor": "left",
+           "children": [ { "type": "image", "name": "Icon", "image": "art:sim/icon_potion", "fit": "fit", "size": [48, 48], "pos": ["50%", "50%"], "anchor": "center" } ] },
+         { "type": "label", "name": "Lbl", "text": "VOLUME", "role": "heading", "textSize": 28, "textColor": "textDark", "size": [300, 34], "pos": [88, "50%"], "anchor": "left", "align": "left" },
+         { "type": "bar", "name": "Slider", "size": [400, 42], "pos": ["100%-8", "50%"], "anchor": "right", "value": 0.7, "fill": "focus", "track": true, "fillGloss": true, "radius": 21,
+           "children": [ { "type": "plate", "name": "Knob", "plate": "badge_focus", "size": [62, 62], "pos": ["70%", "50%"], "anchor": "center", "z": 4 } ] }
+        ] },
+       { "type": "panel", "name": "Graphics", "size": ["100%", 80], "motion": { "enter": "fade" }, "children": [
+         { "type": "panel", "name": "Ico", "plate": "bubble_panel", "shadow": true, "size": [64, 64], "pos": [4, "50%"], "anchor": "left",
+           "children": [ { "type": "image", "name": "Icon", "image": "art:sim/icon_cog", "fit": "fit", "size": [48, 48], "pos": ["50%", "50%"], "anchor": "center" } ] },
+         { "type": "label", "name": "Lbl", "text": "LOW GRAPHICS", "role": "heading", "textSize": 28, "textColor": "textDark", "size": [400, 34], "pos": [88, "50%"], "anchor": "left", "align": "left" },
+         { "type": "imagebutton", "name": "Toggle", "plate": "pill_panel", "shadow": true, "size": [140, 60], "pos": ["100%-8", "50%"], "anchor": "right", "motion": { "hover": "grow", "press": "sink" },
+           "children": [
+            { "type": "plate", "name": "Knob", "plate": "badge_panel", "size": [50, 50], "pos": [5, "50%"], "anchor": "left", "z": 3, "imageColor": "panel2" },
+            { "type": "label", "name": "Txt", "text": "OFF", "role": "heading", "textSize": 22, "textColor": "textDark", "size": [70, 30], "pos": ["100%-16", "50%"], "anchor": "right", "align": "right" } ] }
+        ] },
+       { "type": "panel", "name": "ShowPets", "size": ["100%", 80], "motion": { "enter": "fade" }, "children": [
+         { "type": "panel", "name": "Ico", "plate": "bubble_good", "shadow": true, "size": [64, 64], "pos": [4, "50%"], "anchor": "left",
+           "children": [ { "type": "image", "name": "Icon", "image": "art:sim/icon_pet_cat", "fit": "fit", "size": [48, 48], "pos": ["50%", "50%"], "anchor": "center" } ] },
+         { "type": "label", "name": "Lbl", "text": "SHOW OTHER PETS", "role": "heading", "textSize": 28, "textColor": "textDark", "size": [400, 34], "pos": [88, "50%"], "anchor": "left", "align": "left" },
+         { "type": "imagebutton", "name": "Toggle", "plate": "pill_good", "shadow": true, "size": [140, 60], "pos": ["100%-8", "50%"], "anchor": "right", "motion": { "hover": "grow", "press": "sink" },
+           "children": [
+            { "type": "label", "name": "Txt", "text": "ON", "role": "heading", "textSize": 22, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": [70, 30], "pos": [16, "50%"], "anchor": "left", "align": "left" },
+            { "type": "plate", "name": "Knob", "plate": "badge_panel", "size": [50, 50], "pos": ["100%-5", "50%"], "anchor": "right", "z": 3 } ] }
+        ] },
+       { "type": "panel", "name": "Notify", "size": ["100%", 80], "motion": { "enter": "fade" }, "children": [
+         { "type": "panel", "name": "Ico", "plate": "bubble_purple", "shadow": true, "size": [64, 64], "pos": [4, "50%"], "anchor": "left",
+           "children": [ { "type": "image", "name": "Icon", "image": "art:sim/icon_gift", "fit": "fit", "size": [48, 48], "pos": ["50%", "50%"], "anchor": "center" } ] },
+         { "type": "label", "name": "Lbl", "text": "HATCH NOTIFICATIONS", "role": "heading", "textSize": 28, "textColor": "textDark", "size": [440, 34], "pos": [88, "50%"], "anchor": "left", "align": "left" },
+         { "type": "imagebutton", "name": "Toggle", "plate": "pill_panel", "shadow": true, "size": [140, 60], "pos": ["100%-8", "50%"], "anchor": "right", "motion": { "hover": "grow", "press": "sink" },
+           "children": [
+            { "type": "plate", "name": "Knob", "plate": "badge_panel", "size": [50, 50], "pos": [5, "50%"], "anchor": "left", "z": 3, "imageColor": "panel2" },
+            { "type": "label", "name": "Txt", "text": "OFF", "role": "heading", "textSize": 22, "textColor": "textDark", "size": [70, 30], "pos": ["100%-16", "50%"], "anchor": "right", "align": "right" } ] }
+        ] }
+      ]
+     },
+
+     { "type": "button", "name": "Reset", "text": "RESET DATA", "plate": "pill_danger", "shadow": true, "role": "heading", "textSize": 20, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": [220, 60], "pos": [44, "100%-30"], "anchor": "bottomleft",
+       "motion": { "enter": "bounce", "hover": "grow", "press": "sink" } },
+     { "type": "button", "name": "Group", "text": "JOIN GROUP", "plate": "pill_focus", "shadow": true, "role": "heading", "textSize": 22, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": [230, 64], "pos": ["100%-330", "100%-28"], "anchor": "bottomright",
+       "motion": { "enter": "bounce", "hover": "grow", "press": "sink" } },
+     { "type": "button", "name": "Done", "text": "DONE", "plate": "pill_good", "shadow": true, "role": "heading", "textSize": 30, "textColor": "text", "textOutline": "line", "textOutlineWidth": 4, "size": [260, 80], "pos": ["100%-44", "100%-22"], "anchor": "bottomright",
+       "motion": { "enter": "bounce", "hover": "grow", "press": "sink" } }
+    ]
+   }
+  ]
+ }
+}

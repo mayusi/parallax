@@ -1,0 +1,219 @@
+{
+ "mode": "burst",
+ "duration": 2.0,
+ "elements": [
+  {
+   "kind": "beam",
+   "from": [
+    0,
+    160,
+    0
+   ],
+   "to": [
+    0,
+    0,
+    0
+   ],
+   "lightning": true,
+   "segments": 12,
+   "jitter": 1.2,
+   "width": [
+    1.6,
+    0.8
+   ],
+   "time": 0.35,
+   "color": [
+    210,
+    230,
+    255
+   ],
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0.3
+    ]
+   ]
+  },
+  {
+   "kind": "beam",
+   "delay": 0.08,
+   "from": [
+    0,
+    160,
+    0
+   ],
+   "to": [
+    0,
+    0,
+    0
+   ],
+   "lightning": true,
+   "segments": 10,
+   "width": [
+    0.8,
+    0.4
+   ],
+   "time": 0.25,
+   "color": [
+    170,
+    200,
+    255
+   ]
+  },
+  {
+   "kind": "flash",
+   "shape": "Ball",
+   "color": [
+    220,
+    235,
+    255
+   ],
+   "size": [
+    4,
+    18
+   ],
+   "transparency": [
+    0.2,
+    1
+   ],
+   "time": 0.25
+  },
+  {
+   "kind": "light",
+   "color": [
+    190,
+    215,
+    255
+   ],
+   "range": 60,
+   "brightness": [
+    12,
+    0
+   ],
+   "time": 0.4
+  },
+  {
+   "kind": "screen",
+   "color": [
+    220,
+    235,
+    255
+   ],
+   "flash": 0.5,
+   "time": 0.25,
+   "radius": 250
+  },
+  {
+   "kind": "shake",
+   "intensity": 1.2,
+   "radius": 160
+  },
+  {
+   "kind": "sound",
+   "name": "impact_metal",
+   "volume": 2,
+   "pitch": [
+    0.5,
+    0.6
+   ],
+   "radius": 500
+  },
+  {
+   "kind": "particles",
+   "texture": "spark",
+   "burst": 30,
+   "lifetime": [
+    0.3,
+    0.7
+   ],
+   "speed": [
+    30,
+    70
+   ],
+   "spread": 70,
+   "drag": 1,
+   "acceleration": [
+    0,
+    -50,
+    0
+   ],
+   "size": [
+    [
+     0,
+     0.5
+    ],
+    [
+     1,
+     0.05
+    ]
+   ],
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "color": [
+    200,
+    225,
+    255
+   ],
+   "lightEmission": 1,
+   "orientation": "VelocityParallel"
+  },
+  {
+   "kind": "particles",
+   "delay": 0.1,
+   "texture": "smoke",
+   "burst": 6,
+   "lifetime": [
+    1.2,
+    1.8
+   ],
+   "speed": [
+    3,
+    6
+   ],
+   "spread": 60,
+   "size": [
+    [
+     0,
+     3
+    ],
+    [
+     1,
+     8
+    ]
+   ],
+   "transparency": [
+    [
+     0,
+     0.5
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "color": [
+    120,
+    120,
+    125
+   ],
+   "lightInfluence": 1,
+   "flipbook": {
+    "layout": "Grid4x4",
+    "fps": 10,
+    "mode": "OneShot"
+   }
+  }
+ ]
+}

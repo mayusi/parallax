@@ -1,0 +1,141 @@
+{
+  "about": "The historical A/B replay (LIMITATIONS_FIXES_V4 13.7 trap 6) and evolve.py's held-out benchmark: ten real owner asks that ended at 3/10 or below (or were stopped), each with the words a compiled prompt MUST carry to have prevented that failure. A raw_prompt marked 'reconstructed' is rebuilt from the card or verdict that records the ask (no verbatim message survives). Sample Game and anything with blood are left out. Never edit a must_contain to make a replay pass: fix the template or the grounding. Each case also names its own graveyard record (graveyard): the compiled prompt must carry that record, retrieved from the owner's words (prompt-specific grounding, not only the lane template). anim-craft-set has none: nothing in its words links it to the key-poses record; the from-scratch invariant carries it.",
+  "cases": [
+    {
+      "id": "vfx-hollow-purple-v1",
+      "lane": "vfx",
+      "score": 2.0,
+      "raw_prompt": "Build Hollow Purple (the attack from Jujutsu Kaisen) as a VFX effect.",
+      "raw_source": "reconstructed: kit/knowledge/vault/vfx/verdicts/hollow-purple-v1--2026-10-15.md",
+      "failure": "built from lore text and memory with no scene frames: 'look really bad'",
+      "must_contain": [
+        "real frames",
+        "--fps 2",
+        "one test frame"
+      ],
+      "graveyard": "hollow_purple_v1"
+    },
+    {
+      "id": "vfx-delaware-comic",
+      "lane": "vfx",
+      "score": 0.0,
+      "raw_prompt": "Make the Delaware Smash effect original - the owner rejected v1 as looking too much like the last showpiece, so give it a different look.",
+      "raw_source": "reconstructed: board/journal/2026-10-13.md; kit/knowledge/vault/vfx/graveyard.md",
+      "failure": "originality read as a genre swap (a comic-book print): 'trash'",
+      "must_contain": [
+        "swap the genre",
+        "one test frame",
+        "own source frames"
+      ],
+      "graveyard": "a genre swap for originality"
+    },
+    {
+      "id": "vfx-flame_arc-studio",
+      "lane": "vfx",
+      "score": 1.0,
+      "raw_prompt": "Phase 2 of Mission 02 VFX: build a proof effect in Roblox Studio with an animated R6 character presenting the effect in a booth.",
+      "raw_source": "board task done-when (mission 02 phase 2); kit/knowledge/vault/vfx/verdicts/flame_arc-dance--2026-10-16.md",
+      "failure": "made and judged in Studio on an animated rig: 'stop making vfx in roblox studio ... horrendous'",
+      "must_contain": [
+        "browser player",
+        "never in roblox studio",
+        "animated rig"
+      ],
+      "graveyard": "making + judging effects in roblox studio"
+    },
+    {
+      "id": "anim-craft-set",
+      "lane": "anim",
+      "score": 1.0,
+      "raw_prompt": "Build a complete brawler/boxing combat moveset for the kit: jab, cross, hook, uppercut, slip, block, hit reaction, idle, and combo chains.",
+      "raw_source": "reconstructed: kit/knowledge/vault/anim/verdicts/craftjab--2026-10-11.md",
+      "failure": "moves assembled from 8 eased key poses: 'genuinely horrible, 3/10 at best'",
+      "must_contain": [
+        "dossier",
+        "from scratch",
+        "key poses"
+      ],
+      "graveyard": null
+    },
+    {
+      "id": "anim-rigrun2",
+      "lane": "anim",
+      "score": 1.0,
+      "raw_prompt": "Build a running animation for the R6 rig, matching the angle numbers from the owner-loved reference sprint animation exactly.",
+      "raw_source": "reconstructed: kit/knowledge/vault/anim/verdicts/rigrun2--2026-10-11.md",
+      "failure": "matched every angle number of the reference: 'genuinely horrible'",
+      "must_contain": [
+        "native r6",
+        "dense",
+        "angle numbers"
+      ],
+      "graveyard": "RigRun2"
+    },
+    {
+      "id": "3d-dragon-sword",
+      "lane": "3d",
+      "score": 1.0,
+      "raw_prompt": "Build a dragon sword weapon 3D model - a sword with a dragon head hilt.",
+      "raw_source": "reconstructed: kit/knowledge/vault/3d/verdicts/dragon-sword--2026-10-11.md",
+      "failure": "a dragon figure typed from SDF primitives with no checked reference: 'WEIRD AND UGLY'",
+      "must_contain": [
+        "references first",
+        "picture-first",
+        "model sheet"
+      ],
+      "graveyard": "dragon_sword"
+    },
+    {
+      "id": "3d-starter-props-scorechased",
+      "lane": "3d",
+      "score": 0.1,
+      "raw_prompt": "Improve the starter props (crate, chest, blaster) to score higher, lifting them past the prop quality bar.",
+      "raw_source": "reconstructed: kit/knowledge/vault/3d/verdicts/starter-props-scorechased--2026-10-05.md",
+      "failure": "detail added to move a gate score: graded 1/100",
+      "must_contain": [
+        "detail the real object has",
+        "never judged on a score"
+      ],
+      "graveyard": "starter_props_scorechased"
+    },
+    {
+      "id": "world-sampleregion-terrain",
+      "lane": "world",
+      "score": 1.0,
+      "raw_prompt": "Build the terrain for SampleRegion (an Elden Ring-style region) using the procedural terrain generator.",
+      "raw_source": "board task fknt done-when; kit/knowledge/vault/world/verdicts/sampleregion-terrain-v1--2026-10-14.md",
+      "failure": "noise and thermal erosion alone: 'the quality of the terrain is horrid'",
+      "must_contain": [
+        "carved by rivers",
+        "real elevation"
+      ],
+      "graveyard": "SampleRegion_terrain_v1"
+    },
+    {
+      "id": "world-showcase-x5",
+      "lane": "world",
+      "score": 3.0,
+      "raw_prompt": "Build as many showcase worlds as possible for Mission 05 to demonstrate world building quality improvement.",
+      "raw_source": "reconstructed: kit/knowledge/vault/world/verdicts/showcase-worlds-x5--2026-10-14.md",
+      "failure": "five worlds for breadth: 'the main idea of the mission was to improve quality'",
+      "must_contain": [
+        "quality, not quantity",
+        "one world"
+      ],
+      "graveyard": "showcase_worlds_x5"
+    },
+    {
+      "id": "ui-dmchud-v1",
+      "lane": "ui",
+      "score": 1.0,
+      "raw_prompt": "Build a character-action style in-game HUD.",
+      "raw_source": "board/journal 2026-10-10; kit/knowledge/vault/ui/verdicts (ActionHud_v1)",
+      "failure": "typed glyphs, flat tints and PIL rectangles with no references: 'GENUINE AI SLOP'",
+      "must_contain": [
+        "real references",
+        "flat tinted rectangles"
+      ],
+      "graveyard": "ActionHud_v1"
+    }
+  ]
+}

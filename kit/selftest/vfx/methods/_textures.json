@@ -1,0 +1,27 @@
+{
+ "_help": "selftest registry",
+ "m_arc": {
+  "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+  "file": "build/textures/m_arc.png",
+  "grid": 4,
+  "id": ""
+ },
+ "m_streaks": {
+  "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+  "file": "build/textures/m_streaks.png",
+  "grid": 1,
+  "id": ""
+ },
+ "m_flame_real": {
+  "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+  "file": "build/textures/m_flame_real.png",
+  "grid": 4,
+  "id": ""
+ },
+ "m_flame_ink": {
+  "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+  "file": "build/textures/m_flame_ink.png",
+  "grid": 4,
+  "id": ""
+ }
+}

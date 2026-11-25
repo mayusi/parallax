@@ -1,0 +1,170 @@
+{
+  "schema": 1,
+  "hero": "fx_sword",
+  "about": "the cross-lane contract of fx_sword: model fx_sword, move set FxSet - written by kit contract new from the sources below; kit contract check re-reads them",
+  "assetId": null,
+  "studScale": 0.28,
+  "studScaleSource": "kit/selftest/contract/fixture/models/fx_sword.manifest.json manifest.facts.cad[1].mm_per_stud (and 0 more alike)",
+  "physicalLength": {
+    "animSword": {
+      "FxCut1Clip": {
+        "grip": 0.5,
+        "kind": "straight",
+        "length": 3.6
+      },
+      "FxCut2Clip": {
+        "grip": 0.5,
+        "kind": "straight",
+        "length": 3.6
+      },
+      "FxParry": {
+        "grip": 0.5,
+        "kind": "straight",
+        "length": 3.6
+      }
+    },
+    "axis": "z",
+    "metres": 0.98,
+    "source": "kit/selftest/contract/fixture/models/fx_sword.manifest.json facts.size_studs",
+    "studs": 3.5
+  },
+  "sockets": {
+    "Holster": null,
+    "LeftGrip": null,
+    "Muzzle": null,
+    "RightGrip": {
+      "from": "anchors",
+      "name": "RightGrip",
+      "pos": [0, 0, 0.4]
+    },
+    "Tip": {
+      "from": "anchors",
+      "name": "Tip",
+      "pos": [0, 0, -3.1]
+    }
+  },
+  "modelSha256": "6deb06bf40219d59e84ca2cfc3f5e11d25c619355131a604388121b64dc97eb3",
+  "model": {
+    "asset": "fx_sword",
+    "files": {
+      "kit/selftest/contract/fixture/models/fx_sword_blade.fbx": "4aca230f7f14ce64283c9363ee76654d7fc3a8808c8c5eb21ce0e548f3f7f544"
+    },
+    "manifest": "kit/selftest/contract/fixture/models/fx_sword.manifest.json"
+  },
+  "animSet": {
+    "clips": {
+      "FxCut1Clip": {
+        "files": {
+          "kit/selftest/contract/fixture/assets/animations/FxCut1Clip.move.json": "81b0b22be88eca741b54205ee3a40c0a639bd0d0f999a802e76c23f0f376c75e"
+        },
+        "move": "FxCut1"
+      },
+      "FxCut2Clip": {
+        "files": {
+          "kit/selftest/contract/fixture/assets/animations/FxCut2Clip.move.json": "0593fa52634b0733fbcddcc224e6de181deb7c168dcf7e44dd8759fa4a882a35"
+        },
+        "move": "FxCut2"
+      },
+      "FxParry": {
+        "files": {
+          "kit/selftest/contract/fixture/assets/animations/FxParry.move.json": "97987685b426e84ef07bc79c94643a9b6fb7adebc5f192a77c843dd238759457"
+        },
+        "move": "(parry)"
+      }
+    },
+    "file": "kit/selftest/contract/fixture/src/moves/FxSet.json",
+    "name": "FxSet",
+    "parry": "FxParry"
+  },
+  "movesTimeline": {
+    "cancelFrame": 23,
+    "combo": ["FxCut1", "FxCut2"],
+    "fps": 60,
+    "hitFrame": 20,
+    "hitstopFrames": 4,
+    "move": "FxCut1",
+    "moves": {
+      "FxCut1": {
+        "anim": "FxCut1Clip",
+        "cancelFrame": 23,
+        "hitFrame": 20,
+        "hitstopFrames": 4,
+        "hitstopSeconds": 0.07
+      },
+      "FxCut2": {
+        "anim": "FxCut2Clip",
+        "cancelFrame": null,
+        "hitFrame": 20,
+        "hitstopFrames": 6,
+        "hitstopSeconds": 0.1
+      }
+    }
+  },
+  "vfxSequence": {
+    "cues": [
+      {
+        "frame": 17,
+        "move": "FxCut1",
+        "preset": "fx_slash"
+      }
+    ],
+    "file": "kit/selftest/contract/fixture/assets/effects/fx_slash.json",
+    "kind": "preset",
+    "name": "fx_slash"
+  },
+  "sfxEvents": {
+    "catalog": "kit/selftest/contract/fixture/assets/sounds/_events.json",
+    "hit": {
+      "events": ["FxHit"],
+      "notInCatalog": [],
+      "sounds": ["fx_hit_metal"],
+      "unmade": []
+    },
+    "parry": {
+      "events": ["FxParry"],
+      "notInCatalog": [],
+      "sounds": ["fx_parry"],
+      "source": "kit/selftest/contract/fixture/src/moves/FxSet.json parry.sfx",
+      "unmade": []
+    },
+    "swing": {
+      "events": ["FxSwing"],
+      "notInCatalog": [],
+      "sounds": ["fx_swing"],
+      "unmade": []
+    }
+  },
+  "uiTrigger": {
+    "file": "kit/selftest/contract/fixture/assets/ui/fx_hud.json",
+    "name": "fx_hud"
+  },
+  "promptPacketSha256": "a289177e10c3edfac0d324ae4bafa661e4aaef72cff04c2fcc211056ca3920a7",
+  "promptPacket": "kit/selftest/contract/fixture/packets/fx_sword.json",
+  "whyNull": {
+    "assetId": "not uploaded: assets/ids.json models has no fx_sword (an upload is the owner's: kit upload)",
+    "movesTimeline.moves.FxCut2.cancelFrame": "FxCut2 cancels into nothing (kit/selftest/contract/fixture/src/moves/FxSet.json gives it no cancel window)",
+    "sockets.Holster": "kit/selftest/contract/fixture/models/fx_sword.manifest.json records no socket or anchor named Holster (the 3D build script names none: a.socket / a.anchor)",
+    "sockets.LeftGrip": "kit/selftest/contract/fixture/models/fx_sword.manifest.json records no socket or anchor named LeftGrip (the 3D build script names none: a.socket / a.anchor)",
+    "sockets.Muzzle": "kit/selftest/contract/fixture/models/fx_sword.manifest.json records no socket or anchor named Muzzle (the 3D build script names none: a.socket / a.anchor)"
+  },
+  "sources": {
+    "kit/selftest/contract/fixture/assets/animations/FxCut1Clip.move.json": "81b0b22be88eca741b54205ee3a40c0a639bd0d0f999a802e76c23f0f376c75e",
+    "kit/selftest/contract/fixture/assets/animations/FxCut2Clip.move.json": "0593fa52634b0733fbcddcc224e6de181deb7c168dcf7e44dd8759fa4a882a35",
+    "kit/selftest/contract/fixture/assets/animations/FxParry.move.json": "97987685b426e84ef07bc79c94643a9b6fb7adebc5f192a77c843dd238759457",
+    "kit/selftest/contract/fixture/assets/effects/fx_slash.json": "6510bbef8c10fd7bcdd905f567a0984eb8da7972f13f2ea02bf99abbbcec097b",
+    "kit/selftest/contract/fixture/assets/moves/FxCut1.json": "69ad2c9c9d712625b7e25cc8673d4b103905f4c6b181d348a7c632936c6ced4c",
+    "kit/selftest/contract/fixture/assets/moves/FxCut2.json": "e967b89f45c6dab3ed4273f45f6890af1a3b79bb9b30af95424b5704007cd619",
+    "kit/selftest/contract/fixture/assets/sounds/_events.json": "4751ebc47afec6b0e6877bf31c95c5a9cb76ae6d8d2b6571f96f0659ebaf1667",
+    "kit/selftest/contract/fixture/assets/ui/fx_hud.json": "e1d63e2d3a5a8a1f542adadf86cf3ebac848209cef4a83c429e4c9d66f4919b8",
+    "kit/selftest/contract/fixture/models/fx_sword_blade.fbx": "4aca230f7f14ce64283c9363ee76654d7fc3a8808c8c5eb21ce0e548f3f7f544",
+    "kit/selftest/contract/fixture/packets/fx_sword.json": "a289177e10c3edfac0d324ae4bafa661e4aaef72cff04c2fcc211056ca3920a7",
+    "kit/selftest/contract/fixture/src/moves/FxSet.json": "b572b474231a0ac0e21a398604789614038fc1e578e8e5b1a0b18f99207bece3"
+  },
+  "madeWith": {
+    "model": "kit/selftest/contract/fixture/models/fx_sword.manifest.json",
+    "moves": "kit/selftest/contract/fixture/src/moves/FxSet.json",
+    "packet": "kit/selftest/contract/fixture/packets/fx_sword.json",
+    "ui": "fx_hud",
+    "vfx": "fx_slash"
+  }
+}

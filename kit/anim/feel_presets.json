@@ -1,0 +1,8 @@
+{
+ "about": "TIERED FEEL (AAA plan #7, board/plans/archive/2026-10-18-aaa-anim-gaps.md): one table so every hit of a weight feels alike. Sources: game-feel guides (wayline 'Game Feel & Juice', uhiyama-lab hit feedback, Godot juice): hitstop 50-120 ms (heavy 100-120), trauma camera shake from smooth noise, light / medium / heavy presets. MEDIUM = the katana cuts' feel the owner loved (v3, 5e2682ec). A move's `feel`: a tier name, or {tier, ...overrides}",
+ "tiers": {
+  "light": {"hitstop": 0.05, "impact_frames": 1, "camera_shake": 0.2},
+  "medium": {"hitstop": 0.07, "impact_frames": 2, "camera_shake": 0.45},
+  "heavy": {"hitstop": 0.1, "impact_frames": 3, "camera_shake": 0.65}
+ }
+}

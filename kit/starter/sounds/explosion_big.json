@@ -1,0 +1,63 @@
+{
+ "duration": 2.8,
+ "variations": 2,
+ "fx": {
+  "drive": 0.12,
+  "reverb": 0.35
+ },
+ "layers": [
+  {
+   "source": "noise",
+   "color": "brown",
+   "filter": {
+    "type": "lowpass",
+    "cutoff": [
+     3000,
+     180
+    ]
+   },
+   "env": {
+    "attack": 0.004,
+    "decay": 0.4,
+    "sustain": 0.35,
+    "release": 1.9
+   },
+   "gain": 1.0
+  },
+  {
+   "source": "sine",
+   "freq": [
+    95,
+    28
+   ],
+   "gain": 1.0,
+   "env": {
+    "attack": 0.002,
+    "hold": 0.0,
+    "decay": 0.6,
+    "sustain": 0.0,
+    "release": 0.05
+   }
+  },
+  {
+   "source": "noise",
+   "filter": {
+    "type": "bandpass",
+    "cutoff": [
+     2400,
+     700
+    ],
+    "q": 0.7
+   },
+   "gain": 0.25,
+   "drive": 0.4,
+   "env": {
+    "attack": 0.001,
+    "hold": 0,
+    "decay": 0.3,
+    "sustain": 0,
+    "release": 0.05
+   }
+  }
+ ]
+}

@@ -1,0 +1,18 @@
+{
+ "_help": "camera views shared by the Studio booth (kit vfx booth) and the browser player (kit vfx play). pos / look in effect space (x right, y up, -z forward), fov degrees. A view is a static frame or a `path` of keys lerped on the effect clock (smoothstep). Presets add their own in booth.viewDefs. combat = another player watching the fight from game-camera distance (~30 studs, fov 70): the pros judge an effect as players see it, not close up.",
+ "player": { "pos": [6, 8, 15], "look": [-3, 5, -60], "fov": 70 },
+ "combat": { "pos": [16, 9, 24], "look": [0, 3, 0], "fov": 70 },
+ "side": { "pos": [110, 26, -120], "look": [0, 12, -125], "fov": 62 },
+ "hero": { "pos": [-15, 5, -24], "look": [0, 7, 0], "fov": 66 },
+ "cine": {
+  "path": [
+   { "t": 0.0, "pos": [-10, 4.5, -14], "look": [0, 6, -1], "fov": 58 },
+   { "t": 2.3, "pos": [-7, 6.5, -11], "look": [0, 7.5, -3], "fov": 50 },
+   { "t": 2.6, "pos": [-58, 13, -4], "look": [0, 7, -70], "fov": 64 },
+   { "t": 3.0, "pos": [-66, 15, -30], "look": [0, 8, -110], "fov": 64 },
+   { "t": 3.9, "pos": [-90, 24, -130], "look": [0, 9, -215], "fov": 66 },
+   { "t": 5.2, "pos": [-95, 30, -236], "look": [0, 14, -292], "fov": 64 },
+   { "t": 7.5, "pos": [-100, 28, -240], "look": [0, 10, -292], "fov": 64 }
+  ]
+ }
+}

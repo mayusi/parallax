@@ -1,0 +1,9 @@
+{
+ "_note": "POSITIVE twin for the terrain ROUTE gate: the same small terrain truly made on the river route (kit/world/terrain.py --size 256 --step 4 --seed 7 --relief 40 --erosion 2000 --thermal 25 --stream 80 --streamK 0.015). The gate re-makes it from its recorded recipe and gets the same heights back, and its river step on its own cuts ~11 % of the relief (the floor is 3 %): kit world check passes it. \"route_cache\": false: every run re-makes it (never a cached proof).",
+ "name": "SelftestTerrainRivers",
+ "lighting": "noon",
+ "checks": { "route_cache": false },
+ "terrain": [{ "heightmap": { "center": [0, 0, 0], "size": [256, 256], "source": "kit/selftest/world/terrain/_selftest_terrain_rivers.hm.json",
+                              "material": "Grass", "rock": "Rock", "rockSlope": 38 } }],
+ "build": []
+}

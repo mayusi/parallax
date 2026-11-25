@@ -1,0 +1,44 @@
+[
+ {
+  "part": "overall",
+  "dim": "length",
+  "value": 215.9,
+  "unit": "mm",
+  "object": "amt hardballer",
+  "source": "https://en.wikipedia.org/wiki/AMT_Hardballer",
+  "kind": "wikipedia",
+  "note": "infobox 'infobox weapon' (first value given)",
+  "trust": "medium",
+  "id": "6ebb8aed",
+  "added": "2026-10-07",
+  "read_by": "kit"
+ },
+ {
+  "part": "barrel",
+  "dim": "length",
+  "value": 101.6,
+  "unit": "mm",
+  "object": "amt hardballer",
+  "source": "https://en.wikipedia.org/wiki/AMT_Hardballer",
+  "kind": "wikipedia",
+  "note": "infobox 'infobox weapon' (first value given)",
+  "trust": "medium",
+  "id": "e0f189e0",
+  "added": "2026-10-07",
+  "read_by": "kit"
+ },
+ {
+  "part": "overall",
+  "dim": "mass",
+  "value": 1.0773,
+  "unit": "kg",
+  "object": "amt hardballer",
+  "source": "https://en.wikipedia.org/wiki/AMT_Hardballer",
+  "kind": "wikipedia",
+  "note": "infobox 'infobox weapon' (first value given)",
+  "trust": "medium",
+  "id": "a7f55ed9",
+  "added": "2026-10-07",
+  "read_by": "kit"
+ }
+]

@@ -1,0 +1,109 @@
+{
+ "about": "SampleRegion: an Elden Ring inspired region (1024 x 1024 studs). North: a castle plateau reached by one carved ramp road. South-east: a misty lake basin held by a low ridge. West: a hill of ruins. East: a hill hiding a catacomb. Middle: open golden meadows under the Erdtree on the horizon. Mountains frame it all.",
+ "noise": {
+  "relief": 12,
+  "scale": 170,
+  "octaves": 5
+ },
+ "shapes": [
+  {
+   "type": "rim",
+   "height": 150,
+   "width": 150
+  },
+  {
+   "type": "plateau",
+   "center": [
+    60,
+    -290
+   ],
+   "radius": 120,
+   "height": 60,
+   "edge": 30
+  },
+  {
+   "type": "basin",
+   "center": [
+    250,
+    230
+   ],
+   "radius": 140,
+   "depth": 28,
+   "edge": 70
+  },
+  {
+   "type": "hill",
+   "center": [
+    -270,
+    40
+   ],
+   "radius": 130,
+   "height": 26
+  },
+  {
+   "type": "hill",
+   "center": [
+    300,
+    -150
+   ],
+   "radius": 100,
+   "height": 50
+  },
+  {
+   "type": "ridge",
+   "from": [
+    120,
+    70
+   ],
+   "to": [
+    390,
+    30
+   ],
+   "width": 40,
+   "height": 14
+  },
+  {
+   "type": "ramp",
+   "from": [
+    60,
+    -100
+   ],
+   "to": [
+    60,
+    -182
+   ],
+   "width": 26,
+   "edge": 14,
+   "h0": 8,
+   "h1": 67
+  }
+ ],
+ "flat": [
+  [
+   60,
+   -300,
+   60
+  ],
+  [
+   -265,
+   40,
+   40
+  ],
+  [
+   -40,
+   100,
+   30
+  ],
+  [
+   -20,
+   380,
+   25
+  ],
+  [
+   220,
+   -150,
+   18
+  ]
+ ],
+ "warp": 45
+}

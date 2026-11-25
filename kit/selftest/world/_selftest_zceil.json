@@ -1,0 +1,16 @@
+{
+ "_note": "NEGATIVE fixture (card my7f, LIMITATIONS_FIXES_V4 5.1 'z-fighting misses ceilings'): a plaster ceiling 10 studs over the court and an oak beam whose underside lies in the ceiling's own plane (y 10) - it flickers over the player's head. kit world check must FAIL it with its z-fighting error (an underside seen from the floor below).",
+ "name": "SelftestZCeil",
+ "palette": {
+  "court": { "material": "Slate", "color": [58, 62, 70] },
+  "plaster": { "material": "SmoothPlastic", "color": [200, 196, 186] },
+  "oak": { "material": "Wood", "color": [90, 60, 40] },
+  "spawn": { "material": "Slate", "color": [58, 62, 70] }
+ },
+ "build": [
+  { "floor": { "name": "Court", "center": [0, 0, 0], "size": [80, 80], "mat": "court" } },
+  { "part": { "name": "Ceiling", "size": [20, 1, 20], "pos": [-20, 10.5, 0], "mat": "plaster" } },
+  { "part": { "name": "Beam", "size": [2, 2, 18], "pos": [-20, 11, 0], "mat": "oak" } },
+  { "spawn": { "pos": [20, 0, 20], "mat": "spawn" } }
+ ]
+}

@@ -1,0 +1,13 @@
+{
+ "asset": "_selftest_ref_doubtful",
+ "note": "ref_sizes.views.json's parts; the bracket's mask judged doubtful by kit trace (it filled its box)",
+ "size_mm": [100.0, 300.0, 1000.0],
+ "parts": {
+  "body": {"side": {"along_mm": [0.0, 1000.0], "across_mm": [0.0, 200.0], "size_mm": [1000.0, 200.0],
+                    "quality": {"ok": true, "prompt": "points", "why": []}}},
+  "bracket": {"side": {"along_mm": [600.0, 640.0], "across_mm": [200.0, 300.0], "size_mm": [40.0, 100.0],
+                       "quality": {"ok": false, "prompt": "box",
+                                   "why": ["fills its box (97%): SAM likely took the region, not the part"]}}},
+  "knob": {"side": {"along_mm": [820.0, 940.0], "across_mm": [-60.0, 0.0], "size_mm": [120.0, 60.0]}}
+ }
+}

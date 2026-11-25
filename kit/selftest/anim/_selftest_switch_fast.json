@@ -1,0 +1,10 @@
+{
+ "name": "_selftest_SwitchFast",
+ "priority": "Action",
+ "keys": [
+  { "t": 0, "ease": "Linear", "pose": { "Right Arm": [0, 0, 0], "Left Arm": [0, 0, 0] } },
+  { "t": 0.05, "ease": "Linear", "pose": { "Right Arm": [150, 0, 0], "Left Arm": [0, 0, 0] } },
+  { "t": 0.1, "ease": "Linear", "pose": { "Right Arm": [150, 0, 0], "Left Arm": [120, 0, 0] } },
+  { "t": 0.5, "ease": "Linear", "pose": { "Right Arm": [150, 0, 0], "Left Arm": [120, 0, 0] } }
+ ]
+}

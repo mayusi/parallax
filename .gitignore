@@ -1,0 +1,144 @@
+# Parallax — local-first Roblox production pipeline kit (.gitignore)
+# Source of truth is disk. Never commit generated places or fetched packages.
+# Tracked on purpose: wally.lock (CI runs `wally install --locked`) and kit/.source (marks the kit's own repo).
+
+# Rojo build outputs
+build.rbxlx
+build.rbxl
+sourcemap.json
+*.rbxl
+*.rbxlx
+!tests/**/*.rbxlx
+
+# Wally fetched packages (regenerate via `wally install`)
+Packages/
+ServerPackages/
+DevPackages/
+.wally/
+
+# Rokit local toolchain (binaries live outside repo)
+.rokit/
+
+# Lune
+.lune/
+lune-debug.log
+
+# Blender generated (keep scripts, ignore products)
+blender/exports/*
+!blender/exports/.gitkeep
+blender/renders/*
+!blender/renders/.gitkeep
+*.blend1
+*.blend2
+
+# Audio products (keep src + scripts, ignore rendered outs)
+audio/out/*
+!audio/out/.gitkeep
+
+# kit (generated) + verify artifacts (logs, screenshots, reports)
+build/
+.verify/
+artifacts/*
+!artifacts/.gitkeep
+_scratch/
+_artifacts/
+
+# kit: per-machine files (never shipped)
+# a local kit source checkout this project syncs from (optional dev override)
+kit/HOME
+# private grading anchors (machine-local renders, never copied by `kit install`)
+kit/anchors/private/
+
+# part reviews the selftest's hero fixtures write beside themselves (the kit keeps them in sync every run);
+# kit/selftest/blender/selftest_hand_hero_ok / _waiver.parts.md are ANSWERED fixtures and stay tracked
+kit/selftest/blender/_selftest_*.parts.md
+kit/selftest/blender/selftest_hand_hero.parts.md
+
+# Browser/MCP session dumps (regenerated automatically, never commit)
+.playwright-mcp/
+
+# Node / Python
+node_modules/
+__pycache__/
+*.pyc
+.venv/
+venv/
+uv.lock
+
+# OS / IDE
+Thumbs.db
+Desktop.ini
+.vscode/*
+!.vscode/extensions.json
+!.vscode/settings.json
+# (kit harness writes it, as it writes .mcp.json and .cursor/mcp.json; `harness --check` holds it)
+!.vscode/mcp.json
+.idea/
+
+# Secrets — never commit
+.env
+*.pem
+*.key
+*wally-auth.toml
+
+# reference stills you study but may not redistribute (measure-only; record sources in VETLOG.md)
+assets/effects/refs/
+
+# downloaded third-party sources (never tracked; vet them in VETLOG.md)
+/_downloads/
+
+# games/: the active game is per checkout; each game's synced kit runtime + build are generated
+games/.active
+games/*/src/kit/
+games/*/build/
+
+# Obsidian opened at the project root (the vault is kit/knowledge/vault)
+/.obsidian/
+
+# aerial pictures fetched by `kit world imagery` (public domain, vetted in VETLOG.md): fetched again when needed,
+# never tracked; the painted land (.hm.json) keeps the picture's name, box and credit
+*.img.png
+*.img.json
+
+# generated probe / audit / sidecar output at the project root (anchored: kit/selftest/vault/audit/ is a fixture)
+/diagnostics/out/
+/experiments/
+/audit/
+/audit_*/
+/full_audit_*/
+/build_sidecar/
+
+# generated model working files (kit gen / kit sharpen / the paint pass / probes and self-test sheets): rebuilt from
+# their sources, never tracked. Traced outlines (*.trace.json) and a piece's own <name>.parts.md ARE sources.
+assets/models/*.gen.glb
+assets/models/*.gen.json
+assets/models/*.clean.glb
+assets/models/*.paint.glb
+assets/models/*.albedo.npz
+assets/models/_selftest_*.parts.md
+assets/models/_probe_*.parts.md
+assets/models/exp*_*.parts.md
+games/*/assets/models/*.gen.glb
+games/*/assets/models/*.gen.json
+games/*/assets/models/*.clean.glb
+games/*/assets/models/*.paint.glb
+games/*/assets/models/*.albedo.npz
+
+# AI clients: Parallax is an MCP tool - the server carries its rules and recipes. Connect YOUR client with
+# `lune run parallax connect <client>`; what that writes (and any client's own folder) stays out of the kit's repo.
+.mcp.json
+.claude/
+.cursor/
+.vscode/
+.gemini/
+.roo/
+.windsurf/
+.clinerules
+.clinerules/
+.agents/
+.opencode/
+opencode.json
+AGENTS.md
+CLAUDE.md
+GEMINI.md
+.github/copilot-instructions.md

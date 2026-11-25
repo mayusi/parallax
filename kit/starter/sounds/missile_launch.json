@@ -1,0 +1,54 @@
+{
+ "duration": 1.8,
+ "fx": {
+  "reverb": 0.2
+ },
+ "layers": [
+  {
+   "source": "noise",
+   "filter": {
+    "type": "bandpass",
+    "cutoff": [
+     900,
+     2600
+    ],
+    "q": 0.8
+   },
+   "env": {
+    "attack": 0.04,
+    "decay": 0.3,
+    "sustain": 0.6,
+    "release": 1.0
+   }
+  },
+  {
+   "source": "saw",
+   "freq": [
+    180,
+    90
+   ],
+   "gain": 0.4,
+   "filter": {
+    "type": "lowpass",
+    "cutoff": 800
+   },
+   "env": {
+    "attack": 0.02,
+    "decay": 0.5,
+    "sustain": 0.4,
+    "release": 0.8
+   }
+  },
+  {
+   "source": "click",
+   "gain": 0.7,
+   "env": {
+    "attack": 0.0005,
+    "hold": 0.0,
+    "decay": 0.02,
+    "sustain": 0.0,
+    "release": 0.05
+   }
+  }
+ ]
+}

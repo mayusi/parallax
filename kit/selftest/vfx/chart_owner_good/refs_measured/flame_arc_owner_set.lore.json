@@ -1,0 +1,216 @@
+{
+ "preset": "flame_arc_set",
+ "date": "2026-10-16",
+ "sources": [
+  {
+   "spec": "kimetsu-no-yaiba:Flame Arc",
+   "ok": true,
+   "title": "Flame Arc",
+   "url": "https://kimetsu-no-yaiba.fandom.com/wiki/Flame Arc",
+   "facts": 20
+  }
+ ],
+ "tag_counts": {
+  "colour": 3,
+  "shape": 15,
+  "scale": 1,
+  "power": 3,
+  "motion": 6,
+  "sound": 0,
+  "variant": 3
+ },
+ "facts": [
+  {
+   "text": "The Flame Arc is later revealed by Shinjuro Rengoku to be a legendary Breathing Style known as , the first one to have ever been created, though it was seemingly lost.",
+   "tags": [
+    "colour"
+   ],
+   "section": "Overview",
+   "page": "Flame Arc",
+   "score": 2.46
+  },
+  {
+   "text": "Users of Sun Breathing visualize themselves seemingly manipulating solar flames when unleashing its techniques.",
+   "tags": [
+    "shape",
+    "motion"
+   ],
+   "section": "Overview",
+   "page": "Flame Arc",
+   "score": 3.08
+  },
+  {
+   "text": "Swordsman noted that using this style increases his overall power and speed, which may be due to the fact that his body is more suited to Sun Breathing as opposed to Water Breathing.",
+   "tags": [
+    "power",
+    "motion"
+   ],
+   "section": "Overview",
+   "page": "Flame Arc",
+   "score": 2.22
+  },
+  {
+   "text": "Removing them enabled him to use the Breathing Style in its purest form, to the point where Muzan Kibutsuji saw Yoriichi's visage overlapping with Swordsman's own when he was performing the techniques against him.",
+   "tags": [
+    "shape"
+   ],
+   "section": "Overview",
+   "page": "Flame Arc",
+   "score": 2.38
+  },
+  {
+   "text": "Once a year, Flame Arc is performed in a Shinto Shrine owned by the Ubuyashiki Family.",
+   "tags": [
+    "colour"
+   ],
+   "section": "Overview",
+   "page": "Flame Arc",
+   "score": 2.87
+  },
+  {
+   "text": "An additional, unnamed 14th technique was created and only utilized once by Swordsman Kamado, although because of this, it is not necessary in the 13th form combining Yoriichi's creations. * - The user performs a singular downwards vertical slash in an arcing motion. ** - A modified version of Dance developed and utilized only by Swordsman Kamado.",
+   "tags": [
+    "shape",
+    "variant"
+   ],
+   "section": "Known Techniques",
+   "page": "Flame Arc",
+   "score": 0.23
+  },
+  {
+   "text": "This technique is capable of decapitating multiple targets at once. * - The user flips into the air behind the opponent before unleashing a singular vertical slash in a circular motion to swiftly cut the target in half. * - The user performs high-speed twists and rotations, creating afterimages that are primarily used for evading attacks.",
+   "tags": [
+    "shape",
+    "motion"
+   ],
+   "section": "Known Techniques",
+   "page": "Flame Arc",
+   "score": 0.47
+  },
+  {
+   "text": "These afterimages are particularly effective against enemies with sharp vision. * - A two-strike combo which starts with a downward vertical slash leading into a horizontal slash right after. * - The user continuously performs all twelve forms of Sun Breathing in repetitive succession to increase the accuracy and agility of its movements, and attacks.",
+   "tags": [
+    "shape",
+    "motion"
+   ],
+   "section": "Known Techniques",
+   "page": "Flame Arc",
+   "score": 0.57
+  },
+  {
+   "text": "* - The user delivers a down-right slash, before relentlessly slashing their opponent while advancing forwards and knocking them back a great distance with a vertical strike.",
+   "tags": [
+    "shape"
+   ],
+   "section": "Game Exclusive Techniques",
+   "page": "Flame Arc",
+   "score": 0.92
+  },
+  {
+   "text": "The siblings coordinate their attacks to strike their opponent with Sun Breathing and combustible blood slashes simultaneously, which combine into the form of a Japanese dragon made of solar flames, so powerful that it looks like the opponent is being eaten.",
+   "tags": [
+    "shape",
+    "power"
+   ],
+   "section": "Game Exclusive Techniques",
+   "page": "Flame Arc",
+   "score": 0.62
+  },
+  {
+   "text": "Afterwards, Nezuko cuts her hand on her brother's blade, coating it in her blood and activating her Blood Demon Art.",
+   "tags": [
+    "shape"
+   ],
+   "section": "Game Exclusive Techniques",
+   "page": "Flame Arc",
+   "score": 0.69
+  },
+  {
+   "text": "The siblings then lunge at the opponent in sync, and finish with an extremely powerful and Blood Demon Art-amplified version of Sun Halo Dragon Head Dance. * - A collaboration between Swordsman Kamado and his ally Genya Shinazugawa.",
+   "tags": [
+    "colour",
+    "power",
+    "variant"
+   ],
+   "section": "Game Exclusive Techniques",
+   "page": "Flame Arc",
+   "score": 0.35
+  },
+  {
+   "text": "They both knock their opponent back and coordinate their attacks to slash them with their blades.",
+   "tags": [
+    "shape"
+   ],
+   "section": "Game Exclusive Techniques",
+   "page": "Flame Arc",
+   "score": 1.65
+  },
+  {
+   "text": "After Swordsman slashes their opponent upwards, Genya shoots them point-blank and Swordsman further elevates them by striking them with Sunflower Thrust.",
+   "tags": [
+    "shape",
+    "motion"
+   ],
+   "section": "Game Exclusive Techniques",
+   "page": "Flame Arc",
+   "score": 1.61
+  },
+  {
+   "text": "However, as the opponent falls to the ground, Swordsman irritates Genya with his thanks, causing him to hurl a large boulder.",
+   "tags": [
+    "scale"
+   ],
+   "section": "Game Exclusive Techniques",
+   "page": "Flame Arc",
+   "score": 0.65
+  },
+  {
+   "text": "It misses Swordsman but hits the grounded opponent. * - A collaboration between a Flame Breathing user and a Sun Breathing user.",
+   "tags": [
+    "shape"
+   ],
+   "section": "Game Exclusive Techniques",
+   "page": "Flame Arc",
+   "score": 0.63
+  },
+  {
+   "text": "Both coordinate their attacks to simultaneously strike their opponent with arc-shaped slashes from their respective Breathing Styles from opposite sides.",
+   "tags": [
+    "shape"
+   ],
+   "section": "Game Exclusive Techniques",
+   "page": "Flame Arc",
+   "score": 1.57
+  },
+  {
+   "text": "The Flame Breather then readies his stance to use Rengoku and the Sun Breather takes a similar stance to use Sun Halo Dragon Head Dance.",
+   "tags": [
+    "shape"
+   ],
+   "section": "Game Exclusive Techniques",
+   "page": "Flame Arc",
+   "score": 0.59
+  },
+  {
+   "text": "The result is both charging at the opponent in an attack that takes the form of a flaming Japanese dragon composed of flames from both styles.",
+   "tags": [
+    "shape",
+    "motion"
+   ],
+   "section": "Game Exclusive Techniques",
+   "page": "Flame Arc",
+   "score": 0.85
+  },
+  {
+   "text": "Both users yell \"Set your heart ablaze!\", and their attack ends with an X-shaped slash and a fiery tornado. * - A technique exclusive to the Kimetsu Academy version of Swordsman Kamado.",
+   "tags": [
+    "shape",
+    "variant"
+   ],
+   "section": "Game Exclusive Techniques",
+   "page": "Flame Arc",
+   "score": 0.87
+  }
+ ],
+ "licence": "short quoted facts (fandom / Wikipedia text is CC BY-SA) with their page; measure-only"
+}

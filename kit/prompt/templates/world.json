@@ -1,0 +1,208 @@
+{
+  "lane": "world",
+  "start": "lune run kit start world",
+  "keywords": {
+    "world": 3,
+    "map": 3,
+    "level": 3,
+    "arena": 3,
+    "lobby": 3,
+    "town": 3,
+    "city": 3,
+    "village": 3,
+    "courtyard": 3,
+    "castle": 3,
+    "terrain": 3,
+    "river": 2,
+    "mountain": 2,
+    "forest": 2,
+    "building": 2,
+    "buildings": 2,
+    "street": 2,
+    "interior": 3,
+    "room": 2,
+    "rooms": 2,
+    "dungeon": 3,
+    "obby": 3,
+    "gothic": 2,
+    "lighting": 2,
+    "fog": 2,
+    "sky": 1,
+    "environment": 3,
+    "scene": 1,
+    "island": 2,
+    "house": 2,
+    "houses": 2,
+    "bridge": 2
+  },
+  "invariants": [
+    {
+      "id": "blueprint",
+      "value": "a JSON blueprint compiled by generators (assets/worlds/<Name>.json, lune run kit world), never hand-placed parts",
+      "why": "the world lane's route"
+    },
+    {
+      "id": "play_numbers",
+      "value": "proven to play by numbers: R6 reachability, traps, spawn fairness, camera clearance, knockback room",
+      "why": "the play gates of lune run kit world"
+    },
+    {
+      "id": "look_pairs",
+      "value": "looked at from a player's eyes at every station beside its measured reference",
+      "why": "W0: large, labelled, in Roblox's light"
+    },
+    {
+      "id": "quality",
+      "value": "quality, not quantity: one finished corner sets the bar, ONE world pushed with real meshes beside its references before any new world",
+      "why": "five showcase worlds at once: 'the main idea of the mission was to improve quality' (3/10); SampleRegion got no score"
+    },
+    {
+      "id": "lights",
+      "value": "at most 16 shadow-casting lights; Lighting.LightingStyle Realistic",
+      "why": "V4 arena budget"
+    },
+    {
+      "id": "walk",
+      "value": "a Studio walk on a scratch place, nothing saved, nothing uploaded",
+      "why": "W1/W2 sign-off is the owner's walk"
+    },
+    {
+      "id": "terrain",
+      "when": [
+        "terrain",
+        "mountain",
+        "mountains",
+        "hill",
+        "hills",
+        "river",
+        "rivers",
+        "island",
+        "land",
+        "valley",
+        "cliff",
+        "cliffs",
+        "region",
+        "landscape"
+      ],
+      "value": "terrain carved by rivers (stream-power incision) over real elevation data, then the painter; never noise and thermal erosion alone",
+      "why": "SampleRegion terrain from noise + thermal erosion: 'the quality of the terrain is horrid' (1/10)"
+    }
+  ],
+  "slots": [
+    {
+      "id": "setting",
+      "kind": "taste",
+      "weight": 0.45,
+      "resolved_by": [
+        "gothic",
+        "medieval",
+        "modern",
+        "futuristic",
+        "desert",
+        "snow",
+        "ice",
+        "forest",
+        "city",
+        "japanese",
+        "dark",
+        "bright",
+        "night",
+        "day",
+        "ruined",
+        "fantasy"
+      ],
+      "question": "What setting and mood should the place have?",
+      "options": [
+        "*A The owner's world goal: a dark gothic city",
+        "B Another setting (name it and a reference place)"
+      ]
+    },
+    {
+      "id": "scope",
+      "kind": "scope",
+      "weight": 0.35,
+      "resolved_by": [
+        "corner",
+        "block",
+        "room",
+        "arena",
+        "whole",
+        "full",
+        "entire",
+        "district",
+        "one "
+      ],
+      "question": "How much should be built this round?",
+      "options": [
+        "*A One finished corner, walked and signed off first",
+        "B A whole arena or city block after the corner is approved"
+      ]
+    },
+    {
+      "id": "play",
+      "kind": "taste",
+      "weight": 0.2,
+      "resolved_by": [
+        "combat",
+        "pvp",
+        "battleground",
+        "obby",
+        "explore",
+        "lobby",
+        "spawn",
+        "race"
+      ],
+      "question": "What is the place played for?",
+      "options": [
+        "*A Battlegrounds combat (knockback room, fair spawns)",
+        "B Exploring or a lobby"
+      ]
+    }
+  ],
+  "steps": [
+    "lune run kit start world (boot sheet, golden and graveyard pages)",
+    "the world bible and a greybox you can walk (W1); the owner walks it",
+    "one finished corner (W2), then the kit of parts built from it",
+    "lune run kit world: generators, play gates, look shots beside references",
+    "show the owner the stations, then kit verdict world <name> <0-10> \"<their words>\""
+  ],
+  "done_when": [
+    "lune run kit world",
+    "lune run kit world look <Name>",
+    "lune run kit verify --profile core",
+    "kit verdict world <name> recorded from the owner's words"
+  ],
+  "context_files": [
+    "kit/cmd/world.luau",
+    "kit/lib/world.luau",
+    "kit/world/look_blender.py",
+    "assets/worlds/<Name>.json"
+  ],
+  "api": [
+    "Lighting.LightingStyle",
+    "Terrain.FillBlock",
+    "Workspace.StreamingEnabled",
+    "PointLight.Shadows"
+  ],
+  "engine_caps": [
+    "at most 16 shadow lights in view",
+    "about 60,000 instances in the arena budget",
+    "terrain materials paint per voxel"
+  ],
+  "failure_lexicon": {
+    "empty": "quality, not quantity: each station dressed and looked at beside its reference",
+    "flat": "elevation from real terrain or rivers; lighting Realistic with a measured sky",
+    "generic": "this place's own bible and references, never the last world's look",
+    "small": "R6 sizes claimed by every generator: doors 4 x 7, a storey about 14 studs"
+  },
+  "dsl": {
+    "shadow_lights_max": 16,
+    "instances_max": 60000,
+    "door_studs": [
+      4,
+      7
+    ]
+  },
+  "tool_subject": "a game level environment view",
+  "families_key": "world"
+}

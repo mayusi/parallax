@@ -1,0 +1,15 @@
+{
+ "name": "__NAME__",
+ "enabled": false,
+ "theme": { "bg": "#101218", "panel": "#1b1f29", "accent": "#4da3ff", "text": "#f0f2f5", "muted": "#9aa3b2", "font": "GothamBold" },
+ "root": {
+  "type": "panel", "name": "Card", "size": [360, 260], "pos": ["50%", "50%"], "anchor": "center",
+  "color": "panel", "radius": 12, "stroke": "accent", "padding": 20,
+  "layout": { "dir": "vertical", "gap": 12, "align": "center" },
+  "children": [
+   { "type": "label", "name": "Title", "text": "__NAME__", "size": ["100%", 40], "textSize": 30, "textColor": "accent" },
+   { "type": "label", "name": "Body", "text": "Describe what this screen is for.", "size": ["100%", 44], "textSize": 16, "textColor": "muted", "font": "GothamMedium" },
+   { "type": "button", "name": "Confirm", "text": "OK", "size": ["100%", 48], "textSize": 20, "color": "accent", "textColor": "bg", "radius": 8 }
+  ]
+ }
+}

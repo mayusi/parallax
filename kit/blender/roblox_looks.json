@@ -1,0 +1,70 @@
+{
+ "_about": "Roblox places' Lighting as the 3D lane's lookdev reads it (kit/blender/rbx_lookdev.py; the 3D crafts plan S0, board card macm). Values as Roblox shows them (colours 0-255, Roblox axes: Y up, -Z front). Each preset says where it was read; anything not measured is named in 'assumed'.",
+ "Default": {
+  "source": "a typical Roblox daylight place's Lighting, read in Roblox Studio through the Studio MCP (Lighting properties, GetSunDirection, GetMoonDirection)",
+  "Brightness": 4.5,
+  "ClockTime": 2.25,
+  "GeographicLatitude": -35,
+  "ExposureCompensation": 0.1,
+  "EnvironmentDiffuseScale": 0.6,
+  "EnvironmentSpecularScale": 0.7,
+  "ShadowSoftness": 0.15,
+  "Ambient": [64, 66, 84],
+  "OutdoorAmbient": [118, 130, 166],
+  "ColorShift_Top": [150, 170, 220],
+  "ColorShift_Bottom": [0, 0, 0],
+  "LightingStyle": "Soft",
+  "SunDirection": [0.2903, -0.4344, -0.8526],
+  "MoonDirection": [-0.2903, 0.4344, -0.8526],
+  "not_carried": "the Atmosphere (Density 0.27, Offset 0.12, Colour 78,88,120, Haze 1.6), Bloom (Intensity 0.85, Size 30, Threshold 0.92), the colour grade 'DMCGrade' (Contrast 0.2, Saturation 0.08), SunRays, DepthOfField and the skybox",
+  "assumed": "the light's strength per unit of Brightness (SUN_PER_BRIGHTNESS) and the moon's share of it (MOON_SHARE) in rbx_lookdev.py: not measured against Studio yet; the owner's eye calibrates them"
+ },
+ "_day": {
+  "about": "a daytime variant of a preset: the same place, its light from a midday sun at DAY_ELEVATION degrees instead of its own clock (not measured: Roblox's sun direction at another clock was not read, to leave the owner's place untouched)"
+ },
+ "_calibration": {
+  "about": "the Roblox-look rig fitted to Roblox Studio (kit/tools/studio_calibrate.py): a grey sphere (kit/studio/calib_sphere.py) shot in a kit scratch place under each Lighting state, the same sphere rendered in Blender, these numbers solved; rbx_lookdev.calibrated_rig + roblox_view use them",
+  "measured": "2026-11-18",
+  "view_transform": "Khronos PBR Neutral",
+  "sun_per_brightness": 1.8421,
+  "ambient_strength": 1.2317,
+  "sky_strength": 0.9647,
+  "sky_colour": [0.1775, 0.6541, 1.0],
+  "moon_share": 0.0484,
+  "night_sky": 0.0122,
+  "night_sky_key": 0.5901,
+  "mean_error_grey_levels": 2.87,
+  "held_out_error_grey_levels": 3.8,
+  "worst_state": {
+   "name": "sun_sky",
+   "studio": {
+    "p5": 128.4,
+    "p50": 135.9,
+    "p95": 195.4
+   },
+   "twin": {
+    "p5": 128.9,
+    "p50": 146.4,
+    "p95": 212.6
+   },
+   "error": 9.4,
+   "solved_on": false
+  },
+  "states": [
+   "ambient128",
+   "both128",
+   "exposure1",
+   "night_outdoor",
+   "night_preset",
+   "night_sky",
+   "outdoor128",
+   "shift_white",
+   "sky1",
+   "sky_outdoor",
+   "sun2",
+   "sun4",
+   "sun_sky"
+  ],
+  "not_measured": "the day variant's sun height, ColorShift_Bottom, specular, a place's own Sky (the sky term is Roblox's DEFAULT sky's, by day and at night), Atmosphere, bloom and colour grading"
+ }
+}

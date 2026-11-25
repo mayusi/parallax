@@ -1,0 +1,5 @@
+# The kit's own python (Run.tool("python")): the vision stack's torch is here. Owner-approved 2026-10-06 (VETLOG.md).
+# Installed by kit/tools/setup.py: pip --no-deps --require-hashes --only-binary=:all: (pip checks each sha256).
+# vtracer: no dependencies. spandrel: torch, torchvision, safetensors, numpy, typing_extensions — already here.
+vtracer==0.6.15 --hash=sha256:ca841409db95409ab810fda8185ae2c3fc8761bb1b96c3125f372a0dbc84eaf0
+spandrel==0.4.2 --hash=sha256:6c93e3ecbeb0e548fd2df45a605472b34c1614287c56b51bb33cdef7ae5235b5

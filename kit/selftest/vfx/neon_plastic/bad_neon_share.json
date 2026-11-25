@@ -1,0 +1,14 @@
+{
+ "version": 3,
+ "duration": 2,
+ "about": "selftest: untextured-neon-mesh bad fixture — rasengan-style: > 20 % of meshes are untextured Neon (5 of 7 = 71 %) — the director rule must flag this",
+ "layers": [
+  { "name": "ribbon_a", "kind": "mesh", "life": 1.0, "shape": "ring", "material": "Neon" },
+  { "name": "ribbon_b", "kind": "mesh", "life": 1.0, "shape": "ring", "material": "Neon" },
+  { "name": "ribbon_c", "kind": "mesh", "life": 1.0, "shape": "ring", "material": "Neon" },
+  { "name": "ribbon_d", "kind": "mesh", "life": 1.0, "shape": "arc",  "material": "Neon" },
+  { "name": "ribbon_e", "kind": "mesh", "life": 1.0, "shape": "arc",  "material": "Neon" },
+  { "name": "shell_a",  "kind": "mesh", "life": 1.0, "shape": "flame", "material": "Neon", "texture": "ki_rays" },
+  { "name": "shell_b",  "kind": "mesh", "life": 1.0, "shape": "flame", "material": "Neon", "texture": "ki_rays" }
+ ]
+}

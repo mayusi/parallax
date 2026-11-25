@@ -1,0 +1,134 @@
+{
+  "lane": "sfx",
+  "start": "lune run kit start sfx",
+  "keywords": {
+    "sfx": 3,
+    "sound": 3,
+    "sounds": 3,
+    "audio": 3,
+    "noise": 2,
+    "music": 2,
+    "whoosh": 3,
+    "swoosh": 3,
+    "clang": 3,
+    "boom": 2,
+    "click": 2,
+    "footstep": 3,
+    "footsteps": 3,
+    "reverb": 3,
+    "ambience": 3,
+    "ambient": 2,
+    "loud": 1,
+    "punchy": 2,
+    "crunch": 2,
+    "hit": 1,
+    "hear": 2,
+    "sounding": 2,
+    "voice": 1,
+    "gunshot": 3,
+    "explosion": 1,
+    "impact": 1
+  },
+  "invariants": [
+    {
+      "id": "layered",
+      "value": "real recordings layered with synthesis: a carved transient, a harmonic body and a room tail",
+      "why": "the SFX lane's recipe"
+    },
+    {
+      "id": "sets",
+      "value": "sounds come in sets that share one DNA (assets/sounds/<name>.json)",
+      "why": "a set reads as one game"
+    },
+    {
+      "id": "owner_refs",
+      "value": "matched to references the owner chose, measured by ears and drawn as sound sheets",
+      "why": "the owner's ear is the bar"
+    },
+    {
+      "id": "sync",
+      "value": "in sync with the hit in the engine within 1 frame (A/V)",
+      "why": "V4 arena gate"
+    },
+    {
+      "id": "runtime",
+      "value": "played as events by the Sfx runtime on the Audio API",
+      "why": "one audio path"
+    }
+  ],
+  "slots": [
+    {
+      "id": "reference",
+      "kind": "taste",
+      "weight": 0.5,
+      "resolved_by": [
+        "reference",
+        "from ",
+        "anime",
+        "movie",
+        "game",
+        "real "
+      ],
+      "question": "Which reference should the sound match?",
+      "options": [
+        "*A A reference the owner names (a clip or a game)",
+        "B The lane's catalogue: closest loved set"
+      ]
+    },
+    {
+      "id": "scope",
+      "kind": "scope",
+      "weight": 0.5,
+      "resolved_by": [
+        "one ",
+        "single",
+        "set",
+        "pack",
+        "all ",
+        "bank"
+      ],
+      "question": "How many sounds this round?",
+      "options": [
+        "*A One sound, then the set from it",
+        "B A whole set at once"
+      ]
+    }
+  ],
+  "steps": [
+    "lune run kit start sfx (boot sheet, graveyard page)",
+    "the owner's reference; kit sfx find / match for the layers",
+    "lune run kit sfx <name>: render, audio gate, sound sheet",
+    "the listening booth and the A/V check in the engine (kit sfx av)",
+    "kit verdict sfx <name> <0-10> \"<their words>\""
+  ],
+  "done_when": [
+    "lune run kit sfx <name>",
+    "lune run kit verify --profile core",
+    "kit verdict sfx <name> recorded from the owner's words"
+  ],
+  "context_files": [
+    "kit/cmd/sfx.luau",
+    "src/kit/Sfx.luau",
+    "assets/sounds/<name>.json"
+  ],
+  "api": [
+    "AudioPlayer.Play",
+    "AudioEmitter.SetDistanceAttenuation",
+    "AudioReverb.DecayTime",
+    "SoundService.AcousticSimulationEnabled"
+  ],
+  "engine_caps": [
+    "A/V sync within 1 frame at 60 fps",
+    "an audio graph is wired with Wire instances"
+  ],
+  "failure_lexicon": {
+    "weak": "a carved transient over a harmonic body; loudness measured, not guessed",
+    "fake": "real recordings under the synthesis",
+    "late": "A/V within 1 frame of the hit"
+  },
+  "dsl": {
+    "av_tol_frames": 1
+  },
+  "tool_subject": "a sound",
+  "families_key": null
+}

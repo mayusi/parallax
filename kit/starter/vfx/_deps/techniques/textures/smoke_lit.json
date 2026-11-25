@@ -1,0 +1,40 @@
+{
+ "engine": "fx",
+ "recipe": "smoke_sim",
+ "frames": 64,
+ "grid": 8,
+ "cell": 128,
+ "samples": 24,
+ "seed": 7177,
+ "about": "a neutral rolling smoke puff (Mantaflow res 128, 64 frames 8x8) lit from the TOP - the sim whose bake its lit variants (smoke_lit_left / _right / _back) re-render with the key light moved; a sprite's `lit` table picks by where the world's sun is (board/plans/archive/aaa-vfx-research.md: sun-matched lighting)",
+ "params": {
+  "resolution": 128,
+  "bake_frames": 100,
+  "render_density": 12,
+  "velocity": 1.8,
+  "velocity_random": 0.45,
+  "inflow_until": 0.3,
+  "temperature": 1.8,
+  "buoyancy_heat": 1.4,
+  "vorticity": 0.8,
+  "dissolve": 50,
+  "frame": 5.0,
+  "domain": 5.0,
+  "emitter": 0.9,
+  "emitter_z": 0.15,
+  "key": 7.0,
+  "fill": 2.2,
+  "color": [
+   0.86,
+   0.85,
+   0.84
+  ],
+  "noise": 0.6,
+  "sheet_end": 0.9,
+  "light": "top"
+ },
+ "post": {
+  "alpha": "coverage",
+  "exposure": 1.2
+ }
+}

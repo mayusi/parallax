@@ -1,0 +1,19 @@
+{
+ "name": "RefsTooSmall",
+ "kind": "hud",
+ "quality": "hero",
+ "identity": "fx",
+ "focus": "Root.Go",
+ "root": {
+  "type": "panel",
+  "name": "Root",
+  "children": [
+   {
+    "type": "label",
+    "name": "Go",
+    "text": "GO",
+    "lettering": true
+   }
+  ]
+ }
+}

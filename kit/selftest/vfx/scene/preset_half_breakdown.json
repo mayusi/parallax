@@ -1,0 +1,355 @@
+{
+ "version": 3,
+ "duration": 3,
+ "about": "selftest: one valid layer of every kind \u00e2\u20ac\u201d the v3 gate must PASS this",
+ "palette": {
+  "gold": [
+   255,
+   200,
+   90
+  ]
+ },
+ "points": {
+  "muzzle": [
+   0,
+   4,
+   -3
+  ],
+  "far": [
+   0,
+   4,
+   -60
+  ]
+ },
+ "layers": [
+  {
+   "name": "flash",
+   "kind": "sprite",
+   "at": 0.1,
+   "point": "muzzle",
+   "texture": "sheet",
+   "count": 1,
+   "lifetime": 0.4,
+   "size": [
+    [
+     0,
+     4
+    ],
+    [
+     1,
+     9
+    ]
+   ],
+   "color": "gold",
+   "brightness": 12,
+   "lightEmission": -1,
+   "squash": [
+    [
+     0,
+     2
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 30,
+    "mode": "OneShot"
+   },
+   "twin": {
+    "color": [
+     0,
+     0,
+     0
+    ],
+    "brightness": 0.01,
+    "zOffset": -0.5,
+    "lifeScale": 1.1
+   }
+  },
+  {
+   "name": "motes",
+   "kind": "sprite",
+   "at": 0,
+   "rate": 40,
+   "for": 1,
+   "point": "@blade",
+   "texture": "glow",
+   "lifetime": [
+    0.4,
+    0.8
+   ],
+   "shape": {
+    "type": "Sphere",
+    "size": [
+     20,
+     20,
+     20
+    ],
+    "inOut": "Inward"
+   },
+   "speed": [
+    5,
+    10
+   ],
+   "rotate": [
+    0,
+    45,
+    0
+   ]
+  },
+  {
+   "name": "ground",
+   "kind": "sprite",
+   "at": 0.2,
+   "point": [
+    0,
+    0.3,
+    0
+   ],
+   "texture": "sheet",
+   "count": 1,
+   "lifetime": 0.6,
+   "orientation": "VelocityPerpendicular",
+   "speed": 0.001,
+   "direction": "Top",
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 26
+   }
+  },
+  {
+   "name": "line",
+   "kind": "beam",
+   "at": 0.3,
+   "life": 1,
+   "from": "muzzle",
+   "to": "target",
+   "texture": "glow",
+   "width": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "taper": [
+    0.6,
+    1.8
+   ],
+   "curve": [
+    2,
+    -2
+   ],
+   "jitter": 1,
+   "widthSpread": 0.4,
+   "growEase": "in",
+   "grow": 0.2,
+   "copies": 2
+  },
+  {
+   "name": "ring",
+   "kind": "mesh",
+   "at": 0.3,
+   "life": 0.6,
+   "shape": "tube",
+   "params": {
+    "radiusBottom": 1,
+    "radiusTop": 0.5,
+    "height": 1
+   },
+   "pivot": "base",
+   "aim": "far",
+   "scale": [
+    [
+     0,
+     [
+      1,
+      1,
+      1
+     ]
+    ],
+    [
+     1,
+     [
+      4,
+      40,
+      4
+     ]
+    ]
+   ],
+   "uvScroll": [
+    0,
+    -1
+   ],
+   "material": "ForceField",
+   "texture": "glow"
+  },
+  {
+   "name": "mark",
+   "kind": "decal",
+   "at": 0.4,
+   "life": 2,
+   "texture": "glow",
+   "size": [
+    10,
+    1,
+    10
+   ],
+   "glow": [
+    [
+     0,
+     4
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "rotate": [
+    0,
+    30,
+    0
+   ]
+  },
+  {
+   "name": "light",
+   "kind": "light",
+   "at": 0,
+   "life": 1,
+   "point": "muzzle",
+   "range": 30,
+   "brightness": [
+    [
+     0,
+     6
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "color": "gold"
+  },
+  {
+   "name": "rocks",
+   "kind": "debris",
+   "at": 0.4,
+   "life": 2,
+   "count": 6,
+   "speed": 40,
+   "size": [
+    0.5,
+    1.5
+   ],
+   "spread": 40,
+   "material": "Basalt"
+  },
+  {
+   "name": "flood",
+   "kind": "screen",
+   "at": 0.3,
+   "life": 0.5,
+   "brightness": [
+    [
+     0,
+     0.3
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "bloom": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "tint": "gold"
+  },
+  {
+   "name": "frame",
+   "kind": "impact",
+   "at": 0.3,
+   "life": 0.05,
+   "mode": "mono"
+  },
+  {
+   "name": "shake",
+   "kind": "shake",
+   "at": 0.3,
+   "life": 1,
+   "amplitude": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     0
+    ]
+   ]
+  },
+  {
+   "name": "punch",
+   "kind": "fov",
+   "at": 0.3,
+   "life": 0.6,
+   "delta": [
+    [
+     0,
+     0
+    ],
+    [
+     0.2,
+     6
+    ],
+    [
+     1,
+     0
+    ]
+   ]
+  },
+  {
+   "name": "boom",
+   "kind": "sound",
+   "at": 0.3,
+   "sound": "explosion_big"
+  },
+  {
+   "name": "blade",
+   "kind": "glow",
+   "at": 0,
+   "life": 1,
+   "target": "@blade",
+   "color": [
+    [
+     0,
+     "gold"
+    ],
+    [
+     1,
+     [
+      255,
+      255,
+      255
+     ]
+    ]
+   ],
+   "material": "Neon"
+  }
+ ],
+ "scene": {
+  "set": "half_set"
+ }
+}

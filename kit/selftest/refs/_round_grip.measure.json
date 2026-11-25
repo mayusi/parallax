@@ -1,0 +1,542 @@
+{
+ "name": "_round_grip",
+ "source": "kit/selftest/refs/_round_grip.glb",
+ "size_mm": [
+  30.0,
+  115.0,
+  200.0
+ ],
+ "scaled_by": 0.01,
+ "front_was": "max",
+ "frame": null,
+ "dropped": [],
+ "parts": [
+  {
+   "name": "Body",
+   "size_mm": [
+    30.0,
+    35.0,
+    200.0
+   ],
+   "centre_mm": [
+    0.0,
+    97.5,
+    100.0
+   ]
+  },
+  {
+   "name": "Grip",
+   "size_mm": [
+    30.0,
+    80.0,
+    50.0
+   ],
+   "centre_mm": [
+    0.0,
+    40.0,
+    35.0
+   ]
+  }
+ ],
+ "axes": {
+  "length": "x",
+  "width": "y",
+  "height": "z"
+ },
+ "stations": [
+  {
+   "u": 0.0208,
+   "rx_mm": 15.0,
+   "ry_mm": 17.5,
+   "off_mm": [
+    0.0,
+    97.5
+   ],
+   "fill": 1.0,
+   "squareness": 17.4
+  },
+  {
+   "u": 0.0625,
+   "rx_mm": 15.0,
+   "ry_mm": 57.5,
+   "off_mm": [
+    0.0,
+    57.5
+   ],
+   "fill": 0.803,
+   "squareness": 2.12
+  },
+  {
+   "u": 0.1042,
+   "rx_mm": 15.0,
+   "ry_mm": 57.5,
+   "off_mm": [
+    0.0,
+    57.5
+   ],
+   "fill": 0.939,
+   "squareness": 4.43
+  },
+  {
+   "u": 0.1458,
+   "rx_mm": 15.0,
+   "ry_mm": 57.5,
+   "off_mm": [
+    0.0,
+    57.5
+   ],
+   "fill": 0.99,
+   "squareness": 12.08
+  },
+  {
+   "u": 0.1875,
+   "rx_mm": 15.0,
+   "ry_mm": 57.5,
+   "off_mm": [
+    0.0,
+    57.5
+   ],
+   "fill": 0.998,
+   "squareness": 17.4
+  },
+  {
+   "u": 0.2292,
+   "rx_mm": 15.0,
+   "ry_mm": 57.5,
+   "off_mm": [
+    0.0,
+    57.5
+   ],
+   "fill": 0.965,
+   "squareness": 6.13
+  },
+  {
+   "u": 0.2708,
+   "rx_mm": 15.0,
+   "ry_mm": 57.5,
+   "off_mm": [
+    0.0,
+    57.5
+   ],
+   "fill": 0.875,
+   "squareness": 2.88
+  },
+  {
+   "u": 0.3125,
+   "rx_mm": 15.0,
+   "ry_mm": 17.5,
+   "off_mm": [
+    0.0,
+    97.5
+   ],
+   "fill": 1.0,
+   "squareness": 17.4
+  },
+  {
+   "u": 0.3542,
+   "rx_mm": 15.0,
+   "ry_mm": 17.5,
+   "off_mm": [
+    0.0,
+    97.5
+   ],
+   "fill": 1.0,
+   "squareness": 17.4
+  },
+  {
+   "u": 0.3958,
+   "rx_mm": 15.0,
+   "ry_mm": 17.5,
+   "off_mm": [
+    0.0,
+    97.5
+   ],
+   "fill": 1.0,
+   "squareness": 17.4
+  },
+  {
+   "u": 0.4375,
+   "rx_mm": 15.0,
+   "ry_mm": 17.5,
+   "off_mm": [
+    0.0,
+    97.5
+   ],
+   "fill": 1.0,
+   "squareness": 17.4
+  },
+  {
+   "u": 0.4792,
+   "rx_mm": 15.0,
+   "ry_mm": 17.5,
+   "off_mm": [
+    0.0,
+    97.5
+   ],
+   "fill": 1.0,
+   "squareness": 17.4
+  },
+  {
+   "u": 0.5208,
+   "rx_mm": 15.0,
+   "ry_mm": 17.5,
+   "off_mm": [
+    0.0,
+    97.5
+   ],
+   "fill": 1.0,
+   "squareness": 17.4
+  },
+  {
+   "u": 0.5625,
+   "rx_mm": 15.0,
+   "ry_mm": 17.5,
+   "off_mm": [
+    0.0,
+    97.5
+   ],
+   "fill": 1.0,
+   "squareness": 17.4
+  },
+  {
+   "u": 0.6042,
+   "rx_mm": 15.0,
+   "ry_mm": 17.5,
+   "off_mm": [
+    0.0,
+    97.5
+   ],
+   "fill": 1.0,
+   "squareness": 17.4
+  },
+  {
+   "u": 0.6458,
+   "rx_mm": 15.0,
+   "ry_mm": 17.5,
+   "off_mm": [
+    0.0,
+    97.5
+   ],
+   "fill": 1.0,
+   "squareness": 17.4
+  },
+  {
+   "u": 0.6875,
+   "rx_mm": 15.0,
+   "ry_mm": 17.5,
+   "off_mm": [
+    0.0,
+    97.5
+   ],
+   "fill": 1.0,
+   "squareness": 17.4
+  },
+  {
+   "u": 0.7292,
+   "rx_mm": 15.0,
+   "ry_mm": 17.5,
+   "off_mm": [
+    0.0,
+    97.5
+   ],
+   "fill": 1.0,
+   "squareness": 17.4
+  },
+  {
+   "u": 0.7708,
+   "rx_mm": 15.0,
+   "ry_mm": 17.5,
+   "off_mm": [
+    0.0,
+    97.5
+   ],
+   "fill": 1.0,
+   "squareness": 17.4
+  },
+  {
+   "u": 0.8125,
+   "rx_mm": 15.0,
+   "ry_mm": 17.5,
+   "off_mm": [
+    0.0,
+    97.5
+   ],
+   "fill": 1.0,
+   "squareness": 17.4
+  },
+  {
+   "u": 0.8542,
+   "rx_mm": 15.0,
+   "ry_mm": 17.5,
+   "off_mm": [
+    0.0,
+    97.5
+   ],
+   "fill": 1.0,
+   "squareness": 17.4
+  },
+  {
+   "u": 0.8958,
+   "rx_mm": 15.0,
+   "ry_mm": 17.5,
+   "off_mm": [
+    0.0,
+    97.5
+   ],
+   "fill": 1.0,
+   "squareness": 17.4
+  },
+  {
+   "u": 0.9375,
+   "rx_mm": 15.0,
+   "ry_mm": 17.5,
+   "off_mm": [
+    0.0,
+    97.5
+   ],
+   "fill": 1.0,
+   "squareness": 17.4
+  },
+  {
+   "u": 0.9792,
+   "rx_mm": 15.0,
+   "ry_mm": 17.5,
+   "off_mm": [
+    0.0,
+    97.5
+   ],
+   "fill": 1.0,
+   "squareness": 17.4
+  }
+ ],
+ "levels": [
+  {
+   "h": 0.05,
+   "width_mm": 30.0,
+   "depth_mm": 50.0,
+   "fill": 0.784,
+   "squareness": 1.99,
+   "centre_mm": [
+    0.0,
+    35.0
+   ]
+  },
+  {
+   "h": 0.1,
+   "width_mm": 30.0,
+   "depth_mm": 50.0,
+   "fill": 0.784,
+   "squareness": 1.99,
+   "centre_mm": [
+    0.0,
+    35.0
+   ]
+  },
+  {
+   "h": 0.15,
+   "width_mm": 30.0,
+   "depth_mm": 50.0,
+   "fill": 0.784,
+   "squareness": 1.99,
+   "centre_mm": [
+    0.0,
+    35.0
+   ]
+  },
+  {
+   "h": 0.2,
+   "width_mm": 30.0,
+   "depth_mm": 50.0,
+   "fill": 0.784,
+   "squareness": 1.99,
+   "centre_mm": [
+    0.0,
+    35.0
+   ]
+  },
+  {
+   "h": 0.25,
+   "width_mm": 30.0,
+   "depth_mm": 50.0,
+   "fill": 0.784,
+   "squareness": 1.99,
+   "centre_mm": [
+    0.0,
+    35.0
+   ]
+  },
+  {
+   "h": 0.3,
+   "width_mm": 30.0,
+   "depth_mm": 50.0,
+   "fill": 0.784,
+   "squareness": 1.99,
+   "centre_mm": [
+    0.0,
+    35.0
+   ]
+  },
+  {
+   "h": 0.35,
+   "width_mm": 30.0,
+   "depth_mm": 50.0,
+   "fill": 0.784,
+   "squareness": 1.99,
+   "centre_mm": [
+    0.0,
+    35.0
+   ]
+  },
+  {
+   "h": 0.4,
+   "width_mm": 30.0,
+   "depth_mm": 50.0,
+   "fill": 0.784,
+   "squareness": 1.99,
+   "centre_mm": [
+    0.0,
+    35.0
+   ]
+  },
+  {
+   "h": 0.45,
+   "width_mm": 30.0,
+   "depth_mm": 50.0,
+   "fill": 0.784,
+   "squareness": 1.99,
+   "centre_mm": [
+    0.0,
+    35.0
+   ]
+  },
+  {
+   "h": 0.5,
+   "width_mm": 30.0,
+   "depth_mm": 50.0,
+   "fill": 0.784,
+   "squareness": 1.99,
+   "centre_mm": [
+    0.0,
+    35.0
+   ]
+  },
+  {
+   "h": 0.55,
+   "width_mm": 30.0,
+   "depth_mm": 50.0,
+   "fill": 0.784,
+   "squareness": 1.99,
+   "centre_mm": [
+    0.0,
+    35.0
+   ]
+  },
+  {
+   "h": 0.6,
+   "width_mm": 30.0,
+   "depth_mm": 50.0,
+   "fill": 0.784,
+   "squareness": 1.99,
+   "centre_mm": [
+    0.0,
+    35.0
+   ]
+  },
+  {
+   "h": 0.65,
+   "width_mm": 30.0,
+   "depth_mm": 50.0,
+   "fill": 0.784,
+   "squareness": 1.99,
+   "centre_mm": [
+    0.0,
+    35.0
+   ]
+  },
+  {
+   "h": 0.7,
+   "width_mm": 30.0,
+   "depth_mm": 200.0,
+   "fill": 1.0,
+   "squareness": 17.4,
+   "centre_mm": [
+    0.0,
+    100.0
+   ]
+  },
+  {
+   "h": 0.75,
+   "width_mm": 30.0,
+   "depth_mm": 200.0,
+   "fill": 1.0,
+   "squareness": 17.4,
+   "centre_mm": [
+    0.0,
+    100.0
+   ]
+  },
+  {
+   "h": 0.8,
+   "width_mm": 30.0,
+   "depth_mm": 200.0,
+   "fill": 1.0,
+   "squareness": 17.4,
+   "centre_mm": [
+    0.0,
+    100.0
+   ]
+  },
+  {
+   "h": 0.85,
+   "width_mm": 30.0,
+   "depth_mm": 200.0,
+   "fill": 1.0,
+   "squareness": 17.4,
+   "centre_mm": [
+    0.0,
+    100.0
+   ]
+  },
+  {
+   "h": 0.9,
+   "width_mm": 30.0,
+   "depth_mm": 200.0,
+   "fill": 1.0,
+   "squareness": 17.4,
+   "centre_mm": [
+    0.0,
+    100.0
+   ]
+  },
+  {
+   "h": 0.95,
+   "width_mm": 30.0,
+   "depth_mm": 200.0,
+   "fill": 1.0,
+   "squareness": 17.4,
+   "centre_mm": [
+    0.0,
+    100.0
+   ]
+  }
+ ],
+ "masks": {
+  "side": "build/refs/_round_grip_side_mask.png",
+  "front": "build/refs/_round_grip_front_mask.png",
+  "top": "build/refs/_round_grip_top_mask.png"
+ },
+ "views": {
+  "side": [
+   "+length",
+   "+height"
+  ],
+  "front": [
+   "width, seen from the front",
+   "+height"
+  ],
+  "top": [
+   "width",
+   "toward the BACK (the front is down)"
+  ]
+ }
+}

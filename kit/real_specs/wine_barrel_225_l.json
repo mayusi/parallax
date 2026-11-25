@@ -1,0 +1,54 @@
+[
+ {
+  "object": "wine barrel 225 l",
+  "part": "overall",
+  "dim": "height",
+  "value": 890.0,
+  "unit": "mm",
+  "source": "https://blog.worldcooperage.com/barrel-dimensions/",
+  "kind": "published",
+  "note": "",
+  "trust": "high",
+  "id": "4f16e1a4",
+  "added": "2026-10-16"
+ },
+ {
+  "object": "wine barrel 225 l",
+  "part": "belly",
+  "dim": "diameter",
+  "value": 710.0,
+  "unit": "mm",
+  "source": "https://blog.worldcooperage.com/barrel-dimensions/",
+  "kind": "published",
+  "note": "",
+  "trust": "high",
+  "id": "902aa55f",
+  "added": "2026-10-16"
+ },
+ {
+  "object": "wine barrel 225 l",
+  "part": "head",
+  "dim": "diameter",
+  "value": 580.0,
+  "unit": "mm",
+  "source": "https://blog.worldcooperage.com/barrel-dimensions/",
+  "kind": "published",
+  "note": "",
+  "trust": "high",
+  "id": "46e7f1ab",
+  "added": "2026-10-16"
+ },
+ {
+  "object": "wine barrel 225 l",
+  "part": "overall",
+  "dim": "height",
+  "value": 860.0,
+  "unit": "mm",
+  "source": "https://en.lespassionnesduvin.com/tonneau-vide-aspect-vieilli-pour-cave-ou-decoration-exterieure.html",
+  "kind": "published",
+  "note": "",
+  "trust": "high",
+  "id": "5d0e84c6",
+  "added": "2026-10-16"
+ }
+]

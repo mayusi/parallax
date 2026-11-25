@@ -1,0 +1,28 @@
+{
+ "duration": 2.0,
+ "layers": [
+  {
+   "source": "square",
+   "freq": [
+    600,
+    900
+   ],
+   "repeat": [
+    4,
+    0.5
+   ],
+   "length": 0.42,
+   "filter": {
+    "type": "lowpass",
+    "cutoff": 3000
+   },
+   "env": {
+    "attack": 0.01,
+    "hold": 0.0,
+    "decay": 0.1,
+    "sustain": 0.8,
+    "release": 0.05
+   }
+  }
+ ]
+}

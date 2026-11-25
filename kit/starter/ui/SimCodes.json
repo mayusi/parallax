@@ -1,0 +1,81 @@
+{
+ "name": "SimCodes",
+ "identity": "sim",
+ "quality": "hero",
+ "focus": "Codes.Card.Title.Txt",
+ "kind": "menu",
+ "enabled": false,
+ "insets": "none",
+ "scale": { "phone": 0.55, "tablet": 0.8 },
+ "root": {
+  "type": "panel",
+  "name": "Codes",
+  "size": ["100%", "100%"],
+  "color": "bg",
+  "transparency": 0.4,
+  "children": [
+   {
+    "type": "panel", "name": "Card", "plate": "bubble_panel", "shadow": 10, "size": [820, 600], "pos": ["50%", "52%"], "anchor": "center",
+    "motion": { "enter": { "type": "bounce", "duration": 0.6 }, "stagger": 0.06 },
+    "children": [
+     {
+      "type": "panel", "name": "Title", "plate": "banner_accent", "shadow": true, "size": [420, 92], "pos": ["50%", -36], "anchor": "top", "z": 3,
+      "motion": { "enter": { "type": "drop", "delay": 0.15, "duration": 0.5, "ease": "back" } },
+      "children": [
+       { "type": "image", "name": "Icon", "image": "art:sim/icon_gift", "fit": "fit", "size": [84, 84], "pos": [10, "50%-6"], "anchor": "left", "z": 4, "motion": { "loop": { "type": "wobble", "speed": 0.6 } } },
+       {"type": "label", "name": "Txt", "text": "CODES", "size": [280, 62], "pos": [104, "50%-5"], "anchor": "left", "lettering": {"size": 71}}
+      ]
+     },
+     { "type": "imagebutton", "name": "Close", "plate": "close", "size": [72, 72], "pos": ["100%-6", -6], "anchor": "topright", "z": 4,
+       "motion": { "enter": { "type": "pop", "delay": 0.3 }, "hover": "grow", "press": "sink" } },
+
+     { "type": "label", "name": "Pitch", "text": "Codes give FREE coins, gems and boosts!", "role": "body", "textSize": 26, "textColor": "textDark", "size": ["100%-80", 34], "pos": ["50%", 76], "anchor": "top", "motion": { "enter": "fade" } },
+
+     {
+      "type": "panel", "name": "Field", "plate": "pill_panel", "shadow": true, "size": [620, 96], "pos": ["50%", 128], "anchor": "top",
+      "motion": { "enter": { "type": "bounce", "delay": 0.2 } },
+      "children": [
+       { "type": "image", "name": "Icon", "image": "art:sim/icon_star", "fit": "fit", "size": [60, 60], "pos": [20, "50%"], "anchor": "left", "z": 3 },
+       { "type": "input", "name": "Code", "placeholder": "ENTER CODE...", "role": "heading", "textSize": 32, "textColor": "textDark", "transparency": 1,
+         "size": ["100%-110", 60], "pos": [90, "50%"], "anchor": "left", "align": "left" }
+      ]
+     },
+
+     { "type": "button", "name": "Redeem", "text": "REDEEM", "plate": "pill_good", "shadow": true, "role": "heading", "textSize": 36, "textColor": "text", "textOutline": "line", "textOutlineWidth": 5,
+       "size": [440, 90], "pos": ["50%", 244], "anchor": "top",
+       "motion": { "enter": { "type": "bounce", "delay": 0.3 }, "hover": "grow", "press": "sink", "loop": { "type": "pulse", "speed": 0.7 } } },
+
+     { "type": "label", "name": "Used", "text": "REDEEMED", "role": "heading", "textSize": 20, "textColor": "textDark", "size": ["100%-80", 26], "pos": ["50%", 356], "anchor": "top", "align": "left", "motion": { "enter": "fade" } },
+     {
+      "type": "panel", "name": "History", "size": ["100%-80", 60], "pos": ["50%", 386], "anchor": "top",
+      "layout": { "dir": "horizontal", "gap": 12, "align": "center", "justify": "start" },
+      "motion": { "stagger": 0.05 },
+      "children": [
+       { "type": "panel", "name": "H1", "plate": "pill_panel", "shadow": true, "size": [190, 54], "motion": { "enter": "bounce" },
+         "children": [
+          { "type": "plate", "name": "Ok", "plate": "check", "size": [40, 40], "pos": [8, "50%"], "anchor": "left", "z": 3 },
+          { "type": "label", "name": "Txt", "text": "LAUNCH", "role": "heading", "textSize": 20, "textColor": "textDark", "size": [120, 30], "pos": [56, "50%"], "anchor": "left", "align": "left" } ] },
+       { "type": "panel", "name": "H2", "plate": "pill_panel", "shadow": true, "size": [200, 54], "motion": { "enter": "bounce" },
+         "children": [
+          { "type": "plate", "name": "Ok", "plate": "check", "size": [40, 40], "pos": [8, "50%"], "anchor": "left", "z": 3 },
+          { "type": "label", "name": "Txt", "text": "10KLIKES", "role": "heading", "textSize": 20, "textColor": "textDark", "size": [130, 30], "pos": [56, "50%"], "anchor": "left", "align": "left" } ] },
+       { "type": "panel", "name": "H3", "plate": "pill_panel", "shadow": true, "size": [190, 54], "motion": { "enter": "bounce" },
+         "children": [
+          { "type": "plate", "name": "Ok", "plate": "check", "size": [40, 40], "pos": [8, "50%"], "anchor": "left", "z": 3 },
+          { "type": "label", "name": "Txt", "text": "SUMMER", "role": "heading", "textSize": 20, "textColor": "textDark", "size": [120, 30], "pos": [56, "50%"], "anchor": "left", "align": "left" } ] }
+      ]
+     },
+
+     {
+      "type": "panel", "name": "Hint", "plate": "pill_focus", "shadow": true, "size": ["100%-80", 72], "pos": ["50%", "100%-24"], "anchor": "bottom",
+      "motion": { "enter": { "type": "rise", "delay": 0.5 } },
+      "children": [
+       { "type": "image", "name": "Icon", "image": "art:sim/icon_trophy", "fit": "fit", "size": [68, 68], "pos": [-8, "50%"], "anchor": "left", "z": 3 },
+       { "type": "label", "name": "Txt", "text": "New codes drop in the Clicker Kingdom group — join for a FREE pet!", "role": "heading", "textSize": 22, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": ["100%-80", 52], "pos": [66, "50%"], "anchor": "left", "align": "left" }
+      ]
+     }
+    ]
+   }
+  ]
+ }
+}

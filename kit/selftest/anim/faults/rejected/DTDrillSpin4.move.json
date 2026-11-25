@@ -1,0 +1,2134 @@
+{
+ "name": "DTDrillSpin4",
+ "kind": "strike",
+ "dossier": "spin_drill",
+ "fps": 60,
+ "priority": "Action",
+ "loop": false,
+ "lag": 0.012,
+ "inertia": 0.01,
+ "arm_slide": 2.4,
+ "leg_slide": 1.3,
+ "pelvis_drop_max": 0.3,
+ "arm_twist_rate": 20,
+ "sword": {
+  "length": 5.4065,
+  "grip": 0.75,
+  "kind": "greatsword"
+ },
+ "feel": {
+  "hitstop": 0.08,
+  "impact_frames": 1,
+  "camera_shake": 0.45
+ },
+ "beats": {
+  "entry": [
+   0.0,
+   0.3
+  ],
+  "spin": [
+   0.3,
+   1.42
+  ],
+  "whip": [
+   1.42,
+   1.52
+  ],
+  "stop": [
+   1.52,
+   1.82
+  ],
+  "form": [
+   1.82,
+   2.14
+  ]
+ },
+ "keys": [
+  {
+   "t": 0.0,
+   "grip": [
+    1.393,
+    -0.75,
+    -0.062
+   ],
+   "dir": [
+    0.201,
+    -0.322,
+    0.925
+   ],
+   "yaw": -12,
+   "pitch": 0.0,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.15,
+    0
+   ],
+   "look_yaw": 0.0,
+   "look_pitch": 0.0,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -1.55,
+    -1.25,
+    -0.2
+   ],
+   "ease": "InOut"
+  },
+  {
+   "t": 0.15,
+   "grip": [
+    2.303,
+    1.142,
+    -0.879
+   ],
+   "dir": [
+    0.5,
+    0.82,
+    -0.28
+   ],
+   "yaw": -18,
+   "pitch": -4,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.3,
+    0
+   ],
+   "look_yaw": -3.6,
+   "look_pitch": 0.0,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -1.8,
+    0.15,
+    -0.55
+   ],
+   "ease": "InOut"
+  },
+  {
+   "t": 0.3,
+   "grip": [
+    1.244,
+    0.688,
+    -1.83
+   ],
+   "dir": [
+    0.234,
+    -0.646,
+    -0.727
+   ],
+   "yaw": -12,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": 0.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "In"
+  },
+  {
+   "t": 0.3233,
+   "grip": [
+    1.84,
+    0.888,
+    -1.028
+   ],
+   "dir": [
+    0.634,
+    -0.589,
+    -0.501
+   ],
+   "yaw": -42.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -18.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.3467,
+   "grip": [
+    1.942,
+    1.133,
+    -0.045
+   ],
+   "dir": [
+    0.863,
+    -0.492,
+    -0.112
+   ],
+   "yaw": -72.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -36.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.37,
+   "grip": [
+    1.525,
+    1.358,
+    0.856
+   ],
+   "dir": [
+    0.861,
+    -0.381,
+    0.336
+   ],
+   "yaw": -102.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -54.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.3933,
+   "grip": [
+    0.698,
+    1.502,
+    1.434
+   ],
+   "dir": [
+    0.629,
+    -0.284,
+    0.724
+   ],
+   "yaw": -132.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -72.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.4167,
+   "grip": [
+    -0.315,
+    1.527,
+    1.534
+   ],
+   "dir": [
+    0.228,
+    -0.228,
+    0.947
+   ],
+   "yaw": -162.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -90.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.44,
+   "grip": [
+    -1.244,
+    1.426,
+    1.129
+   ],
+   "dir": [
+    -0.234,
+    -0.229,
+    0.945
+   ],
+   "yaw": -192.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -108.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.4633,
+   "grip": [
+    -1.84,
+    1.226,
+    0.327
+   ],
+   "dir": [
+    -0.634,
+    -0.285,
+    0.719
+   ],
+   "yaw": -222.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -126.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.4867,
+   "grip": [
+    -1.942,
+    0.981,
+    -0.657
+   ],
+   "dir": [
+    -0.863,
+    -0.382,
+    0.33
+   ],
+   "yaw": -252.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -144.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.51,
+   "grip": [
+    -1.525,
+    0.756,
+    -1.558
+   ],
+   "dir": [
+    -0.861,
+    -0.494,
+    -0.118
+   ],
+   "yaw": -282.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -162.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.5333,
+   "grip": [
+    -0.698,
+    0.612,
+    -2.136
+   ],
+   "dir": [
+    -0.629,
+    -0.591,
+    -0.506
+   ],
+   "yaw": -312.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -180.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.5567,
+   "grip": [
+    0.315,
+    0.587,
+    -2.236
+   ],
+   "dir": [
+    -0.228,
+    -0.646,
+    -0.728
+   ],
+   "yaw": -342.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -198.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.58,
+   "grip": [
+    1.244,
+    0.688,
+    -1.83
+   ],
+   "dir": [
+    0.234,
+    -0.646,
+    -0.727
+   ],
+   "yaw": -372.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -216.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.6033,
+   "grip": [
+    1.84,
+    0.888,
+    -1.028
+   ],
+   "dir": [
+    0.634,
+    -0.589,
+    -0.501
+   ],
+   "yaw": -402.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -234.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.6267,
+   "grip": [
+    1.942,
+    1.133,
+    -0.045
+   ],
+   "dir": [
+    0.863,
+    -0.492,
+    -0.112
+   ],
+   "yaw": -432.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -252.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.65,
+   "grip": [
+    1.525,
+    1.358,
+    0.856
+   ],
+   "dir": [
+    0.861,
+    -0.381,
+    0.336
+   ],
+   "yaw": -462.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -270.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.6733,
+   "grip": [
+    0.698,
+    1.502,
+    1.434
+   ],
+   "dir": [
+    0.629,
+    -0.284,
+    0.724
+   ],
+   "yaw": -492.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -288.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.6967,
+   "grip": [
+    -0.315,
+    1.527,
+    1.534
+   ],
+   "dir": [
+    0.228,
+    -0.228,
+    0.947
+   ],
+   "yaw": -522.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -306.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.72,
+   "grip": [
+    -1.244,
+    1.426,
+    1.129
+   ],
+   "dir": [
+    -0.234,
+    -0.229,
+    0.945
+   ],
+   "yaw": -552.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -324.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.7433,
+   "grip": [
+    -1.84,
+    1.226,
+    0.327
+   ],
+   "dir": [
+    -0.634,
+    -0.285,
+    0.719
+   ],
+   "yaw": -582.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -342.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.7667,
+   "grip": [
+    -1.942,
+    0.981,
+    -0.657
+   ],
+   "dir": [
+    -0.863,
+    -0.382,
+    0.33
+   ],
+   "yaw": -612.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -360.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.79,
+   "grip": [
+    -1.525,
+    0.756,
+    -1.558
+   ],
+   "dir": [
+    -0.861,
+    -0.494,
+    -0.118
+   ],
+   "yaw": -642.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -378.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.8133,
+   "grip": [
+    -0.698,
+    0.612,
+    -2.136
+   ],
+   "dir": [
+    -0.629,
+    -0.591,
+    -0.506
+   ],
+   "yaw": -672.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -396.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.8367,
+   "grip": [
+    0.315,
+    0.587,
+    -2.236
+   ],
+   "dir": [
+    -0.228,
+    -0.646,
+    -0.728
+   ],
+   "yaw": -702.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -414.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.86,
+   "grip": [
+    1.244,
+    0.688,
+    -1.83
+   ],
+   "dir": [
+    0.234,
+    -0.646,
+    -0.727
+   ],
+   "yaw": -732.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -432.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.8833,
+   "grip": [
+    1.84,
+    0.888,
+    -1.028
+   ],
+   "dir": [
+    0.634,
+    -0.589,
+    -0.501
+   ],
+   "yaw": -762.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -450.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.9067,
+   "grip": [
+    1.942,
+    1.133,
+    -0.045
+   ],
+   "dir": [
+    0.863,
+    -0.492,
+    -0.112
+   ],
+   "yaw": -792.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -468.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.93,
+   "grip": [
+    1.525,
+    1.358,
+    0.856
+   ],
+   "dir": [
+    0.861,
+    -0.381,
+    0.336
+   ],
+   "yaw": -822.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -486.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.9533,
+   "grip": [
+    0.698,
+    1.502,
+    1.434
+   ],
+   "dir": [
+    0.629,
+    -0.284,
+    0.724
+   ],
+   "yaw": -852.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -504.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 0.9767,
+   "grip": [
+    -0.315,
+    1.527,
+    1.534
+   ],
+   "dir": [
+    0.228,
+    -0.228,
+    0.947
+   ],
+   "yaw": -882.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -522.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 1.0,
+   "grip": [
+    -1.244,
+    1.426,
+    1.129
+   ],
+   "dir": [
+    -0.234,
+    -0.229,
+    0.945
+   ],
+   "yaw": -912.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -540.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 1.0233,
+   "grip": [
+    -1.84,
+    1.226,
+    0.327
+   ],
+   "dir": [
+    -0.634,
+    -0.285,
+    0.719
+   ],
+   "yaw": -942.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -558.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 1.0467,
+   "grip": [
+    -1.942,
+    0.981,
+    -0.657
+   ],
+   "dir": [
+    -0.863,
+    -0.382,
+    0.33
+   ],
+   "yaw": -972.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -576.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 1.07,
+   "grip": [
+    -1.525,
+    0.756,
+    -1.558
+   ],
+   "dir": [
+    -0.861,
+    -0.494,
+    -0.118
+   ],
+   "yaw": -1002.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -594.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 1.0933,
+   "grip": [
+    -0.698,
+    0.612,
+    -2.136
+   ],
+   "dir": [
+    -0.629,
+    -0.591,
+    -0.506
+   ],
+   "yaw": -1032.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -612.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 1.1167,
+   "grip": [
+    0.315,
+    0.587,
+    -2.236
+   ],
+   "dir": [
+    -0.228,
+    -0.646,
+    -0.728
+   ],
+   "yaw": -1062.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -630.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 1.14,
+   "grip": [
+    1.244,
+    0.688,
+    -1.83
+   ],
+   "dir": [
+    0.234,
+    -0.646,
+    -0.727
+   ],
+   "yaw": -1092.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -648.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 1.1633,
+   "grip": [
+    1.84,
+    0.888,
+    -1.028
+   ],
+   "dir": [
+    0.634,
+    -0.589,
+    -0.501
+   ],
+   "yaw": -1122.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -666.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 1.1867,
+   "grip": [
+    1.942,
+    1.133,
+    -0.045
+   ],
+   "dir": [
+    0.863,
+    -0.492,
+    -0.112
+   ],
+   "yaw": -1152.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -684.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 1.21,
+   "grip": [
+    1.525,
+    1.358,
+    0.856
+   ],
+   "dir": [
+    0.861,
+    -0.381,
+    0.336
+   ],
+   "yaw": -1182.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -702.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 1.2333,
+   "grip": [
+    0.698,
+    1.502,
+    1.434
+   ],
+   "dir": [
+    0.629,
+    -0.284,
+    0.724
+   ],
+   "yaw": -1212.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -720.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 1.2567,
+   "grip": [
+    -0.315,
+    1.527,
+    1.534
+   ],
+   "dir": [
+    0.228,
+    -0.228,
+    0.947
+   ],
+   "yaw": -1242.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -738.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 1.28,
+   "grip": [
+    -1.244,
+    1.426,
+    1.129
+   ],
+   "dir": [
+    -0.234,
+    -0.229,
+    0.945
+   ],
+   "yaw": -1272.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -756.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 1.3033,
+   "grip": [
+    -1.84,
+    1.226,
+    0.327
+   ],
+   "dir": [
+    -0.634,
+    -0.285,
+    0.719
+   ],
+   "yaw": -1302.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -774.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 1.3267,
+   "grip": [
+    -1.942,
+    0.981,
+    -0.657
+   ],
+   "dir": [
+    -0.863,
+    -0.382,
+    0.33
+   ],
+   "yaw": -1332.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -792.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 1.35,
+   "grip": [
+    -1.525,
+    0.756,
+    -1.558
+   ],
+   "dir": [
+    -0.861,
+    -0.494,
+    -0.118
+   ],
+   "yaw": -1362.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -810.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 1.3733,
+   "grip": [
+    -0.698,
+    0.612,
+    -2.136
+   ],
+   "dir": [
+    -0.629,
+    -0.591,
+    -0.506
+   ],
+   "yaw": -1392.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -828.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 1.3967,
+   "grip": [
+    0.315,
+    0.587,
+    -2.236
+   ],
+   "dir": [
+    -0.228,
+    -0.646,
+    -0.728
+   ],
+   "yaw": -1422.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -846.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 1.42,
+   "grip": [
+    1.244,
+    0.688,
+    -1.83
+   ],
+   "dir": [
+    0.234,
+    -0.646,
+    -0.727
+   ],
+   "yaw": -1452.0,
+   "pitch": -14,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -864.0,
+   "look_pitch": 8,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -2.15,
+    0.3,
+    -0.05
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 1.47,
+   "grip": [
+    1.828,
+    0.525,
+    -1.243
+   ],
+   "dir": [
+    0.741,
+    -0.5,
+    -0.448
+   ],
+   "yaw": -1452,
+   "pitch": -6,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.35,
+    0
+   ],
+   "look_yaw": -864.0,
+   "look_pitch": 5,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -1.75,
+    -0.1,
+    -0.2
+   ],
+   "ease": "Linear"
+  },
+  {
+   "t": 1.52,
+   "grip": [
+    1.962,
+    1.44,
+    -0.205
+   ],
+   "dir": [
+    0.199,
+    -0.677,
+    0.709
+   ],
+   "yaw": -1452,
+   "pitch": -4,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.15,
+    0
+   ],
+   "look_yaw": -864.0,
+   "look_pitch": 4,
+   "weight": "right",
+   "arms": "one_hand",
+   "lhand": [
+    -1.7,
+    -0.4,
+    -0.3
+   ],
+   "ease": "Out"
+  },
+  {
+   "t": 1.82,
+   "grip": [
+    1.962,
+    1.44,
+    -0.205
+   ],
+   "dir": [
+    0.199,
+    -0.677,
+    0.709
+   ],
+   "yaw": -1452,
+   "pitch": -4,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.15,
+    0
+   ],
+   "look_yaw": -864.0,
+   "look_pitch": 4,
+   "weight": "right",
+   "arms": "one_hand",
+   "lhand": [
+    -1.7,
+    -0.42,
+    -0.3
+   ],
+   "ease": "InOut"
+  },
+  {
+   "t": 1.98,
+   "grip": [
+    1.868,
+    -0.619,
+    -0.331
+   ],
+   "dir": [
+    0.401,
+    -0.25,
+    0.881
+   ],
+   "yaw": -1452,
+   "pitch": -8,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.32,
+    0
+   ],
+   "look_yaw": -864.0,
+   "look_pitch": 0.0,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -1.75,
+    -0.8,
+    -0.4
+   ],
+   "ease": "InOut"
+  },
+  {
+   "t": 2.14,
+   "grip": [
+    1.571,
+    -0.994,
+    -0.069
+   ],
+   "dir": [
+    0.299,
+    -0.179,
+    0.937
+   ],
+   "yaw": -1452,
+   "pitch": -11.0,
+   "roll": 0.0,
+   "pos": [
+    0,
+    -0.42,
+    0
+   ],
+   "look_yaw": -864.0,
+   "look_pitch": 5.0,
+   "weight": "both",
+   "arms": "one_hand",
+   "lhand": [
+    -1.85,
+    -1.1,
+    -0.45
+   ],
+   "ease": "InOut"
+  }
+ ],
+ "feet": [
+  {
+   "t": 0.0,
+   "right": [
+    0.5,
+    0,
+    0.1
+   ],
+   "left": [
+    -0.5,
+    0,
+    -0.1
+   ],
+   "right_lift": 0.0,
+   "left_lift": 0.25
+  },
+  {
+   "t": 0.3,
+   "right": [
+    1.0,
+    0,
+    0.2
+   ],
+   "left": [
+    -1.0,
+    0,
+    -0.2
+   ],
+   "right_lift": 0.0,
+   "left_lift": 0.0
+  },
+  {
+   "t": 0.37,
+   "right": [
+    -0.2,
+    0,
+    1.0
+   ],
+   "left": [
+    0.2,
+    0,
+    -1.0
+   ],
+   "right_h": 0.22,
+   "left_h": 0.18
+  },
+  {
+   "t": 0.44,
+   "right": [
+    -1.0,
+    0,
+    -0.2
+   ],
+   "left": [
+    1.0,
+    0,
+    0.2
+   ],
+   "right_h": 0.22,
+   "left_h": 0.18
+  },
+  {
+   "t": 0.51,
+   "right": [
+    0.2,
+    0,
+    -1.0
+   ],
+   "left": [
+    -0.2,
+    0,
+    1.0
+   ],
+   "right_h": 0.22,
+   "left_h": 0.18
+  },
+  {
+   "t": 0.58,
+   "right": [
+    1.0,
+    0,
+    0.2
+   ],
+   "left": [
+    -1.0,
+    0,
+    -0.2
+   ],
+   "right_h": 0.22,
+   "left_h": 0.18
+  },
+  {
+   "t": 0.65,
+   "right": [
+    -0.2,
+    0,
+    1.0
+   ],
+   "left": [
+    0.2,
+    0,
+    -1.0
+   ],
+   "right_h": 0.22,
+   "left_h": 0.18
+  },
+  {
+   "t": 0.72,
+   "right": [
+    -1.0,
+    0,
+    -0.2
+   ],
+   "left": [
+    1.0,
+    0,
+    0.2
+   ],
+   "right_h": 0.22,
+   "left_h": 0.18
+  },
+  {
+   "t": 0.79,
+   "right": [
+    0.2,
+    0,
+    -1.0
+   ],
+   "left": [
+    -0.2,
+    0,
+    1.0
+   ],
+   "right_h": 0.22,
+   "left_h": 0.18
+  },
+  {
+   "t": 0.86,
+   "right": [
+    1.0,
+    0,
+    0.2
+   ],
+   "left": [
+    -1.0,
+    0,
+    -0.2
+   ],
+   "right_h": 0.22,
+   "left_h": 0.18
+  },
+  {
+   "t": 0.93,
+   "right": [
+    -0.2,
+    0,
+    1.0
+   ],
+   "left": [
+    0.2,
+    0,
+    -1.0
+   ],
+   "right_h": 0.22,
+   "left_h": 0.18
+  },
+  {
+   "t": 1.0,
+   "right": [
+    -1.0,
+    0,
+    -0.2
+   ],
+   "left": [
+    1.0,
+    0,
+    0.2
+   ],
+   "right_h": 0.22,
+   "left_h": 0.18
+  },
+  {
+   "t": 1.07,
+   "right": [
+    0.2,
+    0,
+    -1.0
+   ],
+   "left": [
+    -0.2,
+    0,
+    1.0
+   ],
+   "right_h": 0.22,
+   "left_h": 0.18
+  },
+  {
+   "t": 1.14,
+   "right": [
+    1.0,
+    0,
+    0.2
+   ],
+   "left": [
+    -1.0,
+    0,
+    -0.2
+   ],
+   "right_h": 0.22,
+   "left_h": 0.18
+  },
+  {
+   "t": 1.21,
+   "right": [
+    -0.2,
+    0,
+    1.0
+   ],
+   "left": [
+    0.2,
+    0,
+    -1.0
+   ],
+   "right_h": 0.22,
+   "left_h": 0.18
+  },
+  {
+   "t": 1.28,
+   "right": [
+    -1.0,
+    0,
+    -0.2
+   ],
+   "left": [
+    1.0,
+    0,
+    0.2
+   ],
+   "right_h": 0.22,
+   "left_h": 0.18
+  },
+  {
+   "t": 1.35,
+   "right": [
+    0.2,
+    0,
+    -1.0
+   ],
+   "left": [
+    -0.2,
+    0,
+    1.0
+   ],
+   "right_h": 0.22,
+   "left_h": 0.18
+  },
+  {
+   "t": 1.42,
+   "right": [
+    1.0,
+    0,
+    0.2
+   ],
+   "left": [
+    -1.0,
+    0,
+    -0.2
+   ],
+   "right_h": 0.1,
+   "left_h": 0.08
+  },
+  {
+   "t": 1.52,
+   "right": [
+    0.95,
+    0,
+    -1.25
+   ],
+   "left": [
+    -0.85,
+    0,
+    1.0
+   ],
+   "right_lift": 0.0,
+   "left_lift": 0.0,
+   "right_h": 0.0,
+   "left_h": 0.0
+  },
+  {
+   "t": 1.82,
+   "right": [
+    0.95,
+    0,
+    -1.25
+   ],
+   "left": [
+    -0.85,
+    0,
+    1.0
+   ],
+   "right_lift": 0.0,
+   "left_lift": 0.2,
+   "right_h": 0.0,
+   "left_h": 0.0
+  },
+  {
+   "t": 2.14,
+   "right": [
+    0.72,
+    0,
+    0.15
+   ],
+   "left": [
+    -0.72,
+    0,
+    -0.15
+   ],
+   "right_lift": 0.0,
+   "left_lift": 0.0,
+   "right_h": 0.0,
+   "left_h": 0.0
+  }
+ ],
+ "events": [
+  {
+   "name": "Hit",
+   "t": 1.5367
+  },
+  {
+   "name": "Burst",
+   "t": 1.5367
+  }
+ ],
+ "gate": {
+  "foot_slide": 0.25,
+  "why_foot_slide": "loved R6 sword slashes: up to 0.227 studs/frame"
+ },
+ "note": "card yygy DRILL SPIN (gen_dt_drill.py): the Spin Drill, dossier spin_drill; DRILL SPIN: point-down, 4 turns of the whole body at 0.28 s a turn, whipped into a dead stop on the burst; your pick, the drill spin: Greatsword held point-down in front of him, crouched and bent forward, and the WHOLE BODY spun on the spot carrying it - 4 turns at 0.28 s a turn (the footage's pace), the feet pivoting round; the last half turn whipped into a DEAD STOP, upright, the blade down and out by his right leg, ON the burst (1.54 s), the blade still; held; into the Spin Drill stance. 2.14 s long",
+ "line": "DRILL SPIN: point-down, 4 turns of the whole body at 0.28 s a turn, whipped into a dead stop on the burst",
+ "arm_clearance": 0.25,
+ "edge_start": [
+  0.0,
+  -0.942,
+  -0.335
+ ],
+ "edge_end_at": [
+  0.0,
+  -0.942,
+  -0.335
+ ]
+}

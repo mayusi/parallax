@@ -1,0 +1,47 @@
+{
+ "duration": 0.35,
+ "variations": 3,
+ "layers": [
+  {
+   "source": "noise",
+   "color": "brown",
+   "filter": {
+    "type": "lowpass",
+    "cutoff": 800
+   },
+   "env": {
+    "attack": 0.001,
+    "hold": 0.0,
+    "decay": 0.12,
+    "sustain": 0.0,
+    "release": 0.05
+   }
+  },
+  {
+   "source": "sine",
+   "freq": [
+    140,
+    60
+   ],
+   "gain": 0.8,
+   "env": {
+    "attack": 0.001,
+    "hold": 0.0,
+    "decay": 0.12,
+    "sustain": 0.0,
+    "release": 0.05
+   }
+  },
+  {
+   "source": "click",
+   "gain": 0.5,
+   "env": {
+    "attack": 0.0005,
+    "hold": 0.0,
+    "decay": 0.01,
+    "sustain": 0.0,
+    "release": 0.05
+   }
+  }
+ ]
+}

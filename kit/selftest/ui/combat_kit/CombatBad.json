@@ -1,0 +1,9 @@
+{
+ "name": "CombatBad",
+ "about": "selftest: the Combat Feedback Kit written so it cannot work - a waypoint marker whose margin is under its own half-size (the pinned pin hangs off the edge), a streak ladder with an empty rung, a kill window of 0 s and a stack of 9",
+ "theme": { "bg": "#101218", "text": "#f0f2f5", "accent": "#e8b04a" },
+ "root": { "type": "panel", "name": "Root", "children": [
+  { "type": "marker", "name": "Objective", "size": 44, "margin": 12 },
+  { "type": "ladder", "name": "Streak", "rungs": ["Double", ""], "killWindow": 0, "max": 9 }
+ ] }
+}

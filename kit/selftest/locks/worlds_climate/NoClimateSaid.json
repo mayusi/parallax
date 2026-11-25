@@ -1,0 +1,50 @@
+{
+ "_note": "NEGATIVE fixture for the world lane's lock on a painted land's climate (kit/lib/lanelocks.luau LaneLocks.unsaidClimates): a heightmap whose paint was made with no climate and whose op does not say \"climate\": false. The lock must name it. Never fix.",
+ "name": "NoClimateSaid",
+ "scale": "r6",
+ "lighting": "noon",
+ "terrain": [
+  {
+   "heightmap": {
+    "center": [
+     0,
+     0,
+     0
+    ],
+    "size": [
+     32,
+     32
+    ],
+    "source": "kit/selftest/locks/worlds_climate/terrain/flat.hm.json",
+    "material": "Grass"
+   }
+  }
+ ],
+ "palette": {
+  "ground": {
+   "material": "Concrete",
+   "color": [
+    96,
+    98,
+    104
+   ]
+  }
+ },
+ "build": [
+  {
+   "floor": {
+    "name": "Pad",
+    "center": [
+     0,
+     6,
+     0
+    ],
+    "size": [
+     8,
+     8
+    ],
+    "mat": "ground"
+   }
+  }
+ ]
+}

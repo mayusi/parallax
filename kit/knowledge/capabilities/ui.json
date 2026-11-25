@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "lane": "ui",
+  "menu": [
+    {"tool": "parallax ui identity <id> --from refs", "when": "establishing the game's visual language from 1080p reference stills"},
+    {"tool": "parallax ui ink <id>/<piece> --mode cel", "when": "bringing real 2D key art into a UI piece as a cel-inked plate"},
+    {"tool": "parallax ui letter", "when": "hero typography with glyph-per-face cuts, tilt and scissor overlap"},
+    {"tool": "parallax ui render <id>/<piece>", "when": "rendering a 3D-sourced UI plate at screen resolution"},
+    {"tool": "parallax ui spin <id>/<piece>", "when": "rotating a 3D element into a UI icon or accent plate"},
+    {"tool": "parallax ui reel <Screen>", "when": "capturing gameplay motion states (ghost drain, rolling counters, hits)"},
+    {"tool": "parallax ui gauge <Screen>", "when": "checking all layout blocks meet their floor size ratios"},
+    {"tool": "parallax ui hudsize", "when": "validating HUD blocks against owner-approved size ratios"},
+    {"tool": "Flex / StyleQuery / PreferredTextSize", "when": "menus/dialogs needing cross-device layout and accessibility scaling"},
+    {"tool": "parallax ui look (phone/tablet/desktop)", "when": "three-viewport look check before any upload"}
+  ],
+  "ladder": [
+    {"from": "PIL_box (flat rectangle)", "to": "ui render / ink / letter", "when": "any UI piece that is part of the game's visual identity"},
+    {"from": "typed_glyphs_flat", "to": "parallax ui letter (glyph-per-face)", "when": "hero typography needs cuts, tilt or overlap"},
+    {"from": "3d_halftone_filter", "to": "ui ink --mode cel + ui render plates", "when": "stylized anime HUD needs real cel-ink technique"},
+    {"from": "hardcoded_px_offsets", "to": "Flex + StyleQuery + PreferredTextSize", "when": "screen must work across phone/tablet/desktop sizes"},
+    {"from": "no_gamepad_focus", "to": "FirstFocus / Nav declarations", "when": "any menu/dialog is used on console or with gamepad"}
+  ],
+  "floor": [
+    ">=2 reference stills at >=1080p per screen type before identity",
+    "identity locked before any hero piece build",
+    "ui look (phone/tablet/desktop) recorded before upload",
+    "WCAG flash <=3/s on every reel/motion before upload"
+  ]
+}

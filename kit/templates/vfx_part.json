@@ -1,0 +1,17 @@
+{
+ "version": 3,
+ "part": true,
+ "about": "a reusable sub-effect: presets `use` it at a beat and a point (see the parallax-vfx skill, Composition)",
+ "palette": { "core": [255, 246, 214], "glow": [255, 205, 96] },
+ "points": { "ground": [0, 0, 0], "air": [0, 4, 0] },
+ "beats": { "pop": 0.0 },
+ "layers": [
+  { "name": "burst", "kind": "sprite", "at": "pop", "point": "air", "texture": "glow", "count": 1, "lifetime": 0.5,
+    "size": [[0, 6], [1, 14]], "color": "core", "brightness": 4, "lightEmission": 1, "zOffset": 2 },
+  { "name": "ring", "kind": "sprite", "at": "pop+0.02", "point": "ground", "texture": "ring", "count": 1, "lifetime": 0.7,
+    "size": [[0, 6], [1, 24]], "speed": 0.001, "direction": "Top", "orientation": "VelocityPerpendicular",
+    "color": "glow", "brightness": 2.5, "lightEmission": 1, "zOffset": 0.5 },
+  { "name": "light", "kind": "light", "at": "pop", "life": 0.6, "point": "air", "color": "glow", "range": 30,
+    "brightness": [[0, 12], [1, 0]] }
+ ]
+}

@@ -1,0 +1,32 @@
+{
+ "hk_dance_arc": {
+  "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+  "file": "build/textures/hk_dance_arc.png",
+  "grid": 4,
+  "id": ""
+ },
+ "hk_ribbon": {
+  "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+  "file": "build/textures/hk_ribbon.png",
+  "grid": 1,
+  "id": ""
+ },
+ "hk_spark": {
+  "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+  "file": "build/textures/hk_spark.png",
+  "grid": 1,
+  "id": ""
+ },
+ "hk_tongue2_gpu": {
+  "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+  "file": "build/textures/hk_tongue2_gpu.png",
+  "grid": 4,
+  "id": ""
+ },
+ "kn_light_01": {
+  "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+  "file": "build/textures/kn_light_01.png",
+  "grid": 1,
+  "id": "rbxassetid://10000000001"
+ }
+}

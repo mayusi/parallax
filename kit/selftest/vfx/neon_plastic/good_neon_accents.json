@@ -1,0 +1,19 @@
+{
+ "version": 3,
+ "duration": 2,
+ "about": "selftest: untextured-neon-mesh good control — starblade/saiyan_ssj_3d-style: a few untextured Neon accent rings (< 20 % of meshes, no volume shapes) — the director rule must NOT fire",
+ "layers": [
+  { "name": "accent_ring", "kind": "mesh", "life": 1.0, "shape": "ring", "material": "Neon" },
+  { "name": "shell_a",     "kind": "mesh", "life": 1.0, "shape": "flame", "material": "Neon", "texture": "ki_rays" },
+  { "name": "shell_b",     "kind": "mesh", "life": 1.0, "shape": "flame", "material": "Neon", "texture": "ki_rays" },
+  { "name": "shell_c",     "kind": "mesh", "life": 1.0, "shape": "flame", "material": "Neon", "texture": "ki_rays" },
+  { "name": "shell_d",     "kind": "mesh", "life": 1.0, "shape": "flame", "material": "Neon", "texture": "ki_rays" },
+  { "name": "shell_e",     "kind": "mesh", "life": 1.0, "shape": "flame", "material": "Neon", "texture": "ki_rays" },
+  { "name": "shell_f",     "kind": "mesh", "life": 1.0, "shape": "flame", "material": "Neon", "texture": "ki_rays" },
+  { "name": "shell_g",     "kind": "mesh", "life": 1.0, "shape": "flame", "material": "Neon", "texture": "ki_rays" },
+  { "name": "shell_h",     "kind": "mesh", "life": 1.0, "shape": "flame", "material": "Neon", "texture": "ki_rays" },
+  { "name": "shell_i",     "kind": "mesh", "life": 1.0, "shape": "flame", "material": "Neon", "texture": "ki_rays" },
+  { "name": "shell_j",     "kind": "mesh", "life": 1.0, "shape": "flame", "material": "Neon", "texture": "ki_rays" },
+  { "name": "shell_k",     "kind": "mesh", "life": 1.0, "shape": "flame", "material": "Neon", "texture": "ki_rays" }
+ ]
+}

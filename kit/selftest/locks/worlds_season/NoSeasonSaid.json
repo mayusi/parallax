@@ -1,0 +1,27 @@
+{
+ "_note": "NEGATIVE fixture for the world lane's lock on seasons (kit/lib/lanelocks.luau LaneLocks.unsaidSeason): a world with \"seasons\" that does not say which one it is built in. The lock must name it. Never fix.",
+ "name": "NoSeasonSaid",
+ "scale": "r6",
+ "lighting": "noon",
+ "seasons": {
+  "winter": {
+   "lighting": "frost"
+  }
+ },
+ "palette": {
+  "ground": {
+   "material": "Concrete",
+   "color": [96, 98, 104]
+  }
+ },
+ "build": [
+  {
+   "floor": {
+    "name": "Ground",
+    "center": [0, 0, 0],
+    "size": [120, 120],
+    "mat": "ground"
+   }
+  }
+ ]
+}

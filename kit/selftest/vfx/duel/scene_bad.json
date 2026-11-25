@@ -1,0 +1,15 @@
+{
+ "schema": 1,
+ "name": "scene_bad",
+ "about": "selftest fixture (kit/selftest/vfx/duel/run.py bad): G2 gone wrong three ways - a 32-stud arena (the doc's is 24), the victim turned away from the attacker, and a camera that cuts a fighter out of its frame. kit/vfx/duel.py must refuse it naming each.",
+ "arena": { "size": 32, "center": [0, 0, -3.25], "curb": { "height": 0.6, "width": 0.6 } },
+ "fighters": [
+  { "role": "attacker", "rig": "R6", "pos": [0, 0, 0], "face": [0, 0, -1] },
+  { "role": "victim", "rig": "R6", "pos": [0, 0, -6.5], "face": [0, 0, -1] }
+ ],
+ "anchors": { "victimChest": [0, 3.5, -6.0] },
+ "views": {
+  "duel": { "pos": [17, 4.5, -3.25], "look": [0, 2.8, -3.25], "fov": 46 },
+  "close": { "pos": [3, 4, 5], "look": [0, 3.5, 0], "fov": 40 }
+ }
+}

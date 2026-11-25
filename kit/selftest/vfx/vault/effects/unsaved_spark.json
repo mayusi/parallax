@@ -1,0 +1,17 @@
+{
+ "version": 3,
+ "duration": 1,
+ "about": "selftest: made but never saved \u2014 the vault check must name it",
+ "layers": [
+  {
+   "name": "spark",
+   "kind": "light",
+   "life": 0.5,
+   "point": [
+    0,
+    0,
+    0
+   ]
+  }
+ ]
+}

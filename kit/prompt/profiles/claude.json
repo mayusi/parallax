@@ -1,0 +1,12 @@
+{
+  "name": "claude",
+  "kind": "orchestrator",
+  "format": "xml",
+  "budget": 2500,
+  "section_budgets": {"context": 450, "guardrails": 550, "objective": 900, "gates": 600},
+  "order": ["context", "guardrails", "objective", "gates"],
+  "rationale": true,
+  "chain_of_thought": "keep",
+  "why": "Claude follows XML-delimited sections best and keeps a rule better when it is told why; read-only context comes before the directives (PromptBridge arXiv:2512.01420, FormatSpread arXiv:2310.11324)",
+  "banned_phrases": ["make it good", "make it nice", "make it cool", "make it better", "high quality", "amazing"]
+}

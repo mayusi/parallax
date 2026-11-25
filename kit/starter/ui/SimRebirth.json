@@ -1,0 +1,109 @@
+{
+ "name": "SimRebirth",
+ "identity": "sim",
+ "quality": "hero",
+ "focus": "Rebirth.Card.Multiplier.Next.Val",
+ "kind": "menu",
+ "enabled": false,
+ "insets": "none",
+ "scale": { "phone": 0.5, "tablet": 0.75 },
+ "root": {
+  "type": "panel",
+  "name": "Rebirth",
+  "size": ["100%", "100%"],
+  "color": "bg",
+  "transparency": 0.4,
+  "children": [
+   { "type": "plate", "name": "Rays", "plate": "burst", "size": [1400, 1400], "pos": ["50%", "50%"], "anchor": "center", "imageAlpha": 0.4, "color": "purple",
+     "motion": { "enter": { "type": "fade", "duration": 0.8 }, "loop": { "type": "spin", "speed": 0.1 } } },
+
+   {
+    "type": "panel", "name": "Card", "plate": "bubble_panel", "shadow": 10, "size": [900, 720], "pos": ["50%", "52%"], "anchor": "center",
+    "motion": { "enter": { "type": "bounce", "duration": 0.6 }, "stagger": 0.06 },
+    "children": [
+     {
+      "type": "panel", "name": "Title", "plate": "banner_purple", "shadow": true, "size": [460, 92], "pos": ["50%", -36], "anchor": "top", "z": 3,
+      "motion": { "enter": { "type": "drop", "delay": 0.15, "duration": 0.5, "ease": "back" } },
+      "children": [
+       { "type": "image", "name": "Icon", "image": "art:sim/icon_rebirth", "fit": "fit", "size": [84, 84], "pos": [10, "50%-6"], "anchor": "left", "z": 4 },
+       { "type": "label", "name": "Txt", "text": "REBIRTH", "role": "title", "textSize": 48, "textColor": "text", "textOutline": "line", "textOutlineWidth": 5, "size": [320, 56], "pos": [104, "50%-5"], "anchor": "left", "align": "left" }
+      ]
+     },
+     { "type": "imagebutton", "name": "Close", "plate": "close", "size": [72, 72], "pos": ["100%-6", -6], "anchor": "topright", "z": 4,
+       "motion": { "enter": { "type": "pop", "delay": 0.3 }, "hover": "grow", "press": "sink" } },
+
+     { "type": "label", "name": "Pitch", "text": "Reset your coins and pets for a PERMANENT boost!", "role": "body", "textSize": 26, "textColor": "textDark", "size": ["100%-80", 40], "pos": ["50%", 74], "anchor": "top", "motion": { "enter": "fade" } },
+
+     {
+      "type": "panel", "name": "Multiplier", "size": [700, 240], "pos": ["50%", 122], "anchor": "top",
+      "motion": { "enter": { "type": "bounce", "delay": 0.2, "duration": 0.6 } },
+      "children": [
+       { "type": "panel", "name": "Now", "plate": "bubble_panel", "shadow": true, "size": [230, 190], "pos": [10, "50%"], "anchor": "left",
+         "children": [
+          { "type": "label", "name": "Lbl", "text": "NOW", "role": "heading", "textSize": 22, "textColor": "textDark", "size": ["100%", 28], "pos": [0, 16] },
+          { "type": "label", "name": "Val", "text": "x3", "role": "huge", "textSize": 84, "textColor": "textDark", "size": ["100%", 100], "pos": ["50%", 108], "anchor": "center" }
+         ] },
+       { "type": "plate", "name": "Arrow", "plate": "arrow", "size": [96, 96], "pos": ["50%-20", "50%"], "anchor": "center", "rotation": 90, "color": "accent",
+         "motion": { "loop": { "type": "pulse", "speed": 1.2 } } },
+       { "type": "plate", "name": "Glow", "plate": "burst", "size": [460, 460], "pos": ["100%-150", "50%"], "anchor": "center", "imageAlpha": 0.6, "color": "accent", "z": 0,
+         "motion": { "loop": { "type": "spin", "speed": 0.2 } } },
+       { "type": "panel", "name": "Next", "plate": "bubble_accent", "shadow": true, "size": [300, 230], "pos": ["100%", "50%"], "anchor": "right",
+         "motion": { "loop": { "type": "breathe", "speed": 1 } },
+         "children": [
+          { "type": "label", "name": "Lbl", "text": "AFTER", "role": "heading", "textSize": 24, "textColor": "text", "textOutline": "line", "textOutlineWidth": 4, "size": ["100%", 30], "pos": [0, 16] },
+          {"type": "number", "name": "Val", "pitch": 0.78, "text": "x4", "size": ["100%", 140], "pos": ["50%", 128], "anchor": "center", "digits": "sim/dg_val", "charset": "0123456789+x", "aspect": 0.8916, "align": "center"}
+         ] }
+      ]
+     },
+
+     {
+      "type": "panel", "name": "Lose", "size": ["100%-80", 60], "pos": [40, 384],
+      "layout": { "dir": "horizontal", "gap": 12, "align": "center", "justify": "start" },
+      "motion": { "stagger": 0.05 },
+      "children": [
+       { "type": "label", "name": "Lbl", "text": "YOU LOSE", "role": "heading", "textSize": 24, "textColor": "danger", "textOutline": "line", "textOutlineWidth": 3, "size": [170, 30], "align": "left", "motion": { "enter": "fade" } },
+       { "type": "panel", "name": "C1", "plate": "pill_danger", "shadow": true, "size": [170, 54], "motion": { "enter": "bounce" }, "children": [
+         { "type": "image", "name": "Icon", "image": "art:sim/icon_coin", "fit": "fit", "size": [50, 50], "pos": [-6, "50%"], "anchor": "left", "z": 3 },
+         { "type": "label", "name": "Txt", "text": "COINS", "role": "heading", "textSize": 20, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": [110, 28], "pos": [48, "50%"], "anchor": "left", "align": "left" } ] },
+       { "type": "panel", "name": "C2", "plate": "pill_danger", "shadow": true, "size": [170, 54], "motion": { "enter": "bounce" }, "children": [
+         { "type": "image", "name": "Icon", "image": "art:sim/icon_pet_cat", "fit": "fit", "size": [50, 50], "pos": [-6, "50%"], "anchor": "left", "z": 3 },
+         { "type": "label", "name": "Txt", "text": "PETS", "role": "heading", "textSize": 20, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": [110, 28], "pos": [48, "50%"], "anchor": "left", "align": "left" } ] },
+       { "type": "panel", "name": "C3", "plate": "pill_danger", "shadow": true, "size": [170, 54], "motion": { "enter": "bounce" }, "children": [
+         { "type": "image", "name": "Icon", "image": "art:sim/icon_egg", "fit": "fit", "size": [50, 50], "pos": [-6, "50%"], "anchor": "left", "z": 3 },
+         { "type": "label", "name": "Txt", "text": "EGGS", "role": "heading", "textSize": 20, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": [110, 28], "pos": [48, "50%"], "anchor": "left", "align": "left" } ] }
+      ]
+     },
+     {
+      "type": "panel", "name": "Keep", "size": ["100%-80", 60], "pos": [40, 454],
+      "layout": { "dir": "horizontal", "gap": 12, "align": "center", "justify": "start" },
+      "motion": { "stagger": 0.05 },
+      "children": [
+       { "type": "label", "name": "Lbl", "text": "YOU KEEP", "role": "heading", "textSize": 24, "textColor": "good", "textOutline": "line", "textOutlineWidth": 3, "size": [170, 30], "align": "left", "motion": { "enter": "fade" } },
+       { "type": "panel", "name": "K1", "plate": "pill_good", "shadow": true, "size": [170, 54], "motion": { "enter": "bounce" }, "children": [
+         { "type": "image", "name": "Icon", "image": "art:sim/icon_gem", "fit": "fit", "size": [50, 50], "pos": [-6, "50%"], "anchor": "left", "z": 3 },
+         { "type": "label", "name": "Txt", "text": "GEMS", "role": "heading", "textSize": 20, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": [110, 28], "pos": [48, "50%"], "anchor": "left", "align": "left" } ] },
+       { "type": "panel", "name": "K2", "plate": "pill_good", "shadow": true, "size": [190, 54], "motion": { "enter": "bounce" }, "children": [
+         { "type": "image", "name": "Icon", "image": "art:sim/icon_rebirth", "fit": "fit", "size": [50, 50], "pos": [-6, "50%"], "anchor": "left", "z": 3 },
+         { "type": "label", "name": "Txt", "text": "REBIRTHS", "role": "heading", "textSize": 20, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": [130, 28], "pos": [48, "50%"], "anchor": "left", "align": "left" } ] },
+       { "type": "panel", "name": "K3", "plate": "pill_good", "shadow": true, "size": [170, 54], "motion": { "enter": "bounce" }, "children": [
+         { "type": "image", "name": "Icon", "image": "art:sim/icon_gift", "fit": "fit", "size": [50, 50], "pos": [-6, "50%"], "anchor": "left", "z": 3 },
+         { "type": "label", "name": "Txt", "text": "CODES", "role": "heading", "textSize": 20, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": [110, 28], "pos": [48, "50%"], "anchor": "left", "align": "left" } ] }
+      ]
+     },
+
+     { "type": "button", "name": "Cancel", "text": "NOT YET", "plate": "pill_panel", "shadow": true, "role": "heading", "textSize": 22, "textColor": "textDark", "size": [200, 62], "pos": [50, "100%-30"], "anchor": "bottomleft",
+       "motion": { "enter": "bounce", "hover": "grow", "press": "sink" } },
+     { "type": "button", "name": "Go", "text": "REBIRTH!", "plate": "pill_good", "shadow": true, "role": "heading", "textSize": 40, "textColor": "text", "textOutline": "line", "textOutlineWidth": 5, "size": [440, 100], "pos": ["100%-50", "100%-24"], "anchor": "bottomright",
+       "motion": { "enter": { "type": "bounce", "delay": 0.3 }, "hover": "grow", "press": "sink", "loop": { "type": "pulse", "speed": 0.8 } },
+       "children": [
+        { "type": "panel", "name": "Cost", "plate": "pill_accent", "shadow": true, "size": [160, 48], "pos": ["100%-20", 0], "anchor": "center", "rotation": 8, "z": 4,
+          "children": [
+           { "type": "image", "name": "Icon", "image": "art:sim/icon_coin", "fit": "fit", "size": [48, 48], "pos": [-4, "50%"], "anchor": "left", "z": 5 },
+           { "type": "label", "name": "Txt", "text": "50K", "role": "heading", "textSize": 22, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": [100, 30], "pos": [46, "50%"], "anchor": "left", "align": "left" }
+          ] }
+       ] }
+    ]
+   }
+  ]
+ }
+}

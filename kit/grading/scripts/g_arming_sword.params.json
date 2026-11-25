@@ -1,0 +1,17 @@
+{
+ "params": {
+  "blade_len": 3.49092,
+  "blade_w": 0.212,
+  "grip_len": 0.6626,
+  "grip_w": 0.13416,
+  "guard_h": 0.088,
+  "guard_span": 0.75108,
+  "pommel_r": 0.09988,
+  "tip_w": 0.40169
+ },
+ "fitted": "2026-10-06 06:48 (kit fit arming_sword --evals 300: written from that run's verdict, .verify/fit.json)",
+ "loss": 0.1825,
+ "views": {
+  "front": 0.818
+ }
+}

@@ -1,0 +1,17 @@
+{
+ "_note": "NEGATIVE fixture for the world lane's lock on mixed forests (kit/lib/lanelocks.luau LaneLocks.unsaidEcosystems): two forests of two kinds of tree (\"Wood\" 30 oaks and dead trees, \"Copse\" 12 oaks and pines) that together come to 40 trees or more and say neither an \"ecosystem\" nor \"ecosystem\": false; a third (\"Grove\", two kinds) says \"ecosystem\": false and a fourth (\"Pines\", one kind) has nothing to say: neither is asked. The lock must name the first two. Never fix.",
+ "name": "MixedByChance",
+ "scale": "r6",
+ "palette": {
+  "ground": { "material": "Grass", "color": [80, 110, 60] },
+  "bark": { "material": "Wood", "color": [90, 70, 50] },
+  "leaf": { "material": "Grass", "color": [60, 110, 50] }
+ },
+ "build": [
+  { "floor": { "name": "Ground", "center": [0, 0, 0], "size": [600, 400], "mat": "ground" } },
+  { "forest": { "name": "Wood", "center": [-150, 0, 0], "area": [200, 300], "count": 30, "seed": 3, "styles": ["oak", "dead"], "trunk": "bark", "leaves": "leaf", "density": false } },
+  { "forest": { "name": "Copse", "center": [60, 0, -100], "area": [100, 100], "count": 12, "seed": 4, "styles": ["oak", "pine"], "trunk": "bark", "leaves": "leaf", "density": false } },
+  { "forest": { "name": "Grove", "center": [60, 0, 100], "area": [100, 100], "count": 12, "seed": 5, "styles": ["oak", "pine"], "trunk": "bark", "leaves": "leaf", "density": false, "ecosystem": false } },
+  { "forest": { "name": "Pines", "center": [220, 0, 0], "area": [100, 300], "count": 20, "seed": 6, "styles": ["pine"], "trunk": "bark", "leaves": "leaf", "density": false } }
+ ]
+}

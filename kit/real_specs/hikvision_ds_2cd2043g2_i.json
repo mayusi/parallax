@@ -1,0 +1,17 @@
+[
+ {
+  "object": "hikvision ds-2cd2043g2-i",
+  "part": "camera",
+  "dim": "weight",
+  "value": 490.0,
+  "unit": "mm",
+  "source": "https://assets.hikvision.com/prd/public/all/doc/sm000058907/DS-2CD2043G2-IU_Datasheet_V5.5.113_20230303.pdf",
+  "kind": "published",
+  "note": "",
+  "by": "unknown",
+  "quote": "Camera Weight Approx. 490 g",
+  "trust": "high",
+  "id": "0ec7ca37",
+  "added": "2026-10-18"
+ }
+]

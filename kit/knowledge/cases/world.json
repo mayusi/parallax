@@ -1,0 +1,217 @@
+{
+  "schema": 1,
+  "lane": "world",
+  "default_case": "world:architectural_town_courtyard",
+  "cases": [
+    {
+      "case_id": "world:architectural_town_courtyard",
+      "label": "Towns, Courtyards, Villages, Medieval/Urban Districts",
+      "triggers": {
+        "keywords": ["town", "courtyard", "village", "medieval", "urban", "district", "market", "street", "square", "city", "neighborhood", "settlement"],
+        "requires_both": []
+      },
+      "tier": "hero",
+      "budget_minutes": 60,
+      "required_tools_ordered": [
+        "parallax world direction (Owner Pick)",
+        "parallax world refs (>=6 stills measured into REFS.md)",
+        "parallax world lessons",
+        "W1 greybox walk (Owner Stop)",
+        "W2 corner (Owner Stop)",
+        "W3 modular PBR MeshPart kit (15-20 pieces) + <=3 shared 1024 trims (35-70 px/st)",
+        "parallax world town step (skins, facade:true, bend, rooms, slope, yards, market, lamps:true)",
+        "parallax world check",
+        "W5 Realistic lighting (<=16 shadows)",
+        "parallax world look (1920x1080 pages)",
+        "parallax world studio --capture"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "TYPED_BUILDING", "pattern": "typed_building_steps", "why": "12+ typed building steps bypass the modular kit and produce unique non-reusable geometry that inflates the part count." },
+        { "id": "CITY_GRID", "pattern": "city_grid_layout", "why": "City grid layouts make uniform blocks with no variation in density, curve, or focal point." },
+        { "id": "BOX_WORLD", "pattern": "plain_part_box_world", "why": "Plain-Part box worlds (MeshPart=0) have no surface detail and read as a placeholder level." },
+        { "id": "ROW_LAMPS", "pattern": "row_lamps_on_town_streets", "why": "Row lamps on town streets read as modern streetlights and break medieval/fantasy atmosphere." },
+        { "id": "UNIQUE_SA_MAPS", "pattern": "over_100_unique_surfaceappearance", "why": ">100 unique SurfaceAppearance maps exceed Roblox streaming budgets and tank load times." }
+      ],
+      "mandatory_gates": ["direction_lock", "refs>=6", "lessons_answered", "no_box_town_gate", "meshpart_kit_required", "world_check==0", "shadow_lights<=16", "studio_walk"],
+      "owner_stops": ["direction", "greybox_walk", "corner", "verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "build a gothic medieval courtyard with W3 modular kit and Realistic lighting",
+        "create a market town district with facade buildings and a central square",
+        "make a village settlement with PBR MeshPart kit and proper shadow budget"
+      ]
+    },
+    {
+      "case_id": "world:open_terrain_biome",
+      "label": "Natural Terrain, Mountains, Valleys, Rivers, Coastlines",
+      "triggers": {
+        "keywords": ["terrain", "mountain", "valley", "river", "coastline", "biome", "forest", "natural", "outdoor", "wilderness", "landscape", "hills"],
+        "requires_both": []
+      },
+      "tier": "complex",
+      "budget_minutes": 30,
+      "required_tools_ordered": [
+        "parallax world direction",
+        "parallax world refs (>=6)",
+        "parallax world lessons",
+        "parallax world terrain --dem <GeoTIFF> (Copernicus GLO-30) OR --stream (river incision) + --thermal + --erosion + painter anchor (lake bed)",
+        "parallax world materials --fetch (MaterialVariants)",
+        "vetted CC0 rock/tree/cliff meshes (parallax world import, <=20k tris)",
+        "parallax world check",
+        "parallax world look",
+        "parallax world studio"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "NOISE_ONLY", "pattern": "noise_thermal_erosion_only", "why": "Noise + thermal erosion alone produces talus-angle cones with no realistic drainage or river incision." },
+        { "id": "LOLLIPOP_TREES", "pattern": "primitive_part_foliage", "why": "Lollipop/primitive-part trees and rocks read as placeholder geometry with no silhouette detail." },
+        { "id": "STYLIZED_REALISTIC", "pattern": "stylized_pack_in_realistic_world", "why": "Stylized packs in a realistic world break visual coherence — materials must match the world's reference set." },
+        { "id": "WALL_BACKDROP", "pattern": "straight_ridge_wall_backdrop", "why": "Straight-ridge wall backdrops read as a cardboard cutout instead of a real horizon." }
+      ],
+      "mandatory_gates": ["refs>=6", "terrain_route_gate", "no_primitive_foliage", "parts<=10000", "world_check==0", "studio_walk"],
+      "owner_stops": ["direction", "verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "build a mountain valley biome with real GeoTIFF terrain and CC0 rock meshes",
+        "create a river coastline with erosion sim and MaterialVariants fetch",
+        "make a wilderness forest biome with proper terrain drainage and vetted foliage"
+      ]
+    },
+    {
+      "case_id": "world:battlegrounds_arena",
+      "label": "Combat Arena, Duel Ring, Boss Stage",
+      "triggers": {
+        "keywords": ["arena", "battlegrounds", "duel", "boss", "combat", "ring", "stage", "colosseum", "gladiator", "fight"],
+        "requires_both": []
+      },
+      "tier": "complex",
+      "budget_minutes": 30,
+      "required_tools_ordered": [
+        "parallax world direction",
+        "parallax world refs (>=6)",
+        "parallax world lessons",
+        "generators (spawns, cover, breakables, landmarks) with PBR MeshPart skins",
+        "parallax world check (R6 jump arc v=sqrt(2gJ), knockback room, spawn fairness, sightlines, camera clearance)",
+        "W5 Realistic lighting",
+        "parallax world look",
+        "parallax world studio"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "GUESS_DISTANCES", "pattern": "guess_jump_knockback_distances", "why": "Guessing jump/knockback distances produces arenas where players clip walls or fall out of bounds." },
+        { "id": "UNCHECKED_SPAWNS", "pattern": "unchecked_spawn_traps", "why": "Un-checked spawn traps create situations where a player spawns into a kill zone." },
+        { "id": "TOPDOWN_ONLY", "pattern": "judge_from_topdown_only", "why": "Judging an arena from top-down only misses camera clearance and eye-level sightline problems." }
+      ],
+      "mandatory_gates": ["world_check==0", "spawn_fairness", "knockback_room", "sightlines", "studio_walk"],
+      "owner_stops": ["direction", "verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "build a gladiator arena with measured spawn fairness and jump-arc checked layout",
+        "create a boss fight stage with cover, breakables and camera clearance",
+        "design a duel ring with sightline checks and knockback room validation"
+      ]
+    },
+    {
+      "case_id": "world:interior_building",
+      "label": "Multi-Room Interior (>=20 st/side House, Shop, Dungeon)",
+      "triggers": {
+        "keywords": ["interior", "room", "inside", "dungeon", "shop", "house", "hall", "corridor", "kitchen", "workshop"],
+        "requires_both": []
+      },
+      "tier": "complex",
+      "budget_minutes": 30,
+      "required_tools_ordered": [
+        "review past *.layout.json examples",
+        "rooms:true (interior_v2 room kinds: kitchen/study/workshop/hall/etc.)",
+        "doorway & stair-hall clearance",
+        "parallax world check",
+        "parallax world look (eye-level inside)",
+        "parallax world studio"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "ROOMS_UNDECLARED", "pattern": "leave_rooms_undeclared", "why": "Leaving rooms undeclared on >=20 st buildings skips the reachability check and produces blocked-off areas." },
+        { "id": "BLOCKED_DOORS", "pattern": "blocked_doorways_stairs", "why": "Blocked doorways/stairs make rooms unreachable and fail the world reachability gate." }
+      ],
+      "mandatory_gates": ["rooms_declared_lock", "reachability==100%", "world_check==0"],
+      "owner_stops": ["verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "build a medieval shop interior with declared rooms and eye-level look",
+        "create a dungeon interior with multi-room layout and 100% reachability",
+        "design a house with kitchen, hall and workshop rooms with proper door clearance"
+      ]
+    },
+    {
+      "case_id": "world:large_streaming_map",
+      "label": "Any Playable World >1,024 Studs Across",
+      "triggers": {
+        "keywords": ["streaming", "large", "open-world", "openworld", "hlod", "vast", "map", "region", "streaming-enabled"],
+        "requires_both": [
+          ["large", "open-world", "openworld", "vast", "streaming", "hlod", "map"],
+          ["world", "terrain", "map", "region", "game"]
+        ]
+      },
+      "tier": "hero",
+      "budget_minutes": 60,
+      "required_tools_ordered": [
+        "declare streaming: { cell: 256, speed: <st/s>, fall: <max_drop> }",
+        "landmark stream: always|area",
+        "generate <=2k-tri HLOD rings via kit/world/hlod.py (meshes_blender.py hlod_ring kind)",
+        "verify StreamingEnabled: true in game's default.project.json (ask owner before changing)",
+        "parallax world check",
+        "parallax world studio"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "NO_STREAMING", "pattern": "large_world_no_streaming_cells", "why": "Building >1,024 st worlds without streaming cells causes catastrophic load times and memory spikes on join." },
+        { "id": "NO_HLOD", "pattern": "large_world_no_hlod_rings", "why": "Skipping hlod.py HLOD rings means distant geometry is unculled and exceeds the render budget." }
+      ],
+      "mandatory_gates": ["streaming_declared_lock", "streaming_enabled_check", "hlod_tris<=2000"],
+      "owner_stops": ["verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "build a large streaming open-world map with HLOD rings and 256-stud cells",
+        "create a vast outdoor map with StreamingEnabled and hlod.py generated LODs",
+        "design a streaming world region larger than 1024 studs with proper cell declarations"
+      ]
+    },
+    {
+      "case_id": "world:road_network",
+      "label": "Roads, Paths, Walls, Palisades, Rivers Turning >20°",
+      "triggers": {
+        "keywords": ["road", "path", "wall", "palisade", "river", "trail", "bridge", "gate", "curve", "junction", "turn"],
+        "requires_both": []
+      },
+      "tier": "simple",
+      "budget_minutes": 10,
+      "required_tools_ordered": [
+        "roads FIRST before scatter/cover/breakables",
+        "declare curve:true|false on turns >20°",
+        "banked roads + stone stairs >16°",
+        "Y/T junctions",
+        "parallax world check (no rocks/trees on roads)"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "SHARP_KINKS", "pattern": "sharp_undeclared_kinks", "why": "Sharp un-declared kinks in roads produce geometry that clips and breaks the curve gate." },
+        { "id": "SCATTER_BEFORE_ROADS", "pattern": "place_scatter_before_roads", "why": "Placing scatter before roads means trees and rocks overlap the road surface and must be removed later." }
+      ],
+      "mandatory_gates": ["curve_declared_lock", "road_clearance==0_conflicts"],
+      "owner_stops": [],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "lay a road network through the town with banked curves and Y-junctions",
+        "build a river path that turns more than 20 degrees with declared curves",
+        "create a palisade wall path with proper turn declarations and road clearance"
+      ]
+    }
+  ]
+}

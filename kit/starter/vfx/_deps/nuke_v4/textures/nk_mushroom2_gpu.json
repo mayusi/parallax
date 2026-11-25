@@ -1,0 +1,53 @@
+{
+ "engine": "fx",
+ "recipe": "gpu_fire",
+ "frames": 64,
+ "grid": 8,
+ "cell": 128,
+ "seed": 11,
+ "params": {
+  "res": [
+   192,
+   192,
+   320
+  ],
+  "steps": 330,
+  "light": "top",
+  "emitter": 0.25,
+  "emitter_z": 0.08,
+  "inflow_until": 0.06,
+  "heat": 3.6,
+  "velocity": 2.2,
+  "buoyancy": 1.0,
+  "vorticity": 0.6,
+  "turbulence": 0.5,
+  "cooling": 0.022,
+  "emission": 2.8,
+  "albedo": [
+   0.96,
+   0.9,
+   0.84
+  ],
+  "density": 100,
+  "sheet_start": 0.01,
+  "max_speed": 2.2,
+  "ceiling": 0.46,
+  "stem": {
+   "radius": 0.07,
+   "until": 0.75,
+   "density": 0.7,
+   "heat": 0.35,
+   "velocity": 1.2
+  },
+  "ambient": 0.28,
+  "fill": 0.45,
+  "key": 1.9,
+  "edge_fade": 0.1,
+  "sheet_end": 0.7
+ },
+ "post": {
+  "alpha": "coverage",
+  "exposure": 1.2
+ },
+ "about": "the nuke's mushroom cloud v3 on the GPU: ONE continuous simulation from a big white-hot fireball (emitter 0.18, heat 3.4) to the cap on its dust stem, in a TALL box (192x192x320) so nothing reaches the ceiling - owner 2026-10-22 on nuke_v3: 'the explosion cuts off at the top' (its separate fireball hit its box's ceiling, then the mushroom's early cloud was a third its size)"
+}

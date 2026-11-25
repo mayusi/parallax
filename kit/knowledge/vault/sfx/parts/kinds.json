@@ -1,0 +1,37 @@
+{
+ "lane": "sfx",
+ "version": 1,
+ "drafted": "2026-11-09 (parts libraries P0): from the words the sound code and specs already use - the 7 layer roles (transient, body, sub, mechanical, tail, sweetener, air), the synthesis sources (noise, click, modal, string, sine, square, sample), the set DNA layers (heel, click, scuff...) and the library's words for what a sound is. Changed only when the replay says so.",
+ "axes": {
+  "role": "the layer's job in the mix",
+  "source": "how the layer is made",
+  "event": "what the sound is"
+ },
+ "look_fields": ["sample", "samples", "file"],
+ "kinds": [
+  {"id": "role_transient", "axis": "role", "label": "transient (the attack, the first ms)", "words": ["transient", "attack", "snap", "crack", "click layer", "initial hit", "front edge", "punch"], "siblings": ["role_body"]},
+  {"id": "role_body", "axis": "role", "label": "body (the weight of the sound)", "words": ["body", "weight", "thump", "meat", "mid layer", "core"], "siblings": ["role_transient", "role_sub"]},
+  {"id": "role_sub", "axis": "role", "label": "sub (the low end)", "words": ["sub", "low end", "bass", "boom", "rumble", "low frequency", "808"], "siblings": ["role_body"]},
+  {"id": "role_mechanical", "axis": "role", "label": "mechanical (clicks, rattles, parts)", "words": ["mechanical", "mechanism", "rattle", "clack", "metal parts", "slide rack", "latch"], "siblings": ["role_sweetener"]},
+  {"id": "role_tail", "axis": "role", "label": "tail (the decay, the room)", "words": ["tail", "decay", "reverb", "echo", "ring out", "release", "room", "reflections"], "siblings": ["role_air"]},
+  {"id": "role_sweetener", "axis": "role", "label": "sweetener (a signature layer)", "words": ["sweetener", "sparkle", "shimmer", "chime", "glint", "signature layer", "accent"], "siblings": ["role_mechanical"]},
+  {"id": "role_air", "axis": "role", "label": "air (the whoosh, the breath around it)", "words": ["air", "breath", "whoosh layer", "hiss", "wind layer", "noise bed"], "siblings": ["role_tail"]},
+  {"id": "src_noise", "axis": "source", "label": "filtered noise", "words": ["noise", "white noise", "pink noise", "brown noise", "filtered noise", "bandpass", "lowpass", "highpass"], "siblings": ["src_click"]},
+  {"id": "src_click", "axis": "source", "label": "click / impulse", "words": ["click", "impulse", "pulse"], "siblings": ["src_noise"]},
+  {"id": "src_modal", "axis": "source", "label": "modal (struck object resonances)", "words": ["modal", "modes", "resonance", "resonant", "struck", "bell", "metal ring", "partials"], "siblings": ["src_string"]},
+  {"id": "src_string", "axis": "source", "label": "plucked string (Karplus-Strong)", "words": ["string", "pluck", "plucked", "karplus"], "siblings": ["src_modal"]},
+  {"id": "src_tone", "axis": "source", "label": "tone (sine, square, saw)", "words": ["sine", "square", "saw", "sawtooth", "tone", "oscillator", "beep", "chirp", "sweep"]},
+  {"id": "src_sample", "axis": "source", "label": "a library recording", "words": ["sample", "recording", "recorded", "field recording", "foley recording"]},
+  {"id": "ev_impact", "axis": "event", "label": "impact / hit / punch", "words": ["impact", "hit", "punch", "thud", "smack", "slam", "strike", "body hit", "kick"], "siblings": ["ev_explosion", "ev_metal"]},
+  {"id": "ev_swing", "axis": "event", "label": "swing / whoosh", "words": ["swing", "whoosh", "swish", "swoosh", "slash", "woosh", "pass by"], "siblings": ["ev_impact"]},
+  {"id": "ev_explosion", "axis": "event", "label": "explosion / boom", "words": ["explosion", "explode", "blast", "boom", "detonation", "kaboom", "burst"], "siblings": ["ev_impact"]},
+  {"id": "ev_gun", "axis": "event", "label": "gunshot / weapon", "words": ["gun", "gunshot", "shot", "fire", "pistol", "rifle", "shotgun", "reload", "magazine", "bolt", "trigger", "casing", "shell drop"], "siblings": ["ev_mechanical"]},
+  {"id": "ev_metal", "axis": "event", "label": "metal clang / block / parry", "words": ["metal", "clang", "clank", "ring", "block", "parry", "sword", "blade", "steel", "anvil"], "siblings": ["ev_impact"]},
+  {"id": "ev_mechanical", "axis": "event", "label": "mechanical / device", "words": ["mechanical", "machine", "gear", "door", "lever", "switch", "lock", "hinge", "motor"], "siblings": ["ev_gun"]},
+  {"id": "ev_ui", "axis": "event", "label": "UI (click, hover, confirm)", "words": ["ui", "button", "hover", "confirm", "cancel", "menu", "select", "notification", "coin", "pickup", "level up", "reward"]},
+  {"id": "ev_foley", "axis": "event", "label": "foley / footsteps / cloth", "words": ["footstep", "footsteps", "step", "heel", "scuff", "cloth", "rustle", "foley", "jump", "land", "grab"]},
+  {"id": "ev_magic", "axis": "event", "label": "magic / ability / charge", "words": ["magic", "spell", "ability", "charge", "power", "energy", "aura", "cast", "teleport", "shimmer", "ultimate"], "siblings": ["ev_explosion"]},
+  {"id": "ev_ambience", "axis": "event", "label": "ambience / loop / wind", "words": ["ambience", "ambient", "loop", "wind", "rain", "fire crackle", "water", "room tone", "drone", "music"]},
+  {"id": "ev_voice", "axis": "event", "label": "voice / grunt", "words": ["voice", "grunt", "shout", "yell", "breath", "scream", "vocal"]}
+ ]
+}

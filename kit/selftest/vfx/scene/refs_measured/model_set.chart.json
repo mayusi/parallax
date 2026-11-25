@@ -1,0 +1,17 @@
+{
+ "schema": 1,
+ "duration": 3,
+ "beats": [
+  {
+   "beat": "0 a",
+   "t": 0,
+   "len": 1
+  }
+ ],
+ "approved": {
+  "who": "model",
+  "by": "host-reviewer@model",
+  "date": "2026-10-21",
+  "words": "looks right"
+ }
+}

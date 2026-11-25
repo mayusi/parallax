@@ -1,0 +1,15 @@
+[
+ {
+  "object": "ar-15 receivers",
+  "part": "receiver pins",
+  "dim": "pivot pin to takedown pin centre distance",
+  "value": 161.925,
+  "unit": "mm",
+  "source": "https://www.ar15.com/forums/ar-15/Take_Down_Pin_Spacing/118-414464/",
+  "kind": "published",
+  "note": "",
+  "trust": "high",
+  "id": "3f1f12ca",
+  "added": "2026-10-08"
+ }
+]

@@ -1,0 +1,4 @@
+{"system":"Strike","remotes":{
+ "Request":{"dir":"toServer","rate":[5,2],"args":[{"name":"target","type":"vector3","max":500},{"name":"power","type":"number","min":0,"max":1},{"name":"mode","type":"enum","values":["light","heavy"]}]},
+ "Reply":{"dir":"toClient","args":[{"name":"ok","type":"boolean"},{"name":"reason","type":"string","max":64}]},
+ "Ping":{"dir":"toServer","rate":[2,1]}}}

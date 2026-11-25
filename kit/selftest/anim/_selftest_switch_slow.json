@@ -1,0 +1,8 @@
+{
+ "name": "_selftest_SwitchSlow",
+ "priority": "Action",
+ "keys": [
+  { "t": 0, "ease": "Linear", "pose": { "Right Arm": [0, 0, 0], "Left Arm": [0, 0, 0] } },
+  { "t": 1, "ease": "Linear", "pose": { "Right Arm": [90, 0, 0], "Left Arm": [45, 0, 0] } }
+ ]
+}

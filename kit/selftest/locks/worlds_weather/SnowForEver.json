@@ -1,0 +1,22 @@
+{
+ "_note": "NEGATIVE fixture for the world lane's lock on weather that changes (kit/lib/lanelocks.luau LaneLocks.unsaidWeather): a world with an \"ambient\" that says neither a \"weather\" cycle nor \"weather\": false. The lock must name it. Never fix.",
+ "name": "SnowForEver",
+ "scale": "r6",
+ "ambient": "snow",
+ "palette": {
+  "ground": {
+   "material": "Concrete",
+   "color": [96, 98, 104]
+  }
+ },
+ "build": [
+  {
+   "floor": {
+    "name": "Ground",
+    "center": [0, 0, 0],
+    "size": [120, 120],
+    "mat": "ground"
+   }
+  }
+ ]
+}

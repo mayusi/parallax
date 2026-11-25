@@ -1,0 +1,16 @@
+{
+  "about": "Each lane's EXCLUSIVE paths (prefixes; the same paths inside games/<Name>/ count too). Everything else is shared. A commit touching two or more lanes' exclusive paths is refused unless its message contains the word cross. mode: warn prints only; enforce refuses. Lanes listed together in \"together\" are owned by one session and count as one lane (code + qa: a gameplay system commits with its tests/playtest script).",
+  "mode": "enforce",
+  "together": [["sfx", "world"], ["code", "qa"]],
+  "lanes": {
+    "vfx": ["assets/effects/", "library/vfx/", "kit/vfx/"],
+    "anim": ["assets/animations/", "src/animations/", "kit/anim/"],
+    "3d": ["assets/models/", "src/models/", "kit/blender/", "kit/tools/"],
+    "ui": ["assets/ui/", "library/ui/", "src/ui/", "kit/ui/"],
+    "world": ["assets/worlds/", "src/world/", "kit/world/", "src/materials/"],
+    "sfx": ["assets/sounds/", "kit/audio/"],
+    "code": ["src/server/", "src/client/", "src/shared/", "src/net/", "src/moves/", "assets/net/", "assets/moves/"],
+    "qa": ["tests/playtest/", "kit/qa/"],
+    "parallax": ["kit/cmd/", "kit/lib/", "kit/prompt/", "kit/scripts/", "kit/mcp/"]
+  }
+}

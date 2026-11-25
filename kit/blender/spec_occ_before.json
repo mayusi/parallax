@@ -1,0 +1,22 @@
+{
+ "schema": 1,
+ "about": "Specular occlusion (the bake raises roughness and mutes metalness in occluded crevices) is for NEW pieces only - the owner, 2026-11-17: \"New pieces only\". Every piece named here was built or scripted before that day: it bakes as before, byte for byte, unless its script asks for it (rbx.Asset(..., spec_occlusion=1.0)). Kit fixtures (_selftest*, _probe*) are old too. A game version (<name>_game) follows its master. Never add a new piece here.",
+ "date": "2026-11-17",
+ "names": [
+  "_looks_sheet",
+  "_test_scan_urn",
+  "blaster",
+  "car_wheel_rim",
+  "car_wheel_rim_high",
+  "crate",
+  "lamp_post",
+  "nosheet",
+  "selftest_hand_hero_ok",
+  "selftest_hand_hero_waiver",
+  "sheetgun",
+  "sword",
+  "treasure_chest",
+  "tree_stump",
+  "wine_barrel"
+ ]
+}

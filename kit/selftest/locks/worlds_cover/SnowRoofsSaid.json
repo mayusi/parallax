@@ -1,0 +1,10 @@
+{
+ "_note": "POSITIVE fixture for the world lane's lock on snow cover: the same snowy world, saying its roofs stay bare (\"cover\": false). The lock must NOT name it.",
+ "name": "SnowRoofsSaid",
+ "scale": "r6",
+ "lighting": "noon",
+ "cover": false,
+ "terrain": [ { "ground": { "center": [0, 0, 0], "size": [200, 200], "material": "Snow" } } ],
+ "palette": { "wood": { "material": "Wood", "color": [110, 84, 60] } },
+ "build": [ { "part": { "name": "Hut", "mat": "wood", "size": [12, 8, 12], "pos": [0, 4, 0] } } ]
+}

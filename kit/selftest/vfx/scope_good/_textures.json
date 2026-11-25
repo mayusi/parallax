@@ -1,0 +1,15 @@
+{
+ "_help": "id = rbxassetid://<n> after uploading vfx/out/<key>.png (Studio Asset Manager). Empty id -> fallback (built-in texture, flipbook disabled). grid must match the generated texture spec.",
+ "hk_crescent": {
+  "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+  "file": "build/textures/hk_crescent.png",
+  "grid": 4,
+  "id": ""
+ },
+ "hk_tongue_gpu": {
+  "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+  "file": "build/textures/hk_tongue_gpu.png",
+  "grid": 4,
+  "id": ""
+ }
+}

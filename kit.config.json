@@ -1,0 +1,33 @@
+{
+  "name": "Parallax",
+  "paths": {
+    "board": "board",
+    "build": "build",
+    "client": "src/client",
+    "models": "assets/models",
+    "playtests": "tests/playtest",
+    "server": "src/server",
+    "shared": "src/shared",
+    "sounds": "assets/sounds",
+    "source": "src",
+    "tests": "tests",
+    "textures": "assets/textures",
+    "ui": "assets/ui",
+    "uiOut": "src/ui",
+    "vfx": "assets/effects"
+  },
+  "qa": {
+    "auditIgnore": {},
+    "perf": {
+      "heartbeatMs": 20,
+      "instances": 60000,
+      "memoryMb": 1500
+    },
+    "typesIgnore": []
+  },
+  "rojo": "default.project.json",
+  "upload": {
+    "creator": "",
+    "universe": null
+  }
+}

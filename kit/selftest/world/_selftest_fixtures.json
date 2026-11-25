@@ -1,0 +1,20 @@
+{
+ "_note": "NEGATIVE fixture (LIMITATIONS_FIXES_V3.md stage C: '0 floating plinths, >= 7 st clear footpath'): a row of street lamps typed 6 studs over the square: their poles float. kit world check must FAIL it ('fixture:'); the bench stands at the lane's edge (see _selftest_footpath for the lane).",
+ "name": "SelftestFixtures",
+ "palette": {
+  "ground": { "material": "Cobblestone", "color": [96, 92, 88] },
+  "stone": { "material": "Slate", "color": [70, 72, 78] },
+  "iron": { "material": "Metal", "color": [40, 40, 44] },
+  "glow": { "material": "Neon", "color": [255, 196, 120] },
+  "wood": { "material": "WoodPlanks", "color": [110, 76, 48] },
+  "spawn": { "material": "Neon", "color": [80, 220, 120] }
+ },
+ "build": [
+  { "floor": { "name": "Square", "center": [0, 0, 0], "size": [200, 80], "mat": "ground" } },
+  { "path": { "name": "Lane", "points": [[-90, 0], [90, 0]], "y": 0.2, "width": 10, "mat": "stone" } },
+  { "row": { "name": "Lamps", "points": [[-90, -20], [90, -20]], "item": "lamp", "y": 6, "mat": "iron", "light": "glow" } },
+  { "part": { "name": "Bench", "size": [6, 2.4, 3], "pos": [0, 1.4, 3.6], "mat": "wood" } },
+  { "spawn": { "pos": [-80, 0, 30], "mat": "spawn" } },
+  { "spawn": { "pos": [80, 0, 30], "mat": "spawn" } }
+ ]
+}

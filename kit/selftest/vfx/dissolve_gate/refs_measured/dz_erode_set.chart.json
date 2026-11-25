@@ -1,0 +1,82 @@
+{
+ "schema": 1,
+ "duration": 1.6,
+ "about": "selftest chart (made)",
+ "beats": [
+  {
+   "beat": "0 glint",
+   "scene": [
+    1.0,
+    1.4
+   ],
+   "t": 0.0,
+   "len": 0.3,
+   "hold": 0.0,
+   "slow": 1.0,
+   "key": false,
+   "methods": [
+    "sprite",
+    "flipbook"
+   ]
+  },
+  {
+   "beat": "1 ring breaks up",
+   "scene": [
+    1.4,
+    2.6
+   ],
+   "t": 0.3,
+   "len": 0.8,
+   "hold": 0.0,
+   "slow": 1.0,
+   "key": true,
+   "methods": [
+    "mesh"
+   ]
+  },
+  {
+   "beat": "2 embers",
+   "scene": [
+    2.6,
+    4.0
+   ],
+   "t": 0.9,
+   "len": 0.7,
+   "hold": 0.0,
+   "slow": 1.0,
+   "key": false,
+   "methods": [
+    "particle",
+    "additive"
+   ]
+  }
+ ],
+ "approved": {
+  "by": "owner",
+  "date": "2026-11-13",
+  "words": "(fixture) an approval in the owner's own form for the chart as this file shows it",
+  "plan": "1.60|0.00,0.30,0.00,0;0.30,0.80,0.00,1;0.90,0.70,0.00,0",
+  "methods": {
+   "0": {
+    "methods": [
+     "flipbook",
+     "sprite"
+    ],
+    "not": {}
+   },
+   "1": {
+    "methods": [
+     "mesh"
+    ],
+    "not": {}
+   },
+   "2": {
+    "methods": [
+     "additive",
+     "particle"
+    ],
+    "not": {}
+   }
+  }
+ }
+}

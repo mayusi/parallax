@@ -1,0 +1,898 @@
+{
+ "name": "FieldHud",
+ "identity": "field",
+ "quality": "hero",
+ "kind": "hud",
+ "focus": "Hud.Ammo.Check",
+ "enabled": false,
+ "insets": "core",
+ "scale": {
+  "phone": 0.75,
+  "tablet": 0.85
+ },
+ "root": {
+  "type": "panel",
+  "name": "Hud",
+  "size": [
+   "100%",
+   "100%"
+  ],
+  "children": [
+   {
+    "type": "panel",
+    "name": "Compass",
+    "size": [
+     480,
+     70
+    ],
+    "pos": [
+     "50%",
+     18
+    ],
+    "anchor": "top",
+    "at": {
+     "phone": {
+      "scale": 1.2
+     }
+    },
+    "children": [
+     {
+      "type": "panel",
+      "name": "Window",
+      "size": [
+       480,
+       64
+      ],
+      "pos": [
+       0,
+       0
+      ],
+      "clip": true,
+      "children": [
+       {
+        "type": "image",
+        "name": "Strip",
+        "image": "art:field/compass_strip",
+        "fit": "stretch",
+        "size": [
+         2160,
+         64
+        ],
+        "pos": [
+         -1528,
+         0
+        ],
+        "imageAlpha": 0.15
+       }
+      ]
+     },
+     {
+      "type": "panel",
+      "name": "Caret",
+      "size": [
+       2,
+       10
+      ],
+      "pos": [
+       "50%",
+       62
+      ],
+      "anchor": "top",
+      "color": "text"
+     },
+     {
+      "type": "panel",
+      "name": "Obj",
+      "size": [
+       9,
+       9
+      ],
+      "pos": [
+       352,
+       50
+      ],
+      "anchor": "center",
+      "rotation": 45,
+      "color": "accent"
+     }
+    ]
+   },
+   {
+    "type": "panel",
+    "name": "Ammo",
+    "size": [
+     360,
+     150
+    ],
+    "pos": [
+     "100%-44",
+     "100%-40"
+    ],
+    "anchor": "bottomright",
+    "at": {
+     "phone": {
+      "scale": 1.25
+     }
+    },
+    "children": [
+     {
+      "type": "label",
+      "name": "Check",
+      "text": "Nearly full",
+      "role": "body",
+      "textOutline": "shadow",
+      "textOutlineWidth": 1.5,
+      "size": [
+       200,
+       26
+      ],
+      "pos": [
+       "100%",
+       0
+      ],
+      "anchor": "topright",
+      "align": "right",
+      "textColor": "text"
+     },
+     {
+      "type": "panel",
+      "name": "Mags",
+      "size": [
+       220,
+       78
+      ],
+      "pos": [
+       "100%",
+       32
+      ],
+      "anchor": "topright",
+      "layout": {
+       "dir": "horizontal",
+       "gap": 10,
+       "align": "end"
+      },
+      "children": [
+       {
+        "type": "panel",
+        "name": "Current",
+        "size": [
+         40,
+         76
+        ],
+        "children": [
+         {
+          "type": "panel",
+          "name": "Level",
+          "size": [
+           40,
+           61
+          ],
+          "pos": [
+           0,
+           "100%"
+          ],
+          "anchor": "bottomleft",
+          "clip": true,
+          "children": [
+           {
+            "type": "image",
+            "name": "Fill",
+            "image": "art:field/mag_fill",
+            "fit": "stretch",
+            "size": [
+             40,
+             76
+            ],
+            "pos": [
+             0,
+             "100%"
+            ],
+            "anchor": "bottomleft",
+            "imageAlpha": 0.0
+           }
+          ]
+         },
+         {
+          "type": "image",
+          "name": "Outline",
+          "image": "art:field/mag_outline",
+          "fit": "stretch",
+          "size": [
+           40,
+           76
+          ],
+          "pos": [
+           0,
+           0
+          ],
+          "imageAlpha": 0.0
+         }
+        ]
+       },
+       {
+        "type": "panel",
+        "name": "Spare0",
+        "size": [
+         28,
+         54
+        ],
+        "children": [
+         {
+          "type": "panel",
+          "name": "Level",
+          "size": [
+           28,
+           54
+          ],
+          "pos": [
+           0,
+           "100%"
+          ],
+          "anchor": "bottomleft",
+          "clip": true,
+          "children": [
+           {
+            "type": "image",
+            "name": "Fill",
+            "image": "art:field/mag_fill",
+            "fit": "stretch",
+            "size": [
+             28,
+             54
+            ],
+            "pos": [
+             0,
+             "100%"
+            ],
+            "anchor": "bottomleft",
+            "imageAlpha": 0.35
+           }
+          ]
+         },
+         {
+          "type": "image",
+          "name": "Outline",
+          "image": "art:field/mag_outline",
+          "fit": "stretch",
+          "size": [
+           28,
+           54
+          ],
+          "pos": [
+           0,
+           0
+          ],
+          "imageAlpha": 0.3
+         }
+        ]
+       },
+       {
+        "type": "panel",
+        "name": "Spare1",
+        "size": [
+         28,
+         54
+        ],
+        "children": [
+         {
+          "type": "panel",
+          "name": "Level",
+          "size": [
+           28,
+           54
+          ],
+          "pos": [
+           0,
+           "100%"
+          ],
+          "anchor": "bottomleft",
+          "clip": true,
+          "children": [
+           {
+            "type": "image",
+            "name": "Fill",
+            "image": "art:field/mag_fill",
+            "fit": "stretch",
+            "size": [
+             28,
+             54
+            ],
+            "pos": [
+             0,
+             "100%"
+            ],
+            "anchor": "bottomleft",
+            "imageAlpha": 0.35
+           }
+          ]
+         },
+         {
+          "type": "image",
+          "name": "Outline",
+          "image": "art:field/mag_outline",
+          "fit": "stretch",
+          "size": [
+           28,
+           54
+          ],
+          "pos": [
+           0,
+           0
+          ],
+          "imageAlpha": 0.3
+         }
+        ]
+       },
+       {
+        "type": "panel",
+        "name": "Spare2",
+        "size": [
+         28,
+         54
+        ],
+        "children": [
+         {
+          "type": "panel",
+          "name": "Level",
+          "size": [
+           28,
+           54
+          ],
+          "pos": [
+           0,
+           "100%"
+          ],
+          "anchor": "bottomleft",
+          "clip": true,
+          "children": [
+           {
+            "type": "image",
+            "name": "Fill",
+            "image": "art:field/mag_fill",
+            "fit": "stretch",
+            "size": [
+             28,
+             54
+            ],
+            "pos": [
+             0,
+             "100%"
+            ],
+            "anchor": "bottomleft",
+            "imageAlpha": 0.35
+           }
+          ]
+         },
+         {
+          "type": "image",
+          "name": "Outline",
+          "image": "art:field/mag_outline",
+          "fit": "stretch",
+          "size": [
+           28,
+           54
+          ],
+          "pos": [
+           0,
+           0
+          ],
+          "imageAlpha": 0.3
+         }
+        ]
+       },
+       {
+        "type": "panel",
+        "name": "Spare3",
+        "size": [
+         28,
+         54
+        ],
+        "children": [
+         {
+          "type": "panel",
+          "name": "Level",
+          "size": [
+           28,
+           19
+          ],
+          "pos": [
+           0,
+           "100%"
+          ],
+          "anchor": "bottomleft",
+          "clip": true,
+          "children": [
+           {
+            "type": "image",
+            "name": "Fill",
+            "image": "art:field/mag_fill",
+            "fit": "stretch",
+            "size": [
+             28,
+             54
+            ],
+            "pos": [
+             0,
+             "100%"
+            ],
+            "anchor": "bottomleft",
+            "imageAlpha": 0.35
+           }
+          ]
+         },
+         {
+          "type": "image",
+          "name": "Outline",
+          "image": "art:field/mag_outline",
+          "fit": "stretch",
+          "size": [
+           28,
+           54
+          ],
+          "pos": [
+           0,
+           0
+          ],
+          "imageAlpha": 0.3
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "type": "label",
+      "name": "Mode",
+      "text": "ARP-9   AUTO",
+      "role": "tag",
+      "textOutline": "shadow",
+      "textOutlineWidth": 1.5,
+      "size": [
+       200,
+       22
+      ],
+      "pos": [
+       "100%",
+       118
+      ],
+      "anchor": "topright",
+      "align": "right",
+      "textColor": "muted"
+     },
+     {
+      "type": "panel",
+      "name": "Gear",
+      "size": [
+       110,
+       40
+      ],
+      "pos": [
+       0,
+       70
+      ],
+      "at": {
+       "phone": {
+        "pos": [
+         62,
+         88
+        ]
+       }
+      },
+      "children": [
+       {
+        "type": "image",
+        "name": "Frag",
+        "image": "art:field/icon_frag",
+        "fit": "fit",
+        "size": [
+         24,
+         30
+        ],
+        "pos": [
+         0,
+         4
+        ],
+        "imageAlpha": 0.15
+       },
+       {
+        "type": "label",
+        "name": "FragN",
+        "text": "2",
+        "role": "tag",
+        "textOutline": "shadow",
+        "textOutlineWidth": 1.5,
+        "size": [
+         16,
+         30
+        ],
+        "pos": [
+         26,
+         4
+        ],
+        "align": "left",
+        "textColor": "muted"
+       },
+       {
+        "type": "image",
+        "name": "Flash",
+        "image": "art:field/icon_flash",
+        "fit": "fit",
+        "size": [
+         24,
+         30
+        ],
+        "pos": [
+         54,
+         4
+        ],
+        "imageAlpha": 0.15
+       },
+       {
+        "type": "label",
+        "name": "FlashN",
+        "text": "1",
+        "role": "tag",
+        "textOutline": "shadow",
+        "textOutlineWidth": 1.5,
+        "size": [
+         16,
+         30
+        ],
+        "pos": [
+         80,
+         4
+        ],
+        "align": "left",
+        "textColor": "muted"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "type": "panel",
+    "name": "Status",
+    "size": [
+     360,
+     60
+    ],
+    "pos": [
+     44,
+     "100%-44"
+    ],
+    "anchor": "bottomleft",
+    "at": {
+     "phone": {
+      "scale": 1.25
+     }
+    },
+    "children": [
+     {
+      "type": "label",
+      "name": "State",
+      "text": "BLEEDING",
+      "role": "body",
+      "textOutline": "shadow",
+      "textOutlineWidth": 1.5,
+      "size": [
+       200,
+       26
+      ],
+      "pos": [
+       0,
+       0
+      ],
+      "align": "left",
+      "textColor": "danger"
+     },
+     {
+      "type": "label",
+      "name": "Fix",
+      "text": "[5]  Bandage",
+      "role": "tag",
+      "textOutline": "shadow",
+      "textOutlineWidth": 1.5,
+      "size": [
+       200,
+       22
+      ],
+      "pos": [
+       0,
+       30
+      ],
+      "align": "left",
+      "textColor": "muted"
+     }
+    ]
+   },
+   {
+    "type": "panel",
+    "name": "Objective",
+    "size": [
+     70,
+     56
+    ],
+    "pos": [
+     "63%",
+     "41%"
+    ],
+    "anchor": "center",
+    "at": {
+     "phone": {
+      "scale": 1.25
+     }
+    },
+    "children": [
+     {
+      "type": "panel",
+      "name": "Diamond",
+      "size": [
+       18,
+       18
+      ],
+      "pos": [
+       "50%",
+       10
+      ],
+      "anchor": "center",
+      "rotation": 45,
+      "color": "accent",
+      "stroke": "shadow",
+      "strokeWidth": 1,
+      "strokeAlpha": 0.4,
+      "children": [
+       {
+        "type": "label",
+        "name": "A",
+        "text": "A",
+        "role": "tag",
+        "size": [
+         "100%",
+         "100%"
+        ],
+        "pos": [
+         "50%",
+         "50%"
+        ],
+        "anchor": "center",
+        "rotation": -45,
+        "align": "center",
+        "textColor": "ink",
+        "textSize": 13
+       }
+      ]
+     },
+     {
+      "type": "label",
+      "name": "Dist",
+      "text": "48 m",
+      "role": "tag",
+      "textOutline": "shadow",
+      "textOutlineWidth": 1.5,
+      "size": [
+       70,
+       22
+      ],
+      "pos": [
+       "50%",
+       24
+      ],
+      "anchor": "top",
+      "align": "center",
+      "textColor": "accent"
+     }
+    ]
+   },
+   {
+    "type": "panel",
+    "name": "Mate0",
+    "size": [
+     90,
+     50
+    ],
+    "pos": [
+     "41%",
+     "47%"
+    ],
+    "anchor": "center",
+    "at": {
+     "phone": {
+      "scale": 1.25
+     }
+    },
+    "children": [
+     {
+      "type": "label",
+      "name": "N",
+      "text": "Rook",
+      "role": "tag",
+      "textOutline": "shadow",
+      "textOutlineWidth": 1.5,
+      "size": [
+       90,
+       22
+      ],
+      "pos": [
+       "50%",
+       0
+      ],
+      "anchor": "top",
+      "align": "center",
+      "textColor": "friendly"
+     },
+     {
+      "type": "image",
+      "name": "Chev",
+      "image": "art:field/chevron_down",
+      "fit": "fit",
+      "size": [
+       18,
+       18
+      ],
+      "pos": [
+       "50%",
+       22
+      ],
+      "anchor": "top",
+      "imageColor": "friendly"
+     }
+    ]
+   },
+   {
+    "type": "panel",
+    "name": "Mate1",
+    "size": [
+     90,
+     50
+    ],
+    "pos": [
+     "29%",
+     "50%"
+    ],
+    "anchor": "center",
+    "at": {
+     "phone": {
+      "scale": 1.25
+     }
+    },
+    "children": [
+     {
+      "type": "label",
+      "name": "N",
+      "text": "Hale",
+      "role": "tag",
+      "textOutline": "shadow",
+      "textOutlineWidth": 1.5,
+      "size": [
+       90,
+       22
+      ],
+      "pos": [
+       "50%",
+       0
+      ],
+      "anchor": "top",
+      "align": "center",
+      "textColor": "friendly"
+     },
+     {
+      "type": "image",
+      "name": "Chev",
+      "image": "art:field/chevron_down",
+      "fit": "fit",
+      "size": [
+       18,
+       18
+      ],
+      "pos": [
+       "50%",
+       22
+      ],
+      "anchor": "top",
+      "imageColor": "friendly"
+     }
+    ]
+   },
+   {
+    "type": "label",
+    "name": "Kill",
+    "text": "Enemy down",
+    "role": "body",
+    "textOutline": "shadow",
+    "textOutlineWidth": 1.5,
+    "size": [
+     220,
+     26
+    ],
+    "pos": [
+     "50%",
+     "60%"
+    ],
+    "anchor": "center",
+    "align": "center",
+    "textColor": "text",
+    "at": {
+     "phone": {
+      "scale": 1.25
+     }
+    }
+   },
+   {
+    "type": "panel",
+    "name": "Prompt",
+    "size": [
+     220,
+     28
+    ],
+    "pos": [
+     "50%",
+     "66%"
+    ],
+    "anchor": "center",
+    "at": {
+     "phone": {
+      "scale": 1.25,
+      "pos": [
+       "50%",
+       "70%"
+      ]
+     }
+    },
+    "children": [
+     {
+      "type": "panel",
+      "name": "Key",
+      "size": [
+       24,
+       24
+      ],
+      "pos": [
+       0,
+       2
+      ],
+      "stroke": "text",
+      "strokeWidth": 1,
+      "strokeAlpha": 0.35,
+      "children": [
+       {
+        "type": "label",
+        "name": "K",
+        "text": "F",
+        "role": "tag",
+        "textOutline": "shadow",
+        "textOutlineWidth": 1.5,
+        "size": [
+         "100%",
+         "100%"
+        ],
+        "pos": [
+         0,
+         0
+        ],
+        "align": "center",
+        "textColor": "text"
+       }
+      ]
+     },
+     {
+      "type": "label",
+      "name": "Txt",
+      "text": "Pick up M67",
+      "role": "body",
+      "textOutline": "shadow",
+      "textOutlineWidth": 1.5,
+      "size": [
+       180,
+       28
+      ],
+      "pos": [
+       34,
+       0
+      ],
+      "align": "left",
+      "textColor": "text"
+     }
+    ]
+   }
+  ]
+ }
+}

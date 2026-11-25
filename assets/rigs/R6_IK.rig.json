@@ -1,0 +1,1406 @@
+{
+ "source": "assets/rigs/R6_IK.blend (sha256 4bd7d58a27bb...), bone rest matrices in armature space (Blender: x right, y forward, z up)",
+ "bones": {
+  "HumanoidRootPart": {
+   "parent": null,
+   "matrix_local": [
+    [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     -1.0,
+     0.0
+    ],
+    [
+     0.0,
+     1.0,
+     0.0,
+     3.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 0.01,
+   "inherit_rotation": true,
+   "rotation_mode": "QUATERNION"
+  },
+  "Torso": {
+   "parent": "HumanoidRootPart",
+   "matrix_local": [
+    [
+     -1.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     -1.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     1.0,
+     3.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 0.25,
+   "inherit_rotation": true,
+   "rotation_mode": "QUATERNION"
+  },
+  "Head": {
+   "parent": "Torso",
+   "matrix_local": [
+    [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     -1.0,
+     0.0
+    ],
+    [
+     0.0,
+     1.0,
+     -0.0,
+     4.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 1.0,
+   "inherit_rotation": false,
+   "rotation_mode": "QUATERNION"
+  },
+  "Right Arm": {
+   "parent": "Torso",
+   "matrix_local": [
+    [
+     -0.7071,
+     0.7071,
+     0.0,
+     1.0
+    ],
+    [
+     -0.0,
+     0.0,
+     -1.0,
+     0.0
+    ],
+    [
+     -0.7071,
+     -0.7071,
+     -0.0,
+     3.5
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 1.4142,
+   "inherit_rotation": false,
+   "rotation_mode": "QUATERNION"
+  },
+  "Left Arm": {
+   "parent": "Torso",
+   "matrix_local": [
+    [
+     -0.7071,
+     -0.7071,
+     0.0,
+     -1.0
+    ],
+    [
+     -0.0,
+     0.0,
+     -1.0,
+     0.0
+    ],
+    [
+     0.7071,
+     -0.7071,
+     0.0,
+     3.5
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 1.4142,
+   "inherit_rotation": false,
+   "rotation_mode": "QUATERNION"
+  },
+  "Right Leg": {
+   "parent": "Torso",
+   "matrix_local": [
+    [
+     -0.8944,
+     -0.4472,
+     0.0,
+     1.0
+    ],
+    [
+     -0.0,
+     -0.0,
+     -1.0,
+     0.0
+    ],
+    [
+     0.4472,
+     -0.8944,
+     0.0,
+     2.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 2.2361,
+   "inherit_rotation": false,
+   "rotation_mode": "QUATERNION"
+  },
+  "Left Leg": {
+   "parent": "Torso",
+   "matrix_local": [
+    [
+     -0.8944,
+     0.4472,
+     -0.0,
+     -1.0
+    ],
+    [
+     0.0,
+     0.0,
+     -1.0,
+     0.0
+    ],
+    [
+     -0.4472,
+     -0.8944,
+     -0.0,
+     2.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 2.2361,
+   "inherit_rotation": false,
+   "rotation_mode": "QUATERNION"
+  },
+  "Main Controller": {
+   "parent": null,
+   "matrix_local": [
+    [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     -1.0,
+     0.0
+    ],
+    [
+     0.0,
+     1.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 1.0,
+   "inherit_rotation": true,
+   "rotation_mode": "QUATERNION"
+  },
+  "Body": {
+   "parent": "Main Controller",
+   "matrix_local": [
+    [
+     -1.0,
+     0.0,
+     -0.0,
+     0.0
+    ],
+    [
+     -0.0,
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     0.0,
+     1.0,
+     0.0,
+     3.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 1.0,
+   "inherit_rotation": true,
+   "rotation_mode": "QUATERNION"
+  },
+  "Head.001": {
+   "parent": "Body",
+   "matrix_local": [
+    [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     -1.0,
+     0.0
+    ],
+    [
+     0.0,
+     1.0,
+     0.0,
+     4.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 1.0,
+   "inherit_rotation": false,
+   "rotation_mode": "QUATERNION"
+  },
+  "Arm.R": {
+   "parent": "Body",
+   "matrix_local": [
+    [
+     1.0,
+     0.0,
+     0.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     0.0,
+     -1.0,
+     0.0,
+     3.5
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 1.2,
+   "inherit_rotation": true,
+   "rotation_mode": "QUATERNION"
+  },
+  "Arm.L": {
+   "parent": "Body",
+   "matrix_local": [
+    [
+     1.0,
+     0.0,
+     0.0,
+     -1.0
+    ],
+    [
+     0.0,
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     0.0,
+     -1.0,
+     0.0,
+     3.5
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 1.2,
+   "inherit_rotation": true,
+   "rotation_mode": "QUATERNION"
+  },
+  "Foot.R": {
+   "parent": "Main Controller",
+   "matrix_local": [
+    [
+     1.0,
+     -0.0,
+     0.0,
+     0.5
+    ],
+    [
+     0.0,
+     1.0,
+     0.0,
+     0.0
+    ],
+    [
+     -0.0,
+     -0.0,
+     1.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 0.5,
+   "inherit_rotation": true,
+   "rotation_mode": "QUATERNION"
+  },
+  "Foot.L": {
+   "parent": "Main Controller",
+   "matrix_local": [
+    [
+     1.0,
+     -0.0,
+     -0.0,
+     -0.5
+    ],
+    [
+     0.0,
+     1.0,
+     0.0,
+     0.0
+    ],
+    [
+     -0.0,
+     -0.0,
+     1.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 0.5,
+   "inherit_rotation": true,
+   "rotation_mode": "QUATERNION"
+  },
+  "Bone.002": {
+   "parent": "Foot.L",
+   "matrix_local": [
+    [
+     0.0,
+     -0.0,
+     -1.0,
+     -0.5
+    ],
+    [
+     0.0,
+     1.0,
+     -0.0,
+     -0.0
+    ],
+    [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 0.5,
+   "inherit_rotation": true,
+   "rotation_mode": "QUATERNION"
+  },
+  "Bone.007": {
+   "parent": "Foot.R",
+   "matrix_local": [
+    [
+     0.0,
+     0.0,
+     -1.0,
+     0.5
+    ],
+    [
+     0.0,
+     1.0,
+     0.0,
+     -0.0
+    ],
+    [
+     1.0,
+     0.0,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 0.5,
+   "inherit_rotation": true,
+   "rotation_mode": "QUATERNION"
+  },
+  "Bone.005": {
+   "parent": "Bone.002",
+   "matrix_local": [
+    [
+     0.0,
+     0.0,
+     -1.0,
+     -0.5
+    ],
+    [
+     -0.9999,
+     0.0112,
+     -0.0,
+     -0.0
+    ],
+    [
+     0.0112,
+     0.9999,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 1.8841,
+   "inherit_rotation": true,
+   "rotation_mode": "QUATERNION"
+  },
+  "Bone.006": {
+   "parent": "Bone.007",
+   "matrix_local": [
+    [
+     0.0,
+     0.0,
+     -1.0,
+     0.5
+    ],
+    [
+     -0.9999,
+     0.0112,
+     -0.0,
+     -0.0
+    ],
+    [
+     0.0112,
+     0.9999,
+     0.0,
+     0.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 1.8841,
+   "inherit_rotation": true,
+   "rotation_mode": "QUATERNION"
+  },
+  "Leg.L.001": {
+   "parent": "Bone.005",
+   "matrix_local": [
+    [
+     1.0,
+     -0.0,
+     -0.0,
+     -1.0
+    ],
+    [
+     0.0,
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     0.0,
+     -1.0,
+     0.0,
+     2.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 1.0,
+   "inherit_rotation": true,
+   "rotation_mode": "XYZ"
+  },
+  "Leg.L.002": {
+   "parent": "Bone.006",
+   "matrix_local": [
+    [
+     1.0,
+     -0.0,
+     -0.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     0.0,
+     -1.0,
+     0.0,
+     2.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 1.0,
+   "inherit_rotation": true,
+   "rotation_mode": "XYZ"
+  },
+  "Uleg.L": {
+   "parent": "Body",
+   "matrix_local": [
+    [
+     1.0,
+     -0.0,
+     0.0,
+     -0.5
+    ],
+    [
+     -0.0,
+     0.1793,
+     0.9838,
+     0.0
+    ],
+    [
+     -0.0,
+     -0.9838,
+     0.1793,
+     2.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 0.1179,
+   "inherit_rotation": true,
+   "rotation_mode": "QUATERNION"
+  },
+  "Uleg.R": {
+   "parent": "Body",
+   "matrix_local": [
+    [
+     1.0,
+     -0.0,
+     -0.0,
+     0.5
+    ],
+    [
+     0.0,
+     0.1793,
+     0.9838,
+     0.0
+    ],
+    [
+     0.0,
+     -0.9838,
+     0.1793,
+     2.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 0.1179,
+   "inherit_rotation": true,
+   "rotation_mode": "QUATERNION"
+  },
+  "Uleg.L.001": {
+   "parent": "Uleg.L",
+   "matrix_local": [
+    [
+     1.0,
+     0.0,
+     0.0,
+     -0.5
+    ],
+    [
+     -0.0,
+     0.0547,
+     0.9985,
+     0.0211
+    ],
+    [
+     -0.0,
+     -0.9985,
+     0.0547,
+     1.884
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 0.5793,
+   "inherit_rotation": true,
+   "rotation_mode": "QUATERNION"
+  },
+  "Uleg.R.001": {
+   "parent": "Uleg.R",
+   "matrix_local": [
+    [
+     1.0,
+     -0.0,
+     -0.0,
+     0.5
+    ],
+    [
+     0.0,
+     0.0547,
+     0.9985,
+     0.0211
+    ],
+    [
+     0.0,
+     -0.9985,
+     0.0547,
+     1.884
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 0.5793,
+   "inherit_rotation": true,
+   "rotation_mode": "QUATERNION"
+  },
+  "Bone.001": {
+   "parent": "Uleg.L",
+   "matrix_local": [
+    [
+     -0.0,
+     0.0,
+     -1.0,
+     -0.5
+    ],
+    [
+     0.9999,
+     -0.0112,
+     -0.0,
+     0.0211
+    ],
+    [
+     -0.0112,
+     -0.9999,
+     0.0,
+     1.884
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 1.8841,
+   "inherit_rotation": true,
+   "rotation_mode": "QUATERNION"
+  },
+  "Bone.003": {
+   "parent": "Uleg.R",
+   "matrix_local": [
+    [
+     -0.0,
+     0.0,
+     -1.0,
+     0.5
+    ],
+    [
+     0.9999,
+     -0.0112,
+     -0.0,
+     0.0211
+    ],
+    [
+     -0.0112,
+     -0.9999,
+     -0.0,
+     1.884
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 1.8841,
+   "inherit_rotation": true,
+   "rotation_mode": "QUATERNION"
+  },
+  "Knee.L": {
+   "parent": "Bone.002",
+   "matrix_local": [
+    [
+     1.0,
+     -0.0,
+     0.0,
+     -0.5
+    ],
+    [
+     0.0,
+     1.0,
+     0.0,
+     1.0
+    ],
+    [
+     -0.0,
+     0.0,
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 0.5,
+   "inherit_rotation": true,
+   "rotation_mode": "QUATERNION"
+  },
+  "Knee.R": {
+   "parent": "Bone.007",
+   "matrix_local": [
+    [
+     1.0,
+     0.0,
+     0.0,
+     0.5
+    ],
+    [
+     -0.0,
+     1.0,
+     0.0,
+     1.0
+    ],
+    [
+     -0.0,
+     0.0,
+     1.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 0.5,
+   "inherit_rotation": true,
+   "rotation_mode": "QUATERNION"
+  },
+  "FKLeg.L": {
+   "parent": "Body",
+   "matrix_local": [
+    [
+     1.0,
+     0.0,
+     0.0,
+     -1.0
+    ],
+    [
+     0.0,
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     0.0,
+     -1.0,
+     0.0,
+     2.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 1.9,
+   "inherit_rotation": true,
+   "rotation_mode": "XYZ"
+  },
+  "FKLeg.R": {
+   "parent": "Body",
+   "matrix_local": [
+    [
+     1.0,
+     0.0,
+     0.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     0.0,
+     -1.0,
+     0.0,
+     2.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 1.9,
+   "inherit_rotation": true,
+   "rotation_mode": "XYZ"
+  },
+  "Leg.L": {
+   "parent": "Main Controller",
+   "matrix_local": [
+    [
+     1.0,
+     0.0,
+     -0.0,
+     -1.0
+    ],
+    [
+     0.0,
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     0.0,
+     -1.0,
+     0.0,
+     2.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 1.9,
+   "inherit_rotation": true,
+   "rotation_mode": "XYZ"
+  },
+  "Leg.R": {
+   "parent": "Main Controller",
+   "matrix_local": [
+    [
+     1.0,
+     0.0,
+     -0.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     0.0,
+     -1.0,
+     0.0,
+     2.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 1.9,
+   "inherit_rotation": true,
+   "rotation_mode": "XYZ"
+  },
+  "Leg.L1": {
+   "parent": null,
+   "matrix_local": [
+    [
+     1.0,
+     0.0,
+     0.0,
+     -1.0
+    ],
+    [
+     0.0,
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     0.0,
+     -1.0,
+     0.0,
+     2.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 1.9,
+   "inherit_rotation": true,
+   "rotation_mode": "QUATERNION"
+  },
+  "Leg.R1": {
+   "parent": null,
+   "matrix_local": [
+    [
+     1.0,
+     0.0,
+     0.0,
+     1.0
+    ],
+    [
+     0.0,
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     0.0,
+     -1.0,
+     0.0,
+     2.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 1.9,
+   "inherit_rotation": true,
+   "rotation_mode": "QUATERNION"
+  },
+  "SoftIK.L": {
+   "parent": "Leg.L1",
+   "matrix_local": [
+    [
+     0.0,
+     -1.0,
+     0.0,
+     -1.5
+    ],
+    [
+     0.0,
+     0.0,
+     1.0,
+     0.0
+    ],
+    [
+     -1.0,
+     0.0,
+     0.0,
+     2.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 0.5,
+   "inherit_rotation": false,
+   "rotation_mode": "QUATERNION"
+  },
+  "SoftIK.R": {
+   "parent": "Leg.R1",
+   "matrix_local": [
+    [
+     0.0,
+     1.0,
+     -0.0,
+     1.5
+    ],
+    [
+     -0.0,
+     0.0,
+     1.0,
+     -0.0
+    ],
+    [
+     1.0,
+     0.0,
+     0.0,
+     2.0
+    ],
+    [
+     0.0,
+     0.0,
+     0.0,
+     1.0
+    ]
+   ],
+   "length": 0.5,
+   "inherit_rotation": false,
+   "rotation_mode": "QUATERNION"
+  }
+ },
+ "ik_knee_swing": {
+  "note": "the 2-bone IK chain's joint (Uleg.*.001 head) swings on a circle of radius 0.118 about the hip anchor, toward the knee pole, by this angle (degrees from the hip->foot line) as a function of the hip->foot distance (studs); measured on the rig (kit/anim/rig_model_check.py, 2026-10-11)",
+  "d_phi": [
+   [
+    0.8641,
+    180.0
+   ],
+   [
+    0.8891,
+    179.951
+   ],
+   [
+    0.9141,
+    179.951
+   ],
+   [
+    0.9391,
+    179.951
+   ],
+   [
+    0.9641,
+    179.903
+   ],
+   [
+    0.9891,
+    179.854
+   ],
+   [
+    1.0141,
+    179.806
+   ],
+   [
+    1.0391,
+    179.66
+   ],
+   [
+    1.0641,
+    179.514
+   ],
+   [
+    1.0891,
+    179.271
+   ],
+   [
+    1.1141,
+    178.98
+   ],
+   [
+    1.1391,
+    178.59
+   ],
+   [
+    1.1641,
+    177.958
+   ],
+   [
+    1.1891,
+    177.179
+   ],
+   [
+    1.2141,
+    176.157
+   ],
+   [
+    1.2391,
+    174.841
+   ],
+   [
+    1.264,
+    173.128
+   ],
+   [
+    1.289,
+    170.969
+   ],
+   [
+    1.314,
+    168.299
+   ],
+   [
+    1.339,
+    165.103
+   ],
+   [
+    1.364,
+    161.304
+   ],
+   [
+    1.389,
+    157.089
+   ],
+   [
+    1.414,
+    152.413
+   ],
+   [
+    1.439,
+    147.536
+   ],
+   [
+    1.464,
+    142.342
+   ],
+   [
+    1.489,
+    137.337
+   ],
+   [
+    1.514,
+    132.146
+   ],
+   [
+    1.539,
+    127.103
+   ],
+   [
+    1.564,
+    122.181
+   ],
+   [
+    1.589,
+    117.195
+   ],
+   [
+    1.614,
+    112.018
+   ],
+   [
+    1.639,
+    106.713
+   ],
+   [
+    1.664,
+    100.852
+   ],
+   [
+    1.689,
+    93.843
+   ],
+   [
+    1.714,
+    86.645
+   ],
+   [
+    1.739,
+    79.443
+   ],
+   [
+    1.764,
+    72.272
+   ],
+   [
+    1.789,
+    65.021
+   ],
+   [
+    1.814,
+    57.711
+   ],
+   [
+    1.839,
+    50.369
+   ],
+   [
+    1.864,
+    42.937
+   ],
+   [
+    1.889,
+    35.645
+   ],
+   [
+    1.914,
+    28.63
+   ],
+   [
+    1.939,
+    22.126
+   ],
+   [
+    1.964,
+    16.513
+   ],
+   [
+    1.989,
+    11.949
+   ],
+   [
+    2.014,
+    8.536
+   ],
+   [
+    2.039,
+    5.938
+   ],
+   [
+    2.064,
+    4.086
+   ],
+   [
+    2.089,
+    2.821
+   ],
+   [
+    2.114,
+    1.896
+   ],
+   [
+    2.139,
+    1.263
+   ],
+   [
+    2.164,
+    0.875
+   ],
+   [
+    2.189,
+    0.583
+   ],
+   [
+    2.214,
+    0.389
+   ],
+   [
+    2.239,
+    0.243
+   ],
+   [
+    2.264,
+    0.146
+   ],
+   [
+    2.289,
+    0.097
+   ],
+   [
+    2.314,
+    0.049
+   ],
+   [
+    2.339,
+    0.049
+   ],
+   [
+    2.364,
+    0.049
+   ]
+  ]
+ }
+}

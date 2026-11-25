@@ -1,0 +1,287 @@
+{
+ "mode": "burst",
+ "duration": 3.5,
+ "elements": [
+  {
+   "kind": "flash",
+   "shape": "Ball",
+   "color": [
+    255,
+    240,
+    210
+   ],
+   "size": [
+    6,
+    34
+   ],
+   "transparency": [
+    0.25,
+    1
+   ],
+   "time": 0.35
+  },
+  {
+   "kind": "ring",
+   "color": [
+    255,
+    220,
+    150
+   ],
+   "size": [
+    16,
+    52
+   ],
+   "thickness": 0.8,
+   "transparency": [
+    0.55,
+    1
+   ],
+   "time": 0.55
+  },
+  {
+   "kind": "light",
+   "color": [
+    255,
+    170,
+    80
+   ],
+   "range": 50,
+   "brightness": [
+    8,
+    0
+   ],
+   "time": 0.6
+  },
+  {
+   "kind": "particles",
+   "texture": "fire",
+   "burst": 24,
+   "lifetime": [
+    0.5,
+    1.0
+   ],
+   "speed": [
+    18,
+    40
+   ],
+   "spread": 180,
+   "drag": 4,
+   "acceleration": [
+    0,
+    10,
+    0
+   ],
+   "size": [
+    [
+     0,
+     5
+    ],
+    [
+     0.4,
+     10
+    ],
+    [
+     1,
+     13
+    ]
+   ],
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.7,
+     0.2
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      235,
+      190
+     ]
+    ],
+    [
+     0.35,
+     [
+      255,
+      140,
+      40
+     ]
+    ],
+    [
+     1,
+     [
+      70,
+      55,
+      45
+     ]
+    ]
+   ],
+   "lightEmission": 1,
+   "rotation": [
+    0,
+    360
+   ],
+   "rotSpeed": [
+    -60,
+    60
+   ],
+   "flipbook": {
+    "layout": "Grid4x4",
+    "fps": 24,
+    "mode": "OneShot"
+   }
+  },
+  {
+   "kind": "particles",
+   "texture": "smoke",
+   "burst": 16,
+   "lifetime": [
+    2,
+    3
+   ],
+   "speed": [
+    8,
+    18
+   ],
+   "spread": 180,
+   "drag": 2,
+   "acceleration": [
+    0,
+    6,
+    0
+   ],
+   "size": [
+    [
+     0,
+     8
+    ],
+    [
+     1,
+     22
+    ]
+   ],
+   "transparency": [
+    [
+     0,
+     0.2
+    ],
+    [
+     0.6,
+     0.5
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      90,
+      82,
+      76
+     ]
+    ],
+    [
+     1,
+     [
+      150,
+      145,
+      140
+     ]
+    ]
+   ],
+   "lightInfluence": 1,
+   "rotation": [
+    0,
+    360
+   ],
+   "rotSpeed": [
+    -20,
+    20
+   ],
+   "flipbook": {
+    "layout": "Grid4x4",
+    "fps": 8,
+    "mode": "OneShot"
+   }
+  },
+  {
+   "kind": "particles",
+   "texture": "spark",
+   "burst": 40,
+   "lifetime": [
+    0.4,
+    0.9
+   ],
+   "speed": [
+    60,
+    120
+   ],
+   "spread": 180,
+   "drag": 1,
+   "acceleration": [
+    0,
+    -60,
+    0
+   ],
+   "size": [
+    [
+     0,
+     0.6
+    ],
+    [
+     1,
+     0.1
+    ]
+   ],
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "color": [
+    255,
+    200,
+    120
+   ],
+   "lightEmission": 1,
+   "orientation": "VelocityParallel"
+  },
+  {
+   "kind": "debris",
+   "count": 6,
+   "size": [
+    1,
+    2.2
+   ],
+   "color": [
+    40,
+    28,
+    22
+   ],
+   "material": "Slate",
+   "speed": [
+    60,
+    130
+   ],
+   "spread": 60,
+   "lifetime": 2.5
+  }
+ ]
+}

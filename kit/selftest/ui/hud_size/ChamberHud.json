@@ -1,0 +1,25 @@
+{
+ "hud": "ChamberHud",
+ "about": "selftest: the owner's sg_hud5 3/10 (2026-10-29, 'what the hell, I told you not this small') as a bad example forever. ChamberHud_R2.luau.txt is the real HUD file of that round (_scratch/gt-ui/hud8/ChamberHud.round6.luau: HUD_SCALE, MIN_SCALE, MARGIN = 0.58, 0.3, 30 in its rescale); ChamberHud_approved.luau.txt is the file the owner approved on 2026-11-04 ('Size is right'), copied from the game (RpgLikegame/ReplicatedStorage/FPSCamera/Assets/ChamberHud.luau, 2026-11-01). The reference is the game's own contract: games/SampleGame/assets/ui/huds/ChamberHud.json.",
+ "code": "kit/selftest/ui/hud_size/ChamberHud_R2.luau.txt",
+ "block": "corner",
+ "resize": "rescale",
+ "floor": 0.8,
+ "floor_why": "the owner rejected every block at 0.58 of the 1080p design (sg_hud5 3/10, 2026-10-29) and approved the guns corner at 1.0 and vitality + guard at 0.8 (2026-11-04: 'Size is right'): a block more than a fifth under the size he approved is that fault again",
+ "frames": [[1920, 1080], [1407, 644], [1366, 768], [1280, 720]],
+ "reference": {
+  "frame": [1920, 1080],
+  "follows": "height",
+  "source": "card hbgx: the live HUD in Play (2026-10-29 at 1407x644: ammo UIScale 0.596 = 1.0 at 1080p, vitals 0.477 = 0.8) and the owner on _artifacts/gt-ui/hbgx/hud_size_check.jpg (live HUD vs round 5), 2026-11-04: 'Size is right'",
+  "blocks": {
+   "Ammo": {
+    "size": [560, 400],
+    "ink": "the guns / sword corner, bottom right (560x400 design at 1.0): guns 384 px tall, sword 221 at 1080p"
+   },
+   "Vitals": {
+    "size": [800, 376],
+    "ink": "vitality + guard, bottom left (1000x470 design at 0.8): vitality 87 px tall, guard + vitality 201 at 1080p"
+   }
+  }
+ }
+}

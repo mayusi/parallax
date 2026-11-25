@@ -1,0 +1,17 @@
+{
+  "name": "FxCut2",
+  "anim": "FxCut2Clip",
+  "frames": "from_anim",
+  "hitstop": 0.1,
+  "sfx": [
+    {
+      "frame": 12,
+      "event": "FxSwing",
+      "weight": 0.9
+    }
+  ],
+  "onHit": {
+    "sfx": "FxHit",
+    "weight": 0.9
+  }
+}

@@ -1,0 +1,182 @@
+{
+ "version": 3,
+ "mode": "burst",
+ "duration": 1.6,
+ "about": "selftest: the ring plays a baked dissolve sheet through its surface inside flipbook.over: must PASS the validator and the method gate",
+ "scene": {
+  "set": "ring_break_set",
+  "colours": "ring_break_set_scene"
+ },
+ "palette": {
+  "gold": [
+   205,
+   160,
+   60
+  ],
+  "pale": [
+   250,
+   230,
+   170
+  ]
+ },
+ "hits": [
+  0.3
+ ],
+ "points": {
+  "center": [
+   0.0,
+   3.6,
+   0.0
+  ]
+ },
+ "booth": {
+  "scene": "bare",
+  "sky": "night",
+  "ground": "Grass",
+  "views": [
+   "hero"
+  ],
+  "motion": {
+   "weapon": false,
+   "actor": false
+  },
+  "viewDefs": {
+   "hero": {
+    "pos": [
+     0,
+     3.6,
+     9.0
+    ],
+    "look": [
+     0,
+     3.5,
+     0
+    ],
+    "fov": 50
+   }
+  }
+ },
+ "layers": [
+  {
+   "name": "glint",
+   "kind": "sprite",
+   "at": 0.0,
+   "count": 1,
+   "point": [
+    0.0,
+    3.6,
+    0.0
+   ],
+   "texture": "m_arc",
+   "lifetime": [
+    0.5,
+    0.5
+   ],
+   "size": 6.0,
+   "color": [
+    255,
+    220,
+    150
+   ],
+   "lightEmission": 1,
+   "brightness": 1.2,
+   "speed": [
+    0,
+    0
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 12,
+    "mode": "OneShot"
+   },
+   "beat": 0
+  },
+  {
+   "name": "arc_ring",
+   "kind": "mesh",
+   "at": 0.3,
+   "life": 0.8,
+   "point": [
+    0.0,
+    3.6,
+    0.0
+   ],
+   "shape": "ring",
+   "params": {
+    "radius": 3.0,
+    "width": 1.2,
+    "segments": 48
+   },
+   "material": "Neon",
+   "color": [
+    255,
+    220,
+    150
+   ],
+   "transparency": 0.1,
+   "scale": [
+    [
+     0,
+     [
+      1,
+      1,
+      1
+     ]
+    ],
+    [
+     1,
+     [
+      1.6,
+      1,
+      1.6
+     ]
+    ]
+   ],
+   "beat": 1,
+   "texture": "m_ring_dz",
+   "surface": 1,
+   "flipbook": {
+    "layout": "4x4",
+    "mode": "OneShot",
+    "over": [
+     0.6,
+     1
+    ]
+   }
+  },
+  {
+   "name": "embers",
+   "kind": "sprite",
+   "at": 0.9,
+   "count": 1,
+   "point": [
+    0.0,
+    3.6,
+    0.0
+   ],
+   "texture": "m_arc",
+   "lifetime": [
+    0.5,
+    0.5
+   ],
+   "size": 6.0,
+   "color": [
+    255,
+    220,
+    150
+   ],
+   "lightEmission": 1,
+   "brightness": 1.2,
+   "speed": [
+    0,
+    0
+   ],
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 12,
+    "mode": "OneShot"
+   },
+   "beat": 2
+  }
+ ]
+}

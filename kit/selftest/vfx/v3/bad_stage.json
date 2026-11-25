@@ -1,0 +1,56 @@
+{
+ "version": 3,
+ "duration": 1,
+ "about": "selftest: every layer here is wrong in a way the v3 gate must name",
+ "layers": [
+  {
+   "name": "outlives",
+   "kind": "sprite",
+   "texture": "glow",
+   "count": 4,
+   "lifetime": 3
+  },
+  {
+   "name": "missing_texture",
+   "kind": "sprite",
+   "texture": "no_such_texture",
+   "count": 1,
+   "lifetime": 0.2
+  },
+  {
+   "name": "lost",
+   "kind": "light",
+   "life": 0.5,
+   "point": "nowhere"
+  },
+  {
+   "name": "flipbook_on_a_single_image",
+   "kind": "sprite",
+   "texture": "glow",
+   "count": 1,
+   "lifetime": 0.2,
+   "flipbook": {
+    "layout": "4x4",
+    "fps": 20
+   }
+  },
+  {
+   "name": "sheet_without_flipbook",
+   "kind": "sprite",
+   "texture": "sheet",
+   "count": 1,
+   "lifetime": 0.2
+  },
+  {
+   "name": "mesh_key_typo",
+   "kind": "mesh",
+   "life": 0.5,
+   "shape": "disc",
+   "rot": [
+    60,
+    0,
+    0
+   ]
+  }
+ ]
+}

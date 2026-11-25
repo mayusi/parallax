@@ -1,0 +1,19 @@
+{
+ "version": 3,
+ "duration": 2,
+ "about": "selftest: untextured-neon-mesh bad fixture — volume: one untextured Neon sphere among many textured meshes — the director rule must flag the volume regardless of share",
+ "layers": [
+  { "name": "core_sphere", "kind": "mesh", "life": 1.0, "shape": "sphere", "material": "Neon" },
+  { "name": "shell_a",     "kind": "mesh", "life": 1.0, "shape": "flame",  "material": "Neon", "texture": "ki_rays" },
+  { "name": "shell_b",     "kind": "mesh", "life": 1.0, "shape": "flame",  "material": "Neon", "texture": "ki_rays" },
+  { "name": "shell_c",     "kind": "mesh", "life": 1.0, "shape": "flame",  "material": "Neon", "texture": "ki_rays" },
+  { "name": "shell_d",     "kind": "mesh", "life": 1.0, "shape": "flame",  "material": "Neon", "texture": "ki_rays" },
+  { "name": "shell_e",     "kind": "mesh", "life": 1.0, "shape": "flame",  "material": "Neon", "texture": "ki_rays" },
+  { "name": "shell_f",     "kind": "mesh", "life": 1.0, "shape": "flame",  "material": "Neon", "texture": "ki_rays" },
+  { "name": "shell_g",     "kind": "mesh", "life": 1.0, "shape": "flame",  "material": "Neon", "texture": "ki_rays" },
+  { "name": "shell_h",     "kind": "mesh", "life": 1.0, "shape": "flame",  "material": "Neon", "texture": "ki_rays" },
+  { "name": "shell_i",     "kind": "mesh", "life": 1.0, "shape": "flame",  "material": "Neon", "texture": "ki_rays" },
+  { "name": "shell_j",     "kind": "mesh", "life": 1.0, "shape": "flame",  "material": "Neon", "texture": "ki_rays" },
+  { "name": "shell_k",     "kind": "mesh", "life": 1.0, "shape": "flame",  "material": "Neon", "texture": "ki_rays" }
+ ]
+}

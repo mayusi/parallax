@@ -1,0 +1,16 @@
+[
+ {
+  "part": "barrel",
+  "dim": "length",
+  "value": 508.0,
+  "unit": "mm",
+  "object": "colt ar-15",
+  "source": "https://en.wikipedia.org/wiki/Colt_AR-15",
+  "kind": "wikipedia",
+  "note": "infobox 'infobox weapon' (first value given)",
+  "trust": "medium",
+  "id": "6cbf139f",
+  "added": "2026-10-08",
+  "read_by": "kit"
+ }
+]

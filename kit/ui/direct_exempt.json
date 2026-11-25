@@ -1,0 +1,9 @@
+{
+ "schema": 1,
+ "about": "Identity FILES (repo-relative paths, never bare names) made BEFORE the creative director (2026-10-24): exempt from the direction lock, as every lock exempts older pieces. Frozen: never add to it - a new identity comes from `kit ui direct pick` (or the owner's waiver: kit approve ui <identity> \"<words>\" --by owner --waive direction). A project the kit is installed into grandfathers its own older identities in board/locks.json (grandfathered.ui), as every lock does.",
+ "date": "2026-10-24",
+ "paths": [
+  "assets/ui/identities/field.json",
+  "assets/ui/identities/sim.json"
+ ]
+}

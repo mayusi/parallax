@@ -1,0 +1,74 @@
+{
+ "mode": "burst",
+ "duration": 1.5,
+ "elements": [
+  {
+   "kind": "particles",
+   "texture": "glow",
+   "burst": 12,
+   "lifetime": [
+    0.4,
+    0.8
+   ],
+   "speed": [
+    8,
+    16
+   ],
+   "spread": 180,
+   "drag": 2,
+   "size": [
+    [
+     0,
+     1
+    ],
+    [
+     1,
+     2.5
+    ]
+   ],
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "color": [
+    [
+     0,
+     [
+      255,
+      255,
+      255
+     ]
+    ],
+    [
+     1,
+     [
+      255,
+      180,
+      80
+     ]
+    ]
+   ],
+   "lightEmission": 1
+  },
+  {
+   "kind": "light",
+   "color": [
+    255,
+    200,
+    140
+   ],
+   "range": 14,
+   "brightness": [
+    3,
+    0
+   ],
+   "time": 0.3
+  }
+ ]
+}

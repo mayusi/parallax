@@ -1,0 +1,23 @@
+{
+ "source": "kit/vfx/study.luau over every vetted Roblox file in _downloads (3651 read, 232 effects with >= 6 ParticleEmitters, 6016 emitters, 964 beams/trails), 2026-10-14",
+ "additive_share": 0.56,
+ "light_influence_zero_share": 0.60,
+ "orientation_share": {"FacingCamera": 0.87, "VelocityParallel": 0.09, "VelocityPerpendicular": 0.04},
+ "lifetime_quartiles_s": [0.2, 0.58, 1.0],
+ "front_loaded_share": 0.91,
+ "front_loaded_meaning": "the least transparent moment falls in the first 35 % of the particle's life",
+ "speed_quartiles": [0.2, 6.0, 15.0],
+ "burst_emit_share": 0.15,
+ "flipbook_share": 0.08,
+ "squash_share": 0.08,
+ "zoffset_nonzero_share": 0.24,
+ "beam_texture_speed_share": 0.25,
+ "beam_face_camera_share": 0.66,
+ "lessons": [
+  "about HALF the layers are NOT additive (LightEmission 0): dark / solid shapes hold contrast and colour; all-additive washes out to white",
+  "black on Roblox = normal-blended dark particles (LightEmission 0), not glowing meshes",
+  "short lives (median 0.58 s) layered many times beat a few long shapes",
+  "front-loaded curves: pop in at once, fade over the rest of the life",
+  "streaks / shards = VelocityParallel; ring and wind discs = VelocityPerpendicular"
+ ]
+}

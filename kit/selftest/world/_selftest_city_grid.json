@@ -1,0 +1,102 @@
+{
+ "_note": "NEGATIVE fixture for the design gate: a \"city\" step is a regular grid of primitive box blocks, the layout the town plan replaces. kit world check must FAIL with a 'design:' error that names the city step and the town step. Never fix.",
+ "name": "SelftestCityGrid",
+ "palette": {
+  "ground": {
+   "material": "Concrete",
+   "color": [
+    96,
+    98,
+    104
+   ]
+  },
+  "wall": {
+   "material": "Brick",
+   "color": [
+    120,
+    110,
+    104
+   ]
+  },
+  "glass": {
+   "material": "Glass",
+   "color": [
+    150,
+    170,
+    190
+   ]
+  },
+  "spawn": {
+   "material": "Neon",
+   "color": [
+    80,
+    220,
+    120
+   ]
+  }
+ },
+ "build": [
+  {
+   "floor": {
+    "name": "Ground",
+    "center": [
+     0,
+     -1,
+     0
+    ],
+    "size": [
+     320,
+     320
+    ],
+    "thickness": 2,
+    "mat": "ground"
+   }
+  },
+  {
+   "city": {
+    "name": "GridBlocks",
+    "center": [
+     0,
+     0,
+     0
+    ],
+    "area": [
+     240,
+     240
+    ],
+    "block": [
+     60,
+     60
+    ],
+    "street": 30,
+    "heights": [
+     16,
+     40
+    ],
+    "mat": "wall",
+    "glass": "glass",
+    "seed": 3
+   }
+  },
+  {
+   "spawn": {
+    "pos": [
+     45,
+     0,
+     0
+    ],
+    "mat": "spawn"
+   }
+  },
+  {
+   "spawn": {
+    "pos": [
+     -45,
+     0,
+     0
+    ],
+    "mat": "spawn"
+   }
+  }
+ ]
+}

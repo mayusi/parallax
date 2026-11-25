@@ -1,0 +1,14 @@
+{
+ "engine": "fx",
+ "recipe": "lit_variant",
+ "of": "nk_surge_gpu",
+ "light": "back",
+ "frames": 64,
+ "grid": 8,
+ "cell": 128,
+ "about": "nk_surge_gpu's simulation re-rendered with the key light from the back: a `lit` variant",
+ "post": {
+  "alpha": "coverage",
+  "exposure": 1.2
+ }
+}

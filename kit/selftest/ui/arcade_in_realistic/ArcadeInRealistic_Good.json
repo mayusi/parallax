@@ -1,0 +1,38 @@
+{
+ "name": "ArcadeInRealistic_Good",
+ "identity": "tactical",
+ "quality": "prop",
+ "kind": "hud",
+ "focus": "ArcadeInRealistic_Good.Root.Status",
+ "root": {
+  "type": "panel",
+  "name": "Root",
+  "size": [
+   "100%",
+   "100%"
+  ],
+  "children": [
+   {
+    "type": "bar",
+    "name": "VitalBar",
+    "value": 0.8,
+    "fill": "danger",
+    "size": [
+     160,
+     6
+    ],
+    "slot": "bottomLeft"
+   },
+   {
+    "type": "label",
+    "name": "Status",
+    "text": "STEADY",
+    "size": [
+     160,
+     20
+    ],
+    "slot": "bottomLeft"
+   }
+  ]
+ }
+}

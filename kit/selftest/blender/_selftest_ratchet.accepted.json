@@ -1,0 +1,20 @@
+{
+  "asset": "_selftest_ratchet",
+  "score": 95,
+  "raw": 95.0,
+  "iteration": 1,
+  "components": {
+    "silhouette": 0.95,
+    "detail": 0.95,
+    "empty": 0.95,
+    "variety": 0.95,
+    "geometry": 0.95,
+    "materials": 0.95,
+    "surface": 0.95,
+    "texture": 0.95,
+    "markings": 0.95,
+    "craft": 1.0
+  },
+  "note": "selftest: the accepted build this fixture must never fall below \u2014 its components are a synthetic EXCELLENT build (not a measurement), stamped with the current measuring version (rbx_score.MEASURE_VERSION): bump this stamp with it. The selftest asks for the WORSE message ('design.ratchet=raw ...'): with a stale stamp the build still fails, but for another reason (a floor from other measuring code vouches only for its own script) \u2014 and the selftest says so",
+  "measure": 8
+}

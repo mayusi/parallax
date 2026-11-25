@@ -1,0 +1,9 @@
+{
+  "name": "trellis2",
+  "kind": "tool",
+  "used_by": "kit gen --res 1024 (TRELLIS.2)",
+  "framing": "a single isolated {subject}, centred with a wide 15% margin on every side",
+  "lighting": "neutral diffuse lighting",
+  "backdrop": "plain light-grey backdrop",
+  "strip_words": ["fog", "mist", "haze", "shadow", "shadows", "background", "scene", "scenery", "character", "characters", "person", "people", "figure", "hand", "hands", "holding", "held", "wielded", "sky", "ground", "floor", "smoke", "atmosphere", "atmospheric"]
+}

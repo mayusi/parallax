@@ -1,0 +1,36 @@
+{
+ "_note": "NEGATIVE fixture for the same lock: its players ride at 40 studs a second (160 studs in 4 s) and the game's project keeps Roblox's own 64 studs loaded. The lock must name the radius. Never fix.",
+ "name": "FastRider",
+ "scale": "r6",
+ "streaming": {
+  "cell": 256,
+  "speed": 40
+ },
+ "palette": {
+  "ground": {
+   "material": "Concrete",
+   "color": [
+    96,
+    98,
+    104
+   ]
+  }
+ },
+ "build": [
+  {
+   "floor": {
+    "name": "Ground",
+    "center": [
+     0,
+     0,
+     0
+    ],
+    "size": [
+     600,
+     600
+    ],
+    "mat": "ground"
+   }
+  }
+ ]
+}

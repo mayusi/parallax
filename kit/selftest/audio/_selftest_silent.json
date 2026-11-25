@@ -1,0 +1,14 @@
+{
+ "_note": "NEGATIVE fixture: must fail (silent). Never fix.",
+ "duration": 0.5,
+ "fx": {
+  "normalize": null
+ },
+ "layers": [
+  {
+   "source": "sine",
+   "freq": 440,
+   "gain": 0.0001
+  }
+ ]
+}

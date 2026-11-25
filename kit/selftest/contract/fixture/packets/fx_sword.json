@@ -1,0 +1,9 @@
+{
+  "schema": 1,
+  "piece": "fx_sword",
+  "raw_prompt": "a self-test hero",
+  "lanes": [
+    "3d",
+    "anim"
+  ]
+}

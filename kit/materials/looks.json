@@ -1,0 +1,614 @@
+{
+ "schema": 1,
+ "about": "LOOKS (rbx.look): a real surface's whole recipe \u2014 its base values (a kit finish, a measured material, a scan's measured mean, or a labelled estimate), the scan that breaks it up, its micro-pattern at real size, how much its colour varies, which grime it shows. Wear is the object's LIFE, not the look's: a.material(name, **rbx.look(...), life=...). Every look passes the strict PBR rules (test_looks.py). Scan means measured 2026-10-10 the kit's way (sRGB -> linear, the map's average): ambientCG CC0.",
+ "looks": {
+  "nitride_slide": {
+   "finish": "nitride",
+   "scan": "Metal008",
+   "scan_mix": 0.18,
+   "relief": 0.0,
+   "vary": 0.12,
+   "about": "a black nitride / nDLC pistol slide: near-black, slick, an even satin",
+   "source": "the owner-rated Glock's slide (85/100, 2026-10-10)"
+  },
+  "polymer_frame": {
+   "color": [
+    0.095,
+    0.094,
+    0.092
+   ],
+   "metal": 0.0,
+   "rough": 0.72,
+   "scan": "Plastic010",
+   "scan_mix": 0.6,
+   "relief": 0.08,
+   "pattern": "stipple",
+   "pattern_mm": 0.5,
+   "vary": 0.08,
+   "about": "a glass-filled nylon gun frame: matte charcoal, a moulded micro-stipple, a step lighter than its slide",
+   "source": "the owner-rated Glock's frame (85/100, 2026-10-10)"
+  },
+  "parkerized_steel": {
+   "finish": "gunmetal_parkerized",
+   "scan": "Metal027",
+   "scan_mix": 0.4,
+   "vary": 0.2,
+   "about": "manganese phosphate on steel: matte grey-black, a mottled crystalline coat",
+   "source": "kit finish gunmetal_parkerized; scan Metal027 (mean 0.028, rough 0.65)"
+  },
+  "blued_steel": {
+   "finish": "blued_steel",
+   "scan": "Metal063",
+   "scan_mix": 0.3,
+   "relief": 0.1,
+   "vary": 0.15,
+   "about": "hot / rust bluing: blue-black, an oiled sheen, polishing marks under it",
+   "source": "kit finish blued_steel; scan Metal063"
+  },
+  "black_anodized": {
+   "finish": "black_anodized",
+   "scan": "Metal027",
+   "scan_mix": 0.3,
+   "relief": 0.05,
+   "vary": 0.08,
+   "about": "bead-blasted, black-anodized aluminium: a satin black, very even",
+   "source": "kit finish black_anodized"
+  },
+  "stainless_brushed": {
+   "finish": "machined_steel",
+   "rough": 0.32,
+   "pattern": "brushed",
+   "pattern_mm": 0.3,
+   "vary": 0.04,
+   "about": "brushed stainless steel: bright, a fine directional grain",
+   "source": "kit finish machined_steel (measured Stainless Steel)"
+  },
+  "scratched_steel": {
+   "finish": "machined_steel",
+   "rough": 0.4,
+   "scan": "Metal009",
+   "scan_mix": 0.6,
+   "relief": 0.3,
+   "vary": 0.05,
+   "about": "bare steel scuffed by use: handling scratches over a faint brushing (tools, machinery, blades' flats)",
+   "source": "kit finish machined_steel (measured Stainless Steel); scan Metal009 for the scratches (its colour map, 146 sRGB, is darker than any bare steel: its variation only; with pattern=brushed its scratches crossed the grain into a hatch)"
+  },
+  "cast_iron": {
+   "finish": "dark_steel",
+   "rough": 0.6,
+   "scan": "Metal027",
+   "scan_mix": 0.5,
+   "relief": 0.3,
+   "vary": 0.22,
+   "about": "raw cast iron: dark, rough, a sand-cast grain",
+   "source": "kit finish dark_steel; scan Metal027"
+  },
+  "brass_worn": {
+   "finish": "polished_brass",
+   "rough": 0.35,
+   "scan": "Metal048C",
+   "scan_mix": 0.35,
+   "vary": 0.15,
+   "about": "brass a while out of the box: warm, slightly hazy, tone drifting",
+   "source": "kit finish polished_brass (measured Brass); scan Metal048C (mean 0.947 / 0.736 / 0.318)"
+  },
+  "rust": {
+   "color": [
+    0.266,
+    0.074,
+    0.022
+   ],
+   "metal": 0.0,
+   "rough": 0.78,
+   "scan": "Rust009",
+   "scan_mix": 0.9,
+   "relief": 0.5,
+   "vary": 0.2,
+   "about": "heavy rust: an orange-brown flaking oxide (no metal left at the surface) \u2014 wrecks, old tanks, chains",
+   "source": "scan Rust009 measured mean (0.266 / 0.074 / 0.022, rough 0.78); iron oxide is a dielectric"
+  },
+  "rusted_steel": {
+   "real": "Iron",
+   "rough": 0.53,
+   "scan": "Metal021",
+   "scan_mix": 0.9,
+   "relief": 0.4,
+   "vary": 0.15,
+   "about": "old bare steel streaked with rust: leaks and spots (the scan's own metal map: where it rusted is not metal)",
+   "source": "physicallybased.info Iron (a bare metal's albedo); scan Metal021 for the streaks (its roughness mean 0.53, metal map mean 0.94)"
+  },
+  "copper": {
+   "real": "Copper",
+   "rough": 0.35,
+   "vary": 0.18,
+   "about": "bare copper: warm, tarnish blooming in patches",
+   "source": "physicallybased.info Copper"
+  },
+  "chrome": {
+   "finish": "chrome",
+   "vary": 0.0,
+   "about": "chrome plate: a mirror",
+   "source": "kit finish chrome (measured Chromium)"
+  },
+  "aluminium_brushed": {
+   "finish": "brushed_aluminium",
+   "pattern": "brushed",
+   "pattern_mm": 0.3,
+   "vary": 0.04,
+   "about": "brushed aluminium: light, satin, a directional grain",
+   "source": "kit finish brushed_aluminium (measured Aluminum)"
+  },
+  "aluminium_matte": {
+   "real": "Aluminum",
+   "rough": 0.45,
+   "scan": "Metal050C",
+   "scan_mix": 0.6,
+   "relief": 0.3,
+   "vary": 0.05,
+   "about": "bead-blasted / matte aluminium: an even satin grey, faint handling scratches (receivers, housings, rails)",
+   "source": "physicallybased.info Aluminum; scan Metal050C (measured 0.909 / 0.923 / 0.916 \u2014 it agrees) for the scratches; roughness: a blasted finish (the scan's map, 0.24, is a polished sheet)"
+  },
+  "anodized_aluminium": {
+   "real": "Aluminum",
+   "rough": 0.35,
+   "scan": "Metal050C",
+   "scan_mix": 0.4,
+   "vary": 0.04,
+   "about": "anodized aluminium (give it its colour: clear is this grey; red, blue, gold, black by color=) \u2014 a dyed oxide over the metal",
+   "source": "physicallybased.info Aluminum; scan Metal050C; estimate: an anodized satin finish ~0.3-0.4"
+  },
+  "turned_aluminium": {
+   "real": "Aluminum",
+   "rough": 0.2,
+   "scan": "Metal051A",
+   "scan_mix": 0.8,
+   "vary": 0.03,
+   "about": "turned / spot-faced aluminium: circular machining marks (knobs, bosses, screw heads, end caps)",
+   "source": "physicallybased.info Aluminum; scan Metal051A measured (0.927 / 0.944 / 0.935, rough 0.18)"
+  },
+  "car_paint": {
+   "real": "Car Paint",
+   "rough": 0.12,
+   "vary": 0.03,
+   "about": "automotive paint under its clear coat: deep, glossy (give it its colour with color=)",
+   "source": "physicallybased.info Car Paint (colour is the coat's: override it)"
+  },
+  "powder_coat": {
+   "finish": "painted_metal",
+   "rough": 0.55,
+   "pattern": "coat",
+   "pattern_mm": 1.5,
+   "pattern_depth": 0.4,
+   "vary": 0.08,
+   "about": "powder coat on steel: a satin paint, an orange-peel micro-texture (give it its colour)",
+   "source": "kit finish painted_metal"
+  },
+  "enamel": {
+   "finish": "enamel",
+   "vary": 0.05,
+   "about": "vitreous enamel / gloss paint: glassy (give it its colour)",
+   "source": "kit finish enamel (measured Porcelain)"
+  },
+  "abs_glossy": {
+   "color": [
+    0.6,
+    0.6,
+    0.6
+   ],
+   "metal": 0.0,
+   "rough": 0.25,
+   "scan": "Plastic010",
+   "scan_mix": 0.3,
+   "vary": 0.04,
+   "about": "injection-moulded glossy ABS (give it its colour)",
+   "source": "estimate: a moulded thermoplastic's gloss (roughness 0.2-0.3); scan Plastic010 for its breakup"
+  },
+  "rubber": {
+   "finish": "rubber",
+   "scan": "Plastic010",
+   "scan_mix": 0.3,
+   "vary": 0.06,
+   "about": "black rubber: grips, pads, tyres",
+   "source": "kit finish rubber (measured Tire)"
+  },
+  "rubber_flooring": {
+   "color": [
+    0.016,
+    0.018,
+    0.019
+   ],
+   "metal": 0.0,
+   "rough": 0.6,
+   "scan": "Rubber001",
+   "scan_mix": 0.9,
+   "relief": 0.4,
+   "vary": 0.05,
+   "about": "speckled black rubber flooring: gym floors, mats, ramps (not a grip's pebbling: pattern=\"pebble\")",
+   "source": "scan Rubber001 (75 cm tile) measured mean (0.016 / 0.018 / 0.019, rough 0.59)"
+  },
+  "oak_wood": {
+   "color": [
+    0.457,
+    0.342,
+    0.236
+   ],
+   "metal": 0.0,
+   "rough": 0.67,
+   "scan": "Wood096",
+   "scan_mix": 0.8,
+   "pattern": "wood",
+   "vary": 0.3,
+   "about": "oiled oak: a warm mid-brown, its grain along each board",
+   "source": "scan Wood096 measured mean (0.457 / 0.342 / 0.236, rough 0.67)"
+  },
+  "walnut_wood": {
+   "color": [
+    0.14,
+    0.065,
+    0.02
+   ],
+   "metal": 0.0,
+   "rough": 0.3,
+   "scan": "WoodFloor043",
+   "scan_mix": 0.8,
+   "pattern": "wood",
+   "vary": 0.25,
+   "about": "finished walnut: a deep chocolate brown, a soft sheen (stocks, furniture)",
+   "source": "scan WoodFloor043 measured mean (0.140 / 0.065 / 0.020, rough 0.28)"
+  },
+  "cherry_wood": {
+   "color": [
+    0.434,
+    0.172,
+    0.051
+   ],
+   "metal": 0.0,
+   "rough": 0.48,
+   "scan": "Wood092",
+   "scan_mix": 0.8,
+   "pattern": "wood",
+   "vary": 0.25,
+   "about": "a reddish-orange finished hardwood (cherry-like): handles, boxes, furniture",
+   "source": "scan Wood092 (photogrammetry, 80 cm tile) measured mean (0.434 / 0.172 / 0.051, rough 0.48)"
+  },
+  "mahogany_wood": {
+   "color": [
+    0.111,
+    0.038,
+    0.008
+   ],
+   "metal": 0.0,
+   "rough": 0.33,
+   "scan": "Wood066",
+   "scan_mix": 0.8,
+   "pattern": "wood",
+   "vary": 0.2,
+   "about": "a deep red-brown polished hardwood (mahogany-like): grips, cases, fine furniture",
+   "source": "scan Wood066 (40 cm tile) measured mean (0.111 / 0.038 / 0.008, rough 0.33)"
+  },
+  "dark_wood": {
+   "color": [
+    0.055,
+    0.035,
+    0.028
+   ],
+   "metal": 0.0,
+   "rough": 0.54,
+   "scan": "Wood051",
+   "scan_mix": 0.8,
+   "pattern": "wood",
+   "vary": 0.2,
+   "about": "espresso-stained hardwood: dark furniture, floors, old ship timber",
+   "source": "scan Wood051 (80 cm tile) measured mean (0.055 / 0.035 / 0.028, rough 0.54)"
+  },
+  "furniture_wood": {
+   "color": [
+    0.202,
+    0.128,
+    0.077
+   ],
+   "metal": 0.0,
+   "rough": 0.5,
+   "scan": "Wood049",
+   "scan_mix": 0.8,
+   "pattern": "wood",
+   "vary": 0.25,
+   "about": "a mid-brown furniture hardwood, a long straight grain: tables, chairs, shelves",
+   "source": "scan Wood049 (80 cm tile) measured mean (0.202 / 0.128 / 0.077, rough 0.50)"
+  },
+  "end_grain": {
+   "color": [
+    0.39,
+    0.29,
+    0.2
+   ],
+   "metal": 0.0,
+   "rough": 0.72,
+   "scan": "Wood096",
+   "scan_mix": 0.5,
+   "pattern": "endgrain",
+   "pattern_mm": 3.0,
+   "vary": 0.2,
+   "about": "a sawn trunk's or log's end: growth rings round the tree's axis (grain=), darker heartwood",
+   "source": "scan Wood096 mean, darkened 15% (open end grain reads darker than a face)"
+  },
+  "bark": {
+   "color": [
+    0.202,
+    0.142,
+    0.088
+   ],
+   "metal": 0.0,
+   "rough": 0.8,
+   "scan": "Bark014",
+   "scan_mix": 0.9,
+   "relief": 0.6,
+   "vary": 0.25,
+   "about": "tree bark (fir): grey-brown plates split by deep fissures (sculpt its big ridges: a.sculpt noise, kind ridged; the scan carries the rest)",
+   "source": "scan Bark014 (photogrammetry, 120 cm tile) measured mean (0.202 / 0.142 / 0.088); roughness: dry bark is dull (the scan's map, mean 0.62, keeps its variation)"
+  },
+  "oak_bark": {
+   "color": [
+    0.266,
+    0.206,
+    0.093
+   ],
+   "metal": 0.0,
+   "rough": 0.8,
+   "scan": "Bark012",
+   "scan_mix": 0.9,
+   "relief": 0.6,
+   "vary": 0.25,
+   "about": "oak bark: lighter, a coarse net of ridges",
+   "source": "scan Bark012 (photogrammetry) measured mean (0.266 / 0.206 / 0.093)"
+  },
+  "mossy_bark": {
+   "color": [
+    0.237,
+    0.225,
+    0.103
+   ],
+   "metal": 0.0,
+   "rough": 0.85,
+   "scan": "Bark013",
+   "scan_mix": 0.9,
+   "relief": 0.5,
+   "vary": 0.3,
+   "about": "bark with moss and lichen in its fissures: a damp forest tree, an old stump",
+   "source": "scan Bark013 (photogrammetry) measured mean (0.237 / 0.225 / 0.103)"
+  },
+  "leather_brown": {
+   "color": [
+    0.127,
+    0.039,
+    0.022
+   ],
+   "metal": 0.0,
+   "rough": 0.4,
+   "scan": "Leather037",
+   "scan_mix": 0.8,
+   "relief": 0.4,
+   "vary": 0.2,
+   "about": "brown leather: a pebbled grain, darker where handled",
+   "source": "scan Leather037 measured mean (0.127 / 0.039 / 0.022, rough 0.40)"
+  },
+  "bone": {
+   "real": "Bone",
+   "rough": 0.6,
+   "vary": 0.2,
+   "about": "bone / ivory: off-white, a soft sheen, tone drifting",
+   "source": "physicallybased.info Bone; NO scan: Concrete034 was tried and its cast pits (3924 dark colour blobs, 2 craters, 85% of its relief broad blotches) read on a skull as punched holes and a stamp ring (a fresh judge, 2026-10-11) \u2014 no cached scan is bone; a sculpt's own fine noise is its porosity"
+  },
+  "skin": {
+   "real": "Skin II",
+   "vary": 0.12,
+   "about": "light skin (no subsurface in a Roblox map: the colour carries it)",
+   "source": "physicallybased.info Skin II"
+  },
+  "concrete": {
+   "real": "Concrete",
+   "scan": "Concrete034",
+   "scan_mix": 0.8,
+   "relief": 0.4,
+   "vary": 0.25,
+   "about": "cast concrete: grey, pocked, stained in patches",
+   "source": "physicallybased.info Concrete; scan Concrete034 (mean 0.482)"
+  },
+  "rock": {
+   "color": [
+    0.19,
+    0.165,
+    0.078
+   ],
+   "metal": 0.0,
+   "rough": 0.55,
+   "scan": "Rock064",
+   "scan_mix": 0.9,
+   "relief": 0.6,
+   "vary": 0.3,
+   "about": "weathered rock: an olive-brown, lichened, its surface broken",
+   "source": "scan Rock064 measured mean (0.190 / 0.165 / 0.078, rough 0.55)"
+  },
+  "brick": {
+   "real": "Brick",
+   "scan": "Bricks104",
+   "scan_mix": 0.8,
+   "relief": 0.5,
+   "vary": 0.3,
+   "about": "fired clay brick: a red-brown, brick to brick different",
+   "source": "physicallybased.info Brick; scan Bricks104"
+  },
+  "marble": {
+   "real": "Marble",
+   "rough": 0.18,
+   "vary": 0.12,
+   "about": "polished marble: near-white, a soft gloss",
+   "source": "physicallybased.info Marble (roughness: polished)"
+  },
+  "porcelain": {
+   "real": "Porcelain",
+   "rough": 0.08,
+   "vary": 0.03,
+   "about": "glazed porcelain / ceramic: white, glassy",
+   "source": "physicallybased.info Porcelain"
+  },
+  "canvas": {
+   "color": [
+    0.3,
+    0.27,
+    0.2
+   ],
+   "metal": 0.0,
+   "rough": 0.9,
+   "pattern": "weave",
+   "pattern_mm": 0.7,
+   "vary": 0.15,
+   "about": "cotton duck canvas: an unbleached beige, a plain weave (bags, tents, straps)",
+   "source": "estimate: unbleached cotton's albedo ~0.25-0.35; weave pitch ~0.7 mm (no scan this fine: Fabric061's weave is ~3 mm, burlap)"
+  },
+  "burlap": {
+   "color": [
+    0.293,
+    0.267,
+    0.24
+   ],
+   "metal": 0.0,
+   "rough": 0.88,
+   "scan": "Fabric061",
+   "scan_mix": 0.9,
+   "relief": 0.6,
+   "vary": 0.2,
+   "about": "burlap / hessian: a coarse open weave (~3 mm) \u2014 sacks, sandbags, rough wraps",
+   "source": "scan Fabric061 (40 cm tile: its weave ~3 mm) measured mean (0.293 / 0.267 / 0.240, rough 0.84)"
+  },
+  "cloth": {
+   "color": [
+    0.116,
+    0.114,
+    0.115
+   ],
+   "metal": 0.0,
+   "rough": 0.75,
+   "scan": "Fabric030",
+   "scan_mix": 0.85,
+   "relief": 0.4,
+   "vary": 0.12,
+   "about": "woven cloth: clothes, upholstery, flags, bedding (give it its colour)",
+   "source": "scan Fabric030 measured mean (0.116 / 0.114 / 0.115, rough 0.73)"
+  },
+  "wool": {
+   "color": [
+    0.42,
+    0.38,
+    0.3
+   ],
+   "metal": 0.0,
+   "rough": 0.92,
+   "scan": "Fabric019",
+   "scan_mix": 0.8,
+   "relief": 0.5,
+   "vary": 0.15,
+   "about": "undyed wool weave: blankets, scarves, sacks (give it its colour)",
+   "source": "scan Fabric019 for the weave (a bleached white sample, mean 0.88: too bright for an albedo); estimate: undyed wool ~0.35-0.45"
+  },
+  "nylon_webbing": {
+   "color": [
+    0.035,
+    0.035,
+    0.037
+   ],
+   "metal": 0.0,
+   "rough": 0.75,
+   "pattern": "weave",
+   "pattern_mm": 0.9,
+   "vary": 0.05,
+   "about": "black nylon webbing: slings, straps, belts",
+   "source": "estimate: a dyed black textile ~0.03-0.04; weave pitch ~0.9 mm"
+  },
+  "galvanized": {
+   "real": "Zinc",
+   "rough": 0.42,
+   "vary": 0.22,
+   "about": "hot-dip galvanized steel: pale zinc, a dull satin, its spangle mottling (barrel hoops, brackets, fencing)",
+   "source": "physicallybased.json Zinc (0.808 / 0.844 / 0.865), the roughness of a weathered zinc coat"
+  },
+  "barrel_oak": {
+   "color": [
+    0.6376,
+    0.3564,
+    0.2122
+   ],
+   "metal": 0.0,
+   "rough": 0.72,
+   "scan": "Wood066",
+   "scan_mix": 1.0,
+   "scan_color": 0.35,
+   "scan_grain": "up",
+   "vary": 0.2,
+   "about": "new French oak staves: pale pink-brown, a fine straight grain running up the staves",
+   "source": "refs/wine_barrel_side.jpg stave field median (209, 161, 127); the owner's wine_barrel 9/10 (2026-10-17)"
+  },
+  "blade_steel_satin": {
+   "finish": "machined_steel",
+   "rough": 0.3,
+   "pattern": "brushed",
+   "pattern_mm": 0.3,
+   "vary": 0.05,
+   "about": "a satin brushed blade: bright but never a mirror, so engraved lines and the edge bevel read",
+   "source": "the owner's ODM gear 9/10 (2026-10-18): chrome hid the blade's break lines, satin showed them"
+  },
+  "canister_steel": {
+   "finish": "machined_steel",
+   "color": [
+    0.62,
+    0.64,
+    0.66
+   ],
+   "rough": 0.34,
+   "pattern": "brushed",
+   "pattern_mm": 0.4,
+   "vary": 0.06,
+   "about": "a brushed steel gas bottle: a cool grey satin with a long grain",
+   "source": "the owner's ODM gear canisters 9/10 (2026-10-18); kit finish machined_steel, toned cooler"
+  },
+  "white_polymer_gloss": {
+   "finish": "polymer",
+   "color": [
+    0.8,
+    0.8,
+    0.79
+   ],
+   "rough": 0.22,
+   "vary": 0.03,
+   "about": "a glossy white moulded housing (a security camera, an appliance)",
+   "source": "the owner's cctv_bullet 9/10 (2026-10-18), the maker's product photos"
+  },
+  "black_polymer_gloss": {
+   "finish": "polymer",
+   "color": [
+    0.022,
+    0.022,
+    0.024
+   ],
+   "rough": 0.2,
+   "vary": 0.03,
+   "about": "a glossy black moulded shell (a camera's front, a bezel)",
+   "source": "the owner's cctv_bullet 9/10 (2026-10-18); 41 sRGB, above the 30 sRGB floor"
+  },
+  "painted_steel_worn": {
+   "finish": "painted_metal",
+   "rough": 0.5,
+   "pattern": "coat",
+   "pattern_mm": 1.5,
+   "pattern_depth": 0.3,
+   "vary": 0.1,
+   "under": [
+    0.56,
+    0.57,
+    0.6
+   ],
+   "about": "paint on steel that chips through to BARE STEEL where life wears it (give it its colour)",
+   "source": "kit finish painted_metal; under = bare machined steel (0.56 / 0.57 / 0.60)"
+  }
+ }
+}

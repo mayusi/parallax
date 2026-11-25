@@ -1,0 +1,142 @@
+{
+ "lane": "anim",
+ "about": "The owner's recurring words as checks on every candidate round (kit/checks/checks.py; the owner, 2026-11-08: 'your complaints turned into checks per lane'). Status by evidence only: proposed reports and never blocks; validated = caught 3+ rounds the owner rejected with these words and spared 3+ rounds the owner picked from or loved. Run: lune run kit checks run anim <Move>/round_K; keep honest: lune run kit checks validate anim.",
+ "checks": [
+  {
+   "id": "anim-cousins",
+   "words": [
+    "cousins"
+   ],
+   "said": [
+    {
+     "verdict": "anim/verdicts/dtdrillspin--2026-11-04-2",
+     "quote": "All bad - round 0, every one of the 8: stilts, slow upright spin, blade flops, cousins"
+    },
+    {
+     "verdict": "anim/verdicts/swordtrickcut--2026-11-04",
+     "quote": "All bad - round 0 (rebuilt), every one of the 8: stilts, arm-only swing, cousins"
+    }
+   ],
+   "target": "round",
+   "measure": "slider_spread",
+   "fails_when": "below",
+   "threshold": null,
+   "threshold_from": "none: the first threshold (0.7) came from a slider-schema artifact - a constant 'arms' slider diluted some rounds (the 2026-11-08 review). On fairly matched sliders the rounds the owner called cousins (DTDrillSpin r0 0.391, SwordTrickCut r0 0.331) measure like every other old round (0.31-0.39), so slider spread alone does not tell cousins apart: it reports; the newest proc_blade rounds spread more (0.55-0.61)",
+   "status": "proposed",
+   "validation": {
+    "date": "2026-11-11",
+    "caught": null,
+    "missed": null,
+    "false_alarms": null,
+    "spared": null,
+    "rejections_measured": 2,
+    "loved_measured": 1,
+    "caught_targets": [],
+    "alarm_targets": [],
+    "held_out_fit": [],
+    "loved_range": [
+     0.2177,
+     0.2177
+    ],
+    "rejected_range": [
+     0.3306,
+     0.3907
+    ]
+   }
+  },
+  {
+   "id": "anim-cousins-look",
+   "words": [
+    "cousins"
+   ],
+   "said": [
+    {
+     "verdict": "anim/verdicts/dtdrillspin--2026-11-04-2",
+     "quote": "cousins"
+    },
+    {
+     "verdict": "anim/verdicts/swordtrickcut--2026-11-04",
+     "quote": "cousins"
+    }
+   ],
+   "target": "round",
+   "measure": "look_spread",
+   "fails_when": "below",
+   "threshold": null,
+   "threshold_from": "none yet: the rounds the owner called cousins lost their gifs on 2026-11-05; validate proposes one when the owner's judged rounds split",
+   "status": "proposed",
+   "validation": {
+    "date": "2026-11-08",
+    "caught": null,
+    "missed": null,
+    "false_alarms": null,
+    "spared": null,
+    "rejections_measured": 0,
+    "loved_measured": 0,
+    "caught_targets": [],
+    "alarm_targets": [],
+    "held_out_fit": [],
+    "loved_range": null,
+    "rejected_range": null
+   }
+  },
+  {
+   "id": "anim-limb-range",
+   "words": [
+    "stilts",
+    "arm-only",
+    "broken legs",
+    "legs don't move",
+    "legs dont move"
+   ],
+   "said": [
+    {
+     "verdict": "anim/verdicts/dtdrillspin--2026-11-04-2",
+     "quote": "stilts, slow upright spin, blade flops, cousins"
+    },
+    {
+     "verdict": "anim/verdicts/swordtrickcut--2026-11-04",
+     "quote": "stilts, arm-only swing, cousins"
+    },
+    {
+     "verdict": "anim/verdicts/gtrun-flow1--2026-10-26",
+     "quote": "The Leg Movements look Like an Idiot running With broken legs"
+    },
+    {
+     "verdict": "anim/verdicts/swordslash1--2026-10-27",
+     "quote": "the legs don't move at all"
+    }
+   ],
+   "target": "round",
+   "measure": "warned_share",
+   "fails_when": "above",
+   "threshold": 0.5,
+   "threshold_from": "half the round: the two rounds the owner rejected as stilts / arm-only carried the kit's limb warnings on 8 of 8 candidates (2026-11-08 sprint 1)",
+   "status": "proposed",
+   "validation": {
+    "date": "2026-11-11",
+    "caught": 0,
+    "missed": 0,
+    "false_alarms": 0,
+    "spared": 1,
+    "rejections_measured": 0,
+    "loved_measured": 1,
+    "caught_targets": [],
+    "alarm_targets": [],
+    "held_out_fit": [
+     "DTDrillSpin/round_0",
+     "SwordTrickCut/round_0"
+    ],
+    "loved_range": [
+     0.0,
+     0.0
+    ],
+    "rejected_range": null
+   },
+   "fit_on": [
+    "DTDrillSpin/round_0",
+    "SwordTrickCut/round_0"
+   ]
+  }
+ ]
+}

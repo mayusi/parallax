@@ -1,0 +1,32 @@
+{
+  "schema": 1,
+  "lane": "3d",
+  "menu": [
+    {"tool": "a.cad (fillet_mm, build123d)", "when": "hard-surface machined parts with bevels and precise dimensions"},
+    {"tool": "a.pillow", "when": "crowned plates, triggers and round-edged hard-surface sub-parts"},
+    {"tool": "a.ornament", "when": "relief decoration on a hard-surface host"},
+    {"tool": "a.import_mesh (measured size, own maps)", "when": "importing a generated or scanned organic mesh as a part"},
+    {"tool": "a.cast", "when": "combining the CAD body with an imported organic ornament"},
+    {"tool": "parallax gen <part> --res 1024", "when": "per-part generation of organic shapes from a cropped reference picture"},
+    {"tool": "parallax vision plate --from <crop>", "when": "owner sees the reference crop as a plate before gen runs"},
+    {"tool": "parallax sharpen <part.glb>", "when": "making a generated part's soft surface crisp and projection-mapped"},
+    {"tool": "rbx_garment", "when": "cloth-sim draping over R6 rig for coats/capes/robes"},
+    {"tool": "COLMAP reconstruction", "when": "rebuilding a real-world mesh from 16-30 turntable photos"},
+    {"tool": "parallax design direction <Piece> --new", "when": "original IP with no existing reference object — direction first"}
+  ],
+  "ladder": [
+    {"from": "flat_plate (2D side extrusion)", "to": "a.pillow", "when": "part has a crowned/raised profile, not a flat slab"},
+    {"from": "a.pillow", "to": "a.cad (fillet_mm)", "when": "part requires precise machined bevels, tangent edges or through-holes"},
+    {"from": "organic_primitive (SDF/typed forms)", "to": "vision_plate + gen_1024 + sharpen", "when": "any organic shape (creature, head, ornament) is needed"},
+    {"from": "single_concept_whole_hero", "to": "per-part vision_plate + gen_1024", "when": "hero has multiple distinct organic and machined parts"},
+    {"from": "whole_object_gen", "to": "a.cad + a.import_mesh (organic part)", "when": "piece has machined body + sculpted organic ornament"},
+    {"from": "photo_estimate", "to": "COLMAP + retopo", "when": "real physical object captured via turntable photos"}
+  ],
+  "floor": [
+    ">=2 sourced reference pictures at >=2 px/mm per hero feature",
+    "study_lock passed before any shape build",
+    "sheet_lock + owner approval before bake on new complex/hero pieces",
+    "blockout_lock + owner approval before detail pass",
+    "Studio parity playtest before upload"
+  ]
+}

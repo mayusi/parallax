@@ -1,0 +1,108 @@
+{
+ "about": "What a website is worth as a SOURCE for kit dossiers (kit/refs/dossier.py). primary = the source of record (a patent office; an object's MAKER is primary too, named per dossier in identity.maker_domains); secondary = repeats or reports (it may copy the maker, so two of them that copy the same page are weaker than they look); blocked = never used (content farms: machine-written pages on hijacked domains); suspect_patterns = URLs that look like a content farm: a reviewer must vouch for the page. A domain entry matches its subdomains; an entry with a slash is a URL prefix. Add every bad site a reviewer finds, with when and why.",
+ "domains": {
+  "uspto.gov": {
+   "tier": "primary",
+   "kind": "patent",
+   "why": "the US patent office's own records and PDFs (image-ppubs.uspto.gov)"
+  },
+  "epo.org": {
+   "tier": "primary",
+   "kind": "patent",
+   "why": "the European Patent Office"
+  },
+  "wipo.int": {
+   "tier": "primary",
+   "kind": "patent",
+   "why": "the World Intellectual Property Organization"
+  },
+  "patents.google.com": {
+   "tier": "secondary",
+   "kind": "patent",
+   "why": "a mirror of patent records with machine OCR: check numbers against the office's own PDF"
+  },
+  "patents.justia.com": {
+   "tier": "secondary",
+   "kind": "patent",
+   "why": "a mirror of patent records"
+  },
+  "wikipedia.org": {
+   "tier": "secondary",
+   "kind": "encyclopedia",
+   "why": "cited, but its infobox often gives the model FAMILY, not the variant"
+  },
+  "wikidata.org": {
+   "tier": "secondary",
+   "kind": "encyclopedia",
+   "why": "unchecked numbers: a .45 calibre stored as 45 mm; the Glock 17 entry's 204 mm is the Gen4's (Glock's manual: Gen5 202 mm)"
+  },
+  "archive.org": {
+   "tier": "secondary",
+   "kind": "other",
+   "why": "a copy of what was somewhere else: as good as the original it copies, which a reviewer must name"
+  },
+  "sketchfab.com": {
+   "tier": "secondary",
+   "kind": "model",
+   "why": "author-made models of uneven accuracy (a Glock scan 7% short): their proportions are checked against the facts"
+  },
+  "si.edu": {
+   "tier": "secondary",
+   "kind": "model",
+   "why": "the Smithsonian's scans and records: measured objects, but one particular object"
+  },
+  "metmuseum.org": {
+   "tier": "secondary",
+   "kind": "other",
+   "why": "museum records with the object's measured dimensions"
+  },
+  "brownells.com": {
+   "tier": "secondary",
+   "kind": "retailer",
+   "why": "a large parts retailer: part names and numbers, product photos"
+  },
+  "midwestgunworks.com": {
+   "tier": "secondary",
+   "kind": "retailer",
+   "why": "a parts retailer: factory part numbers"
+  }
+ },
+ "blocked": {
+  "arktimes.com": "2026-10-08: machine-written firearm pages on a newspaper's subdomain (tr.arktimes.com/?p=...)",
+  "quickbox.io": "2026-10-08: machine-written firearm pages on hosting subdomains",
+  "mutuallyhuman.com": "2026-10-08: machine-written 'comprehensive comparison' pages on a hijacked subdomain",
+  "mbrp.com": "2026-10-08: machine-written firearm pages on an exhaust maker's subdomain (data.mbrp.com)",
+  "sc-ctsi.org": "2026-10-08: machine-written pages on a research institute's subdomain",
+  "ktbyte.com": "2026-10-08: machine-written pages on a school's cluster host",
+  "milkeninstitute.org": "2026-10-08: machine-written 'comprehensive guide' pages on a docker subdomain",
+  "esolutions.ro": "2026-10-08: machine-written 'comprehensive guide' pages on a mail subdomain",
+  "farotech.com": "2026-10-08: machine-written 'definitive guide' pages on an ec subdomain",
+  "lsbauctions.com": "2026-10-08: listings pages served as search-bait copies"
+ },
+ "suspect_patterns": [
+  {
+   "re": "[?&]p=\\d+$",
+   "why": "a bare WordPress post-id URL: how the content farms on hijacked domains look"
+  },
+  {
+   "re": "(?i)://(docker-?\\d*|mail\\d*|node|subdeb\\d*)[-.]",
+   "why": "a machine's host name (docker, mail, node) serving articles"
+  },
+  {
+   "re": "(?i)(comprehensive|definitive|ultimate)-(guide|comparison)",
+   "why": "the content farms' favourite titles"
+  },
+  {
+   "re": "(?i)://(www\\.)?archive\\.(ph|today|is|li|vn|md|fo)/",
+   "why": "an archive mirror whose link hides the original: cite the original page (or its Wayback copy)"
+  },
+  {
+   "re": "(?i)\\.translate\\.goog/",
+   "why": "a translation proxy: cite the original page"
+  },
+  {
+   "re": "(?i)://webcache\\.googleusercontent\\.com/",
+   "why": "a search engine's cached copy: cite the original page"
+  }
+ ]
+}

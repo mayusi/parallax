@@ -1,0 +1,37 @@
+{
+ "_note": "NEGATIVE fixture for the loading-intent lock: players on foot who drop 200 studs, a game that keeps Roblox's own 64 loaded, no landing named. The lock must name the drop. Never fix.",
+ "name": "LongDrop",
+ "scale": "r6",
+ "streaming": {
+  "cell": 256,
+  "speed": 16,
+  "fall": 200
+ },
+ "palette": {
+  "ground": {
+   "material": "Concrete",
+   "color": [
+    96,
+    98,
+    104
+   ]
+  }
+ },
+ "build": [
+  {
+   "floor": {
+    "name": "Ground",
+    "center": [
+     0,
+     0,
+     0
+    ],
+    "size": [
+     600,
+     600
+    ],
+    "mat": "ground"
+   }
+  }
+ ]
+}

@@ -1,0 +1,227 @@
+{
+  "schema": 1,
+  "lane": "vfx",
+  "default_case": "vfx:combat_slash_strike",
+  "cases": [
+    {
+      "case_id": "vfx:anime_scene_ultimate",
+      "label": "Multi-Beat Anime/AAA Ability from Source Footage",
+      "triggers": {
+        "keywords": ["anime", "scene", "ultimate", "ability", "multi-beat", "aaa", "breakdown", "animatic", "stylesheet", "sequence", "set", "beats"],
+        "requires_both": [
+          ["anime", "scene", "ultimate", "ability", "sequence"],
+          ["breakdown", "beats", "animatic", "chart"]
+        ]
+      },
+      "tier": "hero",
+      "budget_minutes": 60,
+      "required_tools_ordered": [
+        "parallax vfx breakdown <set> --clip <file> --fps 2",
+        "parallax vfx breakdown <set> --dense (full fps timing)",
+        "parallax vfx track (if camera moves)",
+        "parallax vfx trace --beat N",
+        "parallax vfx methods --set <set> (owner's 104 methods)",
+        "parallax vfx chart <set> + 1 test frame (Owner Stop 1)",
+        "parallax vfx animatic <set> (Owner Stop 2)",
+        "parallax vfx comp/ink + Blender fx textures",
+        "parallax vfx <name>",
+        "parallax vfx play --record + dailies + keyread",
+        "parallax vfx stylesheet <name> (Owner Stop 3)",
+        "parallax vfx vault check",
+        "parallax upload",
+        "Studio booth"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "LORE_BUILD", "pattern": "lore_text_no_frames", "why": "Building from lore text + memory without real source frames produces generic effects that miss the scene's timing and visual language." },
+        { "id": "ADDITIVE_LAYERS", "pattern": "all_additive_long_lived", "why": "All-additive long-lived layers blow out bloom and produce uniform glow without depth." },
+        { "id": "SKIP_CAMERA", "pattern": "ignore_moving_camera", "why": "Ignoring a moving camera misaligns effects with the shot's perspective." },
+        { "id": "SKIP_METHODS", "pattern": "skip_method_plan", "why": "Skipping the VFX method plan means the effect has no structural rationale and misses techniques." }
+      ],
+      "mandatory_gates": ["scene_gate", "methods_gate", "chart_lock", "animatic_lock", "timing_drift<=1f", "vfx_validate3 (0 warnings)", "library_vfx_saved", "upload_ids_complete"],
+      "owner_stops": ["chart", "animatic", "stylesheet", "verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "build a full multi-beat anime ultimate from source footage with breakdown and animatic",
+        "recreate a scene's ability sequence with beat chart, animatic and stylesheet",
+        "produce an AAA anime multi-beat vfx set with timing breakdown and vault check"
+      ]
+    },
+    {
+      "case_id": "vfx:combat_slash_strike",
+      "label": "Melee Sword Slash, Punch, Kick, Weapon Impact",
+      "triggers": {
+        "keywords": ["slash", "strike", "punch", "kick", "impact", "swing", "melee", "sword", "hit", "combo", "attack", "blow"],
+        "requires_both": []
+      },
+      "tier": "complex",
+      "budget_minutes": 30,
+      "required_tools_ordered": [
+        "breakdown/refs",
+        "swing-plane arc v2 (jag, ridge, twist, strands) + sweep {head, tail} + blade_glint",
+        "cut + camera shake kick",
+        "impact_frames_slash (only for heavy hits; frames_on_screen >= 3%)",
+        "Blender slash/wave/shards textures",
+        "parallax vfx play --record (lifecycle sheet)",
+        "parallax checks run vfx",
+        "parallax upload"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "NEON_RIBBON", "pattern": "untextured_neon_ribbon", "why": "Untextured Neon ribbons read as a 'white barcode' — no depth, no texture, no Blender fx pass." },
+        { "id": "SPECK_FRAMES", "pattern": "impact_frames_tiny_speck", "why": "Impact frames on tiny on-screen elements waste budget; only use when frames_on_screen >= 3%." },
+        { "id": "NO_HITSTOP", "pattern": "impact_frames_without_hitstop", "why": "Impact frames without hit-stop float in time and lose their physical readability." }
+      ],
+      "mandatory_gates": ["frames_draw_cut", "dissipates", "frames_on_screen>=3%", "focal", "strike_snap", "vfx_validate3"],
+      "owner_stops": ["verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "create a sword slash vfx with arc trail and impact frames for a heavy hit",
+        "build a punch impact vfx with camera shake and hit-stop",
+        "make a combo strike effect with swing arc and dissipating blade trail"
+      ]
+    },
+    {
+      "case_id": "vfx:aura_loop",
+      "label": "Character Aura, Power-Up, Sustained Energy Field",
+      "triggers": {
+        "keywords": ["aura", "power-up", "sustained", "loop", "glow", "field", "charge", "superssj", "saiyan", "emanate", "aura-loop", "power-aura"],
+        "requires_both": []
+      },
+      "tier": "complex",
+      "budget_minutes": 30,
+      "required_tools_ordered": [
+        "Hybrid base (saiyan_ssj_3d rule): VfxMesh flame/spiral shells",
+        "flipbook cards (~44% non-additive, dark twin behind bright core, <=4 hues)",
+        "parallax vfx comp skin/ring",
+        "parallax vfx play --record",
+        "parallax upload"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "ALL_MESH_AURA", "pattern": "all_mesh_aura_rebuild", "why": "All-mesh aura rebuilds collapse to 'so bad' — no non-additive cards means blown-out bloom with no depth." },
+        { "id": "EDGE_SPRITE", "pattern": "edge_on_sprite_ring", "why": "Edge-on sprite rings are invisible at most camera angles and produce a flicker band." },
+        { "id": "BLOWN_BLOOM", "pattern": "blown_out_bloom", "why": "Blown-out bloom from over-additive layering loses the aura's form and reads as a white smear." }
+      ],
+      "mandatory_gates": ["non_additive_share", "hue_count<=4", "not_blown_out", "vfx_validate3"],
+      "owner_stops": ["verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "build a SSJ-style power-up aura loop with mesh shells and flipbook cards",
+        "create a sustained energy field aura for a charged-up character",
+        "make a looping charge-up glow effect with non-additive card mix"
+      ]
+    },
+    {
+      "case_id": "vfx:destruction_sim",
+      "label": "Ground Shatter, Cloth Banner, Soft Body, Sand/Ash, Hair, Water/Liquid, Shockwave",
+      "triggers": {
+        "keywords": ["shatter", "fracture", "cloth", "banner", "softbody", "sand", "ash", "debris", "water", "liquid", "shockwave", "destruction", "crumble", "break", "collapse", "dust", "particle"],
+        "requires_both": []
+      },
+      "tier": "complex",
+      "budget_minutes": 30,
+      "required_tools_ordered": [
+        "parallax vfx fracture (+ rest:true + settle + VfxDebris collision group) for shattering",
+        "parallax vfx cloth (shape: seq) for cloth/banner",
+        "parallax vfx soft / parallax vfx sand / parallax vfx hair / parallax vfx geonodes / parallax vfx water / parallax vfx liquid / parallax vfx field / parallax vfx points / parallax vfx comp --new shock for respective sim type",
+        "parallax vfx play --record"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "THROWN_ROCKS", "pattern": "thrown_random_rocks", "why": "Thrown random rocks for shattering produce uniform debris with no surface-read of the broken material." },
+        { "id": "WOBBLE_PLANE", "pattern": "wobbling_plane_cloth", "why": "A wobbling plane for cloth/hair has no structural silhouette and no secondary motion folds." },
+        { "id": "CONE_SAND", "pattern": "scaled_cone_sand", "why": "A scaled cone for sand has no particle flow and reads as a solid object." },
+        { "id": "PUFF_SMOKE", "pattern": "lit_puff_card_swarm_smoke", "why": "Lit puff card swarms for smoke (quenchstrike graveyard) produce a uniform blob with no volumetric read." }
+      ],
+      "mandatory_gates": ["methods_gate (shatter/cloth/smoke beats MUST use sim tool or explicit --not owner reason)", "vfx_validate3"],
+      "owner_stops": ["verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [
+        {
+          "file_glob": "assets/effects/*.json",
+          "regex": "\"erode\"",
+          "severity": "block",
+          "message": "Graveyard: `erode` on MeshPart/EditableMesh is blocked — Roblox runtime ignores vertex alpha and TextureID alpha on MeshPart/EditableMesh; use `vfx dissolve` with `surface: 1` and a flipbook instead."
+        }
+      ],
+      "examples": [
+        "create a ground shatter effect using fracture sim with VfxDebris collision",
+        "build a cloth banner destruction effect with cloth sim and secondary folds",
+        "make a sand-storm particle destruction using the vfx sand simulator"
+      ]
+    },
+    {
+      "case_id": "vfx:original_vfx",
+      "label": "Original Effect with No Anime Source Scene",
+      "triggers": {
+        "keywords": ["original", "director", "invented", "new", "creative", "phenomenon", "real-world", "natural", "inspired", "concept", "palette"],
+        "requires_both": [
+          ["original", "director", "invented", "new", "creative"],
+          ["effect", "vfx", "particle", "explosion", "fire", "smoke", "magic"]
+        ]
+      },
+      "tier": "complex",
+      "budget_minutes": 30,
+      "required_tools_ordered": [
+        "parallax vfx director new <name> --idea \"...\" (>=3 beats, own palette, >=1 unused technique, what it is NOT)",
+        "real phenomenon footage (set) broken down like a scene",
+        "parallax vfx director check + lint",
+        "parallax vfx chart + 1 test frame (Owner Stop)",
+        "build & parallax vfx play --record"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "BRIEF_ONLY", "pattern": "brief_only_no_frames", "why": "Brief-only originals with zero real frames scored 4-6 vs 8+ with real frames (R-vfx-5 finding)." },
+        { "id": "GENRE_SWAP", "pattern": "genre_swap_originality", "why": "Swapping the genre to be 'different' (e.g., comic-book filter on anime scene) is not originality." },
+        { "id": "RESKIN_GOLDEN", "pattern": "reskin_last_golden_effect", "why": "Re-skinning the last golden effect is a graveyard route — the library is for mechanics, not look." }
+      ],
+      "mandatory_gates": ["originals_approval_lock", "scene_gate (real set required)", "director_check", "director_lint"],
+      "owner_stops": ["chart", "verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "invent an original fire vfx effect inspired by real volcanic footage with its own palette",
+        "create a new original magical effect with director brief and real phenomenon reference",
+        "design an original wave effect with invented palette and no anime source scene using the director"
+      ]
+    },
+    {
+      "case_id": "vfx:mesh_dissolve_surface",
+      "label": "Breaking/Dissolving Runtime EditableMesh Shell",
+      "triggers": {
+        "keywords": ["dissolve", "erode", "break", "disintegrate", "surface", "editable", "mesh", "shell", "flipbook"],
+        "requires_both": []
+      },
+      "tier": "simple",
+      "budget_minutes": 10,
+      "required_tools_ordered": [
+        "parallax vfx dissolve <key> --from <tex>",
+        "set texture + surface:1 + flipbook layout:4x4 + mode:OneShot + over:[start, end]"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "MESH_ERODE", "pattern": "player_erode_key", "why": "The `erode` key on MeshPart/EditableMesh is a graveyard route: Roblox runtime ignores vertex alpha and TextureID alpha at runtime — the mesh never visually erodes." }
+      ],
+      "mandatory_gates": ["no_mesh_erode_error (hard error on all new presets)"],
+      "owner_stops": [],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [
+        {
+          "file_glob": "assets/effects/*.json",
+          "regex": "\"erode\"",
+          "severity": "block",
+          "message": "Graveyard: `erode` on MeshPart/EditableMesh is blocked — Roblox runtime ignores vertex alpha and TextureID alpha on MeshPart/EditableMesh; use `vfx dissolve` with `surface: 1` and a flipbook instead."
+        }
+      ],
+      "examples": [
+        "make a mesh dissolve effect for a breaking shield with flipbook dissolve surface",
+        "build a surface dissolve for an editablemesh shell using vfx dissolve",
+        "create a disintegrate effect on a mesh surface without the erode key"
+      ]
+    }
+  ]
+}

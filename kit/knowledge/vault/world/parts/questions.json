@@ -1,0 +1,17 @@
+{
+ "lane": "world",
+ "about": "The world lane's fixed questions for the parts library (P0): new levels in a brief's words, written before any method was run on them. Every method's top answers are pooled and labelled blind by two labellers (labels.json); `kit parts world eval` scores each method on them. Add a question only from real work, never to suit a method.",
+ "written": "2026-11-09",
+ "questions": [
+  {"id": "world-q01", "piece": "harbour_dock", "brief": "harbour dock: wooden piers on posts over the water, a stone quay wall with stairs down to the water, crates and barrels scattered, a lighthouse at the end", "keywords": "dock pier quay stairs"},
+  {"id": "world-q02", "piece": "castle_courtyard", "brief": "castle courtyard: high stone walls with battlements, a gatehouse arch, a well in the middle, stairs up to the wall walk, spawn points at both gates", "keywords": "castle wall gate stairs spawn"},
+  {"id": "world-q03", "piece": "forest_clearing_arena", "brief": "forest clearing arena: a round open clearing ringed by dense trees, rocks for cover, a path in from two sides, fair spawns opposite each other", "keywords": "forest clearing arena cover spawns"},
+  {"id": "world-q04", "piece": "tavern_interior", "brief": "tavern interior: a long bar counter, tables and benches, a hearth on one wall, stairs to the rooms above, a cellar door", "keywords": "tavern bar hearth stairs"},
+  {"id": "world-q05", "piece": "mountain_pass", "brief": "mountain pass: a narrow trail winding up between cliffs, a rope bridge over a chasm, a waterfall, a shrine at the top", "keywords": "mountain trail cliffs bridge waterfall"},
+  {"id": "world-q06", "piece": "market_square", "brief": "market square: a paved plaza with stalls under awnings, a fountain, townhouses around it, alleys leading out", "keywords": "market plaza stalls fountain"},
+  {"id": "world-q07", "piece": "ruined_temple", "brief": "ruined temple: broken columns, a collapsed roof, a raised altar platform up a flight of steps, overgrown with vines and grass", "keywords": "ruin temple columns steps"},
+  {"id": "world-q08", "piece": "rooftop_parkour", "brief": "rooftop parkour course: rooftops at different heights, gaps to jump, ledges and ladders, a route an R6 player can always reach", "keywords": "rooftop parkour jump route"},
+  {"id": "world-q09", "piece": "desert_oasis", "brief": "desert oasis: dunes around a pool of water, palm trees, a stone ruin half buried in the sand, rocks for shade", "keywords": "desert dunes oasis ruin"},
+  {"id": "world-q10", "piece": "training_yard", "brief": "training yard: a fenced dirt yard with target dummies, an archery range lane, weapon racks, a small hut", "keywords": "training yard dummies range"}
+ ]
+}

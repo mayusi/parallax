@@ -1,0 +1,132 @@
+{
+ "_note": "NEGATIVE fixture for the r6 scale sheet on a lane that runs on neither axis: two walls 6 studs apart, typed on an axis and turned 40 degrees by \"turn\"; the lane's claim is TYPED at 40 degrees (never turned). kit world check must FAIL with 'w 6.0 (wants 8.0..)': the voxel march along one world axis read this lane as about 7.8 wide, and a compiler that did not turn the walls would leave them across the claim's line (another number: this case is then missed). Never fix.",
+ "name": "SelftestTurnedLane",
+ "scale": "r6",
+ "palette": {
+  "ground": {
+   "material": "Concrete",
+   "color": [
+    96,
+    98,
+    104
+   ]
+  },
+  "wall": {
+   "material": "Brick",
+   "color": [
+    120,
+    110,
+    104
+   ]
+  },
+  "spawn": {
+   "material": "Neon",
+   "color": [
+    80,
+    220,
+    120
+   ]
+  }
+ },
+ "build": [
+  {
+   "floor": {
+    "name": "Ground",
+    "center": [
+     0,
+     -1,
+     0
+    ],
+    "size": [
+     200,
+     200
+    ],
+    "thickness": 2,
+    "mat": "ground"
+   }
+  },
+  {
+   "wall": {
+    "name": "North wall",
+    "from": [
+     -40,
+     -3.5
+    ],
+    "to": [
+     40,
+     -3.5
+    ],
+    "y": 0,
+    "height": 12,
+    "thickness": 1,
+    "mat": "wall",
+    "turn": 40,
+    "about": [
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "wall": {
+    "name": "South wall",
+    "from": [
+     -40,
+     3.5
+    ],
+    "to": [
+     40,
+     3.5
+    ],
+    "y": 0,
+    "height": 12,
+    "thickness": 1,
+    "mat": "wall",
+    "turn": 40,
+    "about": [
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "fit": {
+    "kind": "alley",
+    "name": "Slant lane",
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "from": [
+     -24.513,
+     20.569
+    ],
+    "to": [
+     24.513,
+     -20.569
+    ]
+   }
+  },
+  {
+   "spawn": {
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "mat": "spawn"
+   }
+  },
+  {
+   "spawn": {
+    "pos": [
+     60,
+     0,
+     60
+    ],
+    "mat": "spawn"
+   }
+  }
+ ]
+}

@@ -1,0 +1,7 @@
+-- frame_contract_write.luau — writes kit/selftest/anim/frame_contract.kfs.json (see frame_contract_dump.luau)
+local Dump = require("./frame_contract_dump")
+local fs = require("@lune/fs")
+local serde = require("@lune/serde")
+local contract = serde.decode("json", fs.readFile("kit/selftest/anim/frame_contract.json"))
+fs.writeFile("kit/selftest/anim/frame_contract.kfs.json", serde.encode("json", Dump.of(contract.clip), true) .. "\n")
+print("written")

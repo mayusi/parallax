@@ -1,0 +1,155 @@
+{
+  "Children": [
+    {
+      "Children": [
+        {
+          "ClassName": "Frame",
+          "Name": "Vitals",
+          "Properties": {
+            "AnchorPoint": {
+              "Vector2": [
+                0,
+                1
+              ]
+            },
+            "BackgroundColor3": {
+              "Color3": [
+                0.06274509803921569,
+                0.07058823529411765,
+                0.09411764705882353
+              ]
+            },
+            "BackgroundTransparency": 0,
+            "BorderSizePixel": 0,
+            "LayoutOrder": 1,
+            "Position": {
+              "UDim2": [
+                [
+                  0,
+                  24
+                ],
+                [
+                  0,
+                  -24
+                ]
+              ]
+            },
+            "Size": {
+              "UDim2": [
+                [
+                  0,
+                  300
+                ],
+                [
+                  0,
+                  60
+                ]
+              ]
+            }
+          }
+        },
+        {
+          "ClassName": "TextButton",
+          "Name": "Shop",
+          "Properties": {
+            "AnchorPoint": {
+              "Vector2": [
+                0,
+                0
+              ]
+            },
+            "AutoButtonColor": true,
+            "BackgroundColor3": {
+              "Color3": [
+                0.06274509803921569,
+                0.07058823529411765,
+                0.09411764705882353
+              ]
+            },
+            "BackgroundTransparency": 0,
+            "BorderSizePixel": 0,
+            "Font": "GothamMedium",
+            "LayoutOrder": 2,
+            "Position": {
+              "UDim2": [
+                [
+                  0,
+                  10
+                ],
+                [
+                  0,
+                  6
+                ]
+              ]
+            },
+            "Size": {
+              "UDim2": [
+                [
+                  0,
+                  120
+                ],
+                [
+                  0,
+                  48
+                ]
+              ]
+            },
+            "Text": "Shop",
+            "TextColor3": {
+              "Color3": [
+                0.9411764705882353,
+                0.9490196078431372,
+                0.9607843137254902
+              ]
+            },
+            "TextSize": 18,
+            "TextWrapped": true
+          }
+        }
+      ],
+      "ClassName": "Frame",
+      "Name": "Root",
+      "Properties": {
+        "AnchorPoint": {
+          "Vector2": [
+            0,
+            0
+          ]
+        },
+        "BackgroundTransparency": 1,
+        "BorderSizePixel": 0,
+        "Position": {
+          "UDim2": [
+            [
+              0,
+              0
+            ],
+            [
+              0,
+              0
+            ]
+          ]
+        },
+        "Size": {
+          "UDim2": [
+            [
+              1,
+              0
+            ],
+            [
+              1,
+              0
+            ]
+          ]
+        }
+      }
+    }
+  ],
+  "ClassName": "ScreenGui",
+  "Properties": {
+    "Enabled": true,
+    "IgnoreGuiInset": true,
+    "ResetOnSpawn": false,
+    "ZIndexBehavior": "Sibling"
+  }
+}

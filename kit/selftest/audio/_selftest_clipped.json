@@ -1,0 +1,20 @@
+{
+ "_note": "NEGATIVE fixture: must fail (clipping). Never fix.",
+ "duration": 0.5,
+ "fx": {
+  "normalize": null
+ },
+ "layers": [
+  {
+   "source": "square",
+   "freq": 200,
+   "gain": 8.0,
+   "env": {
+    "attack": 0.001,
+    "decay": 0.0,
+    "sustain": 1.0,
+    "release": 0.01
+   }
+  }
+ ]
+}

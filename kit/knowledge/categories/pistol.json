@@ -1,0 +1,42 @@
+{
+ "category": "pistol",
+ "about": "A handgun with a slide (striker-fired like a Glock, hammer-fired like a 1911). What its dossier must hold before modelling, and where reliable data for it is found. Learned on the Glock 17 Gen5 (2026-10-08): the maker publishes everything that matters (spec page, owner's manual with parts list and exploded drawing, patent list, a 360-degree turntable); search engines rank machine-written content farms above it.",
+ "bar": 80,
+ "min_px_per_mm": 2.0,
+ "frame": {"length": ["overall.length"], "height": ["overall.height incl. magazine", "overall.height"], "width": ["overall.width", "overall.width without slide stop levers", "frame.width"]},
+ "facts": [
+  "overall.length",
+  ["overall.height incl. magazine", "overall.height"],
+  "overall.width",
+  "slide.length",
+  "slide.width",
+  "barrel.length",
+  ["sights.sight radius", "sights.sight radius (polymer)", "sights.line of sight"]
+ ],
+ "views": ["side-left", "side-right", "top", "front", "rear"],
+ "closeups": [
+  {"id": "slide_serrations", "what": "the slide's serrations, rear (and front if it has them): count, pitch, angle"},
+  {"id": "grip_texture", "what": "the grip's texture and the backstrap: pattern and its pitch"},
+  {"id": "sights", "what": "front and rear sights: shape, dots, how they sit in the slide"},
+  {"id": "markings", "what": "every marking on slide, frame and barrel: text, place, size"},
+  {"id": "trigger", "what": "trigger, trigger safety, trigger guard"},
+  {"id": "controls", "what": "slide stop, magazine catch, take-down lever / slide lock"},
+  {"id": "muzzle", "what": "the muzzle end: slide nose, barrel crown, recoil spring guide"},
+  {"id": "magazine", "what": "the magazine: floor plate, body, follower"}
+ ],
+ "anatomy_min": 12,
+ "tells_min": 3,
+ "models_min": 2,
+ "weights": {"facts": 30, "views": 25, "closeups": 15, "anatomy": 10, "models": 10, "reviews": 10},
+ "research": [
+  "1 the maker's own page for THIS variant (primary): every published size — kit dossier fact ... --quote \"<the page's words>\" (a script finds the quote in the page)",
+  "2 the maker's owner's manual PDF (often on the maker's CDN: check the maker's own pages load from that CDN, then add it to identity.maker_domains): the component parts list with numbers (kit dossier part ... --no N --quote \"N <name>\"), the exploded drawing, the field-strip order, the technical data table (it lists sibling variants side by side: the variant's numbers, not the family's)",
+  "3 the maker's patent list (search '<maker> virtual patent marking'): design patents draw clean orthographic views, utility patents the mechanism — kit refs patent <number>, then add the figures (--kind drawing)",
+  "4 the maker's own pictures: product gallery, a 360-degree turntable (one distance, one light: the best measuring pictures — find the frame where the object is widest for each side), press kit",
+  "5 the tells: what the maker says is new in this variant against the last one (its 'technology' / 'what's new' page) — kit dossier tell ... --vs <sibling>; confirm each with a second, independent source",
+  "6 two or more reference models: kit library find / get / inspect -> kit dossier add --kind model --measure refs/<name>.measure.json (its proportions are checked against the A/B facts)",
+  "7 close-ups for every hero feature (the category's close-up list): parts retailers' photos of the slide, frame, sights at high resolution; for a private asset these are measure-only",
+  "8 the owner's own photos when the owner has the object (a ruler in the frame): they count as primary",
+  "never: forum posts as facts; Wikidata's numbers as the variant's (they are often the family's); pages on machine host names (kit/knowledge/sources.json lists the content farms found so far)"
+ ]
+}

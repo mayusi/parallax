@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 186.56 208.80" width="187" height="209" role="img" aria-label="Parallax">
+  <title>Parallax</title>
+  <polygon points="7.20,127.20 76.48,167.20 76.48,201.60 7.20,161.60" fill="#FF6A4D" stroke="#FF6A4D" stroke-width="0.8" stroke-linejoin="round"/>
+  <polygon points="145.76,127.20 76.48,167.20 76.48,201.60 145.76,161.60" fill="#C9402E" stroke="#C9402E" stroke-width="0.8" stroke-linejoin="round"/>
+  <polygon points="76.48,87.20 145.76,127.20 76.48,167.20 7.20,127.20" fill="#FF9E80" stroke="#FF9E80" stroke-width="0.8" stroke-linejoin="round"/>
+  <polygon points="24.00,87.20 93.28,127.20 93.28,161.60 24.00,121.60" fill="#8C6BFF" stroke="#8C6BFF" stroke-width="0.8" stroke-linejoin="round"/>
+  <polygon points="162.56,87.20 93.28,127.20 93.28,161.60 162.56,121.60" fill="#5B3FD1" stroke="#5B3FD1" stroke-width="0.8" stroke-linejoin="round"/>
+  <polygon points="93.28,47.20 162.56,87.20 93.28,127.20 24.00,87.20" fill="#B9A3FF" stroke="#B9A3FF" stroke-width="0.8" stroke-linejoin="round"/>
+  <polygon points="40.80,47.20 110.08,87.20 110.08,121.60 40.80,81.60" fill="#2FCBEB" stroke="#2FCBEB" stroke-width="0.8" stroke-linejoin="round"/>
+  <polygon points="179.36,47.20 110.08,87.20 110.08,121.60 179.36,81.60" fill="#0F8DB8" stroke="#0F8DB8" stroke-width="0.8" stroke-linejoin="round"/>
+  <polygon points="110.08,7.20 179.36,47.20 110.08,87.20 40.80,47.20" fill="#8DF6FF" stroke="#8DF6FF" stroke-width="0.8" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,20 @@
+{
+ "schema": 1,
+ "kind": "ink",
+ "mode": "icon",
+ "from": "build/vision/field_frag.png",
+ "cutout": true,
+ "size": [
+  332,
+  424
+ ],
+ "outline_px": 5,
+ "fill_alpha": 0.2,
+ "halo": 0.55,
+ "halo_px": 6,
+ "lines": "teed",
+ "line": 0.55,
+ "line_px": 3,
+ "paper": "#f0f0f0",
+ "made": "2026-10-11T21:20:36Z"
+}

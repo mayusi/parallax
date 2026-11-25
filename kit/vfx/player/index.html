@@ -1,0 +1,461 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>kit vfx play</title>
+<style>
+  :root { color-scheme: dark; --bg: #0d0f14; --panel: #12151c; --panel2: #171b24; --line: #242a36; --fg: #e6e4de; --dim: #8b90a0; --acc: #f5c04b; --acc2: #7fd3ff; --danger: #ff6b6b; --ok: #7fe0a8; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--fg); font: 13px/1.45 Inter, "Segoe UI", system-ui, sans-serif; overflow: hidden; }
+  #app { display: grid; grid-template-rows: 44px 1fr 196px; grid-template-columns: 290px 1fr 300px; height: 100%; }
+  header { grid-column: 1 / 4; display: flex; align-items: center; gap: 8px; padding: 0 12px; background: var(--panel); border-bottom: 1px solid var(--line); }
+  header .brand { font-weight: 700; letter-spacing: .02em; color: var(--acc); margin-right: 6px; }
+  header .name { color: var(--fg); font-weight: 600; }
+  header .sep { width: 1px; height: 22px; background: var(--line); margin: 0 4px; }
+  header .grow { flex: 1; }
+  #status { color: var(--dim); font-size: 12px; max-width: 420px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  button, select, input[type=text] { background: var(--panel2); color: var(--fg); border: 1px solid var(--line); border-radius: 6px; padding: 4px 9px; font: inherit; height: 28px; }
+  button { cursor: pointer; display: inline-flex; align-items: center; gap: 6px; }
+  button:hover { border-color: var(--acc); }
+  button.on { border-color: var(--acc); color: var(--acc); background: #1f1a0f; }
+  button.icon { padding: 4px 7px; }
+  button svg { width: 14px; height: 14px; fill: currentColor; }
+  label.f { display: flex; align-items: center; gap: 6px; color: var(--dim); font-size: 12px; }
+  aside { background: var(--panel); border-right: 1px solid var(--line); display: flex; flex-direction: column; min-height: 0; }
+  aside.right { border-right: 0; border-left: 1px solid var(--line); }
+  .pane-h { padding: 8px 12px; font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); border-bottom: 1px solid var(--line); display: flex; align-items: center; gap: 8px; }
+  .pane-h .grow { flex: 1; }
+  #layerList { overflow: auto; flex: 1; min-height: 0; }
+  .lrow { display: grid; grid-template-columns: 22px 22px 10px 1fr 44px; align-items: center; gap: 6px; padding: 3px 8px 3px 6px; cursor: pointer; border-left: 2px solid transparent; font-size: 12px; }
+  .lrow:hover { background: #1a1e28; }
+  .lrow.sel { background: #1e2230; border-left-color: var(--acc); }
+  .lrow.off { opacity: .45; }
+  .lrow .chip { width: 10px; height: 10px; border-radius: 2px; }
+  .lrow .nm { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .lrow .at { color: var(--dim); font-variant-numeric: tabular-nums; text-align: right; }
+  .lrow .tog { width: 20px; height: 20px; border-radius: 4px; border: 1px solid var(--line); background: transparent; color: var(--dim); font-size: 10px; display: inline-flex; align-items: center; justify-content: center; }
+  .lrow .tog.on { color: var(--acc); border-color: var(--acc); }
+  .kind-h { padding: 6px 10px 2px; font-size: 10px; letter-spacing: .08em; text-transform: uppercase; color: var(--dim); }
+  #inspector { border-top: 1px solid var(--line); max-height: 46%; overflow: auto; padding: 8px 10px; font-size: 12px; }
+  #inspector .title { font-weight: 600; margin-bottom: 6px; display: flex; gap: 8px; align-items: center; }
+  #inspector .src { color: var(--dim); font-size: 11px; }
+  .field { display: grid; grid-template-columns: 96px 1fr; gap: 6px; align-items: center; margin: 3px 0; }
+  .field label { color: var(--dim); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .field input { width: 100%; height: 24px; padding: 2px 6px; font: 11px ui-monospace, monospace; }
+  .field input.changed { border-color: var(--acc); }
+  .field input.bad { border-color: var(--danger); }
+  #inspector .actions { display: flex; gap: 6px; margin-top: 8px; }
+  main { position: relative; min-width: 0; min-height: 0; background: #000; }
+  canvas#c { display: block; width: 100%; height: 100%; object-fit: contain; cursor: grab; }
+  canvas#c:active { cursor: grabbing; }
+  #hud { position: absolute; left: 12px; top: 10px; font: 12px/1.35 ui-monospace, monospace; color: #fff; text-shadow: 0 1px 2px #000; pointer-events: none; white-space: pre; }
+  #overlay { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; opacity: .5; pointer-events: none; display: none; }
+  #pip { position: absolute; left: 12px; bottom: 12px; width: 300px; border: 1px solid var(--line); display: none; }
+  #pipLabel { position: absolute; left: 14px; bottom: 186px; font: 11px ui-monospace, monospace; color: #fff; text-shadow: 0 1px 2px #000; display: none; }
+  #help { position: absolute; inset: 0; background: rgba(8,9,13,.9); display: none; padding: 28px 36px; overflow: auto; font-size: 13px; }
+  #help h3 { margin: 0 0 10px; color: var(--acc); }
+  #help table { border-collapse: collapse; } #help td { padding: 3px 14px 3px 0; } #help kbd { background: var(--panel2); border: 1px solid var(--line); border-radius: 4px; padding: 1px 6px; font: 11px ui-monospace, monospace; }
+  .tabs { display: flex; border-bottom: 1px solid var(--line); }
+  .tabs button { border: 0; border-radius: 0; height: 32px; flex: 1; background: transparent; color: var(--dim); justify-content: center; }
+  .tabs button.on { color: var(--acc); background: transparent; box-shadow: inset 0 -2px 0 var(--acc); }
+  .tab { display: none; overflow: auto; flex: 1; min-height: 0; padding: 8px 10px; }
+  .tab.on { display: block; }
+  .ref { margin: 0 0 8px; cursor: pointer; border: 2px solid transparent; border-radius: 4px; overflow: hidden; }
+  .ref.sel { border-color: var(--acc); }
+  .ref img { width: 100%; display: block; }
+  .muted { color: var(--dim); font-size: 12px; }
+  #graph { width: 100%; height: 110px; background: var(--panel2); border: 1px solid var(--line); border-radius: 4px; }
+  .kv { display: grid; grid-template-columns: 1fr auto; gap: 2px 10px; font-size: 12px; margin: 8px 0; }
+  .kv b { color: var(--fg); font-weight: 500; }
+  .check { display: flex; gap: 6px; align-items: center; font-size: 12px; margin: 2px 0; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--ok); } .dot.bad { background: var(--danger); }
+  footer { grid-column: 1 / 4; background: var(--panel); border-top: 1px solid var(--line); display: grid; grid-template-rows: 30px 1fr 18px; padding: 4px 12px 6px; gap: 2px; }
+  #bar { display: grid; grid-template-columns: 70px 1fr 110px; gap: 10px; align-items: center; }
+  #time { font: 12px ui-monospace, monospace; color: var(--fg); }
+  #dur { color: var(--dim); font-size: 12px; text-align: right; }
+  input[type=range] { width: 100%; accent-color: var(--acc); }
+  #lanes { width: 100%; height: 100%; display: block; background: #0b0d12; border: 1px solid var(--line); border-radius: 4px; cursor: pointer; }
+  .keys { color: var(--dim); font-size: 11px; display: flex; gap: 14px; }
+  #laneTip { position: fixed; background: var(--panel2); border: 1px solid var(--line); padding: 3px 7px; font: 11px ui-monospace, monospace; pointer-events: none; display: none; z-index: 5; border-radius: 4px; }
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <span class="brand">kit vfx</span><span class="name" id="title"></span>
+    <select id="variant" title="variant (every variant of the preset is bundled; same clock)"></select>
+    <span class="sep"></span>
+    <label class="f">view <select id="view"></select></label>
+    <label class="f">speed <select id="speed"><option>0.1</option><option>0.25</option><option>0.5</option><option selected>1</option></select></label>
+    <span class="sep"></span>
+    <button class="icon" id="toStart" title="Home"><svg viewBox="0 0 16 16"><path d="M2 2h2v12H2zM14 2v12L5 8z"/></svg></button>
+    <button class="icon" id="back" title=", one frame back"><svg viewBox="0 0 16 16"><path d="M11 2v12L3 8z"/></svg></button>
+    <button id="play" title="space"><svg viewBox="0 0 16 16"><path id="playIcon" d="M3 2l11 6-11 6z"/></svg><span id="playLabel">play</span></button>
+    <button class="icon" id="fwd" title=". one frame forward"><svg viewBox="0 0 16 16"><path d="M5 2v12l8-6z"/></svg></button>
+    <button id="prevBeat" title="[ previous beat / hit">[ beat</button>
+    <button id="nextBeat" title="] next beat / hit">beat ]</button>
+    <button id="loopBtn" title="L loop between in / out (I / O set them)">loop</button>
+    <span class="sep"></span>
+    <button id="resetCam" title="R resets the orbit (drag orbit · wheel dolly · right-drag pan)">reset cam</button>
+    <button id="sheetBtn" title="a 4x4 contact sheet of this view, downloaded as PNG">sheet</button>
+    <button id="record" title="renders every frame at 24 fps to the kit's capture server (lune run kit vfx play --record)">record</button>
+    <span class="grow"></span>
+    <span id="status"></span>
+    <button class="icon" id="helpBtn" title="? keys and help">?</button>
+  </header>
+  <aside>
+    <div class="pane-h">Layers <span class="grow"></span><span id="layerCount" class="muted"></span><button class="icon" id="allOn" title="unmute all, clear solo">all</button></div>
+    <div id="layerList"></div>
+    <div id="inspector"><div class="muted">select a layer to inspect and edit it — apply = this page only, save = the file (hot reload)</div></div>
+  </aside>
+  <main>
+    <canvas id="c" width="1280" height="720"></canvas>
+    <img id="overlay" alt="" />
+    <div id="hud"></div>
+    <img id="pip" alt="" /><span id="pipLabel"></span>
+    <div id="help"><h3>kit vfx play — keys</h3><table>
+      <tr><td><kbd>space</kbd></td><td>play / pause</td><td><kbd>,</kbd> <kbd>.</kbd></td><td>one frame back / forward (24 fps)</td></tr>
+      <tr><td><kbd>[</kbd> <kbd>]</kbd></td><td>previous / next beat or hit</td><td><kbd>Home</kbd></td><td>to the start</td></tr>
+      <tr><td><kbd>I</kbd> <kbd>O</kbd></td><td>set loop in / out at the playhead</td><td><kbd>L</kbd></td><td>toggle the loop</td></tr>
+      <tr><td><kbd>R</kbd></td><td>reset the orbit camera</td><td>drag · wheel · right-drag</td><td>orbit · dolly · pan</td></tr>
+      <tr><td><kbd>[</kbd> <kbd>]</kbd></td><td>previous / next impact frame (paused on it)</td><td><kbd>H</kbd></td><td>hit-stops held 6x longer, to see the frames</td></tr>
+      <tr><td><kbd>F</kbd></td><td>free cam on / off (also in the view menu)</td><td><kbd>W A S D</kbd> <kbd>Q E</kbd> <kbd>shift</kbd></td><td>fly · down / up · fast; drag looks around, wheel sets the speed</td></tr>
+      <tr><td><kbd>V</kbd></td><td>overlay the selected reference still</td><td><kbd>B</kbd></td><td>booth picture-in-picture</td></tr>
+      <tr><td><kbd>M</kbd></td><td>mute the selected layer</td><td><kbd>S</kbd></td><td>solo the selected layer</td></tr>
+      <tr><td><kbd>?</kbd></td><td>this help</td><td></td><td>lanes: click = select, dbl-click = solo, shift-click = mute</td></tr>
+      <tr><td>click the viewport</td><td>which layers are there (nearest emitter points; click one to select)</td><td>hover a layer row</td><td>peek: only that layer shows while you hover</td></tr>
+    </table><p class="muted">saving the preset or a part on disk reloads it here with the clock kept · window.kitPlayer() in the console = the Player</p></div>
+  </main>
+  <aside class="right">
+    <div class="tabs"><button class="on" data-tab="refs">Refs</button><button data-tab="booth">Booth</button><button data-tab="metrics">Metrics</button></div>
+    <div class="tab on" id="tab-refs"><div class="muted" id="refsNone">loading…</div><div id="refsList"></div></div>
+    <div class="tab" id="tab-booth"><button id="pipBtn">show the booth frame (B)</button><p class="muted" id="boothNote"></p></div>
+    <div class="tab" id="tab-metrics"><canvas id="graph" width="280" height="110"></canvas><div class="kv" id="live"></div><div id="gate" class="muted">no recording gate yet — record (--record) to get one</div></div>
+  </aside>
+  <footer>
+    <div id="bar"><span id="time">0.00 s</span><input id="scrub" type="range" min="0" max="7.5" step="0.01" value="0" /><span id="dur"></span></div>
+    <canvas id="lanes" height="120"></canvas>
+    <div class="keys"><span>space play</span><span>, . frame</span><span>[ ] beat</span><span>I O L loop</span><span>R cam</span><span>F free cam (WASD)</span><span>V overlay</span><span>B booth</span><span>M S mute/solo</span><span>? help</span></div>
+  </footer>
+</div>
+<div id="laneTip"></div>
+<script type="module">
+import { Player, summarize, texturesSettled, previewNotes } from "/lib/player.js";
+const $ = (id) => document.getElementById(id);
+const Q = Object.fromEntries(new URL(location.href).searchParams.entries());
+let name = Q.name || document.body.dataset.name;
+const presetName = () => name.split("@")[0];
+const FPS = 24;
+let bundle = await (await fetch(`/play/${name}.json`)).json();
+const canvas = $("c");
+const views = Object.keys(bundle.views || {});
+const viewSel = $("view");
+for (const v of [...views, "free"]) { const o = document.createElement("option"); o.textContent = v === "free" ? "free cam" : v; o.value = v; viewSel.appendChild(o); }
+viewSel.value = Q.view && views.includes(Q.view) ? Q.view : (views.includes("cine") ? "cine" : views[0]);
+$("title").textContent = name;
+const scrub = $("scrub");
+const muted = new Set((Q.mute || "").split(",").filter(Boolean));
+let solo = null, selected = null, loop = { on: false, in: 0, out: null };
+let player = new Player(canvas, bundle, { view: viewSel.value, mute: [...muted], muteSound: Q.mute_sound === "1" });
+window.kitPlayer = () => player;
+player.record = Q.record === "1";
+let playing = !player.record; let last = performance.now();
+const hud = $("hud"), status = $("status"), timeEl = $("time");
+const graph = $("graph").getContext("2d");
+let history = [];
+const dur = () => bundle.preset.duration || 5;
+function setDur() { scrub.max = dur(); $("dur").textContent = `${dur()} s · ${(bundle.preset.layers || []).length} layers`; $("layerCount").textContent = `${(bundle.preset.layers || []).length}`; }
+setDur();
+const KIND_COLOR = { sprite: "#ffb84d", beam: "#7fd3ff", mesh: "#c48dff", decal: "#8fbf6a", light: "#fff2a8", debris: "#b08a60", screen: "#ff7f9a", impact: "#ffffff", shake: "#ff9a5c", fov: "#ff9a5c", sound: "#7fffc8", glow: "#ffe27a", trail: "#9ad0ff" };
+// ---------------------------------------------------------------- state -> player
+function effectiveMutes() { const e = new Set(muted); if (solo) for (const el of bundle.preset.layers || []) if (el.name !== solo) e.add(el.name); return e; }
+function applyMutes() { player.muted = effectiveMutes(); player.seek(player.time); history = history.filter((f) => f.t <= player.time); frameDone(); renderLayerList(); }
+function pause() { playing = false; $("playLabel").textContent = "play"; $("playIcon").setAttribute("d", "M3 2l11 6-11 6z"); }
+function resume() { playing = true; player.frozen = false; $("playLabel").textContent = "pause"; $("playIcon").setAttribute("d", "M3 2h4v12H3zM9 2h4v12H9z"); last = performance.now(); }
+function seekTo(t) { pause(); player.seek(Math.max(0, Math.min(dur(), t))); history = history.filter((f) => f.t <= player.time); frameDone(); }
+function hudText() {
+  const m = player.frameMetrics || {};
+  return `t ${player.time.toFixed(2)} s   particles ${player.alive || 0}${(player.holdScale || 1) > 1 ? "   holds x" + player.holdScale : ""}\nmean ${m.mean || 0}  coverage ${((m.coverage || 0) * 100).toFixed(1)}%  white ${((m.hot || 0) * 100).toFixed(1)}%${player.holdUntil ? "\nHIT-STOP" : ""}${solo ? `\nSOLO ${solo}` : ""}${player.view === "free" ? `\nFREE CAM  speed ${player.free ? player.free.speed.toFixed(0) : 40}  (W A S D / Q E / shift / drag)` : ""}${loop.on ? `\nLOOP ${loop.in.toFixed(2)}–${(loop.out ?? dur()).toFixed(2)}` : ""}`;
+}
+function frameDone() {
+  if (player.frameMetrics && (!history.length || player.time > history[history.length - 1].t)) history.push(player.frameMetrics);
+  hud.textContent = hudText(); timeEl.textContent = `${player.time.toFixed(2)} s`; scrub.value = player.time; drawGraph(); drawLanes(); updatePip(); liveMetrics();
+}
+// ---------------------------------------------------------------- layer list + inspector
+const layerList = $("layerList");
+function layerEnd(el) { const lt = el.lifetime; const life = (el.life || 0) + (el["for"] || 0) + (Array.isArray(lt) ? Math.max(...lt) : (lt || 0)); return (el.at || 0) + Math.max(life, 0.08); }
+function renderLayerList() {
+  layerList.innerHTML = "";
+  const layers = bundle.preset.layers || []; const byKind = {};
+  for (const el of layers) (byKind[el.kind] = byKind[el.kind] || []).push(el);
+  for (const [kind, els] of Object.entries(byKind)) {
+    const h = document.createElement("div"); h.className = "kind-h"; h.textContent = `${kind} · ${els.length}`; layerList.appendChild(h);
+    for (const el of els) {
+      const row = document.createElement("div"); row.className = "lrow" + (selected === el.name ? " sel" : "") + (effectiveMutes().has(el.name) ? " off" : "");
+      const mute = document.createElement("button"); mute.className = "tog" + (muted.has(el.name) ? " on" : ""); mute.textContent = "M"; mute.title = "mute"; mute.onclick = (e) => { e.stopPropagation(); if (muted.has(el.name)) muted.delete(el.name); else muted.add(el.name); applyMutes(); };
+      const sol = document.createElement("button"); sol.className = "tog" + (solo === el.name ? " on" : ""); sol.textContent = "S"; sol.title = "solo"; sol.onclick = (e) => { e.stopPropagation(); solo = solo === el.name ? null : el.name; applyMutes(); };
+      const chip = document.createElement("span"); chip.className = "chip"; chip.style.background = KIND_COLOR[el.kind] || "#999";
+      const nm = document.createElement("span"); nm.className = "nm"; nm.textContent = el.name; nm.title = el.name;
+      const at = document.createElement("span"); at.className = "at"; at.textContent = (el.at || 0).toFixed(2);
+      row.append(mute, sol, chip, nm, at); row.onclick = () => selectLayer(el.name); layerList.appendChild(row);
+      const approx = previewNotes(el); // what this preview is NOT for this layer (a mark beside its name, the words on hover and in the inspector)
+      if (approx.length) { const mark = document.createElement("span"); mark.className = "at"; mark.textContent = "\u2248"; mark.style.color = "#e0a040"; mark.title = "this preview differs from the game: " + approx.join(" \u00b7 "); row.insertBefore(mark, at); }
+      row.title = `${el.name} · ${el.kind}${el.texture ? " · " + el.texture : ""}${el.point ? " · at " + (typeof el.point === "string" ? el.point : JSON.stringify(el.point)) : ""}${el.from ? " · " + JSON.stringify(el.from) + " → " + JSON.stringify(el.to) : ""} · ${(el.at || 0).toFixed(2)} → ${layerEnd(el).toFixed(2)} s   (hover = peek: only this layer shows)`;
+      row.onmouseenter = () => { player.peek = el.name; player.render(0, true); }; row.onmouseleave = () => { player.peek = null; player.render(0, true); };
+    }
+  }
+}
+const SIMPLE = (v) => typeof v === "number" || typeof v === "string" || typeof v === "boolean" || (Array.isArray(v) && JSON.stringify(v).length < 120) || (v && typeof v === "object" && JSON.stringify(v).length < 120);
+function selectLayer(n) {
+  selected = n; renderLayerList(); drawLanes();
+  const el = (bundle.preset.layers || []).find((l) => l.name === n); const box = $("inspector"); box.innerHTML = "";
+  if (!el) return;
+  const t = document.createElement("div"); t.className = "title"; t.innerHTML = `<span class="chip" style="display:inline-block;width:10px;height:10px;border-radius:2px;background:${KIND_COLOR[el.kind] || "#999"}"></span>${el.name} <span class="src">${el.kind}${n.includes(".") ? " · from a part (" + n.split(".")[0] + ")" : ""}</span>`;
+  box.appendChild(t);
+  for (const note of previewNotes(el)) { const w = document.createElement("div"); w.className = "muted"; w.style.color = "#e0a040"; w.textContent = "\u2248 " + note; box.appendChild(w); }
+  const edits = {};
+  for (const [k, v] of Object.entries(el)) {
+    if (k === "name" || k === "kind" || !SIMPLE(v)) continue;
+    const f = document.createElement("div"); f.className = "field"; const lab = document.createElement("label"); lab.textContent = k; lab.title = k;
+    const inp = document.createElement("input"); inp.type = "text"; inp.value = typeof v === "string" ? v : JSON.stringify(v); inp.dataset.key = k; inp.dataset.orig = inp.value;
+    inp.oninput = () => { try { edits[k] = inp.value.trim() === "" ? null : (typeof v === "string" && !/^[\[{]/.test(inp.value) ? inp.value : JSON.parse(inp.value)); inp.classList.remove("bad"); inp.classList.toggle("changed", inp.value !== inp.dataset.orig); } catch (e) { inp.classList.add("bad"); delete edits[k]; } };
+    f.append(lab, inp); box.appendChild(f);
+  }
+  const act = document.createElement("div"); act.className = "actions";
+  const apply = document.createElement("button"); apply.textContent = "apply"; apply.title = "this page only (not saved)";
+  apply.onclick = () => { for (const [k, v] of Object.entries(edits)) { if (v === null) delete el[k]; else el[k] = v; } player.reload(bundle); history = history.filter((f) => f.t <= player.time); frameDone(); status.textContent = `applied ${Object.keys(edits).length} field(s) to ${el.name} (page only)`; };
+  const save = document.createElement("button"); save.textContent = "save"; save.title = "write to the preset / part file (the watcher reloads it)";
+  save.onclick = async () => { let n2 = 0; for (const [k, v] of Object.entries(edits)) { const r = await (await fetch("/preset", { method: "POST", body: JSON.stringify({ preset: presetName(), layer: el.name, field: k, value: v }) })).json(); if (!r.ok) { status.textContent = `save failed: ${r.error}`; return; } n2++; } status.textContent = `saved ${n2} field(s) of ${el.name} — reloading from disk`; };
+  const jump = document.createElement("button"); jump.textContent = "go to"; jump.title = "seek to the layer's start"; jump.onclick = () => seekTo(el.at || 0);
+  act.append(apply, save, jump); box.appendChild(act);
+}
+$("allOn").onclick = () => { muted.clear(); solo = null; applyMutes(); };
+renderLayerList();
+// ---------------------------------------------------------------- lanes
+const lanes = $("lanes"), lg = lanes.getContext("2d"), tip = $("laneTip");
+let laneRows = [];
+function drawLanes() {
+  const W = lanes.clientWidth || 800; if (lanes.width !== W) lanes.width = W;
+  const H = lanes.height, D = dur(), x = (t) => 64 + (t / D) * (W - 72);
+  const layers = bundle.preset.layers || []; const rowH = Math.max(3, Math.min(8, Math.floor((H - 16) / Math.max(layers.length, 1))));
+  lg.clearRect(0, 0, W, H); laneRows = [];
+  lg.fillStyle = "#0b0d12"; lg.fillRect(0, 0, W, H);
+  if (loop.on) { lg.fillStyle = "rgba(245,192,75,.08)"; lg.fillRect(x(loop.in), 0, x(loop.out ?? D) - x(loop.in), H); }
+  for (let s = 0; s <= D; s += 0.5) { lg.fillStyle = s % 1 === 0 ? "#1f2430" : "#161a22"; lg.fillRect(x(s), 0, 1, H); if (s % 1 === 0) { lg.fillStyle = "#6a6f7e"; lg.font = "9px ui-monospace, monospace"; lg.fillText(`${s}s`, x(s) + 2, H - 3); } }
+  for (const [k, t] of Object.entries(bundle.preset.beats || {})) { lg.fillStyle = "#f5c04b"; lg.fillRect(x(t), 0, 1, H - 12); lg.font = "9px ui-monospace, monospace"; lg.fillText(k, x(t) + 2, 9); }
+  for (const h of bundle.preset.hits || []) { lg.fillStyle = "#ff6b6b"; lg.beginPath(); lg.moveTo(x(h), 10); lg.lineTo(x(h) + 4, 14); lg.lineTo(x(h), 18); lg.lineTo(x(h) - 4, 14); lg.closePath(); lg.fill(); }
+  const eff = effectiveMutes();
+  layers.forEach((el, i) => {
+    const y = 12 + i * rowH; const a = x(el.at || 0), b = Math.max(x(layerEnd(el)), a + 2); const off = eff.has(el.name);
+    lg.fillStyle = off ? "#2a2f3b" : (KIND_COLOR[el.kind] || "#999"); lg.globalAlpha = off ? 0.5 : (selected === el.name ? 1 : 0.75);
+    lg.fillRect(a, y + 1, b - a, rowH - 2); lg.globalAlpha = 1;
+    if (selected === el.name) { lg.strokeStyle = "#fff"; lg.strokeRect(a - 0.5, y + 0.5, b - a + 1, rowH - 1); }
+    if (rowH >= 7) { lg.fillStyle = off ? "#555" : "#cfcfd6"; lg.font = "8px ui-monospace, monospace"; lg.fillText(el.name.slice(0, 10), 2, y + rowH - 1); }
+    laneRows.push({ y, h: rowH, el });
+  });
+  lg.fillStyle = "#fff"; lg.fillRect(x(player.time), 0, 1.5, H);
+}
+lanes.addEventListener("click", (e) => { const r = laneRows.find((row) => e.offsetY >= row.y && e.offsetY < row.y + row.h); if (!r) return; if (e.shiftKey) { if (muted.has(r.el.name)) muted.delete(r.el.name); else muted.add(r.el.name); applyMutes(); } else selectLayer(r.el.name); });
+lanes.addEventListener("dblclick", (e) => { const r = laneRows.find((row) => e.offsetY >= row.y && e.offsetY < row.y + row.h); if (!r) return; solo = solo === r.el.name ? null : r.el.name; applyMutes(); });
+lanes.addEventListener("mousemove", (e) => { const r = laneRows.find((row) => e.offsetY >= row.y && e.offsetY < row.y + row.h); if (!r) { tip.style.display = "none"; return; } tip.style.display = "block"; tip.style.left = `${e.clientX + 12}px`; tip.style.top = `${e.clientY - 28}px`; tip.textContent = `${r.el.name}  ${r.el.kind}  ${(r.el.at || 0).toFixed(2)} → ${layerEnd(r.el).toFixed(2)} s${muted.has(r.el.name) ? "  (muted)" : ""}`; });
+lanes.addEventListener("mouseleave", () => { tip.style.display = "none"; });
+// ---------------------------------------------------------------- transport, loop, keys
+$("play").onclick = () => { if (playing) { pause(); player.frozen = true; } else { if (player.finished) { player.seek(loop.on ? loop.in : 0); history = []; } resume(); } };
+$("toStart").onclick = () => seekTo(0);
+$("back").onclick = () => seekTo(player.time - 1 / FPS);
+$("fwd").onclick = () => seekTo(player.time + 1 / FPS);
+function marks() { const m = [...Object.values(bundle.preset.beats || {}), ...(bundle.preset.hits || []), ...(bundle.preset.hitstop || []).map((h) => h.at)].filter((t) => typeof t === "number"); return [...new Set(m)].sort((a, b) => a - b); }
+$("prevBeat").onclick = () => { const m = marks().filter((t) => t < player.time - 0.02); seekTo(m.length ? m[m.length - 1] : 0); };
+$("nextBeat").onclick = () => { const m = marks().filter((t) => t > player.time + 0.02); seekTo(m.length ? m[0] : dur()); };
+$("loopBtn").onclick = () => { loop.on = !loop.on; $("loopBtn").classList.toggle("on", loop.on); frameDone(); };
+$("resetCam").onclick = () => { player.resetOrbit(); player.render(0, true); };
+$("speed").onchange = (e) => { player.timeScale = parseFloat(e.target.value); };
+viewSel.onchange = () => { if (viewSel.value === "free") player.enterFree(); else player.view = viewSel.value; player.render(0, true); updatePip(); status.textContent = viewSel.value === "free" ? "free cam: W A S D fly / Q E down, up / shift fast / drag to look / wheel = speed / F toggles" : ""; };
+scrub.oninput = () => seekTo(parseFloat(scrub.value));
+$("helpBtn").onclick = () => { $("help").style.display = $("help").style.display === "block" ? "none" : "block"; };
+const held = { w: false, a: false, s: false, d: false, q: false, e: false, fast: false };
+const FLY = { w: 1, a: 1, s: 1, d: 1, q: 1, e: 1 };
+window.kitHeld = held; // probes
+document.addEventListener("keyup", (e) => { const k = e.key.toLowerCase(); if (FLY[k]) held[k] = false; if (e.key === "Shift") held.fast = false; });
+document.addEventListener("keydown", (e) => {
+  if (e.target.tagName === "INPUT" || e.target.tagName === "SELECT") return;
+  const k = e.key;
+  if (e.key === "Shift") held.fast = true;
+  if (player.view === "free" && FLY[k.toLowerCase()]) { held[k.toLowerCase()] = true; e.preventDefault(); return; }
+  if (k === "f" || k === "F") { viewSel.value = player.view === "free" ? views[0] : "free"; viewSel.onchange(); return; }
+  if (k === "h" || k === "H") { player.holdScale = (player.holdScale || 1) === 1 ? 6 : 1; status.textContent = player.holdScale > 1 ? "hit-stops held 6x longer (H again for real time)" : "hit-stops at real time"; hud.textContent = hudText(); return; }
+  if (k === "[" || k === "]") { // jump between the impact frames (each held at its start)
+    const ts = (bundle.preset.layers || []).filter((l) => l.kind === "impact" && (l.style === "frame" || l.style === "comic" || l.style === "anime" || l.image)).map((l) => +((l.at || 0) + 0.012).toFixed(3)).sort((a, b) => a - b);
+    const cur = player.time; const next = k === "]" ? ts.find((t) => t > cur + 0.02) : [...ts].reverse().find((t) => t < cur - 0.02);
+    if (next != null) { seekTo(next); const l = (bundle.preset.layers || []).find((x) => x.kind === "impact" && Math.abs((x.at || 0) + 0.012 - next) < 1e-3); status.textContent = `impact frame ${l ? l.name : ""} at ${next.toFixed(2)} s — [ ] step the frames, H holds hit-stops 6x longer`; }
+    return; }
+  if (e.code === "Space") { e.preventDefault(); $("play").click(); }
+  else if (k === ",") $("back").click(); else if (k === ".") $("fwd").click();
+  else if (k === "[") $("prevBeat").click(); else if (k === "]") $("nextBeat").click();
+  else if (k === "r" || k === "R") $("resetCam").click();
+  else if (k === "v" || k === "V") toggleOverlay();
+  else if (k === "b" || k === "B") $("pipBtn").click();
+  else if (k === "i" || k === "I") { loop.in = player.time; if (loop.out != null && loop.out <= loop.in) loop.out = null; frameDone(); }
+  else if (k === "o" || k === "O") { loop.out = player.time > loop.in ? player.time : null; frameDone(); }
+  else if (k === "l" || k === "L") $("loopBtn").click();
+  else if ((k === "m" || k === "M") && selected) { if (muted.has(selected)) muted.delete(selected); else muted.add(selected); applyMutes(); }
+  else if ((k === "s" || k === "S") && selected) { solo = solo === selected ? null : selected; applyMutes(); }
+  else if (k === "?") $("helpBtn").click();
+  else if (k === "Home") $("toStart").click();
+});
+// ---------------------------------------------------------------- orbit
+let drag = null;
+canvas.addEventListener("contextmenu", (e) => e.preventDefault());
+canvas.addEventListener("pointerdown", (e) => { drag = { x: e.clientX, y: e.clientY, b: e.button, x0: e.clientX, y0: e.clientY, t0: performance.now() }; canvas.setPointerCapture(e.pointerId); });
+canvas.addEventListener("pointermove", (e) => { if (!drag) return; const dx = e.clientX - drag.x, dy = e.clientY - drag.y; drag.x = e.clientX; drag.y = e.clientY; if (drag.b === 2 || e.shiftKey) { const d = player.camera.position.distanceTo(player.viewAt(player.time).look); player.pan(-dx * d * 0.0015, dy * d * 0.0015); } else if (player.view === "free") player.freeLook(-dx * 0.004, -dy * 0.004); else player.orbit(-dx * 0.005, -dy * 0.005); if (!playing) player.render(0, true); });
+canvas.addEventListener("pointerup", (e) => {
+  const d = drag; drag = null; if (!d || d.b !== 0 || Math.hypot(e.clientX - d.x0, e.clientY - d.y0) > 4 || performance.now() - d.t0 > 400) return;
+  // a click: which layers sit here? (emitter points projected through the current camera)
+  const r = canvas.getBoundingClientRect(); const sx = canvas.width / r.width, sy = canvas.height / r.height;
+  const cw = r.width, ch = r.height, aspect = canvas.width / canvas.height; let ox = 0, oy = 0, scale = sx; // object-fit: contain
+  if (cw / ch > aspect) { const drawn = ch * aspect; ox = (cw - drawn) / 2; scale = canvas.width / drawn; } else { const drawn = cw / aspect; oy = (ch - drawn) / 2; scale = canvas.height / drawn; }
+  const px = (e.clientX - r.left - ox) * scale, py = (e.clientY - r.top - oy) * scale;
+  const hits = player.layersAt(px, py); showPick(hits, e.clientX, e.clientY);
+});
+const pickBox = document.createElement("div"); pickBox.id = "pick"; pickBox.style.cssText = "position:fixed;display:none;z-index:6;background:var(--panel2);border:1px solid var(--line);border-radius:6px;padding:4px 0;font:12px ui-monospace,monospace;max-height:260px;overflow:auto;min-width:220px"; document.body.appendChild(pickBox);
+function showPick(hits, cx, cy) {
+  pickBox.innerHTML = ""; if (!hits.length) { pickBox.style.display = "none"; status.textContent = "nothing drawn here (sprites, beams, meshes, lights, decals, debris are pickable)"; return; }
+  const h = document.createElement("div"); h.style.cssText = "padding:2px 10px;color:var(--dim)"; h.textContent = `${hits.length} layer(s) here — nearest first · live ones on top`; pickBox.appendChild(h);
+  for (const x of hits.slice(0, 14)) { const row = document.createElement("div"); row.style.cssText = "padding:3px 10px;cursor:pointer;display:flex;gap:8px;align-items:center" + (x.live ? "" : ";opacity:.5"); row.innerHTML = `<span style="width:8px;height:8px;border-radius:2px;background:${KIND_COLOR[x.kind] || "#999"}"></span><span style="flex:1">${x.name}</span><span style="color:var(--dim)">${x.kind} · ${x.dist}px${x.live ? "" : " · idle"}</span>`; row.onmouseenter = () => { player.peek = x.name; player.render(0, true); }; row.onmouseleave = () => { player.peek = null; player.render(0, true); }; row.onclick = () => { selectLayer(x.name); pickBox.style.display = "none"; }; pickBox.appendChild(row); }
+  pickBox.style.left = `${Math.min(cx + 10, window.innerWidth - 240)}px`; pickBox.style.top = `${Math.min(cy + 10, window.innerHeight - 280)}px`; pickBox.style.display = "block";
+  selectLayer(hits[0].name);
+}
+document.addEventListener("pointerdown", (e) => { if (!pickBox.contains(e.target) && e.target !== canvas) pickBox.style.display = "none"; }, true);
+canvas.addEventListener("wheel", (e) => { e.preventDefault(); if (player.view === "free" && player.free) { player.free.speed = Math.max(2, Math.min(400, player.free.speed * Math.pow(1.15, -e.deltaY / 100))); hud.textContent = hudText(); return; } player.dolly(Math.pow(1.12, e.deltaY / 100)); if (!playing) player.render(0, true); }, { passive: false });
+// ---------------------------------------------------------------- right pane: tabs, refs, booth, metrics
+for (const b of document.querySelectorAll(".tabs button")) b.onclick = () => { for (const x of document.querySelectorAll(".tabs button")) x.classList.toggle("on", x === b); for (const t of document.querySelectorAll(".tab")) t.classList.toggle("on", t.id === "tab-" + b.dataset.tab); };
+let refFiles = [], refSel = null;
+async function loadRefs() {
+  refFiles = await (await fetch(`/list?dir=refs/${encodeURIComponent(presetName())}`)).json();
+  $("refsNone").textContent = refFiles.length ? `${refFiles.length} stills · click one, V overlays it` : `no reference stills — put frames of the target look in assets/effects/refs/${presetName()}/ (kit vfx refs ${presetName()} <url|file>...); they feed kit vfx judge too`;
+  const box = $("refsList"); box.innerHTML = "";
+  refFiles.forEach((f) => { const d = document.createElement("div"); d.className = "ref"; const img = document.createElement("img"); img.src = `/refs/${presetName()}/${f}`; img.title = f; d.appendChild(img); d.onclick = () => { refSel = f; [...box.children].forEach((c) => c.classList.toggle("sel", c === d)); $("overlay").src = img.src; }; box.appendChild(d); });
+}
+loadRefs();
+function toggleOverlay() { const o = $("overlay"); if (!refSel) { if (refFiles.length) { refSel = refFiles[0]; o.src = `/refs/${presetName()}/${refSel}`; } else { status.textContent = "no reference stills to overlay"; return; } } o.style.display = o.style.display === "block" ? "none" : "block"; }
+let boothFrames = null, pipOn = false;
+async function loadBooth() { boothFrames = new Set(await (await fetch(`/list?dir=booth/${encodeURIComponent(presetName())}_video`)).json()); $("boothNote").textContent = boothFrames.size ? `${boothFrames.size} Studio frames on disk (kit vfx booth) — shown at the same time as the player` : `no Studio frames yet: lune run kit vfx booth ${presetName()} --views cine,hero`; }
+function updatePip() {
+  const pip = $("pip"), lab = $("pipLabel");
+  if (!pipOn || !boothFrames) { pip.style.display = "none"; lab.style.display = "none"; return; }
+  const n = Math.max(1, Math.round(player.time * FPS) + 1); const f = `${player.view}_${String(n).padStart(3, "0")}.png`;
+  if (boothFrames.has(f)) { pip.src = `/booth/${presetName()}_video/${f}`; pip.style.display = "block"; lab.style.display = "block"; lab.textContent = `booth (Studio) ${player.view} t≈${((n - 1) / FPS).toFixed(2)} s`; }
+  else { pip.style.display = "none"; lab.style.display = "block"; lab.textContent = `booth: no ${player.view} frames (kit vfx booth ${presetName()} --views ${player.view})`; }
+}
+$("pipBtn").onclick = async () => { pipOn = !pipOn; $("pipBtn").classList.toggle("on", pipOn); if (!boothFrames) await loadBooth(); updatePip(); };
+loadBooth();
+function drawGraph() {
+  const g = graph, W = 280, H = 110; g.clearRect(0, 0, W, H);
+  for (const h of bundle.preset.hits || []) { g.fillStyle = "#3a2a2a"; g.fillRect((h / dur()) * W, 0, 1, H); }
+  g.strokeStyle = "#f5c04b"; g.beginPath();
+  history.forEach((f, i) => { const x = (f.t / dur()) * W, y = H - (f.mean / 255) * H; if (i === 0) g.moveTo(x, y); else g.lineTo(x, y); });
+  g.stroke(); g.fillStyle = "#8b90a0"; g.font = "10px ui-monospace, monospace"; g.fillText("frame brightness (mean)", 6, 12);
+}
+function liveMetrics() { const m = player.frameMetrics || {}; $("live").innerHTML = `<span>particles</span><b>${player.alive || 0}</b><span>mean</span><b>${m.mean || 0}</b><span>coverage</span><b>${((m.coverage || 0) * 100).toFixed(1)}%</b><span>white</span><b>${((m.hot || 0) * 100).toFixed(1)}%</b>`; }
+async function loadGate() {
+  try {
+    const m = await (await fetch(`/booth/${encodeURIComponent(presetName())}_play.metrics.json`)).json();
+    const box = $("gate"); box.innerHTML = ""; box.classList.remove("muted");
+    for (const [v, s] of Object.entries(m.views || {})) { const h = document.createElement("div"); h.innerHTML = `<b>${v}</b> <span class="muted">peak ${s.peak ? s.peak.mean : "?"} at ${s.peak ? s.peak.t : "?"} s</span>`; box.appendChild(h); for (const c of s.checks || []) { const d = document.createElement("div"); d.className = "check"; d.innerHTML = `<span class="dot ${c.ok ? "" : "bad"}"></span>${c.name}${c.ok ? "" : " — " + c.fix}`; box.appendChild(d); } }
+  } catch (e) { /* no gate yet */ }
+}
+loadGate();
+// ---------------------------------------------------------------- variants (every variant is bundled beside the base)
+async function loadVariants() {
+  const names = await (await fetch(`/bundles?name=${encodeURIComponent(name)}`)).json(); const sel = $("variant"); sel.innerHTML = "";
+  for (const n of names) { const o = document.createElement("option"); o.value = n; o.textContent = n.includes("@") ? "@" + n.split("@")[1] : "base"; sel.appendChild(o); }
+  sel.value = name; sel.style.display = names.length > 1 ? "" : "none";
+}
+loadVariants();
+$("variant").onchange = async () => { const t = player.time; name = $("variant").value; bundle = await (await fetch(`/play/${name}.json?t=${Date.now()}`)).json(); $("title").textContent = name; player.reload(bundle); setDur(); renderLayerList(); history = history.filter((f) => f.t <= t); frameDone(); version = null; status.textContent = `switched to ${name} at ${t.toFixed(2)} s`; };
+// ---------------------------------------------------------------- contact sheet export (client side)
+$("sheetBtn").onclick = async () => {
+  const wasPlaying = playing; pause(); const t0 = player.time; player.record = true;
+  const cols = 4, rows = 4, cw = 320, ch = 180; const sheet = document.createElement("canvas"); sheet.width = cols * cw; sheet.height = rows * ch + 18; const sx = sheet.getContext("2d");
+  sx.fillStyle = "#000"; sx.fillRect(0, 0, sheet.width, sheet.height); sx.fillStyle = "#ddd"; sx.font = "12px ui-monospace, monospace"; sx.fillText(`${name} · ${player.view} · ${new Date().toISOString().slice(0, 16)}`, 6, 13);
+  for (let i = 0; i < cols * rows; i++) {
+    const t = (i / (cols * rows - 1)) * dur(); player.seek(t); const img = new Image(); img.src = player.captureJpeg(0.9); await new Promise((r) => (img.onload = r));
+    sx.drawImage(img, (i % cols) * cw, 18 + Math.floor(i / cols) * ch, cw, ch); sx.fillStyle = "#fff"; sx.fillText(`${t.toFixed(2)} s`, (i % cols) * cw + 4, 18 + Math.floor(i / cols) * ch + 12);
+  }
+  player.record = false; player.seek(t0); if (wasPlaying) resume(); frameDone();
+  const a = document.createElement("a"); a.href = sheet.toDataURL("image/png"); a.download = `${name}_${player.view}_sheet.png`; a.click(); status.textContent = "contact sheet downloaded";
+};
+// ---------------------------------------------------------------- hot reload
+let version = null, reloads = 0;
+async function pollVersion() {
+  try {
+    const v = await (await fetch(`/version?name=${encodeURIComponent(name)}`)).json();
+    if (version === null) version = v.mtime;
+    else if (v.mtime !== version) {
+      version = v.mtime; bundle = await (await fetch(`/play/${name}.json?t=${Date.now()}`)).json();
+      player.reload(bundle); setDur(); renderLayerList(); if (selected) selectLayer(selected); reloads++;
+      status.textContent = `reloaded ×${reloads} at ${new Date().toLocaleTimeString()}`; history = history.filter((f) => f.t <= player.time); frameDone();
+    }
+    if (v.watch && v.watch.error) status.textContent = `reload failed: ${v.watch.error}`;
+  } catch (e) { /* server gone */ }
+}
+if (!player.record) setInterval(pollVersion, 1000);
+// ---------------------------------------------------------------- record
+async function record(viewsToRecord, fps) {
+  const server = Q.server || location.origin;
+  for (const v of viewsToRecord) {
+    player = new Player(canvas, bundle, { view: v, mute: [...muted], muteSound: true }); player.record = true;
+    await texturesSettled(); // frame 1 only once every picture has arrived (else the first beat records without its textures)
+    const slow = Math.max(1, parseFloat(Q.slow || "1")), from = Math.max(0, parseFloat(Q.from || "0")), d = Math.min(dur(), parseFloat(Q.to || String(dur())));
+    const frames = []; let i = 0; const total = Math.ceil((d - from) * fps * slow);
+    player.seek(from); player.frozen = false; player.finished = false; player.render(0, false);
+    const post = async (url, body) => { for (let k = 0; k < 3; k++) { try { const r = await fetch(url, { method: "POST", body }); if (r.ok) return; } catch (e) { /* retry */ } await new Promise((r) => setTimeout(r, 300)); } throw new Error("frame post failed 3 times"); };
+    const pending = [];
+    for (let guard = 0; player.time < d - 1e-6 && !player.finished && guard < 100000; guard++) { // by the player's clock: a hit-stop holds the clock while frames keep coming
+      player.step(1 / fps / slow);
+      pending.push(post(`${server}/frame?view=${encodeURIComponent(v)}&i=${++i}&t=${player.time.toFixed(3)}&fps=${fps}`, player.captureJpeg(0.92)));
+      if (pending.length >= 3) { await Promise.all(pending); pending.length = 0; }
+      frames.push(player.frameMetrics); history = frames; frameDone(); status.textContent = `recording ${v} ${i}/${total}${document.hidden ? " (tab hidden: slower, still exact)" : ""}`;
+    }
+    await Promise.all(pending);
+    const summary = summarize(frames, bundle.preset, v, !!(bundle.views[v] && bundle.views[v].path));
+    // (the CAL this recording was made with: kit/vfx/calibrate.py fit divides by the ratio it measured)
+    await fetch(`${server}/metrics`, { method: "POST", body: JSON.stringify({ name, views: { [v]: summary }, cal: player.metrics.cal, cal_from: player.metrics.cal_from, scene: player.metrics.scene, sky: player.metrics.sky }) });
+  }
+  await fetch(`${server}/done`);
+  status.textContent = "recorded — the server wrote the mp4, sheet and metrics";
+}
+$("record").onclick = () => record([viewSel.value], FPS);
+// bake: every impact frame layer drawn once per view and posted as a PNG (kit vfx play --frames -> kit/vfx/frames.py)
+async function bakeFrames(viewsToBake) {
+  const server = Q.server || location.origin;
+  for (const v of viewsToBake) {
+    player = new Player(canvas, bundle, { view: v, mute: [...muted], muteSound: true }); player.record = true;
+    const layers = (bundle.preset.layers || []).filter((l) => l.kind === "impact" && (l.style === "frame" || l.style === "comic" || l.style === "anime"));
+    let k = 0;
+    for (const l of layers) {
+      player.seek((l.at || 0) + Math.min(0.02, (l.life || 0.08) / 2)); player.render(0, true); player.render(0, true);
+      const png = player.capturePng ? player.capturePng() : player.captureJpeg(0.98);
+      const r = await fetch(`${server}/frame?view=${encodeURIComponent(v)}&i=${++k}&t=${player.time.toFixed(3)}&tag=${encodeURIComponent(l.name)}`, { method: "POST", body: png });
+      status.textContent = `baked ${v} ${l.name} (${r.status})`;
+    }
+  }
+  await fetch(`${server}/done`);
+  status.textContent = "baked — run kit/vfx/frames.py (kit vfx play --frames does)";
+}
+if (Q.frames) { bakeFrames((Q.views || viewSel.value).split(",")); }
+else if (player.record) { record((Q.views || viewSel.value).split(","), parseInt(Q.fps || String(FPS), 10)); }
+else {
+  function tick(now) {
+    const dt = Math.min((now - last) / 1000, 0.1); last = now;
+    if (player.view === "free" && player.freeMove(held, dt) && !(playing && !player.finished)) { player.render(0, true); hud.textContent = hudText(); }
+    if (playing && !player.finished) { player.step(dt); frameDone(); if (loop.on && player.time >= (loop.out ?? dur()) - 1e-3) { player.seek(loop.in); player.frozen = false; history = history.filter((f) => f.t <= loop.in); } }
+    else if (player.finished && playing) { if (loop.on) { player.seek(loop.in); player.frozen = false; history = []; } else { pause(); status.textContent = "done — space plays again, scrub or set a loop (I / O / L)"; } }
+    requestAnimationFrame(tick);
+  }
+  player.render(0, true); frameDone(); requestAnimationFrame(tick);
+}
+</script>
+</body>
+</html>

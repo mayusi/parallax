@@ -1,0 +1,28 @@
+{
+ "duration": 0.08,
+ "layers": [
+  {
+   "source": "click",
+   "gain": 0.6,
+   "env": {
+    "attack": 0.0005,
+    "hold": 0.0,
+    "decay": 0.01,
+    "sustain": 0.0,
+    "release": 0.05
+   }
+  },
+  {
+   "source": "sine",
+   "freq": 2200,
+   "gain": 0.5,
+   "env": {
+    "attack": 0.001,
+    "hold": 0.0,
+    "decay": 0.03,
+    "sustain": 0.0,
+    "release": 0.05
+   }
+  }
+ ]
+}

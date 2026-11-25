@@ -1,0 +1,2908 @@
+{
+ "schema": 1,
+ "since": "2026-11-13",
+ "about": "The owner's 104 VFX methods (board/plans/archive/2026-11-13-owner-method-lists.md, section 4: his words, his order) and, for each, what the kit does with it. state: has | partly | missing | not_roblox (the engine has no place for it; stand_in names the method that does its job). proof: what in a preset shows the method is USED - a list of alternatives, any one is enough, met by ONE layer that plays and draws something; an empty list means the method can be said but not measured. cues: words of a beat sheet that call for the method (kit vfx methods <set> suggests by them). ask: a beat whose words carry a cue must use the method or say why not, where the owner reads it (the chart). The method gate (kit vfx methods --gate, run by kit vfx on every preset built from a scene since 2026-11-13) reads this file. A method is ADDED to has/partly only with the stage that built it; never change a proof to let a preset through. refused: ways of making something that the GAME does not show (measured engine facts): a layer that matches one is refused on a new piece, whatever its plan says.",
+ "methods": [
+  {
+   "id": "hand_drawn",
+   "n": 1,
+   "name": "Hand-drawn effects animation",
+   "group": "Drawing, sprites, particles",
+   "state": "has",
+   "how": "The scene's own drawings: `kit vfx trace` reads a beat's frames into outline curves, flat tones and holds; `kit vfx ink` draws them again as sheet cells, one a drawing. A texture spec is written only from a KEPT trace",
+   "tools": [
+    "kit vfx trace <set> --beat N",
+    "kit vfx ink <key> --from <trace.json>"
+   ],
+   "proof": [
+    {
+     "texture": {
+      "recipe": [
+       "ink"
+      ]
+     }
+    }
+   ],
+   "cues": [
+    "flame",
+    "flaming",
+    "fire",
+    "fireball",
+    "slash",
+    "crescent",
+    "smoke",
+    "smoky",
+    "puff",
+    "lick",
+    "wisp",
+    "tongue"
+   ],
+   "ask": true
+  },
+  {
+   "id": "frame_by_frame",
+   "n": 2,
+   "name": "Frame-by-frame effects",
+   "group": "Drawing, sprites, particles",
+   "state": "has",
+   "how": "An inked sheet plays one cell a DRAWING (`blend: false`); a mesh's `step: 12` holds its clock on twos; impact frames are drawn per frame",
+   "proof": [
+    {
+     "texture": {
+      "recipe": [
+       "ink"
+      ]
+     }
+    },
+    {
+     "kind": "mesh",
+     "has": [
+      "step"
+     ]
+    },
+    {
+     "kind": "impact",
+     "has": [
+      "draw"
+     ]
+    }
+   ],
+   "cues": [
+    "on twos",
+    "held",
+    "frame by frame"
+   ]
+  },
+  {
+   "id": "sprite",
+   "n": 3,
+   "name": "Sprite-based effects",
+   "group": "Drawing, sprites, particles",
+   "state": "has",
+   "how": "the `sprite` layer: a ParticleEmitter (Stage:638)",
+   "proof": [
+    {
+     "kind": "sprite"
+    }
+   ],
+   "cues": [
+    "spark",
+    "ember",
+    "dust",
+    "glint"
+   ]
+  },
+  {
+   "id": "flipbook",
+   "n": 4,
+   "name": "Flipbook effects",
+   "group": "Drawing, sprites, particles",
+   "state": "has",
+   "how": "grids 2x2 / 4x4 / 8x8 and custom, the blend flag (Stage:705-718); fxfinish.py packs and checks the sheet",
+   "proof": [
+    {
+     "kind": "sprite",
+     "has": [
+      "flipbook"
+     ]
+    },
+    {
+     "kind": "mesh",
+     "has": [
+      "flipbook"
+     ]
+    }
+   ],
+   "cues": [
+    "sheet",
+    "flipbook"
+   ]
+  },
+  {
+   "id": "particle",
+   "n": 5,
+   "name": "Particle effects",
+   "group": "Drawing, sprites, particles",
+   "state": "has",
+   "how": "emitters with shape, squash, drag, wind, spread (Stage:658-718)",
+   "proof": [
+    {
+     "kind": "sprite"
+    },
+    {
+     "kind": "swarm"
+    }
+   ],
+   "cues": [
+    "sparks",
+    "embers",
+    "particles",
+    "motes"
+   ]
+  },
+  {
+   "id": "gpu_particle",
+   "n": 6,
+   "name": "GPU particle effects",
+   "group": "Drawing, sprites, particles",
+   "state": "not_roblox",
+   "how": "The engine's own emitters are the only particles drawn on the graphics card; a script cannot run code there",
+   "stand_in": "particle"
+  },
+  {
+   "id": "mesh_particle",
+   "n": 7,
+   "name": "Mesh particle effects",
+   "group": "Drawing, sprites, particles",
+   "state": "has",
+   "how": "A swarm of `\"shape\": \"Rock\"`: up to 40 particles, each one of the kit's faceted stones (a runtime mesh of its own; eight different stones, cycled), tumbling, steered by everything the swarm has - curl, attract, an authored field, drag, a floor. The debris layer's stones (`\"shape\": \"rock\"`) and a fracture plan's `pieces` are thrown meshes too. Scripted, not emitted: a ParticleEmitter cannot emit meshes, each stone takes a quarter of a second to build (blocks stand in until then), and in the browser player a swarm's stones are instances of one stone",
+   "proof": [
+    {
+     "kind": "swarm",
+     "where": {
+      "shape": [
+       "Rock"
+      ]
+     }
+    },
+    {
+     "kind": "debris",
+     "where": {
+      "shape": [
+       "rock"
+      ]
+     }
+    },
+    {
+     "kind": "debris",
+     "plan": "pieces"
+    }
+   ],
+   "cues": [
+    "chunks",
+    "rocks",
+    "shards"
+   ]
+  },
+  {
+   "id": "instanced",
+   "n": 8,
+   "name": "Instanced geometry effects",
+   "group": "Drawing, sprites, particles",
+   "state": "engine",
+   "reason": "Roblox's API has no instancing: a script cannot hand the renderer one mesh and a list of transforms - every copy is its own Instance (engine API: there is no such call; the swarm moves its parts in one BulkMoveTo instead)",
+   "how": "No instancing in the engine's API; the swarm moves its parts in one call (BulkMoveTo, Stage:1848). Held (stage 26): a swarm of 12 or more (two or three parts are not many copies of one thing)",
+   "proof": [
+    {
+     "kind": "swarm",
+     "least": {
+      "count": {
+       "min": 12,
+       "default": 40
+      }
+     }
+    }
+   ],
+   "cues": [
+    "swarm",
+    "flock",
+    "many"
+   ]
+  },
+  {
+   "id": "billboard",
+   "n": 9,
+   "name": "Billboard effects",
+   "group": "Drawing, sprites, particles",
+   "state": "has",
+   "how": "a sprite facing the camera (the emitter's default orientation, Stage:695); the `cards` mesh shape: crossed cards with a drawing's depth",
+   "proof": [
+    {
+     "kind": "sprite",
+     "where": {
+      "orientation": [
+       null,
+       "FacingCamera",
+       "FacingCameraWorldUp"
+      ]
+     }
+    },
+    {
+     "kind": "mesh",
+     "where": {
+      "shape": [
+       "cards"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "ribbon",
+   "n": 10,
+   "name": "Ribbon effects",
+   "group": "Drawing, sprites, particles",
+   "state": "has",
+   "how": "a mesh ribbon rebuilt every frame (Mesh:693-769); the `wind` recipe's ribbons",
+   "proof": [
+    {
+     "kind": "trail",
+     "has": [
+      "mesh"
+     ]
+    },
+    {
+     "kind": "mesh",
+     "where": {
+      "shape": [
+       "spiral",
+       "tongue"
+      ]
+     }
+    },
+    {
+     "texture": {
+      "recipe": [
+       "wind"
+      ]
+     }
+    }
+   ],
+   "cues": [
+    "ribbon",
+    "streamer"
+   ]
+  },
+  {
+   "id": "trail",
+   "n": 11,
+   "name": "Trail effects",
+   "group": "Drawing, sprites, particles",
+   "state": "has",
+   "how": "the `trail` layer (Stage:1588)",
+   "proof": [
+    {
+     "kind": "trail"
+    },
+    {
+     "kind": "swarm",
+     "has": [
+      "trail"
+     ]
+    }
+   ],
+   "cues": [
+    "trail",
+    "streak behind"
+   ]
+  },
+  {
+   "id": "beam",
+   "n": 12,
+   "name": "Beam effects",
+   "group": "Drawing, sprites, particles",
+   "state": "has",
+   "how": "the `beam` layer with texture scroll and curve (Stage:771-807)",
+   "proof": [
+    {
+     "kind": "beam"
+    }
+   ],
+   "cues": [
+    "beam",
+    "ray",
+    "laser"
+   ]
+  },
+  {
+   "id": "spline",
+   "n": 13,
+   "name": "Spline-based effects",
+   "group": "Drawing, sprites, particles",
+   "state": "has",
+   "how": "`path`: a Bezier a mesh or an emitter follows (Tech:394-448)",
+   "proof": [
+    {
+     "kind": "mesh",
+     "has": [
+      "path"
+     ]
+    },
+    {
+     "kind": "sprite",
+     "has": [
+      "path"
+     ]
+    },
+    {
+     "kind": "beam",
+     "has": [
+      "curve"
+     ]
+    }
+   ],
+   "cues": [
+    "curve",
+    "arcing path"
+   ]
+  },
+  {
+   "id": "mesh",
+   "n": 14,
+   "name": "Mesh-based effects",
+   "group": "Drawing, sprites, particles",
+   "state": "has",
+   "how": "the `mesh` layer, 18 shapes built in code (Mesh:214-217)",
+   "proof": [
+    {
+     "kind": "mesh"
+    }
+   ],
+   "cues": [
+    "shell",
+    "ring",
+    "dome",
+    "arc"
+   ]
+  },
+  {
+   "id": "procedural_geometry",
+   "n": 15,
+   "name": "Procedural geometry effects",
+   "group": "Drawing, sprites, particles",
+   "state": "has",
+   "how": "every shape is generated on an EditableMesh at runtime (Mesh:74-110); the slash arc (src/kit/VfxArc.luau)",
+   "proof": [
+    {
+     "kind": "mesh"
+    }
+   ]
+  },
+  {
+   "id": "geometry_nodes",
+   "n": 16,
+   "name": "Geometry Nodes effects",
+   "group": "Drawing, sprites, particles",
+   "state": "has",
+   "how": "`kit vfx geonodes <name> --recipe ripple|scatter`: a mesh that Blender's own Geometry Nodes build and move, run headless from the kit - a node tree made for the recipe (ripple: a Grid lifted by a Set Position ring wave on the Scene Time; scatter: points Distributed on a disc's Faces, a quad Instanced on each, grown by a front and turned, Realized), read frame by frame and BAKED into a mesh sequence a mesh layer replays (`\"shape\": \"seq\"`; a scatter's quads are separate strips). Two recipes; the tree is the kit's, not one drawn by hand in Blender; baked, not live. Needs Blender on the machine",
+   "tools": [
+    "kit vfx geonodes <name> --recipe ripple [--waves 3] [--speed 1.5] [--amount 0.08] [--loop]",
+    "kit vfx geonodes <name> --recipe scatter [--count 24] [--size 0.08] [--speed 0.5] [--rise 0.2] [--spin 2]"
+   ],
+   "proof": [
+    {
+     "kind": "mesh",
+     "where": {
+      "shape": [
+       "seq"
+      ]
+     },
+     "kept": {
+      "key": "params.seq",
+      "dir": "seq",
+      "sim": "geonodes"
+     }
+    }
+   ]
+  },
+  {
+   "id": "shader",
+   "n": 17,
+   "name": "Shader-based effects",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "not_roblox",
+   "how": "No custom shaders. Looks are baked by Blender's shader nodes (fxlab.py, 22 recipes); the player's own shaders are stand-ins for the engine",
+   "stand_in": "procedural_texture"
+  },
+  {
+   "id": "procedural_texture",
+   "n": 18,
+   "name": "Procedural texture effects",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "has",
+   "how": "fxlab.py's recipes, 9 tileable masks (masks.py), aura.py, textures.py",
+   "proof": [
+    {
+     "texture": {
+      "recipe_not": [
+       "import",
+       "ink",
+       "lit_variant"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "uv_scroll",
+   "n": 19,
+   "name": "UV scrolling / panning",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "has",
+   "how": "a beam's `textureSpeed` (Stage:797); a mesh's `uvScroll` rewrites its UVs every frame (Mesh:580-591); `boil` = a second shell scrolling another way (Tech:577)",
+   "proof": [
+    {
+     "kind": "beam",
+     "nonzero": [
+      "textureSpeed"
+     ]
+    },
+    {
+     "kind": "mesh",
+     "nonzero": [
+      "uvScroll"
+     ]
+    },
+    {
+     "kind": "mesh",
+     "has": [
+      "boil"
+     ]
+    }
+   ],
+   "cues": [
+    "flowing",
+    "scrolling",
+    "streaming"
+   ]
+  },
+  {
+   "id": "uv_distortion",
+   "n": 20,
+   "name": "UV distortion",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "has",
+   "how": "Baked: a comp stack's `warp` bends every lookup by a second, panning noise (`kit vfx comp`, a sheet in well under a second); flowbake.py pushes a texture along a flow. None live: Roblox has no shaders",
+   "proof": [
+    {
+     "texture": {
+      "recipe": [
+       "comp"
+      ],
+      "where": {
+       "engine": [
+        "fx"
+       ]
+      },
+      "has": [
+       "comp.warp"
+      ],
+      "positive": [
+       "comp.warp.amount"
+      ]
+     }
+    },
+    {
+     "texture": {
+      "made_by": "flowbake.py"
+     }
+    }
+   ],
+   "cues": [
+    "warp",
+    "warps",
+    "distort",
+    "distorts",
+    "wobbling air"
+   ],
+   "tools": [
+    "kit vfx comp <key> [--new ring|skin|blobs|branches|map]"
+   ]
+  },
+  {
+   "id": "texture_warp",
+   "n": 21,
+   "name": "Texture warping",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "has",
+   "how": "Baked: a comp stack that maps a built texture (`source`) through a `warp` (`kit vfx comp --new map`); flowbake.py's swirl, wind, vortex and burst fields",
+   "proof": [
+    {
+     "texture": {
+      "recipe": [
+       "comp"
+      ],
+      "where": {
+       "engine": [
+        "fx"
+       ]
+      },
+      "has": [
+       "comp.warp",
+       "comp.source"
+      ],
+      "positive": [
+       "comp.warp.amount"
+      ]
+     }
+    },
+    {
+     "texture": {
+      "made_by": "flowbake.py"
+     }
+    }
+   ],
+   "cues": [
+    "swirl",
+    "vortex",
+    "warp"
+   ],
+   "tools": [
+    "kit vfx comp <key> [--new ring|skin|blobs|branches|map]"
+   ]
+  },
+  {
+   "id": "flow_map",
+   "n": 22,
+   "name": "Flow map animation",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "has",
+   "how": "Baked: flowbake.py advects a texture along a flow with the two-phase loop. Live flow maps: NOT ROBLOX",
+   "proof": [
+    {
+     "texture": {
+      "made_by": "flowbake.py"
+     }
+    }
+   ],
+   "cues": [
+    "flow",
+    "swirl",
+    "vortex"
+   ]
+  },
+  {
+   "id": "noise",
+   "n": 23,
+   "name": "Noise-driven effects",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "has",
+   "how": "curl noise on the swarm (Stage:1810), `flicker` (Tech:366), mesh wobble, noise recipes",
+   "proof": [
+    {
+     "kind": "swarm",
+     "nonzero": [
+      "curl"
+     ]
+    },
+    {
+     "kind": "mesh",
+     "nonzero": [
+      "wobble"
+     ]
+    },
+    {
+     "kind": "mesh",
+     "has": [
+      "flicker"
+     ]
+    },
+    {
+     "kind": "light",
+     "has": [
+      "flicker"
+     ]
+    },
+    {
+     "kind": "glow",
+     "has": [
+      "flicker"
+     ]
+    }
+   ],
+   "cues": [
+    "flicker",
+    "boil",
+    "turbulent"
+   ]
+  },
+  {
+   "id": "dissolve",
+   "n": 24,
+   "name": "Dissolve effects",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "has",
+   "how": "A texture breaking up over the cells of a sheet, patch by patch, a burning edge if asked (`kit vfx dissolve`): on a mesh it plays through the layer's `surface` inside `flipbook.over` [start, end] of its life, on a sprite as a OneShot flipbook. A sim's frames are eroded in the packer (`post.erode`). A mesh's `erode` is NOT this: it shows in the player only",
+   "proof": [
+    {
+     "kind": "mesh",
+     "has": [
+      "surface",
+      "flipbook.over"
+     ],
+     "texture": {
+      "recipe": [
+       "dissolve"
+      ],
+      "where": {
+       "engine": [
+        "fx"
+       ]
+      }
+     }
+    },
+    {
+     "kind": "sprite",
+     "has": [
+      "flipbook"
+     ],
+     "where": {
+      "flipbook.mode": [
+       "OneShot"
+      ]
+     },
+     "texture": {
+      "recipe": [
+       "dissolve"
+      ],
+      "where": {
+       "engine": [
+        "fx"
+       ]
+      }
+     }
+    },
+    {
+     "texture": {
+      "post": [
+       "erode"
+      ]
+     }
+    }
+   ],
+   "cues": [
+    "dissolve",
+    "dissolves",
+    "burns away",
+    "breaks up",
+    "disintegrates",
+    "crumbles away"
+   ],
+   "tools": [
+    "kit vfx dissolve <key> --from <texture key | plain>"
+   ]
+  },
+  {
+   "id": "alpha_clip",
+   "n": 25,
+   "name": "Alpha clipping / cutout effects",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "has",
+   "how": "A hard cut-out: `post.cut` on a sheet; a mesh's `surface` (a SurfaceAppearance's alpha); and a threshold that MOVES over the layer's life: a dissolve sheet baked with `--soft 0` (`kit vfx dissolve`)",
+   "proof": [
+    {
+     "texture": {
+      "post": [
+       "cut"
+      ]
+     }
+    },
+    {
+     "kind": "mesh",
+     "has": [
+      "surface"
+     ]
+    },
+    {
+     "kind": "mesh",
+     "has": [
+      "surface",
+      "flipbook.over"
+     ],
+     "texture": {
+      "recipe": [
+       "dissolve"
+      ],
+      "where": {
+       "engine": [
+        "fx"
+       ],
+       "dissolve.soft": [
+        0
+       ]
+      }
+     }
+    },
+    {
+     "kind": "sprite",
+     "has": [
+      "flipbook"
+     ],
+     "where": {
+      "flipbook.mode": [
+       "OneShot"
+      ]
+     },
+     "texture": {
+      "recipe": [
+       "dissolve"
+      ],
+      "where": {
+       "engine": [
+        "fx"
+       ],
+       "dissolve.soft": [
+        0
+       ]
+      }
+     }
+    }
+   ],
+   "cues": [
+    "cut-out",
+    "hard edge"
+   ],
+   "tools": [
+    "kit vfx dissolve <key> --from <texture key | plain> --soft 0"
+   ]
+  },
+  {
+   "id": "dither",
+   "n": 26,
+   "name": "Dithered transparency",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "has",
+   "how": "Baked: a dissolve sheet whose pattern is an ordered 8x8 screen (`kit vfx dissolve --pattern dither`), a hard printed fade on a mesh or a sprite. Live dithering needs a shader",
+   "tools": [
+    "kit vfx dissolve <key> --from <texture key | plain> --pattern dither --soft 0"
+   ],
+   "proof": [
+    {
+     "kind": "mesh",
+     "has": [
+      "surface",
+      "flipbook.over"
+     ],
+     "texture": {
+      "recipe": [
+       "dissolve"
+      ],
+      "where": {
+       "engine": [
+        "fx"
+       ],
+       "dissolve.pattern": [
+        "dither"
+       ]
+      }
+     }
+    },
+    {
+     "kind": "sprite",
+     "has": [
+      "flipbook"
+     ],
+     "where": {
+      "flipbook.mode": [
+       "OneShot"
+      ]
+     },
+     "texture": {
+      "recipe": [
+       "dissolve"
+      ],
+      "where": {
+       "engine": [
+        "fx"
+       ],
+       "dissolve.pattern": [
+        "dither"
+       ]
+      }
+     }
+    }
+   ],
+   "cues": [
+    "dithered",
+    "screen-door"
+   ]
+  },
+  {
+   "id": "gradient_map",
+   "n": 27,
+   "name": "Gradient-mapped effects",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "has",
+   "how": "A comp stack's `ramp`: any value - a shape's falloff, a noise, a built grey texture (`source`) - through a colour ramp of the scene's measured colours, `bands` for flat steps (`kit vfx comp`). A starter's ramp is white: until it holds the scene's colours it maps nothing and proves nothing",
+   "proof": [
+    {
+     "texture": {
+      "recipe": [
+       "comp"
+      ],
+      "where": {
+       "engine": [
+        "fx"
+       ]
+      },
+      "has": [
+       "comp.ramp"
+      ],
+      "varies": [
+       "comp.ramp"
+      ]
+     }
+    }
+   ],
+   "tools": [
+    "kit vfx comp <key> [--new ring|skin|blobs|branches|map]"
+   ]
+  },
+  {
+   "id": "sdf",
+   "n": 28,
+   "name": "Signed distance field / SDF effects",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "has",
+   "how": "A comp stack's `shape` is a signed distance: ring, disc, box, streak, star, blobs, branches - a soft or a hard edge from the distance, `falloff` for a gradient inwards (`kit vfx comp`). The ink's in-betweens use distance fields inside",
+   "tools": [
+    "kit vfx comp <key> [--new ring|skin|blobs|branches|map]"
+   ],
+   "proof": [
+    {
+     "texture": {
+      "recipe": [
+       "comp"
+      ],
+      "where": {
+       "engine": [
+        "fx"
+       ]
+      },
+      "has": [
+       "comp.shape"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "vertex_displacement",
+   "n": 29,
+   "name": "Vertex displacement effects",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "has",
+   "how": "mesh wobble (Mesh:463-483; about 0.25 ms a flame a frame), the arc's sweep, mesh sequences",
+   "proof": [
+    {
+     "kind": "mesh",
+     "nonzero": [
+      "wobble"
+     ]
+    },
+    {
+     "kind": "mesh",
+     "has": [
+      "sweep"
+     ]
+    },
+    {
+     "kind": "mesh",
+     "where": {
+      "shape": [
+       "seq"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "world_offset",
+   "n": 30,
+   "name": "World position offset effects",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "not_roblox",
+   "how": "A shader feature. Its job done on the processor is a mesh's `wobble`",
+   "stand_in": "vertex_displacement"
+  },
+  {
+   "id": "tessellation",
+   "n": 31,
+   "name": "Tessellation / displacement effects",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "not_roblox",
+   "how": "No tessellation: a mesh has the vertices it was built with",
+   "stand_in": "vertex_displacement"
+  },
+  {
+   "id": "vertex_anim_texture",
+   "n": 32,
+   "name": "Vertex animation texture effects",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "engine",
+   "reason": "Roblox has no vertex shader: a script cannot have the GPU read a texture to move vertices (engine: no custom shaders at all). The baked sequence is replayed by writing an EditableMesh's vertices each frame instead",
+   "how": "No vertex shader to read one. Its stand-in is there: baked mesh sequences replayed on an EditableMesh (meshseq.py: billow, crown; Mesh:485-512). Held (stage 26): the sequence the layer names is THERE (a misspelt name plays nothing)",
+   "proof": [
+    {
+     "kind": "mesh",
+     "where": {
+      "shape": [
+       "seq"
+      ]
+     },
+     "kept": {
+      "key": "params.seq",
+      "dir": "seq"
+     }
+    }
+   ]
+  },
+  {
+   "id": "render_target",
+   "n": 33,
+   "name": "Render target effects",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "not_roblox",
+   "how": "The 3D view cannot be drawn into a texture. A script can write pixels (EditableImage), but particles do not draw such a texture (the kit's engine facts)"
+  },
+  {
+   "id": "feedback",
+   "n": 34,
+   "name": "Feedback effects",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "not_roblox",
+   "how": "Needs a render target, which the engine does not have"
+  },
+  {
+   "id": "decal",
+   "n": 35,
+   "name": "Decal effects",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "has",
+   "how": "the `decal` layer (Stage:1033); crack and glyph recipes",
+   "proof": [
+    {
+     "kind": "decal"
+    }
+   ],
+   "cues": [
+    "scorch",
+    "crack",
+    "mark",
+    "glyph"
+   ]
+  },
+  {
+   "id": "projected_texture",
+   "n": 36,
+   "name": "Projected texture effects",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "engine",
+   "reason": "Roblox has no projector and no deferred decal: a Decal sits on ONE face of one part. Seen in a Studio play client, 2026-11-15: a flat mark laid over a step and a wedge showed a sliver on the floor - the rest was cut off under them",
+   "how": "A decal layer with `\"wrap\"` (true, or the cells a side): the mark is a MESH SHEET draped over the real ground - its points lie where rays cast down find the place (`reach`: how far above and below), its picture through a SurfaceAppearance. Seen in the same play client: the mark lies on the step's top and runs up the wedge's slope. Limits: where a cell straddles a vertical wall the sheet stretches down it; on a client only (the server's copy, a place with no EditableMesh and the browser player draw the flat mark); players' characters, parts that do not collide and parts that cannot be seen are not ground (an NPC is); a live game needs the mark's SurfaceAppearance template (`kit vfx surfaces`), else it draws an opaque square; the sheet's picture was not compared with the flat Decal's for which way round it lies",
+   "proof": [
+    {
+     "kind": "decal",
+     "has": [
+      "wrap"
+     ],
+     "where_not": {
+      "wrap": [
+       false
+      ]
+     }
+    }
+   ],
+   "cues": [
+    "on the ground",
+    "scorch"
+   ]
+  },
+  {
+   "id": "screen_space",
+   "n": 37,
+   "name": "Screen-space effects",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "engine",
+   "reason": "Roblox has no custom post-process pass: a script cannot run a shader over the frame (engine: no custom shaders). Only the engine's own effects exist - colour correction, blur, depth of field, sun rays, bloom - and full-screen pictures",
+   "how": "The engine's own: colour correction, blur, depth of field, sun rays (Stage:1210, 2007-2018); lens marks as full-screen pictures (Stage:1856). Nothing custom. Held (stage 26): a screen layer proves it only when it DOES something (blur, brightness, contrast, saturation, a tint amount, bloom: an empty one proves nothing), a world layer only by what works on the whole picture (sun rays, depth of field, the picture's exposure - a Lighting property, not a post effect) - fog, sky and the sun's own light are the world's, not the screen's",
+   "proof": [
+    {
+     "kind": "screen",
+     "positive": [
+      "blur"
+     ]
+    },
+    {
+     "kind": "screen",
+     "nonzero": [
+      "brightness"
+     ]
+    },
+    {
+     "kind": "screen",
+     "nonzero": [
+      "contrast"
+     ]
+    },
+    {
+     "kind": "screen",
+     "nonzero": [
+      "saturation"
+     ]
+    },
+    {
+     "kind": "screen",
+     "positive": [
+      "tintAmount"
+     ]
+    },
+    {
+     "kind": "screen",
+     "positive": [
+      "bloom"
+     ]
+    },
+    {
+     "kind": "lens"
+    },
+    {
+     "kind": "world",
+     "positive": [
+      "sunRays"
+     ]
+    },
+    {
+     "kind": "world",
+     "positive": [
+      "dof"
+     ]
+    },
+    {
+     "kind": "world",
+     "nonzero": [
+      "exposure"
+     ]
+    }
+   ],
+   "cues": [
+    "screen",
+    "whole frame"
+   ]
+  },
+  {
+   "id": "depth",
+   "n": 38,
+   "name": "Depth-based effects",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "engine",
+   "reason": "A Roblox script cannot read the depth buffer (engine: no shader, no depth texture). The one thing the engine does with depth is its own depth of field",
+   "how": "Depth of field only; a script cannot read depth",
+   "proof": [
+    {
+     "kind": "world",
+     "positive": [
+      "dof"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "soft_particle",
+   "n": 39,
+   "name": "Soft particle blending",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "not_roblox",
+   "how": "No depth fade on particles (the player has none either). The way round: `zOffset`, and sprites kept off surfaces",
+   "stand_in": "sprite"
+  },
+  {
+   "id": "depth_intersection",
+   "n": 40,
+   "name": "Depth intersection effects",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "not_roblox",
+   "how": "No depth is readable: nothing can fade or glow where an effect meets a surface"
+  },
+  {
+   "id": "fresnel",
+   "n": 41,
+   "name": "Fresnel / rim effects",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "has",
+   "how": "`rim`: a ForceField shell that glows at grazing angles (Tech:562-575); Highlight",
+   "proof": [
+    {
+     "kind": "mesh",
+     "has": [
+      "rim"
+     ]
+    },
+    {
+     "kind": "highlight"
+    }
+   ],
+   "cues": [
+    "rim",
+    "edge glow"
+   ]
+  },
+  {
+   "id": "refraction",
+   "n": 42,
+   "name": "Refraction effects",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "engine",
+   "reason": "Roblox bends the picture in ONE way only: its Glass material (a part with some Transparency) refracts the OPAQUE things behind it. Looked at in Studio, 2026-11-15, stripes behind a Glass ball and a Glass pane, the quality level set by hand: at level 16 of 21 and above the stripes bend and magnify; at 15, 14, 8 and 1 Glass is plain see-through, nothing bends. There is no screen-space refraction a script controls, and see-through things behind Glass (particles, other transparent meshes) are not bent at any level",
+   "how": "`haze` on a mesh layer: a slightly larger Glass shell that wobbles (Tech:595-612) - at quality level 16 and above it bends the opaque scene behind it; below that, and on a phone, it is a faint see-through shell and the layer under it carries the look alone; the browser player draws it plain. Held (stage 26): a haze whose strength is under 0.1 bends nothing you can see and proves nothing",
+   "proof": [
+    {
+     "kind": "mesh",
+     "has": [
+      "haze"
+     ],
+     "least": {
+      "haze.strength": {
+       "min": 0.1,
+       "default": 0.5,
+       "else": "default"
+      }
+     }
+    }
+   ],
+   "cues": [
+    "refract",
+    "bend"
+   ]
+  },
+  {
+   "id": "heat_distortion",
+   "n": 43,
+   "name": "Heat distortion",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "engine",
+   "reason": "Roblox bends the picture in ONE way only: its Glass material (a part with some Transparency) refracts the OPAQUE things behind it. Looked at in Studio, 2026-11-15, stripes behind a Glass ball and a Glass pane, the quality level set by hand: at level 16 of 21 and above the stripes bend and magnify; at 15, 14, 8 and 1 Glass is plain see-through, nothing bends. There is no screen-space refraction a script controls, and see-through things behind Glass (particles, other transparent meshes) are not bent at any level",
+   "how": "`haze` on a mesh layer: a slightly larger Glass shell that wobbles (Tech:595-612) - at quality level 16 and above it bends the opaque scene behind it; below that, and on a phone, it is a faint see-through shell and the layer under it carries the look alone; the browser player draws it plain. Held (stage 26): a haze whose strength is under 0.1 bends nothing you can see and proves nothing",
+   "proof": [
+    {
+     "kind": "mesh",
+     "has": [
+      "haze"
+     ],
+     "least": {
+      "haze.strength": {
+       "min": 0.1,
+       "default": 0.5,
+       "else": "default"
+      }
+     }
+    }
+   ],
+   "cues": [
+    "heat",
+    "shimmer"
+   ]
+  },
+  {
+   "id": "shockwave_distortion",
+   "n": 44,
+   "name": "Shockwave distortion",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "engine",
+   "reason": "Roblox bends the picture in ONE way only: its Glass material (a part with some Transparency) refracts the OPAQUE things behind it. Looked at in Studio, 2026-11-15, stripes behind a Glass ball and a Glass pane, the quality level set by hand: at level 16 of 21 and above the stripes bend and magnify; at 15, 14, 8 and 1 Glass is plain see-through, nothing bends. There is no screen-space refraction a script controls, and see-through things behind Glass (particles, other transparent meshes) are not bent at any level",
+   "how": "TWO means, said by where each works. LIVE: a ring (or shell) mesh layer with `\"material\": \"Glass\"` and some transparency - it bends the opaque scene it passes over, at quality level 16 and above only. BAKED (stage 30), what shows the bend where Glass does not (level 15 and below, phones, the browser player, see-through things): a comp sheet's `\"shock\"` - a ring that runs out from a point and bends the picture it passes over, as a lens does (pushed outward just outside its line, pulled in just inside; nothing changes over 3 widths away) - `kit vfx comp <key> --new shock`, over a shape and noise, or over a built texture it reads as a GREY mask (luminance x alpha: its colours are not kept). It bends its OWN sheet, not the scene behind it",
+   "cues": [
+    "shockwave"
+   ],
+   "tools": [
+    "kit vfx comp <key> --new shock"
+   ],
+   "proof": [
+    {
+     "texture": {
+      "recipe": [
+       "comp"
+      ],
+      "has": [
+       "comp.shock"
+      ],
+      "positive": [
+       "comp.shock.amount"
+      ]
+     }
+    },
+    {
+     "kind": "mesh",
+     "where": {
+      "material": [
+       "Glass"
+      ]
+     },
+     "positive": [
+      "transparency"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "volumetric",
+   "n": 45,
+   "name": "Volumetric effects",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "engine",
+   "reason": "Roblox has no live volume rendering a script can drive (engine: no custom shaders, no volume textures; only its own Atmosphere / fog). Volumes are rendered outside (Blender, the GPU sim) into flipbooks",
+   "how": "Baked: Blender volumes and the GPU sim rendered into flipbooks. Live: fog in the `world` layer. No live volume",
+   "proof": [
+    {
+     "texture": {
+      "recipe": [
+       "gpu_smoke",
+       "gpu_fire",
+       "smoke_sim",
+       "fire_sim"
+      ]
+     }
+    },
+    {
+     "kind": "world",
+     "has": [
+      "fog"
+     ]
+    }
+   ],
+   "cues": [
+    "cloud",
+    "fog",
+    "volume"
+   ]
+  },
+  {
+   "id": "raymarched",
+   "n": 46,
+   "name": "Raymarched effects",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "not_roblox",
+   "how": "Live needs a shader. Baked renders do that job",
+   "stand_in": "volumetric"
+  },
+  {
+   "id": "volumetric_raymarch",
+   "n": 47,
+   "name": "Volumetric raymarching",
+   "group": "Shader looks (in Roblox these must be baked)",
+   "state": "not_roblox",
+   "how": "Live needs a shader. Baked by Cycles and the GPU sim's own renderer into flipbooks",
+   "stand_in": "volumetric"
+  },
+  {
+   "id": "fluid_sim",
+   "n": 48,
+   "name": "Fluid simulation",
+   "group": "Simulation",
+   "state": "has",
+   "how": "Gas only: gpusim.py, a grid solver on the graphics card (advection, pressure, vorticity; a mushroom cloud in about 55 s); Blender's Mantaflow",
+   "proof": [
+    {
+     "texture": {
+      "recipe": [
+       "gpu_smoke",
+       "gpu_fire",
+       "smoke_sim",
+       "fire_sim"
+      ]
+     }
+    }
+   ],
+   "cues": [
+    "smoke",
+    "fireball",
+    "plume"
+   ]
+  },
+  {
+   "id": "liquid_sim",
+   "n": 49,
+   "name": "Liquid simulation",
+   "group": "Simulation",
+   "state": "has",
+   "how": "A liquid that moves by a liquid's own rules: a tank seen from the SIDE, solved from first principles and drawn into a flipbook a sprite or a mesh surface plays (`kit vfx liquid <key>`, then `kit vfx` packs it). NEVER matched to a real scene (no clip was read): the tests hold the physics - a still pool stays still, a body in the air falls as gravity says, no liquid is made or lost, the liquid does not gain energy - not a look. A SLICE: no depth (no crown, nothing turning toward the camera), no surface tension, nothing in its way but the walls",
+   "cues": [
+    "water",
+    "liquid"
+   ],
+   "tools": [
+    "kit vfx liquid <key> [--solver flip|pbf] [--scene dam|drop|slosh] [--gravity 4] [--fill 0.4] [--grid 8|4] [--cell 128] [--no-foam]"
+   ],
+   "proof": [
+    {
+     "texture": {
+      "recipe": [
+       "liquid"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "smoke_sim",
+   "n": 50,
+   "name": "Smoke simulation",
+   "group": "Simulation",
+   "state": "has",
+   "how": "`gpu_smoke` (the grid solver on the graphics card, seconds a sim) and `smoke_sim` (Blender's Mantaflow)",
+   "proof": [
+    {
+     "texture": {
+      "recipe": [
+       "gpu_smoke",
+       "smoke_sim"
+      ]
+     }
+    }
+   ],
+   "cues": [
+    "smoke",
+    "dust cloud",
+    "plume"
+   ]
+  },
+  {
+   "id": "fire_sim",
+   "n": 51,
+   "name": "Fire / combustion simulation",
+   "group": "Simulation",
+   "state": "has",
+   "how": "`gpu_fire` (fuel burns to heat), `fire_sim`",
+   "proof": [
+    {
+     "texture": {
+      "recipe": [
+       "gpu_fire",
+       "fire_sim"
+      ]
+     }
+    }
+   ],
+   "cues": [
+    "fireball",
+    "explosion"
+   ]
+  },
+  {
+   "id": "pyro_sim",
+   "n": 52,
+   "name": "Gas / pyro simulation",
+   "group": "Simulation",
+   "state": "has",
+   "how": "The two gas solvers: gpusim.py on the graphics card (`gpu_smoke`, `gpu_fire`) and Blender's Mantaflow (`smoke_sim`, `fire_sim`)",
+   "proof": [
+    {
+     "texture": {
+      "recipe": [
+       "gpu_smoke",
+       "gpu_fire",
+       "smoke_sim",
+       "fire_sim"
+      ]
+     }
+    }
+   ],
+   "cues": [
+    "explosion",
+    "mushroom"
+   ]
+  },
+  {
+   "id": "particle_fluid",
+   "n": 53,
+   "name": "Particle fluid simulation",
+   "group": "Simulation",
+   "state": "has",
+   "how": "`--solver pbf`: a particle fluid (position based fluids), no grid - every particle is pushed off its neighbours until the liquid is nowhere denser than at rest (held: a pool's density stays within a few parts in a hundred of rest); a tank seen from the SIDE, solved from first principles and drawn into a flipbook a sprite or a mesh surface plays (`kit vfx liquid <key>`, then `kit vfx` packs it). NEVER matched to a real scene (no clip was read): the tests hold the physics - a still pool stays still, a body in the air falls as gravity says, no liquid is made or lost, the liquid does not gain energy - not a look. A SLICE: no depth (no crown, nothing turning toward the camera), no surface tension, nothing in its way but the walls. Slower: about half a minute a sheet",
+   "tools": [
+    "kit vfx liquid <key> [--solver flip|pbf] [--scene dam|drop|slosh] [--gravity 4] [--fill 0.4] [--grid 8|4] [--cell 128] [--no-foam]"
+   ],
+   "proof": [
+    {
+     "texture": {
+      "recipe": [
+       "liquid"
+      ],
+      "where": {
+       "liquid.solver": [
+        "pbf"
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "flip_fluid",
+   "n": 54,
+   "name": "FLIP fluid simulation",
+   "group": "Simulation",
+   "state": "has",
+   "how": "`--solver flip`: FLIP / PIC in the kit's own code (numpy; Blender's solver is not driven) - particles carry the speed, a grid keeps the volume by a pressure solve with a free surface (held: its divergence after the solve is nothing, a pool's pressure at the bed is gravity x depth), 0.95 of the change handed back; a tank seen from the SIDE, solved from first principles and drawn into a flipbook a sprite or a mesh surface plays (`kit vfx liquid <key>`, then `kit vfx` packs it). NEVER matched to a real scene (no clip was read): the tests hold the physics - a still pool stays still, a body in the air falls as gravity says, no liquid is made or lost, the liquid does not gain energy - not a look. A SLICE: no depth (no crown, nothing turning toward the camera), no surface tension, nothing in its way but the walls",
+   "tools": [
+    "kit vfx liquid <key> [--solver flip|pbf] [--scene dam|drop|slosh] [--gravity 4] [--fill 0.4] [--grid 8|4] [--cell 128] [--no-foam]"
+   ],
+   "proof": [
+    {
+     "texture": {
+      "recipe": [
+       "liquid"
+      ],
+      "where": {
+       "liquid.solver": [
+        "flip",
+        null
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "shallow_water",
+   "n": 55,
+   "name": "Shallow-water simulation",
+   "group": "Simulation",
+   "state": "has",
+   "how": "`kit vfx water <name> --recipe dam|surge`: the shallow-water equations (depth and flow, mass and momentum kept, a finite-volume solver) - a high wave outruns a low one and its front steepens into a bore (held: a dam's break is Stoker's exact solution, the shelf to 1.5 % and the bore to a cell and a half; water kept to 1e-12); the height of the water's surface over a flat bed in a square tank, solved from first principles and BAKED into a mesh sequence a mesh layer replays (`\"shape\": \"seq\"`). NEVER matched to a real scene (no clip was read): the tests hold the mathematics, not a look. A height has one value a place: nothing breaks, splashes or sprays; flat wet bed, four walls; baked, not live. First order: a bore is smeared over three or four cells",
+   "tools": [
+    "kit vfx water <name> --recipe dam [--at x] [--amount 1.0]",
+    "kit vfx water <name> --recipe surge [--at x,z] [--width 0.12] [--amount 1.5]"
+   ],
+   "proof": [
+    {
+     "kind": "mesh",
+     "where": {
+      "shape": [
+       "seq"
+      ]
+     },
+     "kept": {
+      "key": "params.seq",
+      "dir": "seq",
+      "sim": "water",
+      "recipes": [
+       "dam",
+       "surge"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "wave_sim",
+   "n": 56,
+   "name": "Wave simulation",
+   "group": "Simulation",
+   "state": "has",
+   "how": "`kit vfx water <name> --recipe drop|rain|slosh`: the wave equation - every wave at one speed, two waves add, a wall sends a wave back (held: no wave outruns the speed said, two waves add to 1e-12, a standing wave's period is the tank's); the height of the water's surface over a flat bed in a square tank, solved from first principles and BAKED into a mesh sequence a mesh layer replays (`\"shape\": \"seq\"`). NEVER matched to a real scene (no clip was read): the tests hold the mathematics, not a look. A height has one value a place: nothing breaks, splashes or sprays; flat wet bed, four walls; baked, not live. No dispersion: a drop's rings do not spread into a train as a pond's do",
+   "cues": [
+    "wave"
+   ],
+   "tools": [
+    "kit vfx water <name> --recipe drop [--at x,z] [--width 0.08] [--amount 0.3] [--damp 0.6]",
+    "kit vfx water <name> --recipe rain [--drops 6] [--seed 1]",
+    "kit vfx water <name> --recipe slosh [--mode 1] [--loop]"
+   ],
+   "proof": [
+    {
+     "kind": "mesh",
+     "where": {
+      "shape": [
+       "seq"
+      ]
+     },
+     "kept": {
+      "key": "params.seq",
+      "dir": "seq",
+      "sim": "water",
+      "recipes": [
+       "drop",
+       "rain",
+       "slosh"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "foam_spray",
+   "n": 57,
+   "name": "Foam and spray simulation",
+   "group": "Simulation",
+   "state": "has",
+   "how": "Read off the solved liquid, not painted: SPRAY is liquid that has left the body (a particle with almost no neighbours), FOAM is surface liquid whose speed is being changed hard (squeezed or torn: air is beaten in), living half a second; both drawn brighter than the body, in the same sheet (a dam or a drop baked with foam must MAKE some: a hundredth of its liquid at its wildest moment). A rule of thumb, not a model of bubbles; no mist that hangs, no foam that rides the surface for long; a tank seen from the SIDE, solved from first principles and drawn into a flipbook a sprite or a mesh surface plays (`kit vfx liquid <key>`, then `kit vfx` packs it). NEVER matched to a real scene (no clip was read): the tests hold the physics - a still pool stays still, a body in the air falls as gravity says, no liquid is made or lost, the liquid does not gain energy - not a look. A SLICE: no depth (no crown, nothing turning toward the camera), no surface tension, nothing in its way but the walls",
+   "cues": [
+    "foam",
+    "spray"
+   ],
+   "tools": [
+    "kit vfx liquid <key> [--solver flip|pbf] [--scene dam|drop|slosh] [--gravity 4] [--fill 0.4] [--grid 8|4] [--cell 128] [--no-foam]"
+   ],
+   "proof": [
+    {
+     "texture": {
+      "recipe": [
+       "liquid"
+      ],
+      "where": {
+       "liquid.scene": [
+        "dam",
+        "drop",
+        null
+       ],
+       "liquid.foam": [
+        true,
+        null
+       ]
+      }
+     }
+    }
+   ]
+  },
+  {
+   "id": "rigid_body",
+   "n": 58,
+   "name": "Rigid body simulation",
+   "group": "Simulation",
+   "state": "has",
+   "how": "REAL RIGID BODIES: a debris layer with `\"floor\": \"world\"` hands its chunks to the engine's own physics on the client - thrown rocks, and (stage 36) a fracture plan's pieces: each sits where it sat in the slab until the break reaches it, is let go with the plan's push and spin, falls on the real ground and on the other pieces, and comes to rest there (seen in a Studio play client, 2026-11-15: a slab of 18 pieces at rest on a floor, a step and a ramp, lying over each other). What that costs: the pieces are solid to the local player while they lie (no collision group), they do NOT follow the effect's clock (a hit-stop or slow motion does not hold them), and a late start lets every overdue piece go at once. Where there is no physics to ask - the server's copy, the browser player - or without `floor`, the kit's own rest: A fracture plan's pieces with `\"rest\": true` on their debris layer: each falls, bounces losing most of its speed, slides to a stop, tips onto its nearest flat face and LIES there until the layer fades. The pieces MEET on the ground (stage 23): two that lie in each other are pushed apart along their own outlines (the lighter gives way more; a slide, not a jump), and a piece that lands with its middle over a piece on the ground lies ON it; pieces that only touch (a slab that just drops) are left alone. One rule in the game, the player and kit/vfx/settle.py (`step` + `meet`); `kit vfx settle <plan> --life s` flies it at 30, 60 and 144 frames a second and says when the last piece rests. Still NOT a solver: pieces do not meet in the air, a meeting never turns or tips a piece and passes no speed on, a piece lies on another only whole (never propped on an edge), the floor is one flat height. Roblox's own physics (old presets throw real physics parts, src/kit/Vfx.luau:263-283) would do the real thing in the game only; nothing is baked from Blender",
+   "proof": [
+    {
+     "kind": "debris",
+     "where": {
+      "floor": [
+       "world"
+      ]
+     }
+    },
+    {
+     "kind": "debris",
+     "plan": "pieces",
+     "rests": "pieces",
+     "where": {
+      "rest": [
+       true
+      ]
+     }
+    }
+   ],
+   "cues": [
+    "tumble",
+    "bounce"
+   ],
+   "tools": [
+    "kit vfx settle <plan> [--life 2.5] [--gravity 120] [--speed 30]"
+   ]
+  },
+  {
+   "id": "soft_body",
+   "n": 59,
+   "name": "Soft body simulation",
+   "group": "Simulation",
+   "state": "has",
+   "how": "`kit vfx soft <name>`: a ball of jelly dropped or thrown onto a floor - its skin is points that keep their distances, pulled back together to the ball's own shape (shape matching), widening by what the floor takes from its height - simulated, then BAKED into a mesh sequence a mesh layer replays (`\"shape\": \"seq\"`). A bake that keeps its shape (a rigid ball), is crushed flat, loses volume, sinks into the floor or cracks open is refused. A ball on a flat floor only; baked, not live",
+   "tools": [
+    "kit vfx soft <name> [--size 4] [--drop 6] [--throw 0,0,0] [--soft 0.6] [--squash 0.7] [--gravity 60]"
+   ],
+   "cues": [
+    "jelly",
+    "slime",
+    "blob",
+    "squash",
+    "squashes",
+    "wobbles"
+   ],
+   "proof": [
+    {
+     "kind": "mesh",
+     "where": {
+      "shape": [
+       "seq"
+      ]
+     },
+     "kept": {
+      "key": "params.seq",
+      "dir": "seq",
+      "sim": "soft"
+     }
+    }
+   ]
+  },
+  {
+   "id": "cloth",
+   "n": 60,
+   "name": "Cloth simulation",
+   "group": "Simulation",
+   "state": "has",
+   "how": "`kit vfx cloth <name>`: a sheet of points that keep their distances, held along an edge (a banner's top, a flag's pole, two corners), pulled by gravity and pushed by a gusting wind along its own normals - simulated, then BAKED into a mesh sequence a mesh layer replays (`\"shape\": \"seq\"`). A bake that hangs still, stretches, jumps between frames or moves its held edge is refused. Baked, not live: the wind is the bake's, and the sheet does not collide with itself, a character or the ground",
+   "tools": [
+    "kit vfx cloth <name> [--size 6,4] [--pin top|left|corners] [--wind 0,0,14] [--gust 0.5] [--start hang|flat] [--loop]"
+   ],
+   "proof": [
+    {
+     "kind": "mesh",
+     "where": {
+      "shape": [
+       "seq"
+      ]
+     },
+     "kept": {
+      "key": "params.seq",
+      "dir": "seq",
+      "sim": "cloth"
+     }
+    }
+   ],
+   "cues": [
+    "cloth",
+    "banner",
+    "flag",
+    "fabric",
+    "cape",
+    "cloak"
+   ]
+  },
+  {
+   "id": "fracture",
+   "n": 61,
+   "name": "Fracture simulation",
+   "group": "Simulation",
+   "state": "has",
+   "how": "`kit vfx fracture` cuts a slab (a ground plate, a pane, a sheet of ice) into the convex pieces it breaks into - small at the blow, large at the rim - each with its push; a debris layer flies them (`\"pieces\": \"<name>\"`). A flat slab only: no cutting of an arbitrary 3D object. Run in the browser player and in a Studio play client on a made slab of 14 pieces (2026-11-15)",
+   "cues": [
+    "shatter",
+    "shattered",
+    "shattering",
+    "fracture",
+    "fractured",
+    "crumble",
+    "crumbled",
+    "crumbling",
+    "break apart",
+    "breaks apart",
+    "broke apart",
+    "breaking apart",
+    "splits apart",
+    "split apart",
+    "cracks open",
+    "cracked open"
+   ],
+   "tools": [
+    "kit vfx fracture <name> --size w,d[,h] [--pieces 14] [--impact x,z]"
+   ],
+   "proof": [
+    {
+     "kind": "debris",
+     "plan": "pieces"
+    }
+   ],
+   "ask": true
+  },
+  {
+   "id": "destruction",
+   "n": 62,
+   "name": "Destruction simulation",
+   "group": "Simulation",
+   "state": "has",
+   "how": "An object breaks into its OWN pieces: a fracture plan flown by a debris layer (`kit vfx fracture`, `\"pieces\"`). Terrain craters carved and restored (Stage:1949, src/kit/Crater.luau)",
+   "proof": [
+    {
+     "kind": "debris",
+     "plan": "pieces"
+    },
+    {
+     "kind": "crater"
+    }
+   ],
+   "cues": [
+    "crater",
+    "destroy"
+   ],
+   "tools": [
+    "kit vfx fracture <name> --size w,d[,h] [--pieces 14] [--impact x,z]"
+   ]
+  },
+  {
+   "id": "debris",
+   "n": 63,
+   "name": "Debris simulation",
+   "group": "Simulation",
+   "state": "has",
+   "how": "the `debris` layer (325 layers in today's presets), the swarm's floor bounce",
+   "proof": [
+    {
+     "kind": "debris"
+    },
+    {
+     "kind": "swarm",
+     "has": [
+      "floor"
+     ]
+    }
+   ],
+   "cues": [
+    "debris",
+    "rubble",
+    "chunks"
+   ]
+  },
+  {
+   "id": "granular",
+   "n": 64,
+   "name": "Sand / granular simulation",
+   "group": "Simulation",
+   "state": "has",
+   "how": "`kit vfx sand <name>`: a heap of grains as the height of the sand over the ground - wherever the heap is steeper than its angle of repose the sand runs downhill, nothing made or lost. A pillar let go slumps into a heap of that slope (`--mode slump`); a pour builds a cone whose sides slide (`--mode pour`). Simulated, then BAKED into a mesh sequence a mesh layer replays (`\"shape\": \"seq\"`). It is the heap's surface, not its grains: nothing flies or sprays (a swarm beside it does), and a slump's timing is `--settle`, not physics",
+   "tools": [
+    "kit vfx sand <name> [--mode slump|pour] [--size 8] [--height 4] [--width 2.5] [--repose 34] [--rate 6] [--settle s]"
+   ],
+   "cues": [
+    "sand",
+    "heap",
+    "dune",
+    "ash pile",
+    "avalanche",
+    "landslide"
+   ],
+   "proof": [
+    {
+     "kind": "mesh",
+     "where": {
+      "shape": [
+       "seq"
+      ]
+     },
+     "kept": {
+      "key": "params.seq",
+      "dir": "seq",
+      "sim": "sand"
+     }
+    }
+   ]
+  },
+  {
+   "id": "hair",
+   "n": 65,
+   "name": "Hair / fur simulation",
+   "group": "Simulation",
+   "state": "has",
+   "how": "`kit vfx hair <name>`: strands rooted on the top of a head or along a line, each a chain that keeps its length with a little stiffness, in gravity and wind, swung by a toss or a sway of what it is rooted on - simulated, then BAKED as ribbons (one strip a strand) into a mesh sequence a mesh layer replays (`\"shape\": \"seq\"`; the sequence's `strips` are separate grids in the game's mesh and the player's). A bake whose hair does not move, stretches, comes off its roots, rides its body as one stiff piece or jumps is refused. Strands do not collide with one another; the move is the bake's own, not a character's; about 30 strands fit a default bake (600 KB of file)",
+   "tools": [
+    "kit vfx hair <name> [--root cap|line] [--strands 16] [--length 3] [--move toss|sway|none] [--amount 0.8] [--wind x,y,z] [--stiff 0.15] [--loop]"
+   ],
+   "proof": [
+    {
+     "kind": "mesh",
+     "where": {
+      "shape": [
+       "seq"
+      ]
+     },
+     "kept": {
+      "key": "params.seq",
+      "dir": "seq",
+      "sim": "hair"
+     }
+    }
+   ],
+   "cues": [
+    "hair",
+    "fur",
+    "mane",
+    "tassel",
+    "fringe",
+    "strands"
+   ]
+  },
+  {
+   "id": "advection",
+   "n": 66,
+   "name": "Particle advection",
+   "group": "Simulation",
+   "state": "has",
+   "how": "the swarm in a curl-noise field; the sims advect smoke; flowbake.py advects a texture",
+   "proof": [
+    {
+     "kind": "swarm",
+     "nonzero": [
+      "curl"
+     ]
+    },
+    {
+     "texture": {
+      "recipe": [
+       "gpu_smoke",
+       "gpu_fire",
+       "smoke_sim",
+       "fire_sim"
+      ]
+     }
+    },
+    {
+     "texture": {
+      "made_by": "flowbake.py"
+     }
+    }
+   ]
+  },
+  {
+   "id": "vector_field",
+   "n": 67,
+   "name": "Vector field-driven effects",
+   "group": "Simulation",
+   "state": "has",
+   "how": "An AUTHORED field: `kit vfx field <name>` keeps where the air goes as a wind, a vortex about an axis, a point that pushes or pulls and a path drawn through space (assets/effects/fields); a swarm layer's `\"field\": {\"name\", \"follow\", \"gain\"}` draws each particle's velocity toward the field's where it is (one rule in the game, the player and kit/vfx/field.py). Also the generated one: the swarm's `curl` noise. Not a baked 3D grid (.fga): Roblox has nowhere to read one; a field does not change over time and nothing pushes back on it",
+   "proof": [
+    {
+     "kind": "swarm",
+     "kept": {
+      "key": "field.name",
+      "dir": "fields"
+     }
+    },
+    {
+     "kind": "swarm",
+     "nonzero": [
+      "curl"
+     ]
+    }
+   ],
+   "tools": [
+    "kit vfx field <name> [--new vortex|wind|fountain|path]"
+   ]
+  },
+  {
+   "id": "force_field",
+   "n": 68,
+   "name": "Force field-driven effects",
+   "group": "Simulation",
+   "state": "has",
+   "how": "attract and swirl, gravity, drag, wind (Stage:1815-1831, 690)",
+   "proof": [
+    {
+     "kind": "swarm",
+     "has": [
+      "attract"
+     ]
+    },
+    {
+     "kind": "swarm",
+     "nonzero": [
+      "gravity"
+     ]
+    },
+    {
+     "kind": "sprite",
+     "nonzero": [
+      "acceleration"
+     ]
+    },
+    {
+     "kind": "sprite",
+     "has": [
+      "wind"
+     ]
+    }
+   ],
+   "cues": [
+    "pulled",
+    "sucked",
+    "gathering"
+   ]
+  },
+  {
+   "id": "lightning",
+   "n": 69,
+   "name": "Procedural lightning",
+   "group": "Simulation",
+   "state": "has",
+   "how": "the `lightning` recipe (random-walk bolts with forks, fxlab.py:810), the `bolt` mesh (Mesh:365-392), aura.py",
+   "proof": [
+    {
+     "texture": {
+      "recipe": [
+       "lightning"
+      ]
+     }
+    },
+    {
+     "kind": "mesh",
+     "where": {
+      "shape": [
+       "bolt"
+      ]
+     }
+    }
+   ],
+   "cues": [
+    "lightning",
+    "bolt",
+    "arc of electricity"
+   ]
+  },
+  {
+   "id": "branching",
+   "n": 70,
+   "name": "Procedural branching effects",
+   "group": "Simulation",
+   "state": "has",
+   "how": "A comp stack's `branches` shape: a trunk that forks and forks again, each fork shorter and thinner; several trunks round a point are cracks (`kit vfx comp --new branches`). Also the lightning and crack recipes, the bolt mesh",
+   "proof": [
+    {
+     "texture": {
+      "recipe": [
+       "comp"
+      ],
+      "where": {
+       "engine": [
+        "fx"
+       ],
+       "comp.shape.sdf": [
+        "branches"
+       ]
+      },
+      "has": []
+     }
+    },
+    {
+     "texture": {
+      "recipe": [
+       "lightning",
+       "crack"
+      ]
+     }
+    },
+    {
+     "kind": "mesh",
+     "where": {
+      "shape": [
+       "bolt"
+      ]
+     }
+    }
+   ],
+   "cues": [
+    "fork",
+    "forks",
+    "branch",
+    "branches",
+    "crack",
+    "veins"
+   ],
+   "tools": [
+    "kit vfx comp <key> [--new ring|skin|blobs|branches|map]"
+   ]
+  },
+  {
+   "id": "metaball",
+   "n": 71,
+   "name": "Metaball effects",
+   "group": "Simulation",
+   "state": "has",
+   "how": "A comp stack's `blobs` shape: discs joined by a smooth minimum, `k` = how far they reach for each other (`kit vfx comp --new blobs`). 2D, baked into a sheet",
+   "tools": [
+    "kit vfx comp <key> [--new ring|skin|blobs|branches|map]"
+   ],
+   "proof": [
+    {
+     "texture": {
+      "recipe": [
+       "comp"
+      ],
+      "where": {
+       "engine": [
+        "fx"
+       ],
+       "comp.shape.sdf": [
+        "blobs"
+       ]
+      },
+      "has": []
+     }
+    }
+   ],
+   "cues": [
+    "merging drops",
+    "gooey"
+   ]
+  },
+  {
+   "id": "point_cloud",
+   "n": 72,
+   "name": "Point cloud effects",
+   "group": "Simulation",
+   "state": "has",
+   "how": "`kit vfx points <name>`: a shape said as points - a figure (ring, disc, sphere, spiral, star) or `--picture <png>`, sampled evenly from a picture's own bright pixels - kept beside the presets. A swarm layer's `\"cloud\": { name, size, pull }` draws particle i to point i with a spring that never overshoots (one rule in the game, the player and kit/vfx/points.py); `pull` is a curve over the layer's life, so the particles gather into the shape and let go. 150 points at most (a swarm's particles); the cloud does not turn with the effect",
+   "tools": [
+    "kit vfx points <name> [--new ring|disc|sphere|spiral|star] [--picture <png>] [--count 60] [--pull 8]"
+   ],
+   "proof": [
+    {
+     "kind": "swarm",
+     "kept": {
+      "key": "cloud.name",
+      "dir": "points"
+     }
+    }
+   ],
+   "cues": [
+    "gather into",
+    "gathers into",
+    "assemble",
+    "assembles",
+    "constellation",
+    "sigil of motes"
+   ]
+  },
+  {
+   "id": "sim_cache",
+   "n": 73,
+   "name": "Simulation cache playback",
+   "group": "Simulation",
+   "state": "has",
+   "how": "Simulations are played back as baked sheets (flipbooks) and baked mesh sequences",
+   "proof": [
+    {
+     "texture": {
+      "recipe": [
+       "gpu_smoke",
+       "gpu_fire",
+       "smoke_sim",
+       "fire_sim"
+      ]
+     }
+    },
+    {
+     "kind": "mesh",
+     "where": {
+      "shape": [
+       "seq"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "baked_sim_flipbook",
+   "n": 74,
+   "name": "Baked simulation flipbooks",
+   "group": "Simulation",
+   "state": "has",
+   "how": "sims packed by fxfinish.py, up to 64 frames in an 8x8 sheet",
+   "proof": [
+    {
+     "texture": {
+      "recipe": [
+       "gpu_smoke",
+       "gpu_fire",
+       "smoke_sim",
+       "fire_sim"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "baked_mesh_anim",
+   "n": 75,
+   "name": "Baked mesh animation effects",
+   "group": "Simulation",
+   "state": "has",
+   "how": "meshseq.py (billow, crown), replayed on an EditableMesh",
+   "proof": [
+    {
+     "kind": "mesh",
+     "where": {
+      "shape": [
+       "seq"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "compositing",
+   "n": 76,
+   "name": "Compositing",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "fxfinish.py: bloom, streaks, tone, alpha, cel bands, cut, outline; the player's post chain",
+   "proof": [
+    {
+     "texture": {
+      "post_any": true
+     }
+    },
+    {
+     "kind": "screen"
+    }
+   ]
+  },
+  {
+   "id": "layer_compositing",
+   "n": 77,
+   "name": "Layer-based compositing",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "The version-3 preset IS a layer stack (up to 150 layers)",
+   "proof": [
+    {
+     "layers_min": 2
+    }
+   ]
+  },
+  {
+   "id": "node_compositing",
+   "n": 78,
+   "name": "Node-based compositing",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "`kit vfx comp`'s `\"graph\"`: the look as a graph of named nodes instead of the fixed stack - sources (a signed-distance shape, a panning noise, a number), joins (add, sub, mul, max, min, screen, mix by a mask), invert, levels, and a warp of any node by any node - each node reading others by name; `value` names the node the picture is read from, `alpha` the node that is its alpha; the ramp, erosion and halftone still follow. Baked straight into a sheet (the starter in under a second at 256 px; a 24-node graph a few seconds). Refused: a ring, a node nothing reads, a chain with no join, under two shapes or noises, and a node that does nothing (halved, what the sheet shows must change). The kit's own nodes, not Blender's compositor",
+   "tools": [
+    "kit vfx comp <key> --new graph",
+    "kit vfx comp <key>"
+   ],
+   "proof": [
+    {
+     "texture": {
+      "recipe": [
+       "comp"
+      ],
+      "where": {
+       "engine": [
+        "fx"
+       ]
+      },
+      "has": [
+       "comp.graph.nodes",
+       "comp.graph.value"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "additive",
+   "n": 79,
+   "name": "Additive blending",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "A sprite's or a beam's `lightEmission` above 0 (Stage:686)",
+   "proof": [
+    {
+     "kind": "sprite",
+     "positive": [
+      "lightEmission"
+     ]
+    },
+    {
+     "kind": "beam",
+     "positive": [
+      "lightEmission"
+     ]
+    }
+   ],
+   "cues": [
+    "glow",
+    "light"
+   ]
+  },
+  {
+   "id": "alpha_compositing",
+   "n": 80,
+   "name": "Alpha compositing",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "The default blend: a sprite with `lightEmission` 0, a decal, a mesh's `surface` with alpha",
+   "proof": [
+    {
+     "kind": "sprite",
+     "zero": [
+      "lightEmission"
+     ]
+    },
+    {
+     "kind": "decal"
+    },
+    {
+     "kind": "mesh",
+     "has": [
+      "surface"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "rotoscope",
+   "n": 81,
+   "name": "Masking / rotoscoping",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "`kit vfx trace` cuts the effect out of each frame of a beat (by its measured colour, or by light) and reads the cut-out as outline curves; the LOOK pictures lay each trace on its frame",
+   "tools": [
+    "kit vfx trace <set> --beat N [--box x0,y0,x1,y1]"
+   ],
+   "proof": [
+    {
+     "texture": {
+      "recipe": [
+       "ink"
+      ]
+     }
+    },
+    {
+     "file": "refs_measured/{set}.trace.beat{beat}.json"
+    }
+   ]
+  },
+  {
+   "id": "chroma_key",
+   "n": 82,
+   "name": "Chroma keying",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "The trace's cut-out IS a colour key (the set's measured hue band); footage keyed that way reaches a sheet through `kit vfx ink`",
+   "tools": [
+    "kit vfx trace <set> --beat N"
+   ],
+   "proof": [
+    {
+     "texture": {
+      "recipe": [
+       "ink"
+      ]
+     }
+    },
+    {
+     "file": "refs_measured/{set}.trace.beat{beat}.json"
+    }
+   ]
+  },
+  {
+   "id": "motion_tracking",
+   "n": 83,
+   "name": "Motion tracking",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "`kit vfx track` follows points of the background from frame to frame and fits the move they share (a shift, a zoom, a turn), to a fraction of a pixel; what moves on its own is outvoted. A measurement of the SCENE: nothing in a preset shows it, so the gate cannot measure it - the trace enforces it (below)",
+   "tools": [
+    "kit vfx track <set> --beat N"
+   ],
+   "proof": []
+  },
+  {
+   "id": "camera_tracking",
+   "n": 84,
+   "name": "Camera tracking / matchmoving",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "`kit vfx track` gives every frame's place in the first frame's picture; `kit vfx trace` measures the camera itself, REFUSES a beat whose camera moves without `--track`, and with it traces the stabilised frames inside the window every frame covers. Flat (2D) moves only: a camera travelling through depth is followed by its far background",
+   "tools": [
+    "kit vfx track <set> --beat N",
+    "kit vfx trace <set> --beat N --track"
+   ],
+   "proof": []
+  },
+  {
+   "id": "motion_vectors",
+   "n": 85,
+   "name": "Motion vector-based effects",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "A texture spec's `\"post\": { \"inbetween\": true }`: the sheet's grid is FILLED from fewer rendered frames. For every two frames in a row the packer measures the picture's motion vectors (dense optical flow, both ways) and draws each cell between them by moving both part of the way along those vectors - one shape part of the way, where a cross-fade leaves two ghosts. No cell is left empty. Baked into the sheet: Roblox has no shader to blend flipbook frames by their vectors live. Refused when nothing moves, when the vectors do not account for half the change over the sheet, and when a part of the picture is not followed",
+   "tools": [
+    "a texture spec: \"post\": { \"inbetween\": true } or { \"inbetween\": { \"loop\": true } }, with fewer `frames` than the `grid` has cells (kit vfx packs it)"
+   ],
+   "proof": [
+    {
+     "texture": {
+      "post": [
+       "inbetween"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "motion_blur",
+   "n": 86,
+   "name": "Motion blur",
+   "group": "Compositing, camera, anime",
+   "state": "not_roblox",
+   "how": "No such post effect. Stand-ins the kit has: streak textures, particle squash, smear meshes",
+   "stand_in": "smear"
+  },
+  {
+   "id": "bloom",
+   "n": 87,
+   "name": "Bloom / glow",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "raises the place's bloom (Stage:338-354), Neon, emissive masks (surfaces.py:46), baked glow",
+   "proof": [
+    {
+     "kind": "screen",
+     "positive": [
+      "bloom"
+     ]
+    },
+    {
+     "kind": "mesh",
+     "positive": [
+      "glow"
+     ]
+    },
+    {
+     "kind": "mesh",
+     "where": {
+      "material": [
+       "Neon"
+      ]
+     }
+    },
+    {
+     "kind": "glow"
+    },
+    {
+     "texture": {
+      "post": [
+       "glow"
+      ]
+     }
+    }
+   ],
+   "cues": [
+    "glow",
+    "bloom"
+   ]
+  },
+  {
+   "id": "lens_flare",
+   "n": 88,
+   "name": "Lens flare",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "The lens layer's `flare`: a glow on the light (the layer's `point`), a level streak through it and ghosts on the line through the middle of the screen, placed every frame from where the light falls on the screen, so they swing as it moves (Roblox has no flare: these are pictures, alpha-blended, with no test of what stands in front of the light). `kit vfx flare --light x,y` draws where they fall. Or a flare DRAWN into a texture (flares.py)",
+   "tools": [
+    "kit vfx flare [--light x,y] [--ghosts 5] [--streak 0.6]",
+    "python kit/vfx/lens.py lens_glow lens_ghost lens_streak"
+   ],
+   "proof": [
+    {
+     "kind": "lens",
+     "positive": [
+      "flare.strength"
+     ],
+     "least": {
+      "flare.strength": {
+       "min": 0.15
+      }
+     },
+     "where_not": {
+      "flare.ghosts": [
+       0
+      ]
+     }
+    },
+    {
+     "texture": {
+      "made_by": "flares.py"
+     }
+    }
+   ],
+   "cues": [
+    "flare"
+   ]
+  },
+  {
+   "id": "dof",
+   "n": 89,
+   "name": "Depth of field",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "the `world` layer's `dof` (Stage:2016)",
+   "proof": [
+    {
+     "kind": "world",
+     "positive": [
+      "dof"
+     ]
+    }
+   ],
+   "cues": [
+    "focus",
+    "blurred background"
+   ]
+  },
+  {
+   "id": "colour_grading",
+   "n": 90,
+   "name": "Colour grading",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "the `screen` layer (Stage:1210). The newer tone-mapper preset is not used",
+   "proof": [
+    {
+     "kind": "screen"
+    },
+    {
+     "kind": "world"
+    }
+   ],
+   "cues": [
+    "tint",
+    "desaturate",
+    "darken"
+   ]
+  },
+  {
+   "id": "chromatic_aberration",
+   "n": 91,
+   "name": "Chromatic aberration",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "On the effect's OWN picture: a texture's `post.aberration` pulls the sheet's red and blue apart (about the middle, or along an angle) - a real split of the picture's own light into its three colours, baked when the sheet is packed. On the screen: the lens layer's `aberration`, red and cyan fringe pictures at the frame's edge (Stage:1886), a stand-in - a real split of the whole screen's colours is NOT ROBLOX (no pass to run it in)",
+   "proof": [
+    {
+     "texture": {
+      "post": [
+       "aberration"
+      ]
+     }
+    },
+    {
+     "kind": "lens",
+     "positive": [
+      "aberration"
+     ]
+    }
+   ],
+   "cues": [
+    "fringe",
+    "aberration"
+   ],
+   "tools": [
+    "a texture spec's \"post\": {\"aberration\": {\"amount\": 0.03, \"mode\": \"radial\"}}"
+   ]
+  },
+  {
+   "id": "outlines",
+   "n": 92,
+   "name": "Screen-space outlines",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "The engine's own screen-space outline: the `highlight` layer (a Highlight on the effect's meshes or on characters, Stage:876-893); `outline` on a mesh or debris layer (an ink shell); on a SPRITE the line is in its texture (`post.outline` round the shape, `post.edges` inside it too). No custom outline pass: Roblox has none",
+   "proof": [
+    {
+     "kind": "highlight"
+    },
+    {
+     "kind": "mesh",
+     "has": [
+      "outline"
+     ]
+    },
+    {
+     "kind": "debris",
+     "has": [
+      "outline"
+     ]
+    },
+    {
+     "texture": {
+      "post": [
+       "outline"
+      ]
+     }
+    },
+    {
+     "texture": {
+      "post": [
+       "edges"
+      ]
+     }
+    }
+   ],
+   "cues": [
+    "outline"
+   ]
+  },
+  {
+   "id": "edge_detection",
+   "n": 93,
+   "name": "Edge detection",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "A texture's `post.edges`: the packer finds every step in a sheet's picture - the border between two tones inside the shape as well as its silhouette - and draws a line there, or keeps the lines alone (line art); it runs after the other looks, so cel bands get their lines, and a sheet with no step is refused. Also inside the player's impact-frame drawing (`draw.outline`, `draw.lineart`), baked into frame pictures. Not live on the screen: Roblox has no pass to run it in",
+   "tools": [
+    "a texture spec's \"post\": {\"edges\": {\"threshold\": 0.08, \"grow\": 0, \"color\": [r, g, b], \"keep\": true}}"
+   ],
+   "proof": [
+    {
+     "kind": "impact",
+     "has": [
+      "draw.outline"
+     ]
+    },
+    {
+     "kind": "impact",
+     "has": [
+      "draw.lineart"
+     ]
+    },
+    {
+     "texture": {
+      "post": [
+       "edges"
+      ]
+     }
+    }
+   ]
+  },
+  {
+   "id": "posterization",
+   "n": 94,
+   "name": "Posterization",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "Baked cel bands (fxfinish.py:103)",
+   "proof": [
+    {
+     "texture": {
+      "post": [
+       "bands"
+      ]
+     }
+    },
+    {
+     "kind": "mesh",
+     "has": [
+      "toon"
+     ]
+    },
+    {
+     "texture": {
+      "recipe": [
+       "ink",
+       "cel"
+      ]
+     }
+    }
+   ],
+   "cues": [
+    "flat tones",
+    "cel"
+   ]
+  },
+  {
+   "id": "halftone",
+   "n": 95,
+   "name": "Halftone / dithering",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "A comp stack's `halftone`: the alpha as a printed screen, dots `dot` px apart whose size is the value (`kit vfx comp`). An impact frame's `draw.hatch` (the player's comic pass)",
+   "proof": [
+    {
+     "texture": {
+      "recipe": [
+       "comp"
+      ],
+      "where": {
+       "engine": [
+        "fx"
+       ]
+      },
+      "has": [
+       "comp.halftone"
+      ]
+     }
+    },
+    {
+     "kind": "impact",
+     "has": [
+      "draw.hatch"
+     ]
+    }
+   ],
+   "cues": [
+    "halftone",
+    "dots"
+   ],
+   "tools": [
+    "kit vfx comp <key> [--new ring|skin|blobs|branches|map]"
+   ]
+  },
+  {
+   "id": "speed_lines",
+   "n": 96,
+   "name": "Speed lines",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "impact frames' lines, the lens layer's zoom and streaks (Stage:1340-1365, 1895)",
+   "proof": [
+    {
+     "kind": "impact",
+     "has": [
+      "lines"
+     ],
+     "where_not": {
+      "lines": [
+       "none"
+      ]
+     }
+    },
+    {
+     "kind": "lens",
+     "positive": [
+      "zoom"
+     ]
+    },
+    {
+     "kind": "lens",
+     "positive": [
+      "streaks"
+     ]
+    }
+   ],
+   "cues": [
+    "speed lines",
+    "radial lines"
+   ]
+  },
+  {
+   "id": "smear",
+   "n": 97,
+   "name": "Smear frames",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "the `smear` recipe, the arc's `sweep`, `draw.cutSmear`",
+   "proof": [
+    {
+     "texture": {
+      "recipe": [
+       "smear"
+      ]
+     }
+    },
+    {
+     "kind": "mesh",
+     "has": [
+      "sweep"
+     ]
+    },
+    {
+     "kind": "impact",
+     "has": [
+      "draw.cutSmear"
+     ]
+    }
+   ],
+   "cues": [
+    "smear"
+   ]
+  },
+  {
+   "id": "impact_frame",
+   "n": 98,
+   "name": "Impact frames",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "9 parts in four styles (assets/effects/parts/impact_frames_*.json)",
+   "proof": [
+    {
+     "kind": "impact"
+    }
+   ],
+   "cues": [
+    "impact frame",
+    "freeze frame"
+   ]
+  },
+  {
+   "id": "afterimage",
+   "n": 99,
+   "name": "Afterimages / ghosting",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "`echo` on a mesh (Tech:542-561); the old afterimage of the character (src/kit/Vfx.luau:609)",
+   "proof": [
+    {
+     "kind": "mesh",
+     "has": [
+      "echo"
+     ]
+    }
+   ],
+   "cues": [
+    "afterimage",
+    "ghost"
+   ]
+  },
+  {
+   "id": "hit_flash",
+   "n": 100,
+   "name": "Hit flashes",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "the `highlight` layer on a target (Stage:1664), the screen flash",
+   "proof": [
+    {
+     "kind": "highlight"
+    },
+    {
+     "kind": "screen",
+     "has": [
+      "brightness"
+     ]
+    }
+   ],
+   "cues": [
+    "flash"
+   ]
+  },
+  {
+   "id": "camera_shake",
+   "n": 101,
+   "name": "Camera shake",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "the `shake` layer (Stage:1445)",
+   "proof": [
+    {
+     "kind": "shake"
+    }
+   ],
+   "cues": [
+    "shake"
+   ]
+  },
+  {
+   "id": "camera_impulse",
+   "n": 102,
+   "name": "Camera impulse effects",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "`kick` in the strike's direction, the `fov` punch (Stage:358-378)",
+   "proof": [
+    {
+     "kind": "shake",
+     "nonzero": [
+      "kick"
+     ]
+    },
+    {
+     "kind": "fov"
+    }
+   ],
+   "cues": [
+    "punch",
+    "kick"
+   ]
+  },
+  {
+   "id": "forced_perspective",
+   "n": 103,
+   "name": "Forced-perspective effects",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "A mesh layer's `\"forced\": {\"ref\", \"keep\", \"min\", \"max\"}`: its size answers the camera's distance - keep 1 holds its size ON THE SCREEN while the multiplier is inside min..max (a quarter of ref to four times it unless said), 0.5 shrinks it half as fast as the lens would, a negative keep faster (one rule in the game, the player and kit/vfx/forced.py; `kit vfx forced` prints what a block does at each distance). Also the impact frame's own camera (`cut`, `subject`). Mesh layers only; the layer's place does not move",
+   "proof": [
+    {
+     "kind": "mesh",
+     "positive": [
+      "forced.ref"
+     ],
+     "where_not": {
+      "forced.keep": [
+       0
+      ]
+     }
+    },
+    {
+     "kind": "impact",
+     "has": [
+      "camera"
+     ]
+    }
+   ],
+   "tools": [
+    "kit vfx forced [--ref 40] [--keep 1] [--min 0.25] [--max 4] [--at 10,20,40,80,160]"
+   ]
+  },
+  {
+   "id": "anamorphic",
+   "n": 104,
+   "name": "Anamorphic effects",
+   "group": "Compositing, camera, anime",
+   "state": "has",
+   "how": "The anamorphic flare: the lens layer's `flare` with a `streak` (the long level line through the light) and `squeeze` (ghosts wider than tall); a texture's level streaks (fxfinish.py's `post.streaks`). No anamorphic blur (oval out-of-focus lights): the engine blurs the whole picture one way",
+   "tools": [
+    "kit vfx flare --streak 0.6 --squeeze 1.6"
+   ],
+   "proof": [
+    {
+     "kind": "lens",
+     "positive": [
+      "flare.strength",
+      "flare.streak"
+     ],
+     "least": {
+      "flare.strength": {
+       "min": 0.15
+      },
+      "flare.streak": {
+       "min": 0.2
+      }
+     }
+    },
+    {
+     "texture": {
+      "post": [
+       "streaks"
+      ]
+     }
+    }
+   ],
+   "cues": [
+    "anamorphic",
+    "horizontal streak"
+   ]
+  }
+ ],
+ "refused": [
+  {
+   "id": "mesh_erode",
+   "since": "2026-11-13",
+   "match": {
+    "kind": "mesh",
+    "has": [
+     "erode"
+    ]
+   },
+   "method": "dissolve",
+   "says": "a mesh's \"erode\" shows in the browser player only - Roblox ignores a runtime mesh's vertex alpha (measured 2026-10-16), so in the game the layer pops off. Play a dissolve sheet instead: lune run kit vfx dissolve <key> --from <its texture | plain>, then \"texture\": \"<key>\", \"surface\": 1, \"flipbook\": {\"layout\": \"4x4\", \"mode\": \"OneShot\", \"over\": [start, end]}"
+  },
+  {
+   "id": "mesh_dissolve_sheet_bare",
+   "since": "2026-11-13",
+   "match": {
+    "kind": "mesh",
+    "lacks": [
+     "surface"
+    ],
+    "texture": {
+     "recipe": [
+      "dissolve"
+     ]
+    }
+   },
+   "method": "dissolve",
+   "says": "a dissolve sheet on a mesh without \"surface\": the game shows a mesh texture's alpha only through a SurfaceAppearance (measured 2026-10-16) - without it every cell is drawn as a full square. Add \"surface\": 1, and play it inside \"flipbook\": {\"mode\": \"OneShot\", \"over\": [start, end]}"
+  }
+ ],
+ "made_for_tests": [
+  {
+   "id": "_made_missing",
+   "name": "A made method the kit has not built",
+   "state": "missing",
+   "group": "(the self-test's)",
+   "how": "Not one of the owner's 104: a row the self-test plans, so that a chart naming a method the kit lacks is still refused when no real method is missing"
+  }
+ ]
+}

@@ -1,0 +1,24 @@
+{
+  "events": {
+    "FxSwing": {
+      "bus": "sfx",
+      "sound": "fx_swing"
+    },
+    "FxHit": {
+      "bus": "sfx",
+      "switch": "surface",
+      "default": "metal",
+      "cases": {
+        "metal": {
+          "sounds": {
+            "0.5": "fx_hit_metal"
+          }
+        }
+      }
+    },
+    "FxParry": {
+      "bus": "sfx",
+      "sound": "fx_parry"
+    }
+  }
+}

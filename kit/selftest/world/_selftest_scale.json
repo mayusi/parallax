@@ -1,0 +1,194 @@
+{
+ "_note": "NEGATIVE fixture for the r6 scale sheet: a 1.5-high stair, a 10 x 14 barn door on a house, a 1.6 rail, a 6-wide alley, a 20-high ceiling, a 24-long run wall - kit world check must FAIL each one.",
+ "name": "SelftestScale",
+ "scale": "r6",
+ "palette": {
+  "ground": {
+   "material": "Concrete",
+   "color": [
+    96,
+    98,
+    104
+   ]
+  },
+  "spawn": {
+   "material": "Neon",
+   "color": [
+    80,
+    220,
+    120
+   ]
+  }
+ },
+ "build": [
+  {
+   "floor": {
+    "name": "Ground",
+    "center": [
+     0,
+     -1,
+     0
+    ],
+    "size": [
+     160,
+     160
+    ],
+    "thickness": 2,
+    "mat": "ground"
+   }
+  },
+  {
+   "part": {
+    "name": "WallA",
+    "size": [
+     2,
+     16,
+     60
+    ],
+    "pos": [
+     -4,
+     8,
+     0
+    ],
+    "mat": "ground"
+   }
+  },
+  {
+   "part": {
+    "name": "WallB",
+    "size": [
+     2,
+     16,
+     60
+    ],
+    "pos": [
+     4,
+     8,
+     0
+    ],
+    "mat": "ground"
+   }
+  },
+  {
+   "fit": {
+    "kind": "alley",
+    "name": "TightAlley",
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "from": [
+     0,
+     -25
+    ],
+    "to": [
+     0,
+     25
+    ]
+   }
+  },
+  {
+   "stairs": {
+    "name": "SteepStairs",
+    "start": [
+     30,
+     0,
+     -10
+    ],
+    "dir": "+Z",
+    "steps": 6,
+    "rise": 1.5,
+    "run": 1.2,
+    "width": 6,
+    "mat": "ground"
+   }
+  },
+  {
+   "part": {
+    "name": "LowRail",
+    "size": [
+     20,
+     1.6,
+     0.6
+    ],
+    "pos": [
+     -40,
+     0.8,
+     30
+    ],
+    "mat": "ground",
+    "fit": "rail"
+   }
+  },
+  {
+   "fit": {
+    "kind": "door",
+    "name": "BarnDoor",
+    "pos": [
+     -40,
+     0,
+     -30
+    ],
+    "size": [
+     10,
+     14,
+     1
+    ]
+   }
+  },
+  {
+   "fit": {
+    "kind": "room",
+    "name": "Hall",
+    "pos": [
+     60,
+     0,
+     -40
+    ],
+    "size": [
+     16,
+     20,
+     16
+    ]
+   }
+  },
+  {
+   "part": {
+    "name": "RunWall",
+    "size": [
+     24,
+     16,
+     2
+    ],
+    "pos": [
+     0,
+     8,
+     60
+    ],
+    "mat": "ground",
+    "fit": "runwall"
+   }
+  },
+  {
+   "spawn": {
+    "pos": [
+     40,
+     0,
+     40
+    ],
+    "mat": "spawn"
+   }
+  },
+  {
+   "spawn": {
+    "pos": [
+     -40,
+     0,
+     40
+    ],
+    "mat": "spawn"
+   }
+  }
+ ]
+}

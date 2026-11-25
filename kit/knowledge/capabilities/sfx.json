@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "lane": "sfx",
+  "menu": [
+    {"tool": "parallax sfx find (--describe via CLAP)", "when": "searching CC0/GDC packs by semantic description"},
+    {"tool": "parallax sfx identity --from refs", "when": "establishing the game's sonic language from approved ref sounds"},
+    {"tool": "real recordings layered with synth", "when": "any combat impact set — synth-only scores 4-5/10"},
+    {"tool": "parallax sfx av --video <cap>", "when": "proving AV sync within ±1 frame against hit video"},
+    {"tool": "AudioReverb (pooled, OpenAIR CC-BY IRs)", "when": "room/space ambience needing real impulse response reverb"},
+    {"tool": "parallax sfx catalog (Audio API graph)", "when": "routing sounds through the unified Audio API bus"},
+    {"tool": "SoundService.AcousticSimulationEnabled", "when": "spatial ambience needing AngleAttenuation and EchoZones"},
+    {"tool": "BS.1770 LUFS target check", "when": "any looping music bed or stem before upload"},
+    {"tool": "parallax-vet + VETLOG.md", "when": "any external sound pack or recording before it enters the pipeline"},
+    {"tool": "seeded noise + round-robin", "when": "combat hit sets needing variance that the ear cannot detect as robotic"}
+  ],
+  "ladder": [
+    {"from": "synth_only_weapon", "to": "layered real recordings + synth", "when": "any weapon/combat sound needs material and impact to read"},
+    {"from": "legacy_Sound_SoundGroup", "to": "Audio API graph (AudioReverb, WindVoice)", "when": "spatial audio needing AngleAttenuation or reverb"},
+    {"from": "unseeded_clicks", "to": "seeded transients + round-robin", "when": "UI feedback or combat hit set needs non-robotic variance"},
+    {"from": "loop_with_pop", "to": "zero-crossing seamless loop check", "when": "any looping bed or music track"},
+    {"from": "unvetted_pack", "to": "parallax-vet (2 sources, SHA-256) + VETLOG", "when": "any external sound file enters the pipeline"}
+  ],
+  "floor": [
+    "owner picks <=3 ref sounds per class before any build (references.json)",
+    "AV sync <=±1 frame proved with hit video before upload",
+    "audio_upload_gate (<=48kHz, no clip/silence) on all files",
+    "VETLOG entry for every external file"
+  ]
+}

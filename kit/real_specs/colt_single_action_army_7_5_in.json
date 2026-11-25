@@ -1,0 +1,58 @@
+[
+ {
+  "object": "colt single action army 7.5 in",
+  "part": "overall",
+  "dim": "length",
+  "value": 330.2,
+  "unit": "mm",
+  "source": "https://www.gun-tests.com/?p=120253",
+  "kind": "published",
+  "note": "the 7.5 in Cavalry model, measured by the review",
+  "quote": "13.0 in overall",
+  "trust": "high",
+  "id": "bd03f3b8",
+  "added": "2026-11-10"
+ },
+ {
+  "object": "colt single action army 7.5 in",
+  "part": "barrel",
+  "dim": "length",
+  "value": 190.5,
+  "unit": "mm",
+  "source": "https://wikiwand.com/EN/Colt_Single_Action_Army",
+  "kind": "published",
+  "note": "the Cavalry barrel",
+  "quote": "7.5 in",
+  "trust": "high",
+  "id": "22dc0234",
+  "added": "2026-11-10"
+ },
+ {
+  "object": "colt single action army 7.5 in",
+  "part": "cylinder",
+  "dim": "diameter",
+  "value": 42.0,
+  "unit": "mm",
+  "source": "https://legacy-collectibles.com/colt-single-action-army-cylinder-u-s-martial-marked",
+  "kind": "published",
+  "note": "",
+  "quote": "41mm (L) X 42mm (D)",
+  "trust": "high",
+  "id": "bb68c022",
+  "added": "2026-11-10"
+ },
+ {
+  "object": "colt single action army 7.5 in",
+  "part": "cylinder",
+  "dim": "length",
+  "value": 41.0,
+  "unit": "mm",
+  "source": "https://legacy-collectibles.com/colt-single-action-army-cylinder-u-s-martial-marked",
+  "kind": "published",
+  "note": "",
+  "quote": "41mm (L) X 42mm (D)",
+  "trust": "high",
+  "id": "0dbddc84",
+  "added": "2026-11-10"
+ }
+]

@@ -1,0 +1,35 @@
+{
+  "asset": "fx_sword",
+  "space": "roblox studs, Y up, -Z front; center = where each group sits",
+  "anchors": {
+    "RightGrip": [
+      0,
+      0,
+      0.4
+    ],
+    "Tip": [
+      0,
+      0,
+      -3.1
+    ]
+  },
+  "groups": {
+    "blade": {
+      "fbx": "kit/selftest/contract/fixture/models/fx_sword_blade.fbx",
+      "textures": {}
+    }
+  },
+  "facts": {
+    "size_studs": [
+      0.3,
+      0.3,
+      3.5
+    ],
+    "cad": [
+      {
+        "part": "Blade",
+        "mm_per_stud": 280.0
+      }
+    ]
+  }
+}

@@ -1,0 +1,896 @@
+{
+ "version": 3,
+ "mode": "burst",
+ "duration": 4.4,
+ "hitstop": [
+  {
+   "at": 0.6,
+   "hold": 1.5,
+   "span": 0.75
+  }
+ ],
+ "hits": [
+  0.6
+ ],
+ "use": [
+  {
+   "part": "impact_frames_shatter",
+   "at": 0.6,
+   "as": "shatter",
+   "point": [
+    0,
+    1,
+    0
+   ],
+   "palette": {
+    "accent": "amber",
+    "paper_c": "steel",
+    "ink_e": "mercury",
+    "paper_a": "white",
+    "paper_d": "white"
+   }
+  }
+ ],
+ "scene": {
+  "original": "quicksilver"
+ },
+ "about": "QUICKSILVER (an original, from the creative director's brief): a bead of liquid metal falls onto a dark mirror floor; in slow motion a crown rises and throws off beads, the instant shatters like glass, the crown collapses into a jet that drops a bead, and the beads rain down, bounce and roll while rings spread (high-speed liquid physics: Edgerton's coronet, the Worthington jet) (assets/effects/generators/quicksilver.py)",
+ "palette": {
+  "mercury": [
+   200,
+   212,
+   224
+  ],
+  "steel": [
+   52,
+   70,
+   100
+  ],
+  "amber": [
+   255,
+   176,
+   90
+  ],
+  "ink": [
+   8,
+   10,
+   14
+  ],
+  "white": [
+   250,
+   252,
+   255
+  ]
+ },
+ "points": {
+  "ground": [
+   0,
+   0,
+   0
+  ]
+ },
+ "booth": {
+  "scene": "bare",
+  "sky": "night",
+  "ground": "Slate",
+  "views": [
+   "hero",
+   "low",
+   "top"
+  ],
+  "motion": {
+   "weapon": false,
+   "actor": false
+  },
+  "viewDefs": {
+   "hero": {
+    "pos": [
+     0,
+     5,
+     13
+    ],
+    "look": [
+     0,
+     1.6,
+     0
+    ],
+    "fov": 55
+   },
+   "low": {
+    "pos": [
+     8,
+     0.8,
+     9
+    ],
+    "look": [
+     0,
+     1.8,
+     0
+    ],
+    "fov": 58
+   },
+   "top": {
+    "pos": [
+     0,
+     13,
+     5
+    ],
+    "look": [
+     0,
+     0,
+     0
+    ],
+    "fov": 58
+   }
+  }
+ },
+ "layers": [
+  {
+   "name": "bead",
+   "kind": "mesh",
+   "at": 0.0,
+   "life": 0.62,
+   "point": [
+    0,
+    0,
+    0
+   ],
+   "shape": "sphere",
+   "params": {
+    "segments": 32,
+    "rings": 16
+   },
+   "material": "SmoothPlastic",
+   "color": "mercury",
+   "path": {
+    "points": [
+     [
+      0,
+      13,
+      0
+     ],
+     [
+      0,
+      8,
+      0
+     ],
+     [
+      0,
+      0.5,
+      0
+     ]
+    ],
+    "keys": 16,
+    "ease": "quadIn"
+   },
+   "scale": [
+    [
+     0,
+     [
+      0.55,
+      0.55,
+      0.55
+     ]
+    ],
+    [
+     0.8,
+     [
+      0.5,
+      0.68,
+      0.5
+     ]
+    ],
+    [
+     1,
+     [
+      0.62,
+      0.42,
+      0.62
+     ]
+    ]
+   ],
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "rim": {
+    "color": "mercury",
+    "scale": 1.04,
+    "transparency": 0.78
+   }
+  },
+  {
+   "name": "amber_light",
+   "kind": "light",
+   "at": 0.0,
+   "life": 4.3500000000000005,
+   "point": [
+    -5,
+    6,
+    4
+   ],
+   "color": "amber",
+   "range": 30,
+   "brightness": [
+    [
+     0,
+     1.5
+    ],
+    [
+     0.12,
+     2.5
+    ],
+    [
+     0.3,
+     1.8
+    ],
+    [
+     1,
+     0.4
+    ]
+   ]
+  },
+  {
+   "name": "crown_wall",
+   "kind": "mesh",
+   "at": 0.6,
+   "life": 0.75,
+   "point": [
+    0,
+    0,
+    0
+   ],
+   "shape": "tube",
+   "params": {
+    "radiusBottom": 1.2,
+    "radiusTop": 1.75,
+    "height": 1.6,
+    "segments": 48,
+    "rings": 6
+   },
+   "material": "SmoothPlastic",
+   "color": "mercury",
+   "scale": [
+    [
+     0,
+     [
+      0.4,
+      0.06,
+      0.4
+     ]
+    ],
+    [
+     0.25,
+     [
+      1.3,
+      0.9,
+      1.3
+     ]
+    ],
+    [
+     0.55,
+     [
+      1.75,
+      1.3,
+      1.75
+     ]
+    ],
+    [
+     0.8,
+     [
+      2.0,
+      0.9,
+      2.0
+     ]
+    ],
+    [
+     1,
+     [
+      2.2,
+      0.06,
+      2.2
+     ]
+    ]
+   ],
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.85,
+     0
+    ],
+    [
+     1,
+     0.4
+    ]
+   ],
+   "rim": {
+    "color": "mercury",
+    "scale": 1.04,
+    "transparency": 0.78
+   }
+  },
+  {
+   "name": "crown_fingers",
+   "kind": "mesh",
+   "at": 0.6,
+   "life": 0.75,
+   "point": [
+    0,
+    0,
+    0
+   ],
+   "shape": "spikes",
+   "params": {
+    "count": 18,
+    "radius": 1.75,
+    "spread": 0.12,
+    "h0": 1.4,
+    "h1": 2.6,
+    "lean": 0.75,
+    "width": 0.32,
+    "rings": 3,
+    "cross": 0,
+    "seed": 7
+   },
+   "material": "SmoothPlastic",
+   "color": "mercury",
+   "scale": [
+    [
+     0,
+     [
+      0.4,
+      0.06,
+      0.4
+     ]
+    ],
+    [
+     0.25,
+     [
+      1.3,
+      0.9,
+      1.3
+     ]
+    ],
+    [
+     0.55,
+     [
+      1.75,
+      1.3,
+      1.75
+     ]
+    ],
+    [
+     0.8,
+     [
+      2.0,
+      0.9,
+      2.0
+     ]
+    ],
+    [
+     1,
+     [
+      2.2,
+      0.06,
+      2.2
+     ]
+    ]
+   ],
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     0.85,
+     0
+    ],
+    [
+     1,
+     0.4
+    ]
+   ]
+  },
+  {
+   "name": "crown_beads",
+   "kind": "swarm",
+   "at": 0.82,
+   "life": 3.5000000000000004,
+   "count": 90,
+   "spawn": 0.12,
+   "point": [
+    0,
+    2.6,
+    0
+   ],
+   "radius": 2.2,
+   "lifetime": [
+    3.4000000000000004,
+    3.4800000000000004
+   ],
+   "speed": [
+    2,
+    5
+   ],
+   "size": 0.26,
+   "color": "mercury",
+   "material": "SmoothPlastic",
+   "attract": {
+    "point": [
+     0,
+     1.2,
+     0
+    ],
+    "strength": [
+     [
+      0,
+      -70
+     ],
+     [
+      0.08,
+      -70
+     ],
+     [
+      0.1,
+      0
+     ],
+     [
+      1,
+      0
+     ]
+    ]
+   },
+   "gravity": 34,
+   "drag": 0.3,
+   "floor": {
+    "y": 0.15,
+    "bounce": 0.45
+   },
+   "seed": 13
+  },
+  {
+   "name": "spray",
+   "kind": "swarm",
+   "at": 0.65,
+   "life": 3.6,
+   "count": 120,
+   "spawn": 0.1,
+   "point": [
+    0,
+    0.6,
+    0
+   ],
+   "radius": 1.4,
+   "lifetime": [
+    2.2,
+    3.0
+   ],
+   "speed": [
+    4,
+    9
+   ],
+   "size": 0.13,
+   "color": [
+    220,
+    228,
+    236
+   ],
+   "material": "SmoothPlastic",
+   "attract": {
+    "point": [
+     0,
+     0,
+     0
+    ],
+    "strength": [
+     [
+      0,
+      -90
+     ],
+     [
+      0.06,
+      -90
+     ],
+     [
+      0.08,
+      0
+     ],
+     [
+      1,
+      0
+     ]
+    ]
+   },
+   "gravity": 40,
+   "drag": 0.2,
+   "floor": {
+    "y": 0.1,
+    "bounce": 0.35
+   },
+   "seed": 17
+  },
+  {
+   "name": "jet",
+   "kind": "mesh",
+   "at": 1.22,
+   "life": 0.75,
+   "point": [
+    0,
+    0,
+    0
+   ],
+   "shape": "tube",
+   "params": {
+    "radiusBottom": 0.32,
+    "radiusTop": 0.18,
+    "height": 1.0,
+    "segments": 20,
+    "rings": 6
+   },
+   "material": "SmoothPlastic",
+   "color": "mercury",
+   "scale": [
+    [
+     0,
+     [
+      1,
+      0.05,
+      1
+     ]
+    ],
+    [
+     0.35,
+     [
+      1,
+      4.2,
+      1
+     ]
+    ],
+    [
+     0.6,
+     [
+      0.9,
+      4.6,
+      0.9
+     ]
+    ],
+    [
+     1,
+     [
+      0.6,
+      0.05,
+      0.6
+     ]
+    ]
+   ],
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "rim": {
+    "color": "mercury",
+    "scale": 1.04,
+    "transparency": 0.78
+   }
+  },
+  {
+   "name": "jet_bead",
+   "kind": "mesh",
+   "at": 1.46,
+   "life": 1.1,
+   "point": [
+    0,
+    0,
+    0
+   ],
+   "shape": "sphere",
+   "params": {
+    "segments": 24,
+    "rings": 12
+   },
+   "material": "SmoothPlastic",
+   "color": "mercury",
+   "scale": [
+    0.34,
+    0.34,
+    0.34
+   ],
+   "path": {
+    "points": [
+     [
+      0,
+      4.3,
+      0
+     ],
+     [
+      0,
+      6.8,
+      0
+     ],
+     [
+      0,
+      0.35,
+      0
+     ]
+    ],
+    "keys": 16,
+    "ease": "linear"
+   },
+   "transparency": [
+    [
+     0,
+     0
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "rim": {
+    "color": "mercury",
+    "scale": 1.04,
+    "transparency": 0.78
+   }
+  },
+  {
+   "name": "ripple_0",
+   "kind": "mesh",
+   "at": 0.6799999999999999,
+   "life": 1.8,
+   "point": [
+    0,
+    0.04,
+    0
+   ],
+   "shape": "arc",
+   "params": {
+    "radius": 1.0,
+    "width": 0.022,
+    "arc": 360,
+    "taper": 0,
+    "segments": 128,
+    "jag": 0,
+    "seed": 0
+   },
+   "material": "SmoothPlastic",
+   "color": [
+    [
+     0,
+     "mercury"
+    ],
+    [
+     1,
+     "steel"
+    ]
+   ],
+   "scale": {
+    "ease": "expoOut",
+    "from": [
+     2,
+     1,
+     2
+    ],
+    "to": [
+     8.0,
+     1,
+     8.0
+    ],
+    "keys": 10
+   },
+   "transparency": [
+    [
+     0,
+     0.35
+    ],
+    [
+     0.5,
+     0.7
+    ],
+    [
+     1,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "ripple_1",
+   "kind": "mesh",
+   "at": 1.0,
+   "life": 1.8,
+   "point": [
+    0,
+    0.04,
+    0
+   ],
+   "shape": "arc",
+   "params": {
+    "radius": 1.0,
+    "width": 0.022,
+    "arc": 360,
+    "taper": 0,
+    "segments": 128,
+    "jag": 0,
+    "seed": 1
+   },
+   "material": "SmoothPlastic",
+   "color": [
+    [
+     0,
+     "mercury"
+    ],
+    [
+     1,
+     "steel"
+    ]
+   ],
+   "scale": {
+    "ease": "expoOut",
+    "from": [
+     2,
+     1,
+     2
+    ],
+    "to": [
+     6.5,
+     1,
+     6.5
+    ],
+    "keys": 10
+   },
+   "transparency": [
+    [
+     0,
+     0.35
+    ],
+    [
+     0.5,
+     0.7
+    ],
+    [
+     1,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "ripple_2",
+   "kind": "mesh",
+   "at": 1.3199999999999998,
+   "life": 1.8,
+   "point": [
+    0,
+    0.04,
+    0
+   ],
+   "shape": "arc",
+   "params": {
+    "radius": 1.0,
+    "width": 0.022,
+    "arc": 360,
+    "taper": 0,
+    "segments": 128,
+    "jag": 0,
+    "seed": 2
+   },
+   "material": "SmoothPlastic",
+   "color": [
+    [
+     0,
+     "mercury"
+    ],
+    [
+     1,
+     "steel"
+    ]
+   ],
+   "scale": {
+    "ease": "expoOut",
+    "from": [
+     2,
+     1,
+     2
+    ],
+    "to": [
+     5.0,
+     1,
+     5.0
+    ],
+    "keys": 10
+   },
+   "transparency": [
+    [
+     0,
+     0.35
+    ],
+    [
+     0.5,
+     0.7
+    ],
+    [
+     1,
+     1
+    ]
+   ]
+  },
+  {
+   "name": "kick",
+   "kind": "shake",
+   "at": 0.6,
+   "life": 0.4,
+   "amplitude": [
+    [
+     0,
+     0.3
+    ],
+    [
+     1,
+     0
+    ]
+   ],
+   "kick": [
+    0,
+    -1.6
+   ],
+   "kickCurve": [
+    [
+     0,
+     0
+    ],
+    [
+     0.1,
+     1
+    ],
+    [
+     0.5,
+     0.2
+    ],
+    [
+     1,
+     0
+    ]
+   ]
+  },
+  {
+   "name": "hit_light",
+   "kind": "light",
+   "at": 0.6,
+   "life": 0.6,
+   "point": [
+    0,
+    1.5,
+    0
+   ],
+   "color": "white",
+   "range": 24,
+   "brightness": [
+    [
+     0,
+     7
+    ],
+    [
+     0.2,
+     2
+    ],
+    [
+     1,
+     0
+    ]
+   ]
+  }
+ ]
+}

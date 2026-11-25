@@ -1,0 +1,20 @@
+{
+ "_note": "NEGATIVE fixture: must fail kit world check (a 20-stud pit with no way out = a TRAP) and warn about a platform no one can reach. Never fix.",
+ "name": "SelftestTrap",
+ "palette": {
+  "ground": { "material": "Concrete", "color": [96, 98, 104] },
+  "deck": { "material": "Slate", "color": [70, 72, 80] },
+  "spawn": { "material": "Neon", "color": [80, 220, 120] }
+ },
+ "build": [
+  { "floor": { "name": "PitBottom", "center": [0, -20, 0], "size": [120, 120], "thickness": 2, "mat": "ground" } },
+  { "floor": { "name": "DeckN", "center": [0, 0, -34], "size": [120, 52], "thickness": 2, "mat": "deck" } },
+  { "floor": { "name": "DeckS", "center": [0, 0, 34], "size": [120, 52], "thickness": 2, "mat": "deck" } },
+  { "floor": { "name": "DeckW", "center": [-34, 0, 0], "size": [52, 16], "thickness": 2, "mat": "deck" } },
+  { "floor": { "name": "DeckE", "center": [34, 0, 0], "size": [52, 16], "thickness": 2, "mat": "deck" } },
+  { "part": { "name": "HighPlatform", "size": [14, 1, 14], "pos": [40, 15, 40], "mat": "deck" } },
+  { "spawn": { "pos": [-40, 0.75, -40], "mat": "spawn" } },
+  { "spawn": { "pos": [40, 0.75, -40], "mat": "spawn" } }
+ ],
+ "objectives": [{ "name": "North", "pos": [0, 1, -40] }]
+}

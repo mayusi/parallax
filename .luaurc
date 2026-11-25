@@ -1,0 +1,13 @@
+{
+  "languageMode": "strict",
+  "lint": {
+    "*": true
+  },
+  "lintErrors": true,
+  "typeErrors": true,
+  "aliases": {
+    "Shared": "./src/shared",
+    "Packages": "./Packages",
+    "kit": "./kit"
+  }
+}

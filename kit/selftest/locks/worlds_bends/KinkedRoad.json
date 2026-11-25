@@ -1,0 +1,96 @@
+{
+ "_note": "NEGATIVE fixture for the world lane's BEND lock (kit/lib/lanelocks.luau LaneLocks.unsaidBends): a road and a row of posts that turn a right angle at a typed point and do not say \"curve\": true or false. The lock must name both. Never fix.",
+ "name": "KinkedRoad",
+ "scale": "r6",
+ "build": [
+  {
+   "floor": {
+    "name": "Ground",
+    "center": [
+     0,
+     -1,
+     0
+    ],
+    "size": [
+     320,
+     320
+    ],
+    "thickness": 2,
+    "mat": "ground"
+   }
+  },
+  {
+   "path": {
+    "name": "Road",
+    "points": [
+     [
+      -120,
+      -100
+     ],
+     [
+      60,
+      -100
+     ],
+     [
+      60,
+      120
+     ]
+    ],
+    "y": 0.2,
+    "width": 12,
+    "mat": "ground"
+   }
+  },
+  {
+   "row": {
+    "name": "Posts",
+    "points": [
+     [
+      -120,
+      -90
+     ],
+     [
+      50,
+      -90
+     ],
+     [
+      50,
+      120
+     ]
+    ],
+    "every": 24,
+    "item": {
+     "size": [
+      1,
+      4,
+      1
+     ],
+     "mat": "ground"
+    }
+   }
+  },
+  {
+   "path": {
+    "name": "Said",
+    "points": [
+     [
+      -120,
+      100
+     ],
+     [
+      0,
+      100
+     ],
+     [
+      0,
+      20
+     ]
+    ],
+    "y": 0.2,
+    "width": 8,
+    "mat": "ground",
+    "curve": true
+   }
+  }
+ ]
+}

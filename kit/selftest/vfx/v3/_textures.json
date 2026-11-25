@@ -1,0 +1,12 @@
+{
+ "glow": {
+  "id": "rbxassetid://10000000002",
+  "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+  "grid": 1
+ },
+ "sheet": {
+  "id": "rbxassetid://10000000002",
+  "fallback": "rbxasset://textures/particles/sparkles_main.dds",
+  "grid": 4
+ }
+}

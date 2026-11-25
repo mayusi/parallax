@@ -1,0 +1,438 @@
+{
+ "about": "Roblox Enum.Font -> the face the kit's preview draws it with. 'families' are folders in github.com/google/fonts (licence dir + family folder). approx = Roblox ships a different face with no free twin (Gotham = Gotham SSm, BuilderSans, Bodoni = Accanthis ADF, Garamond = Guru, Cartoon = Comic Neue Angular, Highway = Highway Gothic, SciFi = Zekton, Antique = Roman Antique): the twin is the nearest open face, close in feel, not pixel-identical.",
+ "families": {
+  "amaticsc": {
+   "licence": "ofl",
+   "folder": "amaticsc"
+  },
+  "arimo": {
+   "licence": "apache",
+   "folder": "arimo"
+  },
+  "balthazar": {
+   "licence": "ofl",
+   "folder": "balthazar"
+  },
+  "bangers": {
+   "licence": "ofl",
+   "folder": "bangers"
+  },
+  "cinzel": {
+   "licence": "ofl",
+   "folder": "cinzel"
+  },
+  "comicneue": {
+   "licence": "ofl",
+   "folder": "comicneue"
+  },
+  "creepster": {
+   "licence": "ofl",
+   "folder": "creepster"
+  },
+  "denkone": {
+   "licence": "ofl",
+   "folder": "denkone"
+  },
+  "ebgaramond": {
+   "licence": "ofl",
+   "folder": "ebgaramond"
+  },
+  "fondamento": {
+   "licence": "ofl",
+   "folder": "fondamento"
+  },
+  "fredoka": {
+   "licence": "ofl",
+   "folder": "fredoka"
+  },
+  "grenzegotisch": {
+   "licence": "ofl",
+   "folder": "grenzegotisch"
+  },
+  "inconsolata": {
+   "licence": "ofl",
+   "folder": "inconsolata"
+  },
+  "indieflower": {
+   "licence": "ofl",
+   "folder": "indieflower"
+  },
+  "josefinsans": {
+   "licence": "ofl",
+   "folder": "josefinsans"
+  },
+  "jura": {
+   "licence": "ofl",
+   "folder": "jura"
+  },
+  "kalam": {
+   "licence": "ofl",
+   "folder": "kalam"
+  },
+  "librebodoni": {
+   "licence": "ofl",
+   "folder": "librebodoni"
+  },
+  "luckiestguy": {
+   "licence": "apache",
+   "folder": "luckiestguy"
+  },
+  "merriweather": {
+   "licence": "ofl",
+   "folder": "merriweather"
+  },
+  "michroma": {
+   "licence": "ofl",
+   "folder": "michroma"
+  },
+  "montserrat": {
+   "licence": "ofl",
+   "folder": "montserrat"
+  },
+  "nunito": {
+   "licence": "ofl",
+   "folder": "nunito"
+  },
+  "orbitron": {
+   "licence": "ofl",
+   "folder": "orbitron"
+  },
+  "oswald": {
+   "licence": "ofl",
+   "folder": "oswald"
+  },
+  "overpass": {
+   "licence": "ofl",
+   "folder": "overpass"
+  },
+  "patrickhand": {
+   "licence": "ofl",
+   "folder": "patrickhand"
+  },
+  "permanentmarker": {
+   "licence": "apache",
+   "folder": "permanentmarker"
+  },
+  "pressstart2p": {
+   "licence": "ofl",
+   "folder": "pressstart2p"
+  },
+  "roboto": {
+   "licence": "ofl",
+   "folder": "roboto"
+  },
+  "robotocondensed": {
+   "licence": "ofl",
+   "folder": "robotocondensed"
+  },
+  "robotomono": {
+   "licence": "ofl",
+   "folder": "robotomono"
+  },
+  "sarpanch": {
+   "licence": "ofl",
+   "folder": "sarpanch"
+  },
+  "sourcesans3": {
+   "licence": "ofl",
+   "folder": "sourcesans3"
+  },
+  "specialelite": {
+   "licence": "ofl",
+   "folder": "specialelite"
+  },
+  "titilliumweb": {
+   "licence": "ofl",
+   "folder": "titilliumweb"
+  },
+  "ubuntu": {
+   "licence": "ufl",
+   "folder": "ubuntu"
+  },
+  "arial": {
+   "system": true
+  },
+  "pirataone": {
+   "licence": "ofl",
+   "folder": "pirataone"
+  },
+  "kaushanscript": {
+   "licence": "ofl",
+   "folder": "kaushanscript"
+  },
+  "limelight": {
+   "licence": "ofl",
+   "folder": "limelight"
+  },
+  "shrikhand": {
+   "licence": "ofl",
+   "folder": "shrikhand"
+  },
+  "lilitaone": {
+   "licence": "ofl",
+   "folder": "lilitaone"
+  },
+  "bungee": {
+   "licence": "ofl",
+   "folder": "bungee"
+  }
+ },
+ "fonts": {
+  "Legacy": {
+   "family": "arial",
+   "system": "arial.ttf",
+   "weight": 400
+  },
+  "Arial": {
+   "family": "arial",
+   "system": "arial.ttf",
+   "weight": 400
+  },
+  "ArialBold": {
+   "family": "arial",
+   "system": "arialbd.ttf",
+   "weight": 700
+  },
+  "SourceSans": {
+   "family": "sourcesans3",
+   "weight": 400
+  },
+  "SourceSansBold": {
+   "family": "sourcesans3",
+   "weight": 700
+  },
+  "SourceSansLight": {
+   "family": "sourcesans3",
+   "weight": 300
+  },
+  "SourceSansItalic": {
+   "family": "sourcesans3",
+   "weight": 400,
+   "italic": true
+  },
+  "SourceSansSemibold": {
+   "family": "sourcesans3",
+   "weight": 600
+  },
+  "Bodoni": {
+   "family": "librebodoni",
+   "weight": 400,
+   "approx": true
+  },
+  "Garamond": {
+   "family": "ebgaramond",
+   "weight": 400,
+   "approx": true
+  },
+  "Cartoon": {
+   "family": "comicneue",
+   "weight": 700,
+   "approx": true
+  },
+  "Code": {
+   "family": "inconsolata",
+   "weight": 400
+  },
+  "Highway": {
+   "family": "overpass",
+   "weight": 700,
+   "approx": true
+  },
+  "SciFi": {
+   "family": "orbitron",
+   "weight": 500,
+   "approx": true
+  },
+  "Arcade": {
+   "family": "pressstart2p",
+   "weight": 400
+  },
+  "Fantasy": {
+   "family": "balthazar",
+   "weight": 400
+  },
+  "Antique": {
+   "family": "cinzel",
+   "weight": 400,
+   "approx": true
+  },
+  "Gotham": {
+   "family": "montserrat",
+   "weight": 400,
+   "approx": true
+  },
+  "GothamMedium": {
+   "family": "montserrat",
+   "weight": 500,
+   "approx": true
+  },
+  "GothamBold": {
+   "family": "montserrat",
+   "weight": 700,
+   "approx": true
+  },
+  "GothamBlack": {
+   "family": "montserrat",
+   "weight": 900,
+   "approx": true
+  },
+  "AmaticSC": {
+   "family": "amaticsc",
+   "weight": 700
+  },
+  "Bangers": {
+   "family": "bangers",
+   "weight": 400
+  },
+  "Creepster": {
+   "family": "creepster",
+   "weight": 400
+  },
+  "DenkOne": {
+   "family": "denkone",
+   "weight": 400
+  },
+  "Fondamento": {
+   "family": "fondamento",
+   "weight": 400
+  },
+  "FredokaOne": {
+   "family": "fredoka",
+   "weight": 700
+  },
+  "GrenzeGotisch": {
+   "family": "grenzegotisch",
+   "weight": 500
+  },
+  "IndieFlower": {
+   "family": "indieflower",
+   "weight": 400
+  },
+  "JosefinSans": {
+   "family": "josefinsans",
+   "weight": 400
+  },
+  "Jura": {
+   "family": "jura",
+   "weight": 500
+  },
+  "Kalam": {
+   "family": "kalam",
+   "weight": 400
+  },
+  "LuckiestGuy": {
+   "family": "luckiestguy",
+   "weight": 400
+  },
+  "Merriweather": {
+   "family": "merriweather",
+   "weight": 400
+  },
+  "Michroma": {
+   "family": "michroma",
+   "weight": 400
+  },
+  "Nunito": {
+   "family": "nunito",
+   "weight": 700
+  },
+  "Oswald": {
+   "family": "oswald",
+   "weight": 500
+  },
+  "PatrickHand": {
+   "family": "patrickhand",
+   "weight": 400
+  },
+  "PermanentMarker": {
+   "family": "permanentmarker",
+   "weight": 400
+  },
+  "Roboto": {
+   "family": "roboto",
+   "weight": 400
+  },
+  "RobotoCondensed": {
+   "family": "robotocondensed",
+   "weight": 400
+  },
+  "RobotoMono": {
+   "family": "robotomono",
+   "weight": 400
+  },
+  "Sarpanch": {
+   "family": "sarpanch",
+   "weight": 500
+  },
+  "SpecialElite": {
+   "family": "specialelite",
+   "weight": 400
+  },
+  "TitilliumWeb": {
+   "family": "titilliumweb",
+   "weight": 400
+  },
+  "Ubuntu": {
+   "family": "ubuntu",
+   "weight": 400
+  },
+  "BuilderSans": {
+   "family": "montserrat",
+   "weight": 400,
+   "approx": true
+  },
+  "BuilderSansMedium": {
+   "family": "montserrat",
+   "weight": 500,
+   "approx": true
+  },
+  "BuilderSansBold": {
+   "family": "montserrat",
+   "weight": 700,
+   "approx": true
+  },
+  "BuilderSansExtraBold": {
+   "family": "montserrat",
+   "weight": 800,
+   "approx": true
+  },
+  "Arimo": {
+   "family": "arimo",
+   "weight": 400
+  },
+  "ArimoBold": {
+   "family": "arimo",
+   "weight": 700
+  },
+  "PirataOne": {
+   "family": "pirataone",
+   "weight": 400,
+   "render_only": true
+  },
+  "KaushanScript": {
+   "family": "kaushanscript",
+   "weight": 400,
+   "render_only": true
+  },
+  "Limelight": {
+   "family": "limelight",
+   "weight": 400,
+   "render_only": true
+  },
+  "Shrikhand": {
+   "family": "shrikhand",
+   "weight": 400,
+   "render_only": true
+  },
+  "LilitaOne": {
+   "family": "lilitaone",
+   "weight": 400,
+   "render_only": true
+  },
+  "Bungee": {
+   "family": "bungee",
+   "weight": 400,
+   "render_only": true
+  }
+ }
+}

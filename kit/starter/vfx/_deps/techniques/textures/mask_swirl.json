@@ -1,0 +1,16 @@
+{
+  "about": "tileable noise advected round a curl field: vortex, portal, liquid swirl (kit/vfx/masks.py)",
+  "cell": 0,
+  "engine": "fx",
+  "frames": 1,
+  "grid": 1,
+  "pack": "kit generated (procedural, tileable)",
+  "post": {
+    "alpha": "coverage",
+    "border": 0,
+    "tonemap": false
+  },
+  "premultiply": false,
+  "recipe": "import",
+  "source": "__DEPS__/textures/mask_swirl.png"
+}

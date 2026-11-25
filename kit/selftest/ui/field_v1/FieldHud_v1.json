@@ -1,0 +1,1656 @@
+{
+ "name": "FieldHud",
+ "identity": "field",
+ "quality": "hero",
+ "kind": "hud",
+ "focus": "Hud.Ammo.Mag",
+ "enabled": false,
+ "insets": "core",
+ "scale": {
+  "phone": 0.75,
+  "tablet": 0.85
+ },
+ "root": {
+  "type": "panel",
+  "name": "Hud",
+  "size": [
+   "100%",
+   "100%"
+  ],
+  "children": [
+   {
+    "type": "plate",
+    "name": "ShadeBR",
+    "plate": "glow",
+    "color": "shadow",
+    "size": [
+     900,
+     420
+    ],
+    "pos": [
+     "100%+180",
+     "100%+150"
+    ],
+    "anchor": "bottomright",
+    "imageAlpha": 0.65
+   },
+   {
+    "type": "plate",
+    "name": "ShadeBL",
+    "plate": "glow",
+    "color": "shadow",
+    "size": [
+     760,
+     360
+    ],
+    "pos": [
+     -160,
+     "100%+140"
+    ],
+    "anchor": "bottomleft",
+    "imageAlpha": 0.7
+   },
+   {
+    "type": "panel",
+    "name": "Map",
+    "size": [
+     240,
+     272
+    ],
+    "pos": [
+     28,
+     24
+    ],
+    "children": [
+     {
+      "type": "panel",
+      "name": "Frame",
+      "size": [
+       240,
+       240
+      ],
+      "pos": [
+       0,
+       0
+      ],
+      "clip": true,
+      "color": "panel",
+      "transparency": 0.38,
+      "stroke": "muted",
+      "strokeWidth": 1,
+      "strokeAlpha": 0.5,
+      "children": [
+       {
+        "type": "image",
+        "name": "Terrain",
+        "image": "art:field/minimap",
+        "fit": "crop",
+        "size": [
+         480,
+         480
+        ],
+        "pos": [
+         -144,
+         -108
+        ],
+        "imageAlpha": 0.25,
+        "attributes": {
+         "Kit_Content": true
+        }
+       },
+       {
+        "type": "image",
+        "name": "Cone",
+        "image": "art:field/view_cone",
+        "fit": "fit",
+        "size": [
+         150,
+         150
+        ],
+        "pos": [
+         "50%",
+         "50%"
+        ],
+        "anchor": "bottom",
+        "rotation": 20
+       },
+       {
+        "type": "panel",
+        "name": "Me",
+        "size": [
+         12,
+         12
+        ],
+        "pos": [
+         "50%",
+         "50%"
+        ],
+        "anchor": "center",
+        "rotation": 45,
+        "color": "text"
+       },
+       {
+        "type": "panel",
+        "name": "Mate1",
+        "size": [
+         8,
+         8
+        ],
+        "pos": [
+         "50%-34",
+         "50%+22"
+        ],
+        "anchor": "center",
+        "color": "friendly"
+       },
+       {
+        "type": "panel",
+        "name": "Mate2",
+        "size": [
+         8,
+         8
+        ],
+        "pos": [
+         "50%+18",
+         "50%+40"
+        ],
+        "anchor": "center",
+        "color": "friendly"
+       },
+       {
+        "type": "panel",
+        "name": "Obj",
+        "size": [
+         20,
+         20
+        ],
+        "pos": [
+         "50%+70",
+         "50%-62"
+        ],
+        "anchor": "center",
+        "rotation": 45,
+        "color": "accent",
+        "children": [
+         {
+          "type": "label",
+          "name": "A",
+          "text": "A",
+          "role": "tag",
+          "size": [
+           "100%",
+           "100%"
+          ],
+          "pos": [
+           "50%",
+           "50%"
+          ],
+          "anchor": "center",
+          "rotation": -45,
+          "align": "center",
+          "textColor": "ink",
+          "textSize": 13,
+          "at": {
+           "phone": {
+            "visible": false
+           }
+          }
+         }
+        ]
+       }
+      ]
+     },
+     {
+      "type": "label",
+      "name": "Grid",
+      "text": "GRID  E7 - 34",
+      "role": "readout",
+      "textOutline": "shadow",
+      "textOutlineWidth": 1.5,
+      "size": [
+       240,
+       26
+      ],
+      "pos": [
+       0,
+       246
+      ],
+      "align": "left",
+      "textColor": "muted",
+      "at": {
+       "phone": {
+        "visible": false
+       }
+      }
+     }
+    ],
+    "at": {
+     "phone": {
+      "scale": 0.62
+     }
+    }
+   },
+   {
+    "type": "panel",
+    "name": "Compass",
+    "size": [
+     620,
+     98
+    ],
+    "pos": [
+     "50%",
+     22
+    ],
+    "anchor": "top",
+    "children": [
+     {
+      "type": "panel",
+      "name": "Window",
+      "size": [
+       620,
+       64
+      ],
+      "pos": [
+       0,
+       0
+      ],
+      "clip": true,
+      "children": [
+       {
+        "type": "image",
+        "name": "Strip",
+        "image": "art:field/compass_strip",
+        "fit": "stretch",
+        "size": [
+         2160,
+         64
+        ],
+        "pos": [
+         -1458,
+         0
+        ]
+       }
+      ]
+     },
+     {
+      "type": "panel",
+      "name": "Caret",
+      "size": [
+       2,
+       14
+      ],
+      "pos": [
+       "50%",
+       62
+      ],
+      "anchor": "top",
+      "color": "text"
+     },
+     {
+      "type": "label",
+      "name": "Heading",
+      "text": "352",
+      "role": "readout",
+      "textOutline": "shadow",
+      "textOutlineWidth": 1.5,
+      "size": [
+       70,
+       26
+      ],
+      "pos": [
+       "50%",
+       70
+      ],
+      "anchor": "top",
+      "align": "center",
+      "textColor": "text"
+     },
+     {
+      "type": "panel",
+      "name": "Obj",
+      "size": [
+       10,
+       10
+      ],
+      "pos": [
+       422,
+       50
+      ],
+      "anchor": "center",
+      "rotation": 45,
+      "color": "accent"
+     }
+    ],
+    "at": {
+     "phone": {
+      "scale": 1.15
+     }
+    }
+   },
+   {
+    "type": "panel",
+    "name": "Feed",
+    "size": [
+     400,
+     100
+    ],
+    "pos": [
+     "100%-28",
+     24
+    ],
+    "anchor": "topright",
+    "children": [
+     {
+      "type": "panel",
+      "name": "K0",
+      "size": [
+       380,
+       30
+      ],
+      "pos": [
+       "100%",
+       0
+      ],
+      "anchor": "topright",
+      "color": "panel",
+      "transparency": 0.55,
+      "children": [
+       {
+        "type": "label",
+        "name": "A",
+        "text": "Rook",
+        "role": "body",
+        "textOutline": "shadow",
+        "textOutlineWidth": 1.5,
+        "size": [
+         150,
+         26
+        ],
+        "pos": [
+         "100%-196",
+         0
+        ],
+        "anchor": "topright",
+        "align": "right",
+        "textColor": "friendly"
+       },
+       {
+        "type": "image",
+        "name": "W",
+        "image": "art:field/icon_rifle_small",
+        "fit": "fit",
+        "size": [
+         54,
+         22
+        ],
+        "pos": [
+         "100%-192",
+         4
+        ]
+       },
+       {
+        "type": "label",
+        "name": "B",
+        "text": "Vasquez",
+        "role": "body",
+        "textOutline": "shadow",
+        "textOutlineWidth": 1.5,
+        "size": [
+         140,
+         26
+        ],
+        "pos": [
+         "100%-8",
+         0
+        ],
+        "anchor": "topright",
+        "align": "right",
+        "textColor": "enemy"
+       }
+      ]
+     },
+     {
+      "type": "panel",
+      "name": "K1",
+      "size": [
+       380,
+       30
+      ],
+      "pos": [
+       "100%",
+       34
+      ],
+      "anchor": "topright",
+      "color": "panel",
+      "transparency": 0.55,
+      "children": [
+       {
+        "type": "label",
+        "name": "A",
+        "text": "Hale",
+        "role": "body",
+        "textOutline": "shadow",
+        "textOutlineWidth": 1.5,
+        "size": [
+         150,
+         26
+        ],
+        "pos": [
+         "100%-196",
+         0
+        ],
+        "anchor": "topright",
+        "align": "right",
+        "textColor": "friendly"
+       },
+       {
+        "type": "image",
+        "name": "W",
+        "image": "art:field/icon_rifle_small",
+        "fit": "fit",
+        "size": [
+         54,
+         22
+        ],
+        "pos": [
+         "100%-192",
+         4
+        ]
+       },
+       {
+        "type": "label",
+        "name": "B",
+        "text": "Okafor",
+        "role": "body",
+        "textOutline": "shadow",
+        "textOutlineWidth": 1.5,
+        "size": [
+         140,
+         26
+        ],
+        "pos": [
+         "100%-8",
+         0
+        ],
+        "anchor": "topright",
+        "align": "right",
+        "textColor": "enemy"
+       }
+      ]
+     },
+     {
+      "type": "panel",
+      "name": "K2",
+      "size": [
+       380,
+       30
+      ],
+      "pos": [
+       "100%",
+       68
+      ],
+      "anchor": "topright",
+      "color": "panel",
+      "transparency": 0.55,
+      "children": [
+       {
+        "type": "label",
+        "name": "A",
+        "text": "You",
+        "role": "body",
+        "textOutline": "shadow",
+        "textOutlineWidth": 1.5,
+        "size": [
+         150,
+         26
+        ],
+        "pos": [
+         "100%-196",
+         0
+        ],
+        "anchor": "topright",
+        "align": "right",
+        "textColor": "text"
+       },
+       {
+        "type": "image",
+        "name": "W",
+        "image": "art:field/icon_rifle_small",
+        "fit": "fit",
+        "size": [
+         54,
+         22
+        ],
+        "pos": [
+         "100%-192",
+         4
+        ]
+       },
+       {
+        "type": "label",
+        "name": "B",
+        "text": "Brandt",
+        "role": "body",
+        "textOutline": "shadow",
+        "textOutlineWidth": 1.5,
+        "size": [
+         140,
+         26
+        ],
+        "pos": [
+         "100%-8",
+         0
+        ],
+        "anchor": "topright",
+        "align": "right",
+        "textColor": "enemy"
+       },
+       {
+        "type": "panel",
+        "name": "Edge",
+        "size": [
+         3,
+         "100%"
+        ],
+        "pos": [
+         0,
+         0
+        ],
+        "color": "accent"
+       }
+      ]
+     }
+    ],
+    "at": {
+     "phone": {
+      "scale": 1.0,
+      "pos": [
+       "100%-16",
+       118
+      ]
+     },
+     "tablet": {
+      "pos": [
+       "100%-20",
+       124
+      ]
+     }
+    }
+   },
+   {
+    "type": "panel",
+    "name": "Squad",
+    "size": [
+     300,
+     112
+    ],
+    "pos": [
+     28,
+     "100%-132"
+    ],
+    "anchor": "bottomleft",
+    "children": [
+     {
+      "type": "label",
+      "name": "Hdr",
+      "text": "SQUAD 2  BRAVO",
+      "role": "tag",
+      "textOutline": "shadow",
+      "textOutlineWidth": 1.5,
+      "size": [
+       220,
+       22
+      ],
+      "pos": [
+       0,
+       0
+      ],
+      "align": "left",
+      "textColor": "muted"
+     },
+     {
+      "type": "panel",
+      "name": "M0",
+      "size": [
+       300,
+       28
+      ],
+      "pos": [
+       0,
+       24
+      ],
+      "children": [
+       {
+        "type": "panel",
+        "name": "Dot",
+        "size": [
+         8,
+         8
+        ],
+        "pos": [
+         0,
+         10
+        ],
+        "color": "friendly"
+       },
+       {
+        "type": "label",
+        "name": "N",
+        "text": "Rook",
+        "role": "body",
+        "textOutline": "shadow",
+        "textOutlineWidth": 1.5,
+        "size": [
+         150,
+         28
+        ],
+        "pos": [
+         16,
+         0
+        ],
+        "align": "left",
+        "textColor": "text"
+       },
+       {
+        "type": "bar",
+        "name": "Hp",
+        "value": 0.9,
+        "fill": "friendly",
+        "size": [
+         110,
+         4
+        ],
+        "pos": [
+         172,
+         13
+        ],
+        "color": "panel",
+        "transparency": 0.4
+       }
+      ]
+     },
+     {
+      "type": "panel",
+      "name": "M1",
+      "size": [
+       300,
+       28
+      ],
+      "pos": [
+       0,
+       52
+      ],
+      "children": [
+       {
+        "type": "panel",
+        "name": "Dot",
+        "size": [
+         8,
+         8
+        ],
+        "pos": [
+         0,
+         10
+        ],
+        "color": "friendly"
+       },
+       {
+        "type": "label",
+        "name": "N",
+        "text": "Hale",
+        "role": "body",
+        "textOutline": "shadow",
+        "textOutlineWidth": 1.5,
+        "size": [
+         150,
+         28
+        ],
+        "pos": [
+         16,
+         0
+        ],
+        "align": "left",
+        "textColor": "text"
+       },
+       {
+        "type": "bar",
+        "name": "Hp",
+        "value": 0.55,
+        "fill": "friendly",
+        "size": [
+         110,
+         4
+        ],
+        "pos": [
+         172,
+         13
+        ],
+        "color": "panel",
+        "transparency": 0.4
+       }
+      ]
+     },
+     {
+      "type": "panel",
+      "name": "M2",
+      "size": [
+       300,
+       28
+      ],
+      "pos": [
+       0,
+       80
+      ],
+      "children": [
+       {
+        "type": "panel",
+        "name": "Dot",
+        "size": [
+         8,
+         8
+        ],
+        "pos": [
+         0,
+         10
+        ],
+        "color": "danger"
+       },
+       {
+        "type": "label",
+        "name": "N",
+        "text": "Mercer  DOWN",
+        "role": "body",
+        "textOutline": "shadow",
+        "textOutlineWidth": 1.5,
+        "size": [
+         150,
+         28
+        ],
+        "pos": [
+         16,
+         0
+        ],
+        "align": "left",
+        "textColor": "muted"
+       },
+       {
+        "type": "bar",
+        "name": "Hp",
+        "value": 0.0,
+        "fill": "danger",
+        "size": [
+         110,
+         4
+        ],
+        "pos": [
+         172,
+         13
+        ],
+        "color": "panel",
+        "transparency": 0.4
+       }
+      ]
+     }
+    ],
+    "at": {
+     "phone": {
+      "visible": false
+     }
+    }
+   },
+   {
+    "type": "panel",
+    "name": "Vitals",
+    "size": [
+     360,
+     92
+    ],
+    "pos": [
+     28,
+     "100%-30"
+    ],
+    "anchor": "bottomleft",
+    "children": [
+     {
+      "type": "panel",
+      "name": "Back",
+      "size": [
+       "100%+24",
+       "100%+12"
+      ],
+      "pos": [
+       -12,
+       -6
+      ],
+      "color": "panel",
+      "transparency": 0.5
+     },
+     {
+      "type": "label",
+      "name": "Hp",
+      "text": "82",
+      "role": "vital",
+      "textOutline": "shadow",
+      "textOutlineWidth": 1.5,
+      "size": [
+       86,
+       66
+      ],
+      "pos": [
+       0,
+       20
+      ],
+      "align": "left",
+      "textColor": "text"
+     },
+     {
+      "type": "label",
+      "name": "HpLbl",
+      "text": "HEALTH",
+      "role": "tag",
+      "textOutline": "shadow",
+      "textOutlineWidth": 1.5,
+      "size": [
+       80,
+       22
+      ],
+      "pos": [
+       0,
+       2
+      ],
+      "align": "left",
+      "textColor": "muted"
+     },
+     {
+      "type": "bar",
+      "name": "HpBar",
+      "value": 0.82,
+      "fill": "text",
+      "size": [
+       240,
+       10
+      ],
+      "pos": [
+       92,
+       54
+      ],
+      "color": "panel",
+      "transparency": 0.35,
+      "stroke": "shadow",
+      "strokeWidth": 1,
+      "strokeAlpha": 0.4
+     },
+     {
+      "type": "panel",
+      "name": "Plates",
+      "size": [
+       240,
+       6
+      ],
+      "pos": [
+       92,
+       70
+      ],
+      "layout": {
+       "dir": "horizontal",
+       "gap": 4,
+       "align": "start"
+      },
+      "children": [
+       {
+        "type": "panel",
+        "name": "P0",
+        "size": [
+         77,
+         6
+        ],
+        "color": "friendly"
+       },
+       {
+        "type": "panel",
+        "name": "P1",
+        "size": [
+         77,
+         6
+        ],
+        "color": "friendly"
+       },
+       {
+        "type": "panel",
+        "name": "P2",
+        "size": [
+         77,
+         6
+        ],
+        "color": "panel",
+        "transparency": 0.6,
+        "stroke": "friendly",
+        "strokeWidth": 1,
+        "strokeAlpha": 0.5
+       }
+      ]
+     },
+     {
+      "type": "label",
+      "name": "Stance",
+      "text": "STANDING",
+      "role": "tag",
+      "textOutline": "shadow",
+      "textOutlineWidth": 1.5,
+      "size": [
+       120,
+       22
+      ],
+      "pos": [
+       92,
+       28
+      ],
+      "align": "left",
+      "textColor": "muted"
+     },
+     {
+      "type": "label",
+      "name": "Armor",
+      "text": "PLATE 2/3",
+      "role": "tag",
+      "textOutline": "shadow",
+      "textOutlineWidth": 1.5,
+      "size": [
+       120,
+       22
+      ],
+      "pos": [
+       212,
+       28
+      ],
+      "align": "left",
+      "textColor": "muted"
+     }
+    ]
+   },
+   {
+    "type": "panel",
+    "name": "Ammo",
+    "size": [
+     440,
+     170
+    ],
+    "pos": [
+     "100%-28",
+     "100%-30"
+    ],
+    "anchor": "bottomright",
+    "motion": {
+     "enter": {
+      "type": "fade",
+      "duration": 0.25
+     }
+    },
+    "children": [
+     {
+      "type": "image",
+      "name": "Weapon",
+      "image": "art:field/icon_rifle",
+      "fit": "fit",
+      "size": [
+       190,
+       69
+      ],
+      "pos": [
+       0,
+       10
+      ],
+      "imageAlpha": 0.3
+     },
+     {
+      "type": "label",
+      "name": "Name",
+      "text": "ARP-9 CARBINE",
+      "role": "body",
+      "textOutline": "shadow",
+      "textOutlineWidth": 1.5,
+      "size": [
+       230,
+       26
+      ],
+      "pos": [
+       0,
+       92
+      ],
+      "align": "left",
+      "textColor": "text"
+     },
+     {
+      "type": "panel",
+      "name": "Mode",
+      "size": [
+       60,
+       24
+      ],
+      "pos": [
+       0,
+       120
+      ],
+      "color": "panel",
+      "transparency": 0.45,
+      "stroke": "muted",
+      "strokeWidth": 1,
+      "strokeAlpha": 0.4,
+      "children": [
+       {
+        "type": "label",
+        "name": "Txt",
+        "text": "AUTO",
+        "role": "tag",
+        "textOutline": "shadow",
+        "textOutlineWidth": 1.5,
+        "size": [
+         "100%",
+         "100%"
+        ],
+        "pos": [
+         0,
+         0
+        ],
+        "align": "center",
+        "textColor": "text"
+       }
+      ]
+     },
+     {
+      "type": "panel",
+      "name": "Rounds",
+      "size": [
+       230,
+       14
+      ],
+      "pos": [
+       0,
+       150
+      ],
+      "layout": {
+       "dir": "horizontal",
+       "gap": 2.6,
+       "align": "start"
+      },
+      "children": [
+       {
+        "type": "panel",
+        "name": "R0",
+        "size": [
+         5,
+         14
+        ],
+        "color": "text"
+       },
+       {
+        "type": "panel",
+        "name": "R1",
+        "size": [
+         5,
+         14
+        ],
+        "color": "text"
+       },
+       {
+        "type": "panel",
+        "name": "R2",
+        "size": [
+         5,
+         14
+        ],
+        "color": "text"
+       },
+       {
+        "type": "panel",
+        "name": "R3",
+        "size": [
+         5,
+         14
+        ],
+        "color": "text"
+       },
+       {
+        "type": "panel",
+        "name": "R4",
+        "size": [
+         5,
+         14
+        ],
+        "color": "text"
+       },
+       {
+        "type": "panel",
+        "name": "R5",
+        "size": [
+         5,
+         14
+        ],
+        "color": "text"
+       },
+       {
+        "type": "panel",
+        "name": "R6",
+        "size": [
+         5,
+         14
+        ],
+        "color": "text"
+       },
+       {
+        "type": "panel",
+        "name": "R7",
+        "size": [
+         5,
+         14
+        ],
+        "color": "text"
+       },
+       {
+        "type": "panel",
+        "name": "R8",
+        "size": [
+         5,
+         14
+        ],
+        "color": "text"
+       },
+       {
+        "type": "panel",
+        "name": "R9",
+        "size": [
+         5,
+         14
+        ],
+        "color": "text"
+       },
+       {
+        "type": "panel",
+        "name": "R10",
+        "size": [
+         5,
+         14
+        ],
+        "color": "text"
+       },
+       {
+        "type": "panel",
+        "name": "R11",
+        "size": [
+         5,
+         14
+        ],
+        "color": "text"
+       },
+       {
+        "type": "panel",
+        "name": "R12",
+        "size": [
+         5,
+         14
+        ],
+        "color": "text"
+       },
+       {
+        "type": "panel",
+        "name": "R13",
+        "size": [
+         5,
+         14
+        ],
+        "color": "text"
+       },
+       {
+        "type": "panel",
+        "name": "R14",
+        "size": [
+         5,
+         14
+        ],
+        "color": "text"
+       },
+       {
+        "type": "panel",
+        "name": "R15",
+        "size": [
+         5,
+         14
+        ],
+        "color": "text"
+       },
+       {
+        "type": "panel",
+        "name": "R16",
+        "size": [
+         5,
+         14
+        ],
+        "color": "text"
+       },
+       {
+        "type": "panel",
+        "name": "R17",
+        "size": [
+         5,
+         14
+        ],
+        "color": "text"
+       },
+       {
+        "type": "panel",
+        "name": "R18",
+        "size": [
+         5,
+         14
+        ],
+        "color": "text"
+       },
+       {
+        "type": "panel",
+        "name": "R19",
+        "size": [
+         5,
+         14
+        ],
+        "color": "text"
+       },
+       {
+        "type": "panel",
+        "name": "R20",
+        "size": [
+         5,
+         14
+        ],
+        "color": "text"
+       },
+       {
+        "type": "panel",
+        "name": "R21",
+        "size": [
+         5,
+         14
+        ],
+        "color": "text"
+       },
+       {
+        "type": "panel",
+        "name": "R22",
+        "size": [
+         5,
+         14
+        ],
+        "color": "text"
+       },
+       {
+        "type": "panel",
+        "name": "R23",
+        "size": [
+         5,
+         14
+        ],
+        "color": "text"
+       },
+       {
+        "type": "panel",
+        "name": "R24",
+        "size": [
+         5,
+         14
+        ],
+        "color": "panel",
+        "transparency": 0.7,
+        "stroke": "muted",
+        "strokeWidth": 1,
+        "strokeAlpha": 0.3
+       },
+       {
+        "type": "panel",
+        "name": "R25",
+        "size": [
+         5,
+         14
+        ],
+        "color": "panel",
+        "transparency": 0.7,
+        "stroke": "muted",
+        "strokeWidth": 1,
+        "strokeAlpha": 0.3
+       },
+       {
+        "type": "panel",
+        "name": "R26",
+        "size": [
+         5,
+         14
+        ],
+        "color": "panel",
+        "transparency": 0.7,
+        "stroke": "muted",
+        "strokeWidth": 1,
+        "strokeAlpha": 0.3
+       },
+       {
+        "type": "panel",
+        "name": "R27",
+        "size": [
+         5,
+         14
+        ],
+        "color": "panel",
+        "transparency": 0.7,
+        "stroke": "muted",
+        "strokeWidth": 1,
+        "strokeAlpha": 0.3
+       },
+       {
+        "type": "panel",
+        "name": "R28",
+        "size": [
+         5,
+         14
+        ],
+        "color": "panel",
+        "transparency": 0.7,
+        "stroke": "muted",
+        "strokeWidth": 1,
+        "strokeAlpha": 0.3
+       },
+       {
+        "type": "panel",
+        "name": "R29",
+        "size": [
+         5,
+         14
+        ],
+        "color": "panel",
+        "transparency": 0.7,
+        "stroke": "muted",
+        "strokeWidth": 1,
+        "strokeAlpha": 0.3
+       }
+      ]
+     },
+     {
+      "type": "label",
+      "name": "Mag",
+      "text": "24",
+      "role": "number",
+      "textOutline": "shadow",
+      "textOutlineWidth": 1.5,
+      "size": [
+       130,
+       84
+      ],
+      "pos": [
+       "100%-80",
+       64
+      ],
+      "anchor": "topright",
+      "align": "right",
+      "textColor": "text"
+     },
+     {
+      "type": "label",
+      "name": "Reserve",
+      "text": "/ 120",
+      "role": "reserve",
+      "textOutline": "shadow",
+      "textOutlineWidth": 1.5,
+      "size": [
+       78,
+       40
+      ],
+      "pos": [
+       "100%",
+       100
+      ],
+      "anchor": "topright",
+      "align": "right"
+     },
+     {
+      "type": "panel",
+      "name": "Gear",
+      "size": [
+       160,
+       32
+      ],
+      "pos": [
+       "100%",
+       0
+      ],
+      "anchor": "topright",
+      "children": [
+       {
+        "type": "image",
+        "name": "Frag",
+        "image": "art:field/icon_frag",
+        "fit": "fit",
+        "size": [
+         30,
+         36
+        ],
+        "pos": [
+         0,
+         -4
+        ]
+       },
+       {
+        "type": "label",
+        "name": "FragN",
+        "text": "2",
+        "role": "readout",
+        "textOutline": "shadow",
+        "textOutlineWidth": 1.5,
+        "size": [
+         20,
+         30
+        ],
+        "pos": [
+         34,
+         0
+        ],
+        "align": "left",
+        "textColor": "text"
+       },
+       {
+        "type": "image",
+        "name": "Flash",
+        "image": "art:field/icon_flash",
+        "fit": "fit",
+        "size": [
+         30,
+         36
+        ],
+        "pos": [
+         72,
+         -4
+        ]
+       },
+       {
+        "type": "label",
+        "name": "FlashN",
+        "text": "1",
+        "role": "readout",
+        "textOutline": "shadow",
+        "textOutlineWidth": 1.5,
+        "size": [
+         20,
+         30
+        ],
+        "pos": [
+         106,
+         0
+        ],
+        "align": "left",
+        "textColor": "text"
+       }
+      ]
+     }
+    ]
+   },
+   {
+    "type": "crosshair",
+    "name": "Cross",
+    "style": "dot",
+    "size": 7,
+    "color": "text",
+    "pos": [
+     "50%",
+     "50%"
+    ],
+    "anchor": "center"
+   },
+   {
+    "type": "hitmarker",
+    "name": "Hit",
+    "size": 26,
+    "pos": [
+     "50%",
+     "50%"
+    ],
+    "anchor": "center"
+   },
+   {
+    "type": "panel",
+    "name": "Marker",
+    "size": [
+     80,
+     60
+    ],
+    "pos": [
+     "63%",
+     "41%"
+    ],
+    "anchor": "center",
+    "children": [
+     {
+      "type": "panel",
+      "name": "Diamond",
+      "size": [
+       20,
+       20
+      ],
+      "pos": [
+       "50%",
+       10
+      ],
+      "anchor": "center",
+      "rotation": 45,
+      "color": "accent",
+      "stroke": "shadow",
+      "strokeWidth": 1,
+      "children": [
+       {
+        "type": "label",
+        "name": "A",
+        "text": "A",
+        "role": "tag",
+        "size": [
+         "100%",
+         "100%"
+        ],
+        "pos": [
+         "50%",
+         "50%"
+        ],
+        "anchor": "center",
+        "rotation": -45,
+        "align": "center",
+        "textColor": "ink"
+       }
+      ]
+     },
+     {
+      "type": "label",
+      "name": "Dist",
+      "text": "48 m",
+      "role": "readout",
+      "textOutline": "shadow",
+      "textOutlineWidth": 1.5,
+      "size": [
+       80,
+       26
+      ],
+      "pos": [
+       "50%",
+       26
+      ],
+      "anchor": "top",
+      "align": "center",
+      "textColor": "accent"
+     }
+    ]
+   },
+   {
+    "type": "panel",
+    "name": "Prompt",
+    "size": [
+     300,
+     30
+    ],
+    "pos": [
+     "50%",
+     "76%"
+    ],
+    "anchor": "center",
+    "children": [
+     {
+      "type": "panel",
+      "name": "Key",
+      "size": [
+       26,
+       26
+      ],
+      "pos": [
+       0,
+       2
+      ],
+      "color": "panel",
+      "transparency": 0.4,
+      "stroke": "text",
+      "strokeWidth": 1,
+      "strokeAlpha": 0.6,
+      "children": [
+       {
+        "type": "label",
+        "name": "K",
+        "text": "F",
+        "role": "tag",
+        "textOutline": "shadow",
+        "textOutlineWidth": 1.5,
+        "size": [
+         "100%",
+         "100%"
+        ],
+        "pos": [
+         0,
+         0
+        ],
+        "align": "center",
+        "textColor": "text"
+       }
+      ]
+     },
+     {
+      "type": "label",
+      "name": "Txt",
+      "text": "PICK UP  M67 FRAG",
+      "role": "body",
+      "textOutline": "shadow",
+      "textOutlineWidth": 1.5,
+      "size": [
+       260,
+       30
+      ],
+      "pos": [
+       38,
+       0
+      ],
+      "align": "left",
+      "textColor": "text"
+     }
+    ]
+   }
+  ]
+ }
+}

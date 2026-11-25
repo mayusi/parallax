@@ -1,0 +1,12 @@
+{
+ "lane": "sfx",
+ "about": "The sound lane's fixed questions for the parts library (P0): 5 new sounds in a brief's words (fewer than the visual lanes: sound has 2 verdicts and 3 sets; the count is stated in every eval), keywords = what a session would type into today's library search. Written before any method was run on them; labelled blind by two labellers (labels.json). Add a question only from real work, never to suit a method.",
+ "written": "2026-11-09",
+ "questions": [
+  {"id": "sfx-q01", "piece": "shotgun_blast", "brief": "shotgun blast: a sharp transient crack, a heavy low boom, the pump racking after it, a short room tail", "keywords": "shotgun blast boom pump"},
+  {"id": "sfx-q02", "piece": "magic_charge_up", "brief": "magic charge-up: a rising shimmering tone that swells, sparkles on top, ending in a bright release", "keywords": "magic charge rise shimmer"},
+  {"id": "sfx-q03", "piece": "footstep_wood", "brief": "footstep on wood: a heel thud and a creak of the plank, a light scuff", "keywords": "footstep wood creak"},
+  {"id": "sfx-q04", "piece": "ui_confirm", "brief": "UI confirm: a short bright click with a soft chime on top", "keywords": "ui confirm click chime"},
+  {"id": "sfx-q05", "piece": "distant_explosion", "brief": "distant explosion: a deep rolling boom with a long tail, debris falling after it", "keywords": "explosion distant boom rumble"}
+ ]
+}

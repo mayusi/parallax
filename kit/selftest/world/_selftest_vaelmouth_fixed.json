@@ -1,0 +1,21 @@
+{
+ "_note": "POSITIVE twin of _selftest_vaelmouth.json: the same street at the R6 sheet - 14-stud storeys (13 clear under the slab), the balcony's rails at the generator's default 3 studs. kit world check passes it.",
+ "name": "SelftestVaelmouthFixed",
+ "scale": "r6",
+ "palette": {
+  "ground": { "material": "Cobblestone", "color": [96, 92, 88] },
+  "wall": { "material": "Brick", "color": [128, 96, 80] },
+  "slab": { "material": "WoodPlanks", "color": [120, 88, 60] },
+  "spawn": { "material": "Neon", "color": [80, 220, 120] }
+ },
+ "build": [
+  { "floor": { "name": "Street", "center": [0, 0, 0], "size": [140, 100], "mat": "ground" } },
+  { "building": { "name": "House", "center": [-30, 0, -20], "size": [24, 20], "floors": 2, "floorHeight": 14, "mat": "wall", "slab": "slab", "roof": "flat",
+                  "door": { "side": "S", "width": 6, "height": 8.5 } } },
+  { "building": { "name": "Tenement", "center": [30, 0, -20], "size": [24, 20], "floors": 2, "floorHeight": 14, "mat": "wall", "slab": "slab", "roof": "flat",
+                  "door": { "side": "S", "width": 6, "height": 8 } } },
+  { "bridge": { "name": "Balcony", "from": [-17, 10], "to": [17, 10], "y": 14, "width": 6, "mat": "slab" } },
+  { "spawn": { "pos": [-10, 0, 30], "mat": "spawn" } },
+  { "spawn": { "pos": [10, 0, 30], "mat": "spawn" } }
+ ]
+}

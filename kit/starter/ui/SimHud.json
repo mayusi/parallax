@@ -1,0 +1,203 @@
+{
+ "name": "SimHud",
+ "identity": "sim",
+ "quality": "hero",
+ "focus": "Hud.Popup",
+ "kind": "hud",
+ "enabled": false,
+ "insets": "core",
+ "scale": { "phone": 0.5, "tablet": 0.7 },
+ "root": {
+  "type": "panel",
+  "name": "Hud",
+  "size": ["100%", "100%"],
+  "children": [
+
+   {
+    "type": "panel", "name": "Currencies", "pos": [36, 24], "size": [360, 160],
+    "layout": { "dir": "vertical", "gap": 16, "align": "start", "justify": "start" },
+    "motion": { "stagger": 0.08 },
+    "children": [
+     {
+      "type": "panel", "name": "Coins", "size": [330, 72], "plate": "pill_panel", "shadow": true,
+      "motion": { "enter": "bounce" },
+      "children": [
+       { "type": "image", "name": "Icon", "image": "art:sim/icon_coin", "fit": "fit", "size": [96, 96], "pos": [-26, "50%"], "anchor": "left", "z": 3,
+         "motion": { "loop": { "type": "float", "speed": 0.8 } } },
+       { "type": "counter", "name": "Value", "value": 12450, "format": "short", "role": "number", "textSize": 40, "textColor": "textDark",
+         "size": [170, 52], "pos": [78, "50%"], "anchor": "left", "align": "left" },
+       { "type": "imagebutton", "name": "Buy", "plate": "plus", "size": [58, 58], "pos": ["100%-4", "50%"], "anchor": "right",
+         "motion": { "hover": "grow", "press": "sink" } }
+      ]
+     },
+     {
+      "type": "panel", "name": "Gems", "size": [330, 72], "plate": "pill_panel", "shadow": true,
+      "motion": { "enter": "bounce" },
+      "children": [
+       { "type": "image", "name": "Icon", "image": "art:sim/icon_gem", "fit": "fit", "size": [96, 96], "pos": [-26, "50%"], "anchor": "left", "z": 3,
+         "motion": { "loop": { "type": "float", "speed": 0.7 } } },
+       { "type": "counter", "name": "Value", "value": 318, "format": "short", "role": "number", "textSize": 40, "textColor": "textDark",
+         "size": [170, 52], "pos": [78, "50%"], "anchor": "left", "align": "left" },
+       { "type": "imagebutton", "name": "Buy", "plate": "plus", "size": [58, 58], "pos": ["100%-4", "50%"], "anchor": "right",
+         "motion": { "hover": "grow", "press": "sink" } }
+      ]
+     }
+    ]
+   },
+
+   {
+    "type": "panel", "name": "Quest", "plate": "banner_focus", "shadow": true, "size": [640, 96], "pos": ["50%", 20], "anchor": "top",
+    "at": { "phone": { "size": [520, 84], "pos": ["50%", 6] } },
+    "motion": { "enter": { "type": "drop", "duration": 0.6, "ease": "back" } },
+    "children": [
+     { "type": "image", "name": "Icon", "image": "art:sim/icon_star", "fit": "fit", "size": [78, 78], "pos": [12, "50%-6"], "anchor": "left", "z": 3 },
+     { "type": "label", "name": "Title", "text": "QUEST: HATCH 3 EGGS", "role": "heading", "textSize": 30, "textColor": "text", "textOutline": "line", "textOutlineWidth": 4,
+       "size": [440, 36], "pos": [100, 8], "align": "left" },
+     { "type": "bar", "name": "Progress", "size": [380, 26], "pos": [100, 50], "value": 0.66, "fill": "accent", "track": true, "fillGloss": true, "radius": 13,
+       "motion": { "enter": { "type": "wipe", "delay": 0.5, "duration": 0.8, "ease": "sine" } } },
+     { "type": "label", "name": "Count", "text": "2 / 3", "role": "heading", "textSize": 24, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3,
+       "size": [120, 30], "pos": [494, 48], "align": "left" }
+    ]
+   },
+
+   {
+    "type": "panel", "name": "Menu", "pos": [36, 206], "size": [130, 860],
+    "at": { "phone": { "pos": [16, 92], "size": [130, 560] } },
+    "layout": { "dir": "vertical", "gap": 14, "align": "start", "justify": "start" },
+    "motion": { "stagger": 0.07 },
+    "children": [
+     { "type": "imagebutton", "name": "Shop", "plate": "bubble_good", "shadow": true, "size": [122, 122], "motion": { "enter": "bounce", "hover": "grow", "press": "sink" },
+       "children": [
+        { "type": "image", "name": "Icon", "image": "art:sim/icon_cart", "fit": "fit", "size": [84, 84], "pos": ["50%", 4], "anchor": "top" },
+        { "type": "label", "name": "Txt", "text": "SHOP", "role": "heading", "textSize": 22, "textColor": "text", "textOutline": "line", "textOutlineWidth": 4, "size": ["100%", 28], "pos": [0, "100%-6"], "anchor": "bottomleft" }
+       ] },
+     { "type": "imagebutton", "name": "Pets", "plate": "bubble_focus", "shadow": true, "size": [122, 122], "motion": { "enter": "bounce", "hover": "grow", "press": "sink" },
+       "children": [
+        { "type": "image", "name": "Icon", "image": "art:sim/icon_pet_cat", "fit": "fit", "size": [84, 84], "pos": ["50%", 4], "anchor": "top" },
+        { "type": "label", "name": "Txt", "text": "PETS", "role": "heading", "textSize": 22, "textColor": "text", "textOutline": "line", "textOutlineWidth": 4, "size": ["100%", 28], "pos": [0, "100%-6"], "anchor": "bottomleft" }
+       ] },
+     { "type": "imagebutton", "name": "Eggs", "plate": "bubble_pink", "shadow": true, "size": [122, 122], "motion": { "enter": "bounce", "hover": "grow", "press": "sink" },
+       "children": [
+        { "type": "image", "name": "Icon", "image": "art:sim/icon_egg", "fit": "fit", "size": [84, 84], "pos": ["50%", 4], "anchor": "top" },
+        { "type": "label", "name": "Txt", "text": "EGGS", "role": "heading", "textSize": 22, "textColor": "text", "textOutline": "line", "textOutlineWidth": 4, "size": ["100%", 28], "pos": [0, "100%-6"], "anchor": "bottomleft" },
+        { "type": "panel", "name": "New", "plate": "pill_danger", "size": [70, 32], "pos": ["100%-6", 4], "anchor": "center", "z": 4, "rotation": 12,
+          "motion": { "loop": { "type": "wobble", "speed": 1.2 } },
+          "children": [ { "type": "label", "name": "Txt", "text": "NEW!", "role": "heading", "textSize": 16, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": ["100%", "100%"] } ] }
+       ] },
+     { "type": "imagebutton", "name": "Rebirth", "plate": "bubble_purple", "shadow": true, "size": [122, 122], "motion": { "enter": "bounce", "hover": "grow", "press": "sink" },
+       "children": [
+        { "type": "image", "name": "Icon", "image": "art:sim/icon_rebirth", "fit": "fit", "size": [84, 84], "pos": ["50%", 4], "anchor": "top" },
+        { "type": "label", "name": "Txt", "text": "REBIRTH", "role": "heading", "textSize": 20, "textColor": "text", "textOutline": "line", "textOutlineWidth": 4, "size": ["100%", 28], "pos": [0, "100%-6"], "anchor": "bottomleft" }
+       ] },
+     { "type": "imagebutton", "name": "Codes", "plate": "bubble_accent", "shadow": true, "size": [122, 122], "motion": { "enter": "bounce", "hover": "grow", "press": "sink" },
+       "at": { "phone": { "visible": false } },
+       "children": [
+        { "type": "image", "name": "Icon", "image": "art:sim/icon_gift", "fit": "fit", "size": [84, 84], "pos": ["50%", 4], "anchor": "top" },
+        { "type": "label", "name": "Txt", "text": "CODES", "role": "heading", "textSize": 22, "textColor": "text", "textOutline": "line", "textOutlineWidth": 4, "size": ["100%", 28], "pos": [0, "100%-6"], "anchor": "bottomleft" }
+       ] },
+     { "type": "imagebutton", "name": "Settings", "plate": "bubble_panel", "shadow": true, "size": [122, 122], "motion": { "enter": "bounce", "hover": "grow", "press": "sink" },
+       "at": { "phone": { "visible": false } },
+       "children": [
+        { "type": "image", "name": "Icon", "image": "art:sim/icon_cog", "fit": "fit", "size": [84, 84], "pos": ["50%", 4], "anchor": "top" },
+        { "type": "label", "name": "Txt", "text": "SETTINGS", "role": "heading", "textSize": 18, "textColor": "textDark", "size": ["100%", 28], "pos": [0, "100%-6"], "anchor": "bottomleft" }
+       ] }
+    ]
+   },
+
+   {
+    "type": "panel", "name": "Boosts", "pos": ["100%-36", 24], "size": [280, 150], "anchor": "topright",
+    "at": { "phone": { "pos": ["100%-16", 8], "size": [280, 150] } },
+    "layout": { "dir": "vertical", "gap": 12, "align": "end", "justify": "start" },
+    "motion": { "stagger": 0.1 },
+    "children": [
+     { "type": "panel", "name": "CoinBoost", "plate": "pill_purple", "shadow": true, "size": [270, 62], "motion": { "enter": { "type": "sweep", "duration": 0.5 } },
+       "children": [
+        { "type": "image", "name": "Icon", "image": "art:sim/icon_bolt", "fit": "fit", "size": [64, 64], "pos": [-10, "50%"], "anchor": "left", "z": 3 },
+        { "type": "label", "name": "Txt", "text": "x2 COINS", "role": "heading", "textSize": 22, "textColor": "text", "textOutline": "line", "textOutlineWidth": 4, "size": [130, 28], "pos": [56, "50%"], "anchor": "left", "align": "left" },
+        { "type": "label", "name": "Time", "text": "04:59", "role": "heading", "textSize": 22, "textColor": "text", "textOutline": "line", "textOutlineWidth": 4, "size": [76, 28], "pos": ["100%-16", "50%"], "anchor": "right", "align": "right" }
+       ] },
+     { "type": "panel", "name": "LuckBoost", "plate": "pill_accent", "shadow": true, "size": [270, 62], "motion": { "enter": { "type": "sweep", "duration": 0.5 } },
+       "children": [
+        { "type": "image", "name": "Icon", "image": "art:sim/icon_clock", "fit": "fit", "size": [64, 64], "pos": [-10, "50%"], "anchor": "left", "z": 3 },
+        { "type": "label", "name": "Txt", "text": "x3 LUCK", "role": "heading", "textSize": 22, "textColor": "text", "textOutline": "line", "textOutlineWidth": 4, "size": [130, 28], "pos": [56, "50%"], "anchor": "left", "align": "left" },
+        { "type": "label", "name": "Time", "text": "12:30", "role": "heading", "textSize": 22, "textColor": "text", "textOutline": "line", "textOutlineWidth": 4, "size": [76, 28], "pos": ["100%-16", "50%"], "anchor": "right", "align": "right" }
+       ] }
+    ]
+   },
+
+   {
+    "type": "panel", "name": "Leaderboard", "plate": "bubble_panel", "shadow": true, "size": [300, 330], "pos": ["100%-36", "50%"], "anchor": "right",
+    "at": { "phone": { "visible": false } },
+    "motion": { "enter": { "type": "sweep", "delay": 0.3, "duration": 0.6 } },
+    "children": [
+     { "type": "panel", "name": "Head", "plate": "banner_accent", "shadow": true, "size": [240, 60], "pos": ["50%", -22], "anchor": "top", "z": 3,
+       "children": [
+        { "type": "image", "name": "Icon", "image": "art:sim/icon_trophy", "fit": "fit", "size": [56, 56], "pos": [6, "50%-4"], "anchor": "left", "z": 4 },
+        { "type": "label", "name": "Txt", "text": "TOP COINS", "role": "heading", "textSize": 24, "textColor": "text", "textOutline": "line", "textOutlineWidth": 4, "size": [170, 30], "pos": [64, "50%-4"], "anchor": "left", "align": "left" }
+       ] },
+     { "type": "panel", "name": "Rows", "size": ["100%-40", 250], "pos": ["50%", 56], "anchor": "top",
+       "layout": { "dir": "vertical", "gap": 4, "align": "center", "justify": "start" },
+       "children": [
+        { "type": "stat", "name": "R1", "label": "1. PlayerOne", "value": "1.2M", "valueColor": "danger", "textOutline": "line", "textColor": "textDark", "height": 42, "valueWidth": "34%", "textSize": 22 },
+        { "type": "stat", "name": "R2", "label": "2. Builderman", "value": "980K", "valueColor": "textDark", "textColor": "textDark", "height": 42, "valueWidth": "34%", "textSize": 20 },
+        { "type": "stat", "name": "R3", "label": "3. Shedletsky", "value": "754K", "valueColor": "textDark", "textColor": "textDark", "height": 42, "valueWidth": "34%", "textSize": 20 },
+        { "type": "stat", "name": "R4", "label": "4. Telamon", "value": "602K", "valueColor": "textDark", "textColor": "textDark", "height": 42, "valueWidth": "34%", "textSize": 20 },
+        { "type": "stat", "name": "R5", "label": "5. Froggo", "value": "441K", "valueColor": "textDark", "textColor": "textDark", "height": 42, "valueWidth": "34%", "textSize": 20 }
+       ] }
+    ]
+   },
+
+   {
+    "type": "panel", "name": "Rank", "size": [560, 52], "pos": ["50%", "100%-176"], "anchor": "bottom",
+    "at": { "phone": { "size": [420, 44], "pos": ["50%", "100%-126"] } },
+    "motion": { "enter": { "type": "rise", "delay": 0.4 } },
+    "children": [
+     { "type": "bar", "name": "Xp", "size": ["100%", 40], "pos": [0, "50%"], "anchor": "left", "value": 0.69, "fill": "good", "track": true, "fillGloss": true, "radius": 20,
+       "motion": { "enter": { "type": "wipe", "delay": 0.6, "duration": 0.9, "ease": "sine" } } },
+     { "type": "label", "name": "Txt", "text": "RANK 12   ·   3,450 / 5,000", "role": "heading", "textSize": 22, "textColor": "text", "textOutline": "line", "textOutlineWidth": 4, "size": ["100%", 30], "pos": ["50%", "50%"], "anchor": "center", "z": 3 },
+     { "type": "image", "name": "Crown", "image": "art:sim/icon_crown", "fit": "fit", "size": [70, 70], "pos": [-34, "50%-4"], "anchor": "left", "z": 3 }
+    ]
+   },
+
+   {
+    "type": "panel", "name": "Hotbar", "size": [680, 124], "pos": ["50%", "100%-28"], "anchor": "bottom",
+    "at": { "phone": { "size": [520, 100], "pos": ["50%", "100%-26"] } },
+    "layout": { "dir": "horizontal", "gap": 16, "align": "center", "justify": "center" },
+    "motion": { "stagger": 0.06 },
+    "children": [
+     { "type": "panel", "name": "Pet1", "plate": "bubble_accent", "shadow": true, "size": [116, 116], "motion": { "enter": "bounce", "hover": "grow" },
+       "children": [
+        { "type": "image", "name": "Icon", "image": "art:sim/icon_pet_dragon", "fit": "fit", "size": [92, 92], "pos": ["50%", "50%-6"], "anchor": "center" },
+        { "type": "panel", "name": "Lv", "plate": "pill_accent", "size": [60, 28], "pos": ["50%", "100%"], "anchor": "center", "z": 4,
+          "children": [ { "type": "label", "name": "Txt", "text": "LV 9", "role": "heading", "textSize": 16, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": ["100%", "100%"] } ] }
+       ] },
+     { "type": "panel", "name": "Pet2", "plate": "bubble_purple", "shadow": true, "size": [116, 116], "motion": { "enter": "bounce", "hover": "grow" },
+       "children": [
+        { "type": "image", "name": "Icon", "image": "art:sim/icon_pet_cat", "fit": "fit", "size": [92, 92], "pos": ["50%", "50%-6"], "anchor": "center" },
+        { "type": "panel", "name": "Lv", "plate": "pill_purple", "size": [60, 28], "pos": ["50%", "100%"], "anchor": "center", "z": 4,
+          "children": [ { "type": "label", "name": "Txt", "text": "LV 7", "role": "heading", "textSize": 16, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": ["100%", "100%"] } ] }
+       ] },
+     { "type": "panel", "name": "Pet3", "plate": "bubble_focus", "shadow": true, "size": [116, 116], "motion": { "enter": "bounce", "hover": "grow" },
+       "children": [
+        { "type": "image", "name": "Icon", "image": "art:sim/icon_pet_dog", "fit": "fit", "size": [92, 92], "pos": ["50%", "50%-6"], "anchor": "center" },
+        { "type": "panel", "name": "Lv", "plate": "pill_focus", "size": [60, 28], "pos": ["50%", "100%"], "anchor": "center", "z": 4,
+          "children": [ { "type": "label", "name": "Txt", "text": "LV 4", "role": "heading", "textSize": 16, "textColor": "text", "textOutline": "line", "textOutlineWidth": 3, "size": ["100%", "100%"] } ] }
+       ] },
+     { "type": "panel", "name": "Pet4", "plate": "bubble_panel", "shadow": true, "size": [116, 116], "motion": { "enter": "bounce" },
+       "children": [
+        { "type": "image", "name": "Icon", "image": "art:sim/icon_lock", "fit": "fit", "size": [64, 64], "pos": ["50%", "46%"], "anchor": "center" },
+        { "type": "label", "name": "Txt", "text": "LOCKED", "role": "heading", "textSize": 14, "textColor": "textDark", "size": ["100%", 20], "pos": [0, "100%-8"], "anchor": "bottomleft" }
+       ] },
+     { "type": "panel", "name": "Pet5", "plate": "bubble_panel", "shadow": true, "size": [116, 116], "motion": { "enter": "bounce" },
+       "at": { "phone": { "visible": false } },
+       "children": [
+        { "type": "imagebutton", "name": "Plus", "plate": "plus", "size": [60, 60], "pos": ["50%", "46%"], "anchor": "center", "motion": { "hover": "grow", "press": "sink" } },
+        { "type": "label", "name": "Txt", "text": "BUY SLOT", "role": "heading", "textSize": 14, "textColor": "textDark", "size": ["100%", 20], "pos": [0, "100%-8"], "anchor": "bottomleft" }
+       ] }
+    ]
+   },
+
+   {"type": "number", "name": "Popup", "pitch": 0.78, "text": "+125", "size": [240, 76], "pos": ["58%", "46%"], "anchor": "center", "rotation": -8, "motion": {"enter": {"type": "bounce", "delay": 0.9, "duration": 0.6}, "loop": {"type": "float", "speed": 1.4}}, "digits": "sim/dg_pop", "charset": "0123456789+x", "aspect": 0.8916, "align": "center"}
+  ]
+ }
+}

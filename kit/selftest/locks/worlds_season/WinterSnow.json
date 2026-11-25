@@ -1,0 +1,29 @@
+{
+ "_note": "NEGATIVE fixture for the world lane's weather lock asked of the season a world is built in (kit/lib/lanelocks.luau): as written this world has no weather; its winter brings an \"ambient\" and says nothing of whether it changes, and winter is the season built. The weather lock must name it. Never fix.",
+ "name": "WinterSnow",
+ "scale": "r6",
+ "lighting": "noon",
+ "seasons": {
+  "winter": {
+   "lighting": "frost",
+   "ambient": "snow"
+  }
+ },
+ "season": "winter",
+ "palette": {
+  "ground": {
+   "material": "Concrete",
+   "color": [96, 98, 104]
+  }
+ },
+ "build": [
+  {
+   "floor": {
+    "name": "Ground",
+    "center": [0, 0, 0],
+    "size": [120, 120],
+    "mat": "ground"
+   }
+  }
+ ]
+}

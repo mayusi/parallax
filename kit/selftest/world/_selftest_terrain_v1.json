@@ -1,0 +1,8 @@
+{
+ "_note": "NEGATIVE fixture for the terrain ROUTE gate (kit/world/worldcheck.py terrain_route): the ACTUAL SampleRegion terrain the owner rejected on 2026-10-14 (\"the quality of the terrain is horrid\"; graveyard SampleRegion_terrain_v1), its heightmap byte for byte from commit 7d4e0796 (games/SampleRegion/assets/worlds/terrain/SampleRegion.hm.json, blob 15fe278c) with the design it records beside it (terrain/_selftest_terrain_v1.design.json = that commit's SampleRegion.design.json, blob 07a4020e): a design + 90000 erosion droplets + thermal erosion, no rivers, no real elevation. kit world check must FAIL it with a 'design:' error. No spawn on purpose (the walk is not what this tests). Never fix.",
+ "name": "SelftestTerrainV1",
+ "lighting": "noon",
+ "terrain": [{ "heightmap": { "center": [0, 0, 0], "size": [1024, 1024], "source": "kit/selftest/world/terrain/_selftest_terrain_v1.hm.json",
+                              "material": "Grass", "rock": "Rock", "rockSlope": 38 } }],
+ "build": []
+}

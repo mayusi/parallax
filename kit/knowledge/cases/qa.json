@@ -1,0 +1,39 @@
+{
+  "schema": 1,
+  "lane": "qa",
+  "default_case": "qa:bug_fix_and_release",
+  "cases": [
+    {
+      "case_id": "qa:bug_fix_and_release",
+      "label": "Bug Fix, Security Audit, Performance Check, Release Sign-Off",
+      "triggers": {
+        "keywords": ["bug", "fix", "audit", "performance", "release", "sign-off", "regression", "security", "perf", "verify"],
+        "requires_both": []
+      },
+      "tier": "simple",
+      "budget_minutes": 10,
+      "required_tools_ordered": [
+        "parallax audit + parallax selftest + parallax playtest bundle/run (0 console errors + qa.perf [clientMemoryMb<=1100, highlights<=31, shadowLights<=16 in 120 st])",
+        "parallax bug (records regression in tests/regressions.json, proves specs fail with bug replanted)",
+        "parallax mutate --regressions",
+        "parallax accept for >=7 owner work"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "LOOSEN_GATE", "pattern": "loosen_failing_check_to_pass", "why": "Loosening a failing check to make it pass conceals the real defect and allows it to ship." },
+        { "id": "RETRY_FLAKY", "pattern": "retry_flaky_test_no_diagnosis", "why": "Retrying a flaky test without diagnosing the root cause means the flake will recur after ship." },
+        { "id": "NO_REGRESSION", "pattern": "close_bug_without_regression_spec", "why": "Closing a bug without a regression spec + mutation case means the bug can be reintroduced silently." },
+        { "id": "SCREEN_CAPTURE_QA", "pattern": "screen_capture_instead_of_console_json", "why": "Using screen_capture instead of console/JSON assertions is fragile and misses non-visual errors." }
+      ],
+      "mandatory_gates": ["audit==0", "selftest==0", "playtest_0_errors", "qa_perf_budget", "regression_replant_caught"],
+      "owner_stops": ["verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "audit and release with regression spec, mutation testing and perf budget check",
+        "fix a combat bug with replanted regression and 0 selftest errors before sign-off",
+        "do a security audit and performance check with parallax audit and qa.perf validation"
+      ]
+    }
+  ]
+}

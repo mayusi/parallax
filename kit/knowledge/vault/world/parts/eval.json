@@ -1,0 +1,64 @@
+{
+ "date": "2026-11-09",
+ "k": 5,
+ "n": 10,
+ "kappa": 0.284,
+ "agreement": 0.588,
+ "labellers": {
+  "a": "a fresh Opus agent (medium effort), blind",
+  "b": "a fresh Sonnet agent (high effort), blind"
+ },
+ "methods": {
+  "today": {
+   "strict": 0.1,
+   "lenient": 0.8,
+   "unjudged": 0.0,
+   "n": 10
+  },
+  "today-all": {
+   "strict": 0.6,
+   "lenient": 4.2,
+   "unjudged": 0.0,
+   "n": 10
+  },
+  "words": {
+   "strict": 1.9,
+   "lenient": 3.4,
+   "unjudged": 0.0,
+   "n": 10
+  },
+  "engine lessons": {
+   "strict": 0.8,
+   "lenient": 3.6,
+   "unjudged": 0.0,
+   "n": 10
+  },
+  "engine": {
+   "strict": 2.1,
+   "lenient": 3.8,
+   "unjudged": 0.0,
+   "n": 10
+  },
+  "engine + rerank": {
+   "strict": 2.2,
+   "lenient": 4.0,
+   "unjudged": 0.0,
+   "n": 10
+  }
+ },
+ "beats": {
+  "words": [
+   "today"
+  ],
+  "engine lessons": [
+   "today"
+  ],
+  "engine": [
+   "today"
+  ],
+  "engine + rerank": [
+   "today"
+  ]
+ },
+ "measurable": true
+}

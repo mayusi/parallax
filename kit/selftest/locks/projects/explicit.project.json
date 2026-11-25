@@ -1,0 +1,21 @@
+{
+ "name": "fixture",
+ "tree": {
+  "$className": "DataModel",
+  "Workspace": {
+   "$className": "Workspace",
+   "$properties": {
+    "StreamingEnabled": true,
+    "StreamingMinRadius": {
+     "Float32": 200
+    },
+    "StreamingIntegrityMode": {
+     "Enum": 3
+    },
+    "StreamingTargetRadius": {
+     "Int32": 2048
+    }
+   }
+  }
+ }
+}

@@ -1,0 +1,10 @@
+{
+ "_help": "Shape is documented at the top of audio/synth.py. Read the ears in .verify/sfx-<name>.json: brightness <300 boomy, 300-1200 warm, 1200-3500 bright, >3500 harsh.",
+ "duration": 0.6,
+ "variations": 1,
+ "fx": {"reverb": 0.1},
+ "layers": [
+  {"source": "noise", "color": "pink", "filter": {"type": "lowpass", "cutoff": [4000, 600]}, "env": {"attack": 0.002, "decay": 0.3, "sustain": 0.0, "release": 0.05}},
+  {"source": "sine", "freq": [220, 110], "gain": 0.6, "env": {"attack": 0.002, "decay": 0.25, "sustain": 0.0, "release": 0.05}}
+ ]
+}

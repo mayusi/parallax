@@ -1,0 +1,74 @@
+{
+ "schema": 1,
+ "since": "2026-10-16",
+ "about": "The scene-breakdown gate (mission 02-vfx 5.1): a preset may be BUILT only from a scene breakdown - it declares \"scene\": {\"set\": <refs set>, \"colours\": <measured file, default = set>} and the set has refs_measured/<set>.beats.md (a beat table with scene times), <set>.brief.md + <set>.lore.json (>= 3 facts) and measured colours from >= 4 scene frames. The presets below existed before the gate and are exempt ONLY while they declare no scene. This list is FROZEN: adding a name to it is loosening the gate (forbidden).",
+ "grandfathered": [
+  "dust_puff",
+  "starblade",
+  "hellfire_impact",
+  "hit_sparks",
+  "laser_beam",
+  "lightning_strike",
+  "missile_exhaust",
+  "muzzle_flash",
+  "orbital_strike",
+  "planetary_cannon",
+  "time_surge"
+ ],
+ "original_refs": {
+  "since": "2026-11-10",
+  "about": "An ORIGINAL (scene.original: a director brief) needs REAL frames too: scene.set names a refs set of real footage of the phenomenon (or a scene of its kind) held to a scene's breakdown - beat sheet, lore, measured colours from >= 4 real frames, the owner's chart. Why (R-vfx-5): the eight originals of 2026-10-24 had none and scored 4-6; every 8+ was built from real frames. The originals below existed before this lock and are exempt. FROZEN: adding a name is loosening the gate (forbidden).",
+  "grandfathered": [
+   "noctiluca",
+   "quenchstrike",
+   "quicksilver",
+   "sandfall",
+   "seam",
+   "sumi_seal"
+  ]
+ },
+ "scope": {
+  "since": "2026-11-11",
+  "about": "A piece built from a scene breakdown of >= 2 beats says which beats it builds (every layer's \"beat\") and either builds them ALL or is named for the beat(s) it is - never for the whole technique (the owner, 2026-11-10, flame_arc_keybeat REDO: \"you're saying Flame Arc dance, so you're saying dance, the whole thing basically\"). The pieces below existed before this and are exempt; flame_arc_keybeat is not (it is the fault). FROZEN: adding a name is loosening the gate (forbidden).",
+  "grandfathered": [
+   "nuke_v2",
+   "nuke_v3",
+   "nuke_v4"
+  ]
+ },
+ "chart_owner": {
+  "since": "2026-11-11",
+  "about": "A chart approval counts only as the owner's OWN look at that chart: approved.by \"owner\" exactly (kit vfx chart <set> --approve \"<his words>\" --by owner) or his approval in board/locks.json; and when the approval holds the plan he saw (approved.plan), the chart must still be that plan. The 2026-10-16 blanket approval was written onto charts by an agent as \"owner blanket approval 2026-10-16\" (its words: \"the owner has not looked at this chart\") and the old \"owner...\" prefix rule counted it: flame_arc was built on it and got REDO (\"Are you even using the VFX pipeline properly?\"). The pieces below were built on such charts before this lock and are exempt; flame_arc is not (it is the fault). FROZEN: adding a name is loosening the gate (forbidden).",
+  "grandfathered": []
+ },
+ "methods": {
+  "since": "2026-11-13",
+  "about": "A piece built from a scene is held to its chart's METHOD PLAN (the owner, 2026-11-13: \"every method i mentioned for each pipeline keep going up until they are all mastered and implmented into each pipeline and enforced in the terms of being used\"): every beat it builds names the methods of his list it is made with (refs_measured/<set>.chart.json: \"methods\" per beat, kit vfx methods --set <set>), a layer of that beat proves each is used (kit/vfx/methods.json), a beat whose words call for an ASK method uses it or says why not on the chart he approves, and nothing he saw there is dropped afterwards. The pieces below (every preset with a scene that existed on 2026-11-13, the kit's own fixtures among them, each by its folder and name as the gate sees it) are exempt. FROZEN: adding a name is loosening the gate (forbidden).",
+  "grandfathered": [
+   "assets/effects/nuke_v4",
+   "kit/selftest/vfx/chart_owner/preset_flame_arc",
+   "kit/selftest/vfx/chart_owner/preset_flame_arc_retimed",
+   "kit/selftest/vfx/chart_owner_good/preset_flame_arc",
+   "kit/selftest/vfx/owner_faults/flame_arc/preset",
+   "kit/selftest/vfx/owner_faults/flame_arc_keybeat/preset",
+   "kit/selftest/vfx/owner_faults/nuke_v2/preset",
+   "kit/selftest/vfx/owner_faults/nuke_v3/preset",
+   "kit/selftest/vfx/owner_faults/nuke_v4/preset",
+   "kit/selftest/vfx/owner_faults/quenchstrike/preset",
+   "kit/selftest/vfx/owner_faults/quicksilver/preset",
+   "kit/selftest/vfx/reskin/effects/asked_for",
+   "kit/selftest/vfx/scene/preset_build_frames",
+   "kit/selftest/vfx/scene/preset_half_breakdown",
+   "kit/selftest/vfx/scene/preset_model_chart",
+   "kit/selftest/vfx/scene/preset_unapproved_chart",
+   "kit/selftest/vfx/scene_original/preset_original_half",
+   "kit/selftest/vfx/scene_original/preset_original_no_refs",
+   "kit/selftest/vfx/scene_original/preset_original_unapproved",
+   "kit/selftest/vfx/scene_original_good/preset_original_ok",
+   "kit/selftest/vfx/scope/preset_flame_arc_keybeat",
+   "kit/selftest/vfx/scope/preset_flame_arc_tagged",
+   "kit/selftest/vfx/scope_good/preset_flame_arc_dance_arc",
+   "kit/starter/vfx/nuke_v4"
+  ]
+ }
+}

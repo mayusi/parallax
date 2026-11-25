@@ -1,0 +1,22 @@
+{
+ "_note": "POSITIVE twin of _selftest_primitive: same generators but all using mesh assets — no primitive-only forest/tree/rocks/building steps. kit world check must PASS the design gate.",
+ "name": "SelftestPrimitiveFixed",
+ "palette": {
+  "ground": { "material": "Concrete", "color": [96, 98, 104] },
+  "spawn":  { "material": "Neon", "color": [80, 220, 120] }
+ },
+ "build": [
+  { "floor":  { "name": "Ground", "center": [0, -1, 0], "size": [160, 160], "thickness": 2, "mat": "ground" } },
+  { "forest": { "name": "MeshForest", "center": [0, 0, 0], "area": [60, 60], "count": 3, "seed": 1,
+                "trunk": "ground", "leaves": "ground",
+                "meshes": ["tree_oak_a"] } },
+  { "tree":   { "name": "MeshTree",   "pos": [60, 0, 0], "height": 20,
+                "trunk": "ground", "leaves": "ground",
+                "mesh": "tree_oak_a" } },
+  { "rocks":  { "name": "MeshRocks",  "center": [0, 0, 60], "area": [30, 30], "count": 3, "seed": 2,
+                "size": [4, 10], "mat": "ground", "ground": true,
+                "meshes": ["rock_granite_a"] } },
+  { "spawn":  { "pos": [40, 0, 40], "mat": "spawn" } },
+  { "spawn":  { "pos": [-40, 0, 40], "mat": "spawn" } }
+ ]
+}

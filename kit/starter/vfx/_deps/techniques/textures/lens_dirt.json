@@ -1,0 +1,16 @@
+{
+  "about": "soft smudges + hexagonal bokeh specks: the lens layer's dirty lens lit by a flash (kit/vfx/lens.py)",
+  "cell": 0,
+  "engine": "fx",
+  "frames": 1,
+  "grid": 1,
+  "pack": "kit generated (lens)",
+  "post": {
+    "alpha": "coverage",
+    "border": 0,
+    "tonemap": false
+  },
+  "premultiply": false,
+  "recipe": "import",
+  "source": "__DEPS__/textures/lens_dirt.png"
+}

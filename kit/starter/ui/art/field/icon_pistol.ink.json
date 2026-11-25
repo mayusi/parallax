@@ -1,0 +1,20 @@
+{
+ "schema": 1,
+ "kind": "ink",
+ "mode": "icon",
+ "from": "build/renders/glock17_p_side.png",
+ "cutout": true,
+ "size": [
+  922,
+  647
+ ],
+ "outline_px": 4,
+ "fill_alpha": 0.2,
+ "halo": 0.55,
+ "halo_px": 6,
+ "lines": "teed",
+ "line": 0.55,
+ "line_px": 3,
+ "paper": "#f0f0f0",
+ "made": "2026-10-11T21:20:19Z"
+}

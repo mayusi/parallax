@@ -1,0 +1,30 @@
+[
+ {
+  "object": "arming sword",
+  "part": "overall",
+  "dim": "length",
+  "value": 975.0,
+  "unit": "mm",
+  "source": "https://en.wikipedia.org/wiki/Arming_sword",
+  "kind": "published",
+  "note": "middle of the infobox range; our concept measures 950 mm",
+  "quote": "Overall length avg. 90\u2013105 cm (35\u201341 in)",
+  "trust": "high",
+  "id": "fe4d5d4a",
+  "added": "2026-11-15"
+ },
+ {
+  "object": "arming sword",
+  "part": "blade",
+  "dim": "length",
+  "value": 825.0,
+  "unit": "mm",
+  "source": "https://en.wikipedia.org/wiki/Arming_sword",
+  "kind": "published",
+  "note": "",
+  "quote": "Blade length avg. 75\u201390 cm (30\u201335 in)",
+  "trust": "high",
+  "id": "eb649ddd",
+  "added": "2026-11-15"
+ }
+]

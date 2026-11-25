@@ -1,0 +1,209 @@
+{
+ "_note": "NEGATIVE fixture for the world lane's lock on rooms typed one by one (kit/lib/lanelocks.luau LaneLocks.typedRooms): six \"room\" steps, no \"dungeon\" step, and no \"dungeon\": false at the top. The lock must name it. Never fix.",
+ "name": "CellsByHand",
+ "scale": "r6",
+ "palette": {
+  "stone": {
+   "material": "Slate",
+   "color": [
+    90,
+    90,
+    90
+   ]
+  }
+ },
+ "build": [
+  {
+   "room": {
+    "name": "Cell1",
+    "center": [
+     0,
+     0,
+     0
+    ],
+    "size": [
+     16,
+     16
+    ],
+    "height": 12,
+    "thickness": 1,
+    "mat": "stone",
+    "floor": "stone",
+    "openings": [
+     {
+      "side": "E",
+      "at": 0,
+      "width": 6,
+      "height": 8.5
+     },
+     {
+      "side": "W",
+      "at": 0,
+      "width": 6,
+      "height": 8.5
+     }
+    ]
+   }
+  },
+  {
+   "room": {
+    "name": "Cell2",
+    "center": [
+     24,
+     0,
+     0
+    ],
+    "size": [
+     16,
+     16
+    ],
+    "height": 12,
+    "thickness": 1,
+    "mat": "stone",
+    "floor": "stone",
+    "openings": [
+     {
+      "side": "E",
+      "at": 0,
+      "width": 6,
+      "height": 8.5
+     },
+     {
+      "side": "W",
+      "at": 0,
+      "width": 6,
+      "height": 8.5
+     }
+    ]
+   }
+  },
+  {
+   "room": {
+    "name": "Cell3",
+    "center": [
+     48,
+     0,
+     0
+    ],
+    "size": [
+     16,
+     16
+    ],
+    "height": 12,
+    "thickness": 1,
+    "mat": "stone",
+    "floor": "stone",
+    "openings": [
+     {
+      "side": "E",
+      "at": 0,
+      "width": 6,
+      "height": 8.5
+     },
+     {
+      "side": "W",
+      "at": 0,
+      "width": 6,
+      "height": 8.5
+     }
+    ]
+   }
+  },
+  {
+   "room": {
+    "name": "Cell4",
+    "center": [
+     72,
+     0,
+     0
+    ],
+    "size": [
+     16,
+     16
+    ],
+    "height": 12,
+    "thickness": 1,
+    "mat": "stone",
+    "floor": "stone",
+    "openings": [
+     {
+      "side": "E",
+      "at": 0,
+      "width": 6,
+      "height": 8.5
+     },
+     {
+      "side": "W",
+      "at": 0,
+      "width": 6,
+      "height": 8.5
+     }
+    ]
+   }
+  },
+  {
+   "room": {
+    "name": "Cell5",
+    "center": [
+     96,
+     0,
+     0
+    ],
+    "size": [
+     16,
+     16
+    ],
+    "height": 12,
+    "thickness": 1,
+    "mat": "stone",
+    "floor": "stone",
+    "openings": [
+     {
+      "side": "E",
+      "at": 0,
+      "width": 6,
+      "height": 8.5
+     },
+     {
+      "side": "W",
+      "at": 0,
+      "width": 6,
+      "height": 8.5
+     }
+    ]
+   }
+  },
+  {
+   "room": {
+    "name": "Cell6",
+    "center": [
+     120,
+     0,
+     0
+    ],
+    "size": [
+     16,
+     16
+    ],
+    "height": 12,
+    "thickness": 1,
+    "mat": "stone",
+    "floor": "stone",
+    "openings": [
+     {
+      "side": "E",
+      "at": 0,
+      "width": 6,
+      "height": 8.5
+     },
+     {
+      "side": "W",
+      "at": 0,
+      "width": 6,
+      "height": 8.5
+     }
+    ]
+   }
+  }
+ ]
+}

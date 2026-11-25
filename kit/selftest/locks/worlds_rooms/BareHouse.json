@@ -1,0 +1,24 @@
+{
+ "_note": "NEGATIVE fixture for the world lane's ROOMS lock (kit/lib/lanelocks.luau LaneLocks.unsaidRooms): a house 30 x 34 that says neither \"rooms\": true nor \"rooms\": false. The lock must name it. Never fix.",
+ "name": "BareHouse",
+ "scale": "r6",
+ "build": [
+  {
+   "building": {
+    "name": "Hall",
+    "center": [
+     0,
+     0,
+     0
+    ],
+    "size": [
+     30,
+     34
+    ],
+    "floors": 2,
+    "mat": "wall",
+    "skin": "gh_hall"
+   }
+  }
+ ]
+}

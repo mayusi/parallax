@@ -1,0 +1,645 @@
+{
+ "lane": "anim",
+ "version": 1,
+ "drafted": "2026-11-09 (parts libraries P0): from the words the animation code and data already use - the six R6 limbs and their roles (proc_r6 JOINTS; r6_vocab WROLE: sword_arm free_arm lead_leg rear_leg; kick_leg support_leg), the gesture phases and segments (rest windup strike after; antic stroke through hold flourish settle spin), the efforts (time weight space flow), the cut / shape measures (crouch, lean, leg slide, stance split, step near hit, blade unseen) and the owner's words mapped by the plan (legs / feet / stilts -> legs; arm-only / hands -> arms; sword hidden -> blade line; slow / transition -> timing). Changed only when the replay says so.",
+ "axes": {
+  "limb": "which body part (a cell's row)",
+  "phase": "when in the move (a cell's column)",
+  "motion": "what the motion does",
+  "weapon": "the blade or gun alongside the body",
+  "timing": "holds, speed and the spacing of beats"
+ },
+ "look_fields": [
+  "pose_ref",
+  "signature_pose",
+  "style"
+ ],
+ "kinds": [
+  {
+   "id": "torso",
+   "axis": "limb",
+   "label": "torso and hips",
+   "words": [
+    "torso",
+    "hip",
+    "hips",
+    "chest",
+    "waist",
+    "spine",
+    "pelvis",
+    "trunk",
+    "upper body",
+    "torso yaw",
+    "torso lean"
+   ],
+   "siblings": [
+    "head"
+   ]
+  },
+  {
+   "id": "head",
+   "axis": "limb",
+   "label": "head",
+   "words": [
+    "head",
+    "neck",
+    "gaze",
+    "head look",
+    "eyes"
+   ],
+   "siblings": [
+    "torso"
+   ]
+  },
+  {
+   "id": "sword_arm",
+   "axis": "limb",
+   "label": "sword arm (the weapon or striking arm)",
+   "words": [
+    "sword arm",
+    "sword hand",
+    "weapon arm",
+    "blade arm",
+    "gun arm",
+    "striking arm",
+    "punching arm",
+    "kick side arm"
+   ],
+   "siblings": [
+    "free_arm",
+    "arms"
+   ]
+  },
+  {
+   "id": "free_arm",
+   "axis": "limb",
+   "label": "free arm (the off hand)",
+   "words": [
+    "free arm",
+    "free hand",
+    "off hand",
+    "off-hand",
+    "guard arm",
+    "other arm"
+   ],
+   "siblings": [
+    "sword_arm",
+    "arms"
+   ]
+  },
+  {
+   "id": "arms",
+   "axis": "limb",
+   "label": "arms and hands",
+   "words": [
+    "arm",
+    "arms",
+    "hand",
+    "hands",
+    "elbow",
+    "wrist",
+    "shoulder",
+    "fist",
+    "arm-only",
+    "arm only",
+    "robot arm",
+    "arm sink"
+   ],
+   "siblings": [
+    "sword_arm",
+    "free_arm"
+   ]
+  },
+  {
+   "id": "legs",
+   "axis": "limb",
+   "label": "legs",
+   "words": [
+    "leg",
+    "legs",
+    "knee",
+    "knees",
+    "stilts",
+    "stilt",
+    "stance split",
+    "leg angle",
+    "leg slide"
+   ],
+   "siblings": [
+    "lead_leg",
+    "support_leg",
+    "feet"
+   ]
+  },
+  {
+   "id": "lead_leg",
+   "axis": "limb",
+   "label": "striking / lead leg",
+   "words": [
+    "lead leg",
+    "front leg",
+    "kick leg",
+    "kicking leg",
+    "striking leg",
+    "lead foot",
+    "front foot"
+   ],
+   "siblings": [
+    "legs",
+    "support_leg"
+   ]
+  },
+  {
+   "id": "support_leg",
+   "axis": "limb",
+   "label": "support / rear leg",
+   "words": [
+    "support leg",
+    "rear leg",
+    "back leg",
+    "pivot leg",
+    "standing leg",
+    "support foot",
+    "back foot",
+    "rear foot",
+    "pivot foot"
+   ],
+   "siblings": [
+    "legs",
+    "lead_leg"
+   ]
+  },
+  {
+   "id": "feet",
+   "axis": "limb",
+   "label": "feet and the foot plant",
+   "words": [
+    "foot",
+    "feet",
+    "toe",
+    "toes",
+    "heel",
+    "foot plant",
+    "planted",
+    "plant",
+    "foot slide",
+    "skate",
+    "skating",
+    "sliding feet",
+    "foot schedule"
+   ],
+   "siblings": [
+    "legs",
+    "support_leg"
+   ]
+  },
+  {
+   "id": "stance",
+   "axis": "phase",
+   "label": "stance / rest",
+   "words": [
+    "rest",
+    "idle",
+    "hang",
+    "ready",
+    "neutral stance",
+    "guard stance",
+    "start pose",
+    "stance"
+   ],
+   "siblings": [
+    "settle"
+   ]
+  },
+  {
+   "id": "windup",
+   "axis": "phase",
+   "label": "wind-up (anticipation)",
+   "words": [
+    "windup",
+    "wind-up",
+    "wind up",
+    "anticipation",
+    "antic",
+    "gather",
+    "coil",
+    "chamber",
+    "load",
+    "cock",
+    "draw back",
+    "pull back"
+   ],
+   "siblings": [
+    "stance"
+   ]
+  },
+  {
+   "id": "strike",
+   "axis": "phase",
+   "label": "strike / contact",
+   "words": [
+    "strike",
+    "contact",
+    "impact",
+    "stroke",
+    "release",
+    "snap",
+    "hit frame",
+    "connect",
+    "launch",
+    "peak"
+   ],
+   "siblings": [
+    "follow_through"
+   ]
+  },
+  {
+   "id": "follow_through",
+   "axis": "phase",
+   "label": "follow-through",
+   "words": [
+    "follow-through",
+    "follow through",
+    "overshoot",
+    "carry through",
+    "after the hit"
+   ],
+   "siblings": [
+    "strike",
+    "settle"
+   ]
+  },
+  {
+   "id": "settle",
+   "axis": "phase",
+   "label": "settle / recovery",
+   "words": [
+    "settle",
+    "recovery",
+    "recover",
+    "return",
+    "finish",
+    "end pose",
+    "back to the hang",
+    "flourish",
+    "reset"
+   ],
+   "siblings": [
+    "follow_through",
+    "stance"
+   ]
+  },
+  {
+   "id": "whip",
+   "axis": "motion",
+   "label": "whip / overlap (shoulder to hand delay)",
+   "words": [
+    "whip",
+    "whip delay",
+    "lag",
+    "overlap",
+    "drag",
+    "successive",
+    "follow the shoulder",
+    "lag frames"
+   ]
+  },
+  {
+   "id": "thrust",
+   "axis": "motion",
+   "label": "thrust / lunge",
+   "words": [
+    "thrust",
+    "lunge",
+    "stab",
+    "poke",
+    "drill",
+    "pierce",
+    "jab forward"
+   ],
+   "siblings": [
+    "swing"
+   ]
+  },
+  {
+   "id": "swing",
+   "axis": "motion",
+   "label": "swing / slash arc",
+   "words": [
+    "swing",
+    "slash",
+    "cut",
+    "arc",
+    "sweep",
+    "kesa",
+    "swipe",
+    "underhip",
+    "overhead",
+    "rising cut",
+    "side cut"
+   ],
+   "siblings": [
+    "thrust"
+   ]
+  },
+  {
+   "id": "spin",
+   "axis": "motion",
+   "label": "spin / turn",
+   "words": [
+    "spin",
+    "spinning",
+    "turn",
+    "pivot",
+    "twirl",
+    "rotation",
+    "spin turns",
+    "full turn",
+    "360"
+   ],
+   "siblings": [
+    "twist"
+   ]
+  },
+  {
+   "id": "twist",
+   "axis": "motion",
+   "label": "torso twist / hip turn",
+   "words": [
+    "twist",
+    "hip turn",
+    "torso turn",
+    "torso yaw",
+    "wind the torso",
+    "counter-rotate",
+    "shoulder turn"
+   ],
+   "siblings": [
+    "spin"
+   ]
+  },
+  {
+   "id": "kick",
+   "axis": "motion",
+   "label": "kick",
+   "words": [
+    "kick",
+    "roundhouse",
+    "knee strike",
+    "stomp",
+    "kick leg",
+    "chambered kick"
+   ],
+   "siblings": [
+    "punch"
+   ]
+  },
+  {
+   "id": "punch",
+   "axis": "motion",
+   "label": "punch",
+   "words": [
+    "punch",
+    "hook",
+    "uppercut",
+    "jab",
+    "cross",
+    "fist",
+    "boxer",
+    "boxing"
+   ],
+   "siblings": [
+    "kick"
+   ]
+  },
+  {
+   "id": "step",
+   "axis": "motion",
+   "label": "step / footwork",
+   "words": [
+    "step",
+    "footwork",
+    "stride",
+    "dash",
+    "shuffle",
+    "advance",
+    "step in",
+    "step near hit",
+    "lunge step"
+   ],
+   "siblings": [
+    "locomotion"
+   ]
+  },
+  {
+   "id": "crouch",
+   "axis": "motion",
+   "label": "crouch / drop",
+   "words": [
+    "crouch",
+    "drop",
+    "squat",
+    "sink",
+    "lower the body",
+    "crouch hold",
+    "body drops"
+   ],
+   "siblings": [
+    "lean"
+   ]
+  },
+  {
+   "id": "lean",
+   "axis": "motion",
+   "label": "lean",
+   "words": [
+    "lean",
+    "tilt",
+    "bend",
+    "arch",
+    "lean forward",
+    "lean back"
+   ],
+   "siblings": [
+    "crouch"
+   ]
+  },
+  {
+   "id": "jump",
+   "axis": "motion",
+   "label": "jump / air",
+   "words": [
+    "jump",
+    "air",
+    "leap",
+    "hop",
+    "aerial",
+    "airborne",
+    "air dash",
+    "wall jump"
+   ]
+  },
+  {
+   "id": "block",
+   "axis": "motion",
+   "label": "block / parry / guard",
+   "words": [
+    "block",
+    "parry",
+    "deflect",
+    "guard up",
+    "raise the guard"
+   ]
+  },
+  {
+   "id": "hit_reaction",
+   "axis": "motion",
+   "label": "hit reaction",
+   "words": [
+    "hit reaction",
+    "reaction",
+    "stagger",
+    "knockback",
+    "flinch",
+    "recoil",
+    "knocked back",
+    "get hit"
+   ]
+  },
+  {
+   "id": "locomotion",
+   "axis": "motion",
+   "label": "locomotion (run, walk, slide)",
+   "words": [
+    "run",
+    "walk",
+    "sprint",
+    "gait",
+    "cycle",
+    "jog",
+    "wall run"
+   ],
+   "siblings": [
+    "step"
+   ]
+  },
+  {
+   "id": "blade_line",
+   "axis": "weapon",
+   "label": "blade line, tip path and edge",
+   "words": [
+    "blade",
+    "blade line",
+    "edge",
+    "tip",
+    "tip path",
+    "sword hidden",
+    "blade hidden",
+    "blade unseen",
+    "edge alignment",
+    "blade flops",
+    "flat of the blade",
+    "cut visible"
+   ],
+   "siblings": [
+    "grip"
+   ]
+  },
+  {
+   "id": "grip",
+   "axis": "weapon",
+   "label": "grip (one- or two-handed)",
+   "words": [
+    "grip",
+    "two-handed",
+    "one-handed",
+    "two handed",
+    "one handed",
+    "hilt",
+    "hold the sword",
+    "reverse grip"
+   ],
+   "siblings": [
+    "blade_line"
+   ]
+  },
+  {
+   "id": "gun",
+   "axis": "weapon",
+   "label": "gun handling",
+   "words": [
+    "gun",
+    "pistol",
+    "aim",
+    "reload",
+    "holster",
+    "muzzle",
+    "fire",
+    "shoot",
+    "trigger",
+    "dual guns",
+    "gun trick",
+    "coin"
+   ]
+  },
+  {
+   "id": "hold",
+   "axis": "timing",
+   "label": "hold / hit-stop",
+   "words": [
+    "hold",
+    "hit-stop",
+    "hitstop",
+    "hit stop",
+    "freeze",
+    "pause",
+    "linger",
+    "finish hold",
+    "statue"
+   ],
+   "siblings": [
+    "speed"
+   ]
+  },
+  {
+   "id": "speed",
+   "axis": "timing",
+   "label": "speed (sudden, slow, floaty)",
+   "words": [
+    "slow",
+    "fast",
+    "snappy",
+    "sudden",
+    "sustained",
+    "floaty",
+    "speed",
+    "tempo",
+    "too slow",
+    "sluggish",
+    "peak speed"
+   ],
+   "siblings": [
+    "spacing"
+   ]
+  },
+  {
+   "id": "spacing",
+   "axis": "timing",
+   "label": "spacing of beats and transitions",
+   "words": [
+    "spacing",
+    "rhythm",
+    "timing",
+    "transition",
+    "ease",
+    "easing",
+    "pop",
+    "seam",
+    "hit time"
+   ],
+   "siblings": [
+    "speed"
+   ]
+  }
+ ]
+}

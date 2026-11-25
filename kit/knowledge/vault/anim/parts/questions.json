@@ -1,0 +1,17 @@
+{
+ "lane": "anim",
+ "about": "The animation lane's fixed questions for the parts library (P0): new R6 moves in a brief's words, written before any method was run on them. Every method's top answers are pooled and labelled blind by two labellers (labels.json); `kit parts anim eval` scores each method on them. Add a question only from real work, never to suit a method.",
+ "written": "2026-11-09",
+ "questions": [
+  {"id": "anim-q01", "piece": "spinning_heel_kick", "brief": "spinning heel kick: the fighter turns his back, pivots on the support foot, the kicking leg whips round at head height, then lands back in stance", "keywords": "spinning heel kick pivot"},
+  {"id": "anim-q02", "piece": "spear_thrust", "brief": "two-handed spear thrust: step in on the lead foot, the rear hand drives the shaft forward to full reach, a short hold at the point, then pull back to guard", "keywords": "spear thrust lunge"},
+  {"id": "anim-q03", "piece": "shield_bash", "brief": "shield bash: brace behind a round shield on the left arm, a short step in, shove the shield forward with the shoulder, the body leans into it, recover", "keywords": "shield bash shove"},
+  {"id": "anim-q04", "piece": "hammer_slam", "brief": "two-handed hammer slam: lift the hammer high over the head in a long wind-up, crouch as it drops, the head hits the ground hard with a hit-stop, slow recovery", "keywords": "hammer overhead slam"},
+  {"id": "anim-q05", "piece": "dodge_roll", "brief": "dodge roll: drop low, a forward shoulder roll across the floor, come up on one knee, then stand, quick and low", "keywords": "dodge roll"},
+  {"id": "anim-q06", "piece": "bow_shot", "brief": "bow shot: draw the string back to the cheek, hold the aim, release, the bow arm stays still while the string hand flicks back", "keywords": "bow draw release"},
+  {"id": "anim-q07", "piece": "backflip_kick", "brief": "backflip kick: plant both feet, jump back, the legs whip over the head and one leg kicks up at the peak, land in a crouch", "keywords": "backflip kick jump"},
+  {"id": "anim-q08", "piece": "parry_riposte", "brief": "sword parry and riposte: the blade comes up across the body to block, the edge meets the hit, then a quick thrust back from the parry", "keywords": "parry block riposte"},
+  {"id": "anim-q09", "piece": "heavy_hit_stagger", "brief": "heavy hit stagger: hit in the chest, the torso snaps back, the feet stumble two steps backward, the arms flail, then the body regains balance", "keywords": "hit reaction stagger"},
+  {"id": "anim-q10", "piece": "dual_pistol_spin_reload", "brief": "dual pistol reload: spin both pistols on the trigger fingers, the empty magazines drop, slap new ones in against the hips, snap back to aim", "keywords": "dual pistol reload spin"}
+ ]
+}

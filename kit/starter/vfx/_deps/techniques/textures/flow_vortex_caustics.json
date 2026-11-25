@@ -1,0 +1,16 @@
+{
+  "about": "mask_caustics baked along a vortex flow (kit/vfx/flowbake.py: two-phase flow map, loops): play as a Loop flipbook",
+  "cell": 256,
+  "engine": "fx",
+  "frames": 16,
+  "grid": 4,
+  "pack": "kit generated (baked flow)",
+  "post": {
+    "alpha": "coverage",
+    "border": 0.03,
+    "tonemap": false
+  },
+  "premultiply": false,
+  "recipe": "import",
+  "source": "__DEPS__/textures/flow_vortex_caustics.png"
+}

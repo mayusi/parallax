@@ -1,0 +1,34 @@
+{
+ "schema": 1,
+ "name": "g2",
+ "about": "G2, the 2-fighter scene (LIMITATIONS_FIXES_V4 3.4 step 1 / 11 Phase 2: the 24-stud 2-fighter arena the player is calibrated in across the four judging skies). One 24 x 24 stud floor with a low curb, two R6 fighters face to face at sword reach: the attacker on the effect's origin (the booth's actor, -Z forward) and the victim it strikes. A preset plays here with booth.scene \"g2\"; the browser player (kit/vfx/player/player.js) and the Studio booth (kit/vfx/booth.luau) build the SAME layout from this file, so their recordings are of one scene. Effect space: x right, y up, -z forward, studs. Checked by kit/vfx/duel.py (the arena 24 studs, both fighters whole inside it and facing each other within reach, every view seeing both whole).",
+ "arena": {
+  "size": 24,
+  "center": [0, 0, -3.25],
+  "curb": { "height": 0.6, "width": 0.6 },
+  "floor": { "color": [118, 112, 104], "material": "Slate" },
+  "curbColor": [86, 80, 74]
+ },
+ "fighters": [
+  { "role": "attacker", "rig": "R6", "pos": [0, 0, 0], "face": [0, 0, -1], "colors": { "body": [38, 58, 140], "torso": [196, 200, 210], "head": [240, 214, 190] } },
+  { "role": "victim", "rig": "R6", "pos": [0, 0, -6.5], "face": [0, 0, 1], "colors": { "body": [92, 42, 38], "torso": [150, 146, 138], "head": [240, 214, 190] } }
+ ],
+ "anchors": {
+  "victim": [0, 3, -6.5],
+  "victimChest": [0, 3.5, -6.0],
+  "victimHead": [0, 4.5, -6.5],
+  "victimFeet": [0, 0.05, -6.5]
+ },
+ "views": {
+  "duel": { "pos": [17, 4.5, -3.25], "look": [0, 2.8, -3.25], "fov": 46 },
+  "hero": { "pos": [5, 6, 10], "look": [0, 3.2, -6.5], "fov": 56 },
+  "victim": { "pos": [-6, 4.5, -14], "look": [0, 3, -3], "fov": 58 },
+  "cine": {
+   "path": [
+    { "t": 0.0, "pos": [11, 4.5, 2], "look": [0, 3.2, -4], "fov": 56 },
+    { "t": 1.0, "pos": [12, 4.5, -3.25], "look": [0, 3, -3.25], "fov": 50 },
+    { "t": 2.5, "pos": [17, 5, -4], "look": [0, 2.8, -3.25], "fov": 46 }
+   ]
+  }
+ }
+}

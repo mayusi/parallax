@@ -1,0 +1,12 @@
+{
+ "name": "V7Bad",
+ "about": "selftest: the v7 layout + access gates - a flex item with no list above it, a grid given flex, a text that clips at the player's Largest text size, unreadable text contrast, a meter whose fill melts into its track (a warning)",
+ "theme": { "bg": "#101218", "text": "#f0f2f5", "dim": "#1a1c22" },
+ "root": { "type": "panel", "name": "Root", "color": "bg", "children": [
+  { "type": "panel", "name": "Loose", "size": [80, 40], "flex": "grow" },
+  { "type": "panel", "name": "Grid", "size": [400, 200], "layout": { "grid": [40, 40], "flex": "fill" } },
+  { "type": "label", "name": "Hp", "text": "HP", "textSize": 20, "size": [200, 24], "preferredText": true },
+  { "type": "label", "name": "Faint", "text": "hint", "textColor": "dim", "size": [200, 40] },
+  { "type": "bar", "name": "Meter", "size": [300, 12], "color": "bg", "fill": "dim", "value": 0.5 }
+ ] }
+}

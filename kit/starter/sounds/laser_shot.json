@@ -1,0 +1,42 @@
+{
+ "duration": 0.28,
+ "variations": 3,
+ "layers": [
+  {
+   "source": "square",
+   "freq": [
+    1800,
+    180
+   ],
+   "filter": {
+    "type": "lowpass",
+    "cutoff": [
+     6000,
+     700
+    ]
+   },
+   "env": {
+    "attack": 0.001,
+    "hold": 0.0,
+    "decay": 0.2,
+    "sustain": 0.0,
+    "release": 0.05
+   }
+  },
+  {
+   "source": "sine",
+   "freq": [
+    3600,
+    400
+   ],
+   "gain": 0.3,
+   "env": {
+    "attack": 0.001,
+    "hold": 0.0,
+    "decay": 0.1,
+    "sustain": 0.0,
+    "release": 0.05
+   }
+  }
+ ]
+}

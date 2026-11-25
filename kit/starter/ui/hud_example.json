@@ -1,0 +1,43 @@
+{
+  "name": "HudExample",
+  "enabled": false,
+  "skin": "military",
+  "root": {
+    "type": "panel",
+    "name": "Hud",
+    "size": ["100%", "100%"],
+    "children": [
+      { "type": "crosshair", "name": "Crosshair", "style": "cross", "size": 8, "gap": 6 },
+      { "type": "hitmarker", "name": "Hitmarker", "size": 12 },
+      { "type": "feed", "name": "KillFeed", "max": 5, "size": [380, 140] },
+      {
+        "type": "panel",
+        "name": "Vitals",
+        "style": "card",
+        "slot": "bottomLeft",
+        "size": [320, 92],
+        "layout": { "dir": "vertical", "gap": 6, "align": "start" },
+        "children": [
+          { "type": "label", "name": "HealthText", "text": "HEALTH 100", "role": "hint", "textColor": "muted", "size": ["100%", 18], "align": "left" },
+          { "type": "bar", "name": "Health", "size": ["100%", 14], "color": "panel2", "fillGradient": ["good", "accent"], "radius": 3, "value": 1 },
+          { "type": "bar", "name": "Armor", "size": ["100%", 8], "color": "panel2", "fill": "accent2", "radius": 3, "value": 0.6 }
+        ]
+      },
+      { "type": "ammo", "name": "Ammo", "value": 30, "reserve": 90, "pos": ["100%-24", "100%-24"], "anchor": "bottomright" },
+      {
+        "type": "panel",
+        "name": "Ability",
+        "style": "card",
+        "pos": ["100%-24", "100%-100"],
+        "anchor": "bottomright",
+        "size": [220, 84],
+        "children": [
+          { "type": "ring", "name": "Ring", "size": 52, "pos": [0, "50%"], "anchor": "left", "value": 0.35 },
+          { "type": "label", "name": "Name", "text": "GRENADE", "role": "hint", "textColor": "muted", "pos": [64, 0], "size": [120, 20], "align": "left" },
+          { "type": "keyhint", "name": "Key", "key": "G", "text": "Throw", "pos": [64, 24] }
+        ]
+      },
+      { "type": "label", "name": "Objective", "text": "CAPTURE POINT B", "role": "heading", "textColor": "text", "textOutline": "shadow", "slot": "top", "size": [420, 32], "motion": { "enter": "pop" } }
+    ]
+  }
+}

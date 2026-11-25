@@ -1,0 +1,15 @@
+[
+ {
+  "object": "town_house_door",
+  "part": "leaf",
+  "dim": "height",
+  "value": 2250.0,
+  "unit": "mm",
+  "source": "the author's town plan (2026-11-02) s1b (house door 8-8.5 studs x 0.28 m)",
+  "kind": "published",
+  "note": "",
+  "trust": "high",
+  "id": "bdbdf108",
+  "added": "2026-11-03"
+ }
+]

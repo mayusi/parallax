@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "lane": "anim",
+  "menu": [
+    {"tool": "parallax anim dossier new (Schema 2)", "when": "any new animation — measured phases and private ref frames before keying"},
+    {"tool": "parallax anim design <Set>", "when": "multi-hit combo or moveset — set design with zero-cousin distance check"},
+    {"tool": "parallax anim block <Move> --sheet", "when": "any strike or combo move — poses-first blocked before dense motion"},
+    {"tool": "60 fps KeyframeSequence (spring engine)", "when": "combat strike/combo where frame-level timing matters"},
+    {"tool": "parallax anim derive / grip_solve", "when": "weapon grip and in-hand position must be solved from the rig"},
+    {"tool": "AnimLayers upper/additive split", "when": "locomotion cycle needs a compatible combat overlay layer"},
+    {"tool": "fp_weapon builder", "when": "first-person firearm or tool animation"},
+    {"tool": "parallax anim import <file> --as <Name>", "when": "bringing in a vetted CC0/CC-BY clip for R6 retarget"},
+    {"tool": "parallax anim picks (4-12 GIFs)", "when": "owner needs to choose the best timing/feel variant"},
+    {"tool": "parallax anim play / Studio 2-client", "when": "proving replication, hit timing and blend seams in-engine"}
+  ],
+  "ladder": [
+    {"from": "pose_tween (linear interpolation)", "to": "spring engine + swing_mechanics", "when": "combat strike needs follow-through, overshoot and micro-corrects"},
+    {"from": "catalog_pose_splice", "to": "author from scratch (spring engine)", "when": "any hero combat animation — originality rule requires unique motion"},
+    {"from": "CurveAnimation_30hz", "to": "60 fps KeyframeSequence", "when": "strike requires sub-frame timing accuracy"},
+    {"from": "single_move_design", "to": "parallax anim design <Set>", "when": "building a combo string to avoid cousin animations"},
+    {"from": "unvetted_import", "to": "parallax-vet + VETLOG + parallax anim import", "when": "any external animation clip is ingested"}
+  ],
+  "floor": [
+    "dossier (Schema 2) with measured phases before any keying",
+    "blocking approval from owner before dense motion pass on strikes",
+    "in_hand gate passing before any Studio proof",
+    "Studio 2-client playtest before marking done"
+  ]
+}

@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "duration": 1,
+  "about": "selftest: a piece made after 2026-11-18 from a scene set whose timing animatic and style sheet the owner never approved - the build must REFUSE it on both stage locks (kit/cmd/content.luau stagesGate)",
+  "scene": { "set": "stage_probe" },
+  "points": { "muzzle": [0, 4, -3] },
+  "layers": [
+    { "name": "sparks", "kind": "sprite", "at": 0, "point": "muzzle", "texture": "glow", "count": 12, "lifetime": 0.4, "speed": [20, 30], "spread": [30, 30] }
+  ]
+}

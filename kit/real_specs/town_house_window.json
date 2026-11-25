@@ -1,0 +1,15 @@
+[
+ {
+  "object": "town_house_window",
+  "part": "opening",
+  "dim": "height",
+  "value": 1700.0,
+  "unit": "mm",
+  "source": "the author's town plan (2026-11-02) s1b + build/refs/gladstone_s_land/05_openverse_850579cc_f066_426d_b1de_.jpg",
+  "kind": "published",
+  "note": "derived: storey 3.3 m (s1b storey_house 11.5-13 studs) less sill 0.62 + lintel; Gladstone's Land close-up proportions",
+  "trust": "high",
+  "id": "27ce8f47",
+  "added": "2026-11-03"
+ }
+]

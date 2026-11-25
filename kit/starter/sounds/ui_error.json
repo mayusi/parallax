@@ -1,0 +1,25 @@
+{
+ "duration": 0.32,
+ "layers": [
+  {
+   "source": "square",
+   "freq": 220,
+   "repeat": [
+    2,
+    0.14
+   ],
+   "length": 0.11,
+   "filter": {
+    "type": "lowpass",
+    "cutoff": 1500
+   },
+   "env": {
+    "attack": 0.003,
+    "hold": 0.0,
+    "decay": 0.08,
+    "sustain": 0.3,
+    "release": 0.02
+   }
+  }
+ ]
+}

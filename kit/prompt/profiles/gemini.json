@@ -1,0 +1,12 @@
+{
+  "name": "gemini",
+  "kind": "orchestrator",
+  "format": "table_first",
+  "budget": 2500,
+  "section_budgets": {"context": 550, "guardrails": 550, "objective": 800, "gates": 600},
+  "order": ["context", "guardrails", "gates", "objective"],
+  "rationale": true,
+  "chain_of_thought": "keep",
+  "why": "Gemini tracks grounded file tables best with the final directive AFTER the tables, and should cite command output or file:line for every claim",
+  "banned_phrases": ["make it good", "make it nice", "make it cool", "make it better", "high quality", "amazing"]
+}

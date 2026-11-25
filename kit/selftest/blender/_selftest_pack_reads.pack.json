@@ -1,0 +1,51 @@
+{
+ "schema": 1,
+ "asset": "_selftest_pack_reads",
+ "object": {
+  "name": "a selftest slab",
+  "length_mm": 120.0,
+  "category": "prop",
+  "source": "the fixture"
+ },
+ "sizes": {
+  "slab.depth": {
+   "mm": 20.0,
+   "source": "the fixture",
+   "trust": "high",
+   "row": null
+  }
+ },
+ "colours": {
+  "slab": {
+   "srgb": [
+    0.55,
+    0.3,
+    0.2
+   ],
+   "rough": 0.62,
+   "metal": 0.0,
+   "pixels": 4000,
+   "albedo": "kit/selftest/blender/_selftest_pack_reads.albedo.npz",
+   "trace": "kit/selftest/blender/_selftest_pack_reads_photo_side.trace.json"
+  }
+ },
+ "found": {
+  "traces": {
+   "_selftest_pack_reads_photo_side": {
+    "view": "side",
+    "source": "photo",
+    "picture": null,
+    "parts": [
+     "slab"
+    ],
+    "profiles": "kit/selftest/blender/_selftest_pack_reads.profiles.json"
+   }
+  },
+  "models": {},
+  "drafts": {},
+  "albedo": [],
+  "params": null
+ },
+ "timings": [],
+ "inputs_sha": "5f37063db4e63a1a"
+}

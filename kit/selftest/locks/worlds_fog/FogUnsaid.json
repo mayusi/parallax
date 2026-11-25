@@ -1,0 +1,65 @@
+{
+ "_note": "NEGATIVE fixture for the world lane's lock on low fog (kit/lib/lanelocks.luau LaneLocks.unsaidFog): a world of hills whose weather closes the air in (fog 0.7) and says nothing of where the fog lies low. The lock must name it. Never fix.",
+ "scale": "r6",
+ "lighting": "overcast",
+ "terrain": [
+  {
+   "ground": {
+    "center": [
+     0,
+     0,
+     0
+    ],
+    "size": [
+     200,
+     200
+    ],
+    "material": "Grass",
+    "noise": {
+     "amplitude": 10,
+     "scale": 80,
+     "seed": 2
+    }
+   }
+  }
+ ],
+ "palette": {
+  "fog": {
+   "material": "SmoothPlastic",
+   "color": [
+    200,
+    206,
+    214
+   ]
+  }
+ },
+ "ambient": "rain",
+ "weather": {
+  "cycle": [
+   {
+    "ambient": "rain",
+    "minutes": 6,
+    "fog": 0.7
+   },
+   {
+    "ambient": "rain",
+    "minutes": 4,
+    "fog": 0.1
+   }
+  ],
+  "change": 40
+ },
+ "name": "FogUnsaid",
+ "build": [
+  {
+   "spawn": {
+    "pos": [
+     0,
+     12,
+     0
+    ],
+    "mat": "fog"
+   }
+  }
+ ]
+}

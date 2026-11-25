@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "lane": "vfx",
+  "menu": [
+    {"tool": "parallax vfx breakdown <set> --clip <file>", "when": "source footage exists — extracts timing, beats and camera movement"},
+    {"tool": "parallax vfx chart <set>", "when": "maps beats to methods before any build starts"},
+    {"tool": "parallax vfx animatic <set>", "when": "rough timing test before full build — owner approves pacing"},
+    {"tool": "parallax vfx methods --set <set>", "when": "selects from 104 registered methods for each beat"},
+    {"tool": "parallax vfx comp <key>", "when": "builds base overlay layers (ring, skin, blobs, map)"},
+    {"tool": "parallax vfx ink <key> --from <trace>", "when": "generates ink-style 2D art frames from traced reference"},
+    {"tool": "parallax vfx fracture", "when": "ground/solid shatter with realistic debris collision"},
+    {"tool": "parallax vfx cloth (shape: seq)", "when": "cloth banner, cape or fabric destruction simulation"},
+    {"tool": "parallax vfx dissolve <key>", "when": "runtime EditableMesh surface dissolve with flipbook"},
+    {"tool": "parallax vfx director new <name>", "when": "original effect with no source footage — director brief first"},
+    {"tool": "VfxMesh + flipbook cards (non-additive)", "when": "character aura or sustained energy field loop"}
+  ],
+  "ladder": [
+    {"from": "card_smoke (puff swarm)", "to": "parallax vfx geonodes / gpusim", "when": "smoke needs volumetric read with internal structure"},
+    {"from": "thrown_rocks", "to": "parallax vfx fracture", "when": "ground shattering needs surface-matched debris"},
+    {"from": "untextured_neon_ribbon", "to": "arc v2 (jag, ridge, twist) + Blender fx textures", "when": "slash trail needs depth and material read"},
+    {"from": "all_mesh_aura", "to": "VfxMesh + non-additive flipbook cards (~44%)", "when": "aura needs depth without blown-out bloom"},
+    {"from": "brief_only_no_frames", "to": "real phenomenon footage breakdown", "when": "original effect needs a real visual reference source"},
+    {"from": "mesh_erode_key", "to": "vfx dissolve (surface:1, flipbook)", "when": "mesh surface dissolution is needed at runtime"}
+  ],
+  "floor": [
+    "real source footage or real phenomenon reference before any build",
+    "methods plan (vfx chart) approved by owner before full build",
+    "vfx_validate3 (0 warnings) on every preset before upload",
+    "no erode key on any new MeshPart/EditableMesh preset"
+  ]
+}

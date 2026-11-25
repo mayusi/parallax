@@ -1,0 +1,43 @@
+{
+ "name": "ArcadeInRealistic",
+ "identity": "tactical",
+ "quality": "prop",
+ "kind": "hud",
+ "focus": "ArcadeInRealistic.Root.Status",
+ "root": {
+  "type": "panel",
+  "name": "Root",
+  "size": [
+   "100%",
+   "100%"
+  ],
+  "children": [
+   {
+    "type": "crosshair",
+    "name": "Reticle",
+    "style": "cross",
+    "size": 24,
+    "gap": 6,
+    "thickness": 2,
+    "slot": "center"
+   },
+   {
+    "type": "ammo",
+    "name": "Ammo",
+    "value": 30,
+    "reserve": 90,
+    "slot": "bottomRight"
+   },
+   {
+    "type": "label",
+    "name": "Status",
+    "text": "STEADY",
+    "size": [
+     160,
+     20
+    ],
+    "slot": "bottomLeft"
+   }
+  ]
+ }
+}

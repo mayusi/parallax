@@ -1,0 +1,8 @@
+{
+  "name": "qwen_edit",
+  "kind": "tool",
+  "used_by": "kit vision angle / edit (Qwen-Image-Edit)",
+  "pose": "<sks> {azimuth} {elevation} {distance}",
+  "max_changes": 1,
+  "preserve": "keep every other part, colour, material and the framing exactly as they are"
+}

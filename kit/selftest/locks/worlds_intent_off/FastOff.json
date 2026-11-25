@@ -1,0 +1,36 @@
+{
+ "_note": "Fixture for the loading-intent lock: players at 40 studs a second in a game whose project does NOT turn streaming on. The switch is the fault to name: nothing is held to the radii of a place that does not stream.",
+ "name": "FastOff",
+ "scale": "r6",
+ "streaming": {
+  "cell": 256,
+  "speed": 40
+ },
+ "palette": {
+  "ground": {
+   "material": "Concrete",
+   "color": [
+    96,
+    98,
+    104
+   ]
+  }
+ },
+ "build": [
+  {
+   "floor": {
+    "name": "Ground",
+    "center": [
+     0,
+     0,
+     0
+    ],
+    "size": [
+     600,
+     600
+    ],
+    "mat": "ground"
+   }
+  }
+ ]
+}

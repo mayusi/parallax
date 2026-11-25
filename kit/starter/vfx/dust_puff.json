@@ -1,0 +1,60 @@
+{
+ "mode": "burst",
+ "duration": 1.6,
+ "elements": [
+  {
+   "kind": "particles",
+   "texture": "dust",
+   "burst": 8,
+   "lifetime": [
+    0.8,
+    1.4
+   ],
+   "speed": [
+    3,
+    7
+   ],
+   "spread": 80,
+   "drag": 3,
+   "acceleration": [
+    0,
+    1,
+    0
+   ],
+   "size": [
+    [
+     0,
+     1.5
+    ],
+    [
+     1,
+     4
+    ]
+   ],
+   "transparency": [
+    [
+     0,
+     0.4
+    ],
+    [
+     1,
+     1
+    ]
+   ],
+   "color": [
+    170,
+    155,
+    135
+   ],
+   "lightInfluence": 1,
+   "rotation": [
+    0,
+    360
+   ],
+   "rotSpeed": [
+    -15,
+    15
+   ]
+  }
+ ]
+}

@@ -1,0 +1,10 @@
+{
+ "name": "CombatGood",
+ "about": "selftest control: the same pieces done right - a marker that keeps its whole pin on screen, a ladder with real rungs, a 4.5 s kill window and three banners, a compare tooltip the player can drag",
+ "theme": { "bg": "#101218", "text": "#f0f2f5", "accent": "#e8b04a" },
+ "root": { "type": "panel", "name": "Root", "children": [
+  { "type": "marker", "name": "Objective", "size": 44, "margin": 56 },
+  { "type": "ladder", "name": "Streak", "rungs": ["Double", "Triple", "Overkill"], "killWindow": 4.5, "max": 3 },
+  { "type": "tooltip", "name": "Compare", "drag": true }
+ ] }
+}

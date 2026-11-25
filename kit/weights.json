@@ -1,0 +1,68 @@
+{
+  "weights": {
+    "silhouette": 0.5,
+    "detail": 12.7,
+    "empty": 6.3,
+    "variety": 14.3,
+    "geometry": 14.7,
+    "materials": 6.9,
+    "surface": 16.5,
+    "texture": 18.2
+  },
+  "lam": 3.0,
+  "grades": 21,
+  "loo": {
+    "spearman": 0.496,
+    "pairs": 0.7,
+    "pass_agree": 0.714,
+    "mae": 18.0
+  },
+  "loo_hand": {
+    "spearman": 0.314,
+    "pairs": 0.75,
+    "pass_agree": 0.571,
+    "mae": 18.6
+  },
+  "tests_vs_hand": {
+    "pairs": {
+      "wins_a": 0,
+      "wins_b": 1,
+      "p_better": 1.0,
+      "p_worse": 0.5
+    },
+    "pass_agree": {
+      "wins_a": 3,
+      "wins_b": 0,
+      "p_better": 0.125,
+      "p_worse": 1.0
+    },
+    "rank": {
+      "diff": 0.182,
+      "p_better": 0.0775,
+      "p_worse": 0.9235
+    }
+  },
+  "fitted_on": [
+    "Parallax/grading/g_blaster_agent@2026-10-06T00:00:00Z",
+    "Parallax/grading/g_blaster_greebled@2026-10-06T00:00:00Z",
+    "Parallax/grading/g_blaster_mine@2026-10-06T00:00:00Z",
+    "Parallax/grading/g_blaster_old@2026-10-06T00:00:00Z",
+    "Parallax/grading/g_crate_agent@2026-10-06T00:00:00Z",
+    "Parallax/grading/g_crate_flat@2026-10-06T00:00:00Z",
+    "Parallax/grading/g_crate_mine@2026-10-06T00:00:00Z",
+    "Parallax/grading/g_lamp_post_now@2026-10-06T00:00:00Z",
+    "Parallax/grading/g_lamp_post_old@2026-10-06T00:00:00Z",
+    "Parallax/grading/g_sword_greebled@2026-10-06T00:00:00Z",
+    "Parallax/grading/g_sword_now@2026-10-06T00:00:00Z",
+    "Parallax/grading/g_sword_old@2026-10-06T00:00:00Z",
+    "Parallax/grading/g_treasure_chest_agent@2026-10-06T00:00:00Z",
+    "Parallax/grading/g_treasure_chest_flat@2026-10-06T00:00:00Z",
+    "Parallax/grading/g_treasure_chest_mine@2026-10-06T00:00:00Z",
+    "Parallax/grading/g_treasure_chest_old@2026-10-06T00:00:00Z",
+    "sample_game/barrett_m107@2026-10-06T00:00:00Z",
+    "sample_game/barrett_m82@2026-10-06T00:00:00Z",
+    "sample_game/orbital_sniper@2026-10-06T00:00:00Z",
+    "sample_game/seeker_pistol@2026-10-06T00:00:00Z",
+    "sample_game/seeker_weartest@2026-10-06T00:00:00Z"
+  ]
+}

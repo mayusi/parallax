@@ -1,0 +1,758 @@
+-- ChamberHud.luau - Sample Game's in-game HUD, round 2: rendered pieces in the start screen's make (blued steel, brass,
+-- crimson enamel, satin Cinzel caps). Round 3 (the owner, 2026-10-27): every gauge grouped bottom-left, the Q chip
+-- replaced by a weapon selector. Every picture in Config.Chamber.Hud (Parallax
+-- games/SampleGame/assets/ui/art/chamber: hud_specs.py / hud_render.py / hud_draw.py, ids by hud_config.py).
+--   bottom-left   one group (round 4, the owner 2026-10-28: "rework the health UI", no revolver): cartridge belts
+--                 holding the ammo panel's own .45s. VITALITY = an oxblood belt of 12 rounds (a round is 1/12 of
+--                 the health: damage pops them out of their loops, healing slides them back, low health flickers
+--                 them red). Round 5 (the owner: DT and guard "their own look, not just bullets"): SPIN DRILL =
+--                 a bar of black obsidian, two devil horns and a heart-stone at its head, its jagged crack filling
+--                 with molten light as the gauge charges, the whole crack burning while it's on; with the sword out
+--                 the two rise and the GUARD comes in under them: Greatsword itself, flat, its blade lit from the hilt
+--                 toward the tip by the guard left (dark beyond, crimson on a break), ROYAL RELEASE = the skull hilt
+--                 heating as it stores (hot from 20). The STYLE RANK: its brass letter at the gauges' left, its name
+--                 above them.
+--   bottom-right  the weapon selector: the weapon in hand as its own render (Onyx + Pearl crossed / Greatsword), lit,
+--                 its name under it; the other one small and dark beside it with Q before it. Under that the count
+--                 and each gun's own six rounds (the shared magazine split by the hand that fired), RELOADING /
+--                 EMPTY, the gunslinger chip
+--   top-centre    the duel score; the MATCH banner (DuelService's MatchState) stamped on a crimson-edged band
+-- ChamberHud.letters(parent, text, cap, colour, align) sets live words from the one glyph sheet (KillFeed,
+-- DamageNumbers and DeathCamera use it too). Feeds: Humanoid health, the player's attributes (Guard, GuardBroken,
+-- Release, Weapon, DTGauge, DTActive, StyleRank, StylePoints), WeaponSystem.currentAmmo / reserveAmmo / state /
+-- handFireTime.
+
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local TweenService = game:GetService("TweenService")
+
+local MenuConfig = require(ReplicatedStorage:WaitForChild("MainMenu"):WaitForChild("Config"))
+local C = MenuConfig.Chamber
+local H = C.Hud
+
+local BONE = C.Text
+local BRASS_TINT = Color3.fromRGB(255, 214, 150)   -- the steel glyphs warmed to brass (ImageColor3 multiplies)
+local CRIMSON_TINT = Color3.fromRGB(255, 70, 70)
+local MUTED = Color3.fromRGB(150, 150, 158)
+local RANKS = { -- StyleService's table: the least points for each rank
+	{ "D", 0 }, { "C", 100 }, { "B", 250 }, { "A", 450 }, { "S", 700 }, { "SS", 1000 }, { "SSS", 1400 },
+}
+local RANK_AT = {}
+for i, r in RANKS do
+	RANK_AT[r[1]] = i
+end
+local ROW = 126   -- design px between two belts' straps
+local RELEASE_MIN = 20
+
+local function tween(o, t, props, style, dir)
+	local tw = TweenService:Create(o, TweenInfo.new(t, style or Enum.EasingStyle.Quad, dir or Enum.EasingDirection.Out), props)
+	tw:Play()
+	return tw
+end
+
+local function new(class, props, parent)
+	local o = Instance.new(class)
+	for k, v in props do
+		o[k] = v
+	end
+	o.Parent = parent
+	return o
+end
+
+local ChamberHud = {}
+ChamberHud.__index = ChamberHud
+
+-- ===== LETTERS: live words from the glyph sheet =====
+-- a Frame sized to the word (cap = the cap height in px), one ImageLabel per glyph on one baseline; :set(text) re-sets
+-- it, :fade(alpha) sets every glyph's transparency, :tint(colour). align: 0 left (default), 0.5 centre, 1 right of the
+-- frame's Position (it is the AnchorPoint's X).
+local Letters = {}
+Letters.__index = Letters
+
+function ChamberHud.letters(parent, text, cap, colour, align)
+	local self = setmetatable({}, Letters)
+	self.cap = cap
+	self.colour = colour or BONE
+	self.alpha = 0
+	self.frame = new("Frame", { Name = "Letters", BackgroundTransparency = 1, AnchorPoint = Vector2.new(align or 0, 0) }, parent)
+	self:set(text)
+	return self
+end
+
+function Letters:set(text)
+	text = string.upper(tostring(text or ""))
+	if text == self.text then return self end
+	self.text = text
+	for _, k in self.frame:GetChildren() do
+		if k:IsA("ImageLabel") then -- the glyphs only: a caller's UIScale (the count's pop) lives here too
+			k:Destroy()
+		end
+	end
+	local G = H.Glyphs
+	local s = self.cap / G.Cap
+	local track = self.cap * 0.1
+	local x = 0
+	for i = 1, #text do
+		local ch = string.sub(text, i, i)
+		local g = G.Map[ch]
+		if g then
+			new("ImageLabel", { Name = "G" .. i, BackgroundTransparency = 1, Image = G.Image,
+				ImageRectOffset = Vector2.new(g[1], g[2]), ImageRectSize = Vector2.new(g[3], G.H),
+				Position = UDim2.fromOffset(math.floor(x + 0.5), 0), Size = UDim2.fromOffset(math.floor(g[3] * s + 0.5), math.floor(G.H * s + 0.5)),
+				ImageColor3 = self.colour, ImageTransparency = self.alpha }, self.frame)
+			x += g[3] * s + track
+		else
+			x += self.cap * 0.42 -- a space (or a mark the sheet does not have)
+		end
+	end
+	self.width = math.max(0, x - track)
+	self.frame.Size = UDim2.fromOffset(math.floor(self.width + 0.5), math.floor(G.H * s + 0.5))
+	return self
+end
+
+function Letters:fade(alpha)
+	self.alpha = alpha
+	-- (the glyphs only: the frame also holds a UIScale, and setting ImageTransparency on it threw every frame and
+	-- aborted the controller's render step while a damage number was up - governor fix 2026-10-27)
+	for _, k in self.frame:GetChildren() do
+		if k:IsA("ImageLabel") or k:IsA("ImageButton") then
+			k.ImageTransparency = alpha
+		end
+	end
+end
+
+function Letters:tint(colour)
+	if colour == self.colour then return end
+	self.colour = colour
+	for _, k in self.frame:GetChildren() do
+		if k:IsA("ImageLabel") or k:IsA("ImageButton") then
+			k.ImageColor3 = colour
+		end
+	end
+end
+
+-- the cap line's top inside a letters frame of this cap (to line words of different caps up on one baseline)
+function ChamberHud.capTop(cap)
+	return (H.Glyphs.Base - H.Glyphs.Cap) * cap / H.Glyphs.Cap
+end
+
+-- ===== the HUD =====
+
+function ChamberHud.new(config)
+	local self = setmetatable({}, ChamberHud)
+	self.config = config
+	self.magSize = config.Weapon and config.Weapon.MagazineSize or 12
+	self._hp, self._hpGhost = 1, 1
+	self._shownAmmo = -1
+	self._pulse = 0
+	self._breakT = 0
+	self._rankIndex = 0
+	self._sword = false
+	self._hand = { L = 0, R = 0 }
+	self._split = { L = 0, R = 0 }
+	return self
+end
+
+-- a belt: the rendered strap with its loops (Config.Chamber.Hud.Belt.Plates.<kind>) and a round picture standing in
+-- every loop (the round sprite is cut where the loop's front covers it, so it sits IN the loop)
+local function buildBelt(parent, name, plate, kind, slotAt)
+	local B = H.Belt
+	local K = B.K
+	local s1 = plate.Slots[1]
+	local img = new("ImageLabel", { Name = name, BackgroundTransparency = 1, Image = plate.Image, ZIndex = 2,
+		Position = UDim2.fromOffset(slotAt.X - s1[1] * K, slotAt.Y - s1[2] * K), Size = UDim2.fromOffset(plate.Size[1] * K, plate.Size[2] * K) }, parent)
+	local r = B.Rounds[kind]
+	local slots = {}
+	for i, at in plate.Slots do
+		local home = UDim2.fromOffset((at[1] - r.Anchor[1]) * K, (at[2] - r.Anchor[2]) * K)
+		slots[i] = { home = home, shown = nil, kind = kind,
+			img = new("ImageLabel", { Name = "Round" .. i, BackgroundTransparency = 1, Image = r.Image, ZIndex = 3, Position = home,
+				Size = UDim2.fromOffset(r.Size[1] * K, r.Size[2] * K) }, img) }
+	end
+	return { plate = img, slots = slots, right = img.Position.X.Offset + img.Size.X.Offset }
+end
+
+-- the first `count` loops hold a round: a round leaving flips up out of its loop (the ammo stacks' spend), one coming
+-- back drops in; `kind` swaps the picture (copper / hot / steel), `tint` multiplies it
+local function setBelt(belt, count, kind, tint)
+	local art = H.Belt.Rounds[kind].Image
+	for i, sl in belt.slots do
+		local want = i <= count
+		local o = sl.img
+		if sl.kind ~= kind then
+			sl.kind = kind
+			o.Image = art
+		end
+		o.ImageColor3 = tint
+		if sl.shown == nil then
+			-- the first look: as it is, no motion
+			sl.shown = want
+			o.ImageTransparency = if want then 0 else 1
+		elseif want ~= sl.shown then
+			sl.shown = want
+			if want then
+				o.Rotation = 0
+				o.Position = sl.home - UDim2.fromOffset(0, 22)
+				o.ImageTransparency = 0
+				tween(o, 0.16, { Position = sl.home }, Enum.EasingStyle.Back)
+			else
+				o.Position = sl.home
+				o.Rotation = 0
+				tween(o, 0.3, { Position = sl.home + UDim2.fromOffset(14, -46), Rotation = 38, ImageTransparency = 1 })
+			end
+		end
+	end
+end
+
+-- a soft dark falloff behind a bottom corner, so the HUD reads on a bright floor: darkest in the screen's corner,
+-- fading up and inwards (a CanvasGroup's vertical fade over a frame's horizontal one)
+local function shade(parent, pos, size, darkAtLeft)
+	local g = new("CanvasGroup", { Name = "Shade", BackgroundTransparency = 1, Position = pos, Size = size, ZIndex = 0 }, parent)
+	new("UIGradient", { Rotation = 90, Transparency = NumberSequence.new({
+		NumberSequenceKeypoint.new(0, 1), NumberSequenceKeypoint.new(0.4, 0.3), NumberSequenceKeypoint.new(1, 0) }) }, g)
+	local f = new("Frame", { BackgroundColor3 = Color3.new(0, 0, 0), BorderSizePixel = 0, Size = UDim2.fromScale(1, 1) }, g)
+	new("UIGradient", { Rotation = if darkAtLeft then 0 else 180, Transparency = NumberSequence.new({
+		NumberSequenceKeypoint.new(0, 0.2), NumberSequenceKeypoint.new(0.55, 0.6), NumberSequenceKeypoint.new(1, 1) }) }, f)
+	return g
+end
+
+function ChamberHud:create()
+	local playerGui = Players.LocalPlayer:WaitForChild("PlayerGui")
+	local gui = new("ScreenGui", { Name = "ChamberHud", ResetOnSpawn = false, IgnoreGuiInset = true, DisplayOrder = 5,
+		ZIndexBehavior = Enum.ZIndexBehavior.Sibling, ScreenInsets = Enum.ScreenInsets.DeviceSafeInsets }, playerGui)
+	self.gui = gui
+	-- each corner block: its frame, its UIScale and where its ink sits inside the frame (design px from the frame's
+	-- edges on the anchored side) - rescale() puts the INK, not the frame, one margin from the screen's edges
+	self.corners = {}
+	local function corner(name, anchor, size, inset)
+		local f = new("Frame", { Name = name, BackgroundTransparency = 1, AnchorPoint = anchor, Size = UDim2.fromOffset(size.X, size.Y) }, gui)
+		table.insert(self.corners, { frame = f, scale = new("UIScale", { Scale = 1 }, f), anchor = anchor, inset = inset })
+		return f
+	end
+
+	-- VITALS + STYLE: one group, bottom-left (the owner, 2026-10-27: "put them all down left"; 2026-10-28: the
+	-- cartridge belts, no revolver). The upper part (rank, name, vitality, Spin Drill) rises one row when the
+	-- sword comes out and the guard belt takes its place at the bottom.
+	local VW, VH = 1060, 470   -- wide enough that the guard row (a CanvasGroup: it clips) holds its label; tall enough
+	-- for the name over the vitality rounds when the sword raises them
+	-- ink: the vitality belt's plate starts 141 in (the rank letter sits above it now), the Spin Drill bar's ink
+	-- (and the guard blade's) ends ~6 above the bottom
+	local vit = corner("Vitals", Vector2.new(0, 1), Vector2.new(VW, VH), Vector2.new(141, 6))
+	self.vitals = vit
+	shade(vit, UDim2.fromOffset(-140, 0), UDim2.fromOffset(VW + 140, VH + 120), true)   -- past the screen edges at any scale
+	local B = H.Belt
+	local BX = 192                       -- the belts' first loop (clear of the rank letter)
+	local dtY = VH - 50                  -- the Spin Drill bar's middle (guns out)
+	local vitY = dtY - 150               -- the vitality strap's middle: room for the horns between them
+	local upper = new("Frame", { Name = "Upper", BackgroundTransparency = 1, Size = UDim2.fromScale(1, 1) }, vit)
+	self.upper = upper
+	self.vitBelt = buildBelt(upper, "Vitality", B.Plates.Vit, "Copper", Vector2.new(BX, vitY))
+	-- SPIN DRILL: the cold bar, and the burning one over it in a clip as wide as the gauge
+	local D = H.Dt
+	local KD = 0.29
+	local dtW, dtH = D.Size[1] * KD, D.Size[2] * KD
+	local dtX = BX - 26
+	self.dtCold = new("ImageLabel", { Name = "SpinDrill", BackgroundTransparency = 1, Image = D.Cold, ZIndex = 2,
+		Position = UDim2.fromOffset(dtX, dtY - D.Mid * KD), Size = UDim2.fromOffset(dtW, dtH) }, upper)
+	self.dtClip = new("Frame", { Name = "Fill", BackgroundTransparency = 1, ClipsDescendants = true, ZIndex = 3,
+		Size = UDim2.fromOffset(0, dtH) }, self.dtCold)
+	self.dtHot = new("ImageLabel", { Name = "Hot", BackgroundTransparency = 1, Image = D.Hot, ZIndex = 3,
+		Size = UDim2.fromOffset(dtW, dtH) }, self.dtClip)
+	self.dtGeom = { w = dtW, x0 = D.Crack[1] * KD, x1 = D.Crack[2] * KD }
+	self._dtFill = 0
+	local function label(parent, text, belt, y)
+		local l = ChamberHud.letters(parent, text, 16, MUTED, 0)
+		l.frame.Position = UDim2.fromOffset(belt.right + 12, y - 8 - ChamberHud.capTop(16))
+		return l
+	end
+	label(upper, "VITALITY", self.vitBelt, vitY)
+	label(upper, "SPIN DRILL", { right = dtX + D.Crack[2] * KD + 40 }, dtY)
+	-- the guard row: under them, in at the sword
+	self.guardRow = new("CanvasGroup", { Name = "Guard", BackgroundTransparency = 1, Size = UDim2.fromScale(1, 1), GroupTransparency = 1, Visible = false }, vit)
+	-- GUARD: Greatsword flat (the selector's own picture), dark, the lit copy over it in a clip from the hilt; Royal
+	-- Release: the skull hilt's heat over both
+	local Rb = H.Greatsword
+	local KG = 0.62
+	local gw, gh = Rb.Size[1] * KG, Rb.Size[2] * KG
+	local guardY = VH - 56   -- the blade's ink ends where the Spin Drill bar's does (one margin up)
+	local gPos = UDim2.fromOffset(BX - 8 - Rb.Ink[1] * KG, guardY - (Rb.Ink[2] + Rb.Ink[4] / 2) * KG)
+	self.guardDark = new("ImageLabel", { Name = "Greatsword", BackgroundTransparency = 1, Image = Rb.Image, ZIndex = 2,
+		ImageColor3 = Color3.fromRGB(56, 56, 62), Position = gPos, Size = UDim2.fromOffset(gw, gh) }, self.guardRow)
+	self.guardClip = new("Frame", { Name = "Lit", BackgroundTransparency = 1, ClipsDescendants = true, ZIndex = 3,
+		Size = UDim2.fromOffset(gw, gh) }, self.guardDark)
+	self.guardLit = new("ImageLabel", { Name = "Steel", BackgroundTransparency = 1, Image = Rb.Image, ZIndex = 3,
+		Size = UDim2.fromOffset(gw, gh) }, self.guardClip)
+	self.guardHeat = new("ImageLabel", { Name = "Heat", BackgroundTransparency = 1, Image = H.Guard.Heat, ZIndex = 4,
+		ImageTransparency = 1, Size = UDim2.fromOffset(gw, gh) }, self.guardDark)
+	self.guardGeom = { b0 = H.Guard.Blade[1] * KG, b1 = H.Guard.Blade[2] * KG }
+	self._guardFill = self.guardGeom.b1
+	label(self.guardRow, "GUARD", { right = gPos.X.Offset + (Rb.Ink[1] + Rb.Ink[3]) * KG }, guardY)
+	-- the rank (R2, 10-28: the block hugs the corner): its letter over the vitality belt's left end, its name beside
+	-- it, both above the rounds - no empty slot left of the gauges while there is no rank
+	self.styleFrame = vit
+	self.styleFade = new("CanvasGroup", { Name = "Style", BackgroundTransparency = 1, Size = UDim2.fromScale(1, 1), GroupTransparency = 1, ZIndex = 4 }, upper)
+	self.rankAt = Vector2.new(224, vitY - B.Rounds.Copper.Anchor[2] * B.K - 78)
+	local above = B.Rounds.Copper.Anchor[2] * B.K   -- a round's top above its strap's middle
+	self.nameAt = Vector2.new(BX - B.Plates.Vit.Slots[1][1] * B.K + 236, vitY - above - 8)
+	-- the letters: one big, and two small ones for SS / SSS stepping down-right off it (the character-action ligature, in brass)
+	self.letterMain = new("ImageLabel", { Name = "Rank", BackgroundTransparency = 1, AnchorPoint = Vector2.new(0.5, 0.5), ZIndex = 5,
+		Position = UDim2.fromOffset(self.rankAt.X, self.rankAt.Y), Size = UDim2.fromOffset(170, 170) }, self.styleFade)
+	self.letterScale = new("UIScale", { Scale = 1 }, self.letterMain)
+	self.letterSmall = {}
+	for i = 1, 2 do
+		self.letterSmall[i] = new("ImageLabel", { Name = "Rank" .. (i + 1), BackgroundTransparency = 1, AnchorPoint = Vector2.new(0.5, 0.5), ZIndex = 6 - i,
+			Image = H.Ranks.S.Image, Visible = false, Size = UDim2.fromOffset(86, 86) }, self.styleFade)
+	end
+	self.rankName = new("ImageLabel", { Name = "RankName", BackgroundTransparency = 1, ZIndex = 5, Size = UDim2.fromOffset(400, 40) }, self.styleFade)
+	self._shownRank = nil
+
+	-- ARMS + AMMO (bottom-right). On top, the weapon selector: the weapon in hand as its own render, big and lit, its
+	-- name under it; the other one small and dark beside it with Q stamped before it (the swap key, read as "Q = that")
+	local W = 560
+	-- ink: the weapon picture's ink ends at the right edge; the ONYX / PEARL tags' ink ~33 above the bottom (with
+	-- the sword out, the BLOCK / RELEASE lines' ~132: setWeapon swaps it, the block drops to the same margin)
+	local arms = corner("Ammo", Vector2.new(1, 1), Vector2.new(W, 400), Vector2.new(0, 33))
+	self.ammoCorner = self.corners[#self.corners]
+	self.ammoFrame = arms
+	self.armsW = W
+	shade(arms, UDim2.fromOffset(-120, 0), UDim2.fromOffset(W + 260, 520), false)
+	self.armsPic = {
+		guns = new("ImageLabel", { Name = "EbonyIvory", BackgroundTransparency = 1, Image = H.Crest.Image, ZIndex = 2 }, arms),
+		sword = new("ImageLabel", { Name = "Greatsword", BackgroundTransparency = 1, Image = H.Greatsword.Image, ZIndex = 2 }, arms),
+	}
+	self.armsKey = ChamberHud.letters(arms, "Q", 24, BONE, 1)
+	self.weaponName = ChamberHud.letters(arms, "ONYX & PEARL", 20, BONE, 1)
+	self.weaponName.frame.Position = UDim2.fromOffset(W, 130 - ChamberHud.capTop(20))
+	self:_arms(false, true)
+	local ammo = new("Frame", { Name = "Body", BackgroundTransparency = 1, Position = UDim2.fromOffset(0, 150), Size = UDim2.fromOffset(W, 250) }, arms)
+	-- each gun's six rounds, lying in a stack: Onyx's left (pointing left), Pearl's right
+	self.mags = {}
+	local per = math.ceil(self.magSize / 2)
+	for _, hand in { "L", "R" } do
+		local x = if hand == "L" then W - 210 else W - 96
+		local col = new("Frame", { Name = if hand == "L" then "Onyx" else "Pearl", BackgroundTransparency = 1,
+			Position = UDim2.fromOffset(x, 46), Size = UDim2.fromOffset(96, 180) }, ammo)
+		local rounds = {}
+		for i = 1, per do
+			-- the top round fires first: round 1 is the top of the stack
+			local home = UDim2.fromOffset(48, 14 + (i - 1) * 22)
+			local r = new("ImageLabel", { Name = "Round" .. i, BackgroundTransparency = 1, Image = C.Round, AnchorPoint = Vector2.new(0.5, 0.5),
+				Position = home, Size = UDim2.fromOffset(84, 34), Rotation = if hand == "L" then 180 else 0, ZIndex = 2 + i }, col)
+			rounds[i] = { img = r, home = home, rot = r.Rotation }
+		end
+		local tag = ChamberHud.letters(col, if hand == "L" then "ONYX" else "PEARL", 17, MUTED, 0.5)
+		tag.frame.Position = UDim2.fromOffset(48, 14 + per * 22 - 2)
+		self.mags[hand] = { col = col, rounds = rounds, shown = per }
+	end
+	-- the count (brass), the reserve, the status, the gunslinger chip: a column right-aligned left of the stacks
+	local cx = W - 228
+	self.status = ChamberHud.letters(ammo, "", 20, CRIMSON_TINT, 1)
+	self.status.frame.Position = UDim2.fromOffset(cx, 46)
+	self.count = ChamberHud.letters(ammo, tostring(self.magSize), 64, BRASS_TINT, 1)
+	self.count.frame.Position = UDim2.fromOffset(cx, 76)
+	self.countScale = new("UIScale", { Scale = 1 }, self.count.frame)
+	self.reserve = ChamberHud.letters(ammo, "", 18, C.Gold, 1)
+	self.reserve.frame.Position = UDim2.fromOffset(cx, 164)
+	self.gsChip = ChamberHud.letters(ammo, "", 18, C.Gold, 1)
+	self.gsChip.frame.Position = UDim2.fromOffset(cx, 196)
+	-- the sword's lines: in the stacks' place
+	self.swordLine = ChamberHud.letters(ammo, "BLOCK  -  RMB", 20, BONE, 1)
+	self.swordLine.frame.Position = UDim2.fromOffset(W, 60)
+	self.swordLine.frame.Visible = false
+	self.releaseLine = ChamberHud.letters(ammo, "", 20, C.Gold, 1)
+	self.releaseLine.frame.Position = UDim2.fromOffset(W, 92)
+	self.releaseLine.frame.Visible = false
+
+	-- SCORE + BANNER (top-centre)
+	local top = corner("Match", Vector2.new(0.5, 0), Vector2.new(1100, 300), Vector2.new(0, 0))
+	self.scoreRound = ChamberHud.letters(top, "", 20, C.Gold, 0.5)
+	self.scoreRound.frame.Position = UDim2.fromOffset(550, 2)
+	self.scoreLine = new("TextLabel", { Name = "Score", AnchorPoint = Vector2.new(0.5, 0), Position = UDim2.fromOffset(550, 32), Size = UDim2.fromOffset(1000, 26),
+		BackgroundTransparency = 1, Text = "", Font = Enum.Font.JosefinSans, TextSize = 22, TextColor3 = BONE, RichText = true,
+		TextStrokeTransparency = 0.5 }, top)
+	self.bannerGroup = new("CanvasGroup", { Name = "Banner", BackgroundTransparency = 1, AnchorPoint = Vector2.new(0.5, 0.5),
+		Position = UDim2.fromOffset(550, 170), Size = UDim2.fromOffset(1100, 110), GroupTransparency = 1 }, top)
+	self.bannerScale = new("UIScale", { Scale = 1 }, self.bannerGroup)
+	-- the band: the feed plate twice, mirrored, dark in the middle and fading out both ways
+	new("ImageLabel", { Name = "BandL", BackgroundTransparency = 1, Image = H.FeedPlate, Position = UDim2.fromOffset(0, 19), Size = UDim2.fromOffset(551, 72) }, self.bannerGroup)
+	new("ImageLabel", { Name = "BandR", BackgroundTransparency = 1, Image = H.FeedPlate, Position = UDim2.fromOffset(549, 19), Size = UDim2.fromOffset(551, 72),
+		Rotation = 180 }, self.bannerGroup)
+	self.banner = ChamberHud.letters(self.bannerGroup, "", 44, BONE, 0.5)
+	self.banner.frame.Position = UDim2.fromOffset(550, 55 - 22 - ChamberHud.capTop(44))
+	local ms = ReplicatedStorage:FindFirstChild("MatchState")
+	if ms then
+		self._matchConn = ms.OnClientEvent:Connect(function(p)
+			if type(p) == "table" then
+				self:showMatch(p)
+			end
+		end)
+	end
+
+	-- the whole HUD (the owner, 10-28: "make it smaller and shove it into the corner ... all of them, but properly"):
+	-- HUD_SCALE of the 1080p design, following the safe area's height; never under MIN_SCALE so a phone can still read
+	-- it, and never so wide that the two bottom blocks (~1015 + ~560 design px) meet. Every block's ink sits one
+	-- margin (MARGIN at 1080p) from the safe area's edges.
+	local HUD_SCALE, MIN_SCALE, MARGIN = 0.58, 0.3, 30
+	local function rescale()
+		local sz = gui.AbsoluteSize
+		if sz.X < 1 or sz.Y < 1 then return end
+		local m = math.max(12, math.floor(MARGIN * sz.Y / 1080 + 0.5))
+		local s = math.min(math.max(HUD_SCALE * sz.Y / 1080, MIN_SCALE), (sz.X - 3 * m) / 1700)
+		for _, c in self.corners do
+			c.scale.Scale = s
+			local ax, ay = c.anchor.X, c.anchor.Y
+			-- left / right blocks hug their side; a centred one stays centred. Bottom blocks sit up from the bottom.
+			local x = if ax == 0 then m - c.inset.X * s elseif ax == 1 then -(m - c.inset.X * s) else 0
+			local y = if ay == 1 then -(m - c.inset.Y * s) else m * 0.5
+			c.frame.Position = UDim2.new(ax, x, ay, y)
+		end
+		self.hudScale, self.hudMargin = s, m
+	end
+	self._rescale = rescale
+	rescale()
+	self._vpConn = gui:GetPropertyChangedSignal("AbsoluteSize"):Connect(rescale)
+end
+
+-- the MATCH payload: the banner stamps in on its band, the score line under the round
+function ChamberHud:showMatch(p)
+	if not self.gui then return end
+	local msg = tostring(p.message or "")
+	if msg ~= "" then
+		self.banner:set(msg)
+		self.bannerGroup.GroupTransparency = 0
+		self.bannerScale.Scale = 1.45
+		tween(self.bannerScale, 0.22, { Scale = 1 }, Enum.EasingStyle.Back)
+		self._bannerToken = (self._bannerToken or 0) + 1
+		local token = self._bannerToken
+		task.delay(2.2, function()
+			if self.gui and self._bannerToken == token then
+				tween(self.bannerGroup, 0.5, { GroupTransparency = 1 })
+			end
+		end)
+	end
+	if type(p.rounds) == "table" then
+		local parts = {}
+		for name, r in p.rounds do
+			table.insert(parts, string.format('%s  <font color="#d6a848">%d</font> <font color="#96969e">(%d)</font>',
+				string.upper(tostring(name)), r, (p.kills or {})[name] or 0))
+		end
+		table.sort(parts)
+		self.scoreRound:set("ROUND " .. tostring(p.round or 1))
+		self.scoreLine.Text = table.concat(parts, "      ")
+	else
+		self.scoreRound:set("")
+		self.scoreLine.Text = ""
+	end
+end
+
+-- one round leaves its stack: it flips up and away like the menu's ejected brass
+function ChamberHud:_spend(hand, i)
+	local r = self.mags[hand].rounds[i]
+	if not r then return end
+	r.img.Position = r.home
+	r.img.Rotation = r.rot
+	local dir = if hand == "L" then -1 else 1
+	tween(r.img, 0.3, { Position = r.home + UDim2.fromOffset(dir * 26, -40), Rotation = r.rot + dir * 70, ImageTransparency = 1 })
+end
+
+function ChamberHud:_refill(hand, i)
+	local r = self.mags[hand].rounds[i]
+	if not r then return end
+	r.img.Rotation = r.rot
+	r.img.Position = r.home + UDim2.fromOffset(0, 16)
+	r.img.ImageTransparency = 0
+	tween(r.img, 0.14, { Position = r.home }, Enum.EasingStyle.Back)
+end
+
+-- show n rounds in a stack: the top ones are the spent ones
+function ChamberHud:_showStack(hand, n)
+	local m = self.mags[hand]
+	local per = #m.rounds
+	n = math.clamp(n, 0, per)
+	if n == m.shown then return end
+	for i = 1, per do
+		local had = i > per - m.shown
+		local has = i > per - n
+		if had and not has then
+			self:_spend(hand, i)
+		elseif has and not had then
+			self:_refill(hand, i)
+		end
+	end
+	m.shown = n
+end
+
+-- the selector: a picture fitted by its ink into a box, the ink's right edge at `right`, its middle at `cy`
+local function fit(spec, boxW, boxH)
+	local ink = spec.Ink
+	local k = math.min(boxW / ink[3], boxH / ink[4])
+	return k, ink[3] * k
+end
+
+local function placed(spec, k, right, cy)
+	local ink = spec.Ink
+	return UDim2.fromOffset(spec.Size[1] * k, spec.Size[2] * k),
+		UDim2.fromOffset(right - (ink[1] + ink[3]) * k, cy - (ink[2] + ink[4] / 2) * k)
+end
+
+function ChamberHud:_arms(sword, snap)
+	local W = self.armsW
+	local on, off = if sword then "sword" else "guns", if sword then "guns" else "sword"
+	local spec = { guns = H.Crest, sword = H.Greatsword }
+	local k1, w1 = fit(spec[on], 330, 112)
+	local k2, w2 = fit(spec[off], 170, 54)
+	local offRight = W - w1 - 30
+	local s1, p1 = placed(spec[on], k1, W, 58)
+	local s2, p2 = placed(spec[off], k2, offRight, 66)
+	local big, small = self.armsPic[on], self.armsPic[off]
+	big.ZIndex, small.ZIndex = 3, 2
+	local litProps = { Size = s1, Position = p1, ImageColor3 = Color3.new(1, 1, 1), ImageTransparency = 0 }
+	local dimProps = { Size = s2, Position = p2, ImageColor3 = Color3.fromRGB(140, 140, 148), ImageTransparency = 0.15 }
+	if snap then
+		for prop, v in litProps do big[prop] = v end
+		for prop, v in dimProps do small[prop] = v end
+	else
+		tween(big, 0.2, litProps, Enum.EasingStyle.Back)
+		tween(small, 0.16, dimProps)
+	end
+	self.armsKey.frame.Position = UDim2.fromOffset(offRight - w2 - 14, 66 - 12 - ChamberHud.capTop(24))
+end
+
+function ChamberHud:setWeapon(slot)
+	if not self.weaponName then return end
+	local sword = slot == 2
+	self._sword = sword
+	self:_arms(sword)
+	self.weaponName:set(if sword then "GREATSWORD" else "ONYX & PEARL")
+	for _, hand in { "L", "R" } do
+		self.mags[hand].col.Visible = not sword
+	end
+	self.count.frame.Visible = not sword
+	self.reserve.frame.Visible = not sword
+	self.status.frame.Visible = not sword
+	self.gsChip.frame.Visible = not sword
+	self.swordLine.frame.Visible = sword
+	self.releaseLine.frame.Visible = sword
+	self.ammoCorner.inset = Vector2.new(0, if sword then 132 else 33)
+	self._rescale()
+	-- the sword: the upper belts rise one row and the guard belt comes in under them; back to the guns, the reverse
+	local g = self.guardRow
+	if sword then
+		g.Visible = true
+		tween(self.upper, 0.22, { Position = UDim2.fromOffset(0, -ROW) }, Enum.EasingStyle.Back)
+		g.Position = UDim2.fromOffset(0, 24)
+		tween(g, 0.22, { Position = UDim2.fromOffset(0, 0), GroupTransparency = 0 })
+	elseif g.Visible then
+		tween(self.upper, 0.2, { Position = UDim2.fromOffset(0, 0) })
+		tween(g, 0.16, { Position = UDim2.fromOffset(0, 24), GroupTransparency = 1 }).Completed:Connect(function()
+			if not self._sword then g.Visible = false end
+		end)
+	end
+end
+
+function ChamberHud:guardBreak()
+	self._breakT = 0.6
+end
+
+function ChamberHud:_vitals(ctl, dt)
+	local hum = ctl.character and ctl.character:FindFirstChildOfClass("Humanoid")
+	local hp = if hum and hum.MaxHealth > 0 then math.clamp(hum.Health / hum.MaxHealth, 0, 1) else 1
+	self._hp = hp
+	local k = 0.5 + 0.5 * math.sin(self._pulse)
+	local WHITE = Color3.new(1, 1, 1)
+	-- VITALITY: a round for every twelfth (a chip keeps the round until a whole twelfth is gone)
+	local n = #self.vitBelt.slots
+	local low = hp < 0.3 and hp > 0
+	setBelt(self.vitBelt, math.ceil(hp * n - 1e-6), "Copper", if low then Color3.fromRGB(255, 120 + 90 * k, 110 + 90 * k) else WHITE)
+
+	-- the Spin Drill (StyleService's DTGauge / DTActive on the player): the crack burns as far as the gauge, the
+	-- heart and the horns' tips as soon as there is any; on, the whole crack burns and breathes
+	local plr = Players.LocalPlayer
+	local gauge = math.clamp((plr:GetAttribute("DTGauge") or 0) / 100, 0, 1)
+	local active = plr:GetAttribute("DTActive") == true
+	local ready = gauge >= 0.5
+	local dg = self.dtGeom
+	local want = if active then dg.w elseif gauge <= 0 then 0 else dg.x0 + (dg.x1 - dg.x0) * gauge
+	self._dtFill += (want - self._dtFill) * math.min(1, dt * 10)
+	self.dtClip.Size = UDim2.fromOffset(self._dtFill, self.dtClip.Size.Y.Offset)
+	self.dtHot.ImageTransparency = if active then 0.3 * (1 - k) elseif ready then 0.18 * (1 - k) else 0
+
+	-- the GUARD + RELEASE (Greatsword.lua's Guard / GuardBroken / Release): the blade's steel lit hilt-to-tip by the
+	-- guard left, crimson on a break; the skull hilt heats as Release stores
+	if self._breakT > 0 then
+		self._breakT -= dt
+	end
+	if self.guardRow.Visible then
+		local g = math.clamp((plr:GetAttribute("Guard") or 100) / 100, 0, 1)
+		local broken = plr:GetAttribute("GuardBroken") == true or self._breakT > 0
+		local flash = math.sin(os.clock() * 40) > 0
+		local gg = self.guardGeom
+		local gw = if broken then gg.b0 else gg.b0 + (gg.b1 - gg.b0) * g
+		self._guardFill += (gw - self._guardFill) * math.min(1, dt * 12)
+		self.guardClip.Size = UDim2.fromOffset(self._guardFill, self.guardClip.Size.Y.Offset)
+		self.guardDark.ImageColor3 = if broken and flash then Color3.fromRGB(150, 30, 34) else Color3.fromRGB(56, 56, 62)
+		self.guardLit.ImageColor3 = if g < 0.25 and not broken then Color3.fromRGB(255, 120 + 90 * k, 110 + 90 * k) else WHITE
+		local rel = math.clamp(plr:GetAttribute("Release") or 0, 0, 100)
+		local hot = rel >= RELEASE_MIN
+		self.guardHeat.ImageTransparency = if rel <= 0 then 1 elseif hot then 0.05 + 0.25 * (1 - k) else 1 - rel / RELEASE_MIN * 0.5
+		self.releaseLine:set(if broken then "GUARD BROKEN" elseif hot then "ROYAL RELEASE  -  RMB" else "")
+		self.releaseLine:tint(if broken then CRIMSON_TINT else C.Gold)
+	end
+end
+
+function ChamberHud:_style()
+	local plr = Players.LocalPlayer
+	local rank = plr:GetAttribute("StyleRank")
+	local pts = plr:GetAttribute("StylePoints") or 0
+	local show = rank ~= nil and pts > 0
+	if show ~= self._styleShown then
+		self._styleShown = show
+		tween(self.styleFade, if show then 0.15 else 0.6, { GroupTransparency = if show then 0 else 1 })
+	end
+	if not show then
+		self._shownRank = nil
+		self._rankIndex = 0
+		return
+	end
+	local i = RANK_AT[rank] or 1
+	if rank == self._shownRank then return end
+	local up = (self._rankIndex or 0) < i
+	self._shownRank = rank
+	self._rankIndex = i
+	-- the letter: centred by its ink at rankAt; SS / SSS shift it left and add small S's down-right of it
+	local art = H.Ranks[string.sub(rank, 1, 1)] or H.Ranks.D
+	local multi = #rank > 1
+	local lk = 0.86   -- the letters were drawn for a 250 px cylinder; they stand alone now, a little smaller
+	local box = (if multi then 176 else 196) * lk
+	local ink = art.Ink
+	local cx, cy = (ink[1] + ink[3] / 2) / 256, (ink[2] + ink[4] / 2) / 256
+	local main = UDim2.fromOffset(self.rankAt.X, self.rankAt.Y) + (if multi then UDim2.fromOffset(-30 * lk, -10 * lk) else UDim2.fromOffset(0, 0))
+	self.letterMain.Image = art.Image
+	self.letterMain.Size = UDim2.fromOffset(box, box)
+	self.letterMain.Position = main + UDim2.fromOffset((0.5 - cx) * box, (0.5 - cy) * box)
+	for s = 1, 2 do
+		local l = self.letterSmall[s]
+		l.Visible = #rank > s
+		l.Size = UDim2.fromOffset(100 * lk, 100 * lk)
+		l.Position = main + UDim2.fromOffset((70 + (s - 1) * 46) * lk, (34 + (s - 1) * 36) * lk)
+	end
+	-- the name: its ink's cap 26 px, its ink's left edge and bottom at nameAt (over the vitality rounds)
+	local nm = H.Names[rank] or H.Names.D
+	local nk = 26 / nm.Ink[4]
+	self.rankName.Image = nm.Image
+	self.rankName.Size = UDim2.fromOffset(1024 * nk, 96 * nk)
+	self.rankName.Position = UDim2.fromOffset(self.nameAt.X - nm.Ink[1] * nk, self.nameAt.Y - (nm.Ink[2] + nm.Ink[4]) * nk)
+	local high = i >= 5
+	self.letterMain.ImageColor3 = if high then Color3.fromRGB(255, 200, 170) else Color3.new(1, 1, 1)
+	if up then
+		-- a rank up: the letter stamps in
+		self.letterScale.Scale = 1.6
+		tween(self.letterScale, 0.2, { Scale = 1 }, Enum.EasingStyle.Back)
+	else
+		self.letterScale.Scale = 0.85
+		tween(self.letterScale, 0.25, { Scale = 1 })
+	end
+end
+
+function ChamberHud:_ammo(ctl)
+	local ws = ctl.weaponSystem
+	if not ws or self._sword then return end
+	local ammo = math.clamp(ws.currentAmmo or 0, 0, self.magSize)
+	local ft = ws.handFireTime or {}
+	if ammo ~= self._shownAmmo then
+		local per = #self.mags.L.rounds
+		if self._shownAmmo < 0 or ammo > self._shownAmmo then
+			-- a reload (or the first look): both stacks even, Onyx's first
+			self._split.L = math.min(per, math.ceil(ammo / 2))
+			self._split.R = math.min(per, ammo - self._split.L)
+		else
+			-- the shots: from the stack of the hand whose timer moved (handFireTime), else the fuller one
+			for _ = 1, self._shownAmmo - ammo do
+				local h
+				if (ft.L or 0) > self._hand.L and self._split.L > 0 then
+					h = "L"
+					self._hand.L = ft.L
+				elseif (ft.R or 0) > self._hand.R and self._split.R > 0 then
+					h = "R"
+					self._hand.R = ft.R
+				else
+					h = if self._split.L >= self._split.R then "L" else "R"
+				end
+				self._split[h] = math.max(0, self._split[h] - 1)
+			end
+			self.countScale.Scale = 1.14
+			tween(self.countScale, 0.12, { Scale = 1 })
+		end
+		self:_showStack("L", self._split.L)
+		self:_showStack("R", self._split.R)
+		self._shownAmmo = ammo
+		self.count:set(tostring(ammo))
+		self.count:tint(if ammo == 0 then CRIMSON_TINT else BRASS_TINT)
+	end
+	self._hand.L = ft.L or self._hand.L
+	self._hand.R = ft.R or self._hand.R
+	self.reserve:set(if ws.reserveAmmo and ws.reserveAmmo < 100000 then "/ " .. tostring(ws.reserveAmmo) else "") -- (an endless reserve: nothing)
+	if ws.state == "Reloading" then
+		self.status:set("RELOADING")
+		self.status:fade(0.2 + 0.3 * (0.5 + 0.5 * math.sin(self._pulse * 1.6)))
+	elseif ammo == 0 then
+		self.status:set("EMPTY  -  R")
+		self.status:fade(0)
+	else
+		self.status:set("")
+	end
+end
+
+function ChamberHud:update(ctl, dt)
+	if not self.gui then return end
+	self._pulse += dt * 7
+	-- the weapon follows the slot (and the server's Weapon attribute, when it says sword)
+	local slot = ctl.activeWeapon
+	if Players.LocalPlayer:GetAttribute("Weapon") == "sword" then slot = 2 end
+	if slot ~= self._slot then
+		self._slot = slot
+		self:setWeapon(slot)
+	end
+	self:_vitals(ctl, dt)
+	self:_style()
+	self:_ammo(ctl)
+	-- the gunslinger chip: E ready, or its cooldown
+	if not self._sword then
+		local left = (ctl._gsReadyAt or 0) - os.clock()
+		if ctl._honey then
+			self.gsChip:set("HONEYCOMB FIRE")
+			self.gsChip:tint(CRIMSON_TINT)
+		elseif left > 0 then
+			self.gsChip:set(string.format("GUNSLINGER  %.1f", left))
+			self.gsChip:tint(MUTED)
+		else
+			self.gsChip:set("GUNSLINGER  -  E")
+			self.gsChip:tint(C.Gold)
+		end
+	end
+end
+
+function ChamberHud:show()
+	if self.gui then self.gui.Enabled = true end
+end
+
+function ChamberHud:hide()
+	if self.gui then self.gui.Enabled = false end
+end
+
+function ChamberHud:cleanup()
+	if self._matchConn then
+		self._matchConn:Disconnect()
+		self._matchConn = nil
+	end
+	if self._vpConn then
+		self._vpConn:Disconnect()
+		self._vpConn = nil
+	end
+	if self.gui then
+		self.gui:Destroy()
+		self.gui = nil
+	end
+end
+
+return ChamberHud

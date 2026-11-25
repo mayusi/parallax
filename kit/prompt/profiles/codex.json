@@ -1,0 +1,13 @@
+{
+  "name": "codex",
+  "kind": "orchestrator",
+  "format": "markdown_flat",
+  "budget": 2000,
+  "section_budgets": {"context": 350, "guardrails": 450, "objective": 750, "gates": 450},
+  "order": ["objective", "gates", "context", "guardrails"],
+  "rationale": false,
+  "chain_of_thought": "strip",
+  "cot_phrases": ["think step by step", "think carefully step by step", "think carefully", "let's think", "lets think", "step-by-step reasoning", "chain of thought", "reason step by step", "show your reasoning"],
+  "why": "GPT / Codex / o-series reason natively: a scripted chain of thought degrades them (model drifting); flat concise Markdown with the exact verify commands up front",
+  "banned_phrases": ["make it good", "make it nice", "make it cool", "make it better", "high quality", "amazing"]
+}

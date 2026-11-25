@@ -1,0 +1,22 @@
+{
+ "_note": "POSITIVE fixture: must PASS the synth-only gate. Identical to _selftest_synth_only_set.json except one member layer carries a 'sample' key (a recorded layer). Never break.",
+ "about": "selftest — synth + one sample layer (control for the synth-only gate)",
+ "variations": 1,
+ "loudness": -16,
+ "dna": {
+  "ring":  { "role": "tail",      "source": "modal", "modes": [[1240, 0.9, 1.0]], "gain": 0.4 },
+  "crack": { "role": "transient", "source": "click",
+             "env": { "attack": 0.0003, "decay": 0.006, "sustain": 0, "release": 0.002 } }
+ },
+ "members": {
+  "sword_hit_sampled": {
+   "class": "hit",
+   "duration": 0.6,
+   "use": ["crack", "ring"],
+   "layers": [
+    { "role": "body", "sample": "lib:selftest_placeholder", "gain": 0.5 }
+   ],
+   "weights": [0.5]
+  }
+ }
+}

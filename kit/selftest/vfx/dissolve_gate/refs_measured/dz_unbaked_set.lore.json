@@ -1,0 +1,23 @@
+{
+ "preset": "dz_unbaked_set",
+ "facts": [
+  {
+   "text": "The ring spreads from the hit.",
+   "tags": [
+    "shape"
+   ]
+  },
+  {
+   "text": "It is pale gold and breaks up into pieces.",
+   "tags": [
+    "colour"
+   ]
+  },
+  {
+   "text": "It ends in drifting embers.",
+   "tags": [
+    "motion"
+   ]
+  }
+ ]
+}

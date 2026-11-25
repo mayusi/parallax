@@ -1,0 +1,9 @@
+{
+ "name": "_selftest_pop",
+ "priority": "Action",
+ "keys": [
+  { "t": 0, "ease": "Linear", "pose": { "Right Arm": [0, 0, 0] } },
+  { "t": 0.0333333, "ease": "Linear", "pose": { "Right Arm": [150, 0, 0] } },
+  { "t": 0.5, "ease": "Linear", "pose": { "Right Arm": [150, 0, 0] } }
+ ]
+}

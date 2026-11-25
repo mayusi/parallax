@@ -1,0 +1,41 @@
+[
+ {
+  "object": "victorian cast iron lamp post",
+  "part": "overall",
+  "dim": "height",
+  "value": 2660.0,
+  "unit": "mm",
+  "source": "https://www.ukaa.com/traditional-cast-iron-lamppost--and--black-victorian-lantern---medium-23106",
+  "kind": "published",
+  "note": "",
+  "trust": "high",
+  "id": "3957bb56",
+  "added": "2026-10-16"
+ },
+ {
+  "object": "victorian cast iron lamp post",
+  "part": "overall",
+  "dim": "height",
+  "value": 2980.0,
+  "unit": "mm",
+  "source": "https://harteoutdoorlighting.ie/es-gb/products/h802",
+  "kind": "published",
+  "note": "",
+  "trust": "high",
+  "id": "0b1ea279",
+  "added": "2026-10-16"
+ },
+ {
+  "object": "victorian cast iron lamp post",
+  "part": "base",
+  "dim": "width",
+  "value": 200.0,
+  "unit": "mm",
+  "source": "https://www.ukaa.com/traditional-cast-iron-lamppost--and--black-victorian-lantern---medium-23106",
+  "kind": "published",
+  "note": "",
+  "trust": "high",
+  "id": "7be8078f",
+  "added": "2026-10-16"
+ }
+]

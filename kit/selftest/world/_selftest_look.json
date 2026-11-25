@@ -1,0 +1,26 @@
+{
+ "_note": "kit world look / kit world studio (the world lane's eyes, 2026-11-12): a small court with two spawns, an objective, a view the blueprint names and plain-word labels. The look must make ONE PAGE PER STATION (five: two spawns, the view, back from the objective, from above); kit world studio must make three-pane pages whose Studio pane says WHY it is empty when nothing was captured, and must throw away a capture planted from another build instead of showing it. It has no reference stills on purpose: the reference pane must say so.",
+ "name": "SelftestLook",
+ "lighting": { "preset": "golden" },
+ "palette": {
+  "ground": { "material": "Concrete", "color": [96, 98, 104] },
+  "stone": { "material": "Slate", "color": [72, 75, 79] },
+  "spawn": { "material": "Neon", "color": [80, 220, 120] }
+ },
+ "objectives": [{ "name": "Keep", "pos": [0, 1, 10] }],
+ "labels": [
+  { "at": [0, 19.5, 17.5], "text": "the keep" },
+  { "at": [-28.6, 6, 0], "text": "the west wall" }
+ ],
+ "views": [
+  { "name": "from_the_gate", "at": [0, 5, -36], "target": [0, 8, 24], "labels": [{ "at": [0, 19.5, 17.5], "text": "the keep" }] }
+ ],
+ "build": [
+  { "floor": { "name": "Court", "center": [0, 0, 0], "size": [80, 80], "thickness": 1, "mat": "ground" } },
+  { "part": { "name": "Keep", "size": [16, 18, 12], "pos": [0, 9.5, 24], "mat": "stone" } },
+  { "wall": { "name": "WestWall", "from": [-30, -30], "to": [-30, 30], "y": 0.5, "height": 10, "thickness": 2, "mat": "stone" } },
+  { "wall": { "name": "EastWall", "from": [30, -30], "to": [30, 30], "y": 0.5, "height": 10, "thickness": 2, "mat": "stone" } },
+  { "spawn": { "pos": [-14, 0.5, -24], "mat": "spawn" } },
+  { "spawn": { "pos": [14, 0.5, -24], "mat": "spawn" } }
+ ]
+}

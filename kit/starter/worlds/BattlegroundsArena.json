@@ -1,0 +1,458 @@
+{
+ "name": "BattlegroundsArena",
+ "_about": "An R6 battlegrounds arena (the shape of TSB-style maps): a big open centre for knockback and air combos, a raised stage for verticality, breakable crates where fights pass, edge buildings to slam into, cover to break line of sight, a perimeter with exits, golden light. Proven by kit world check (reachability, traps, open room, camera, spawn fairness) and kit world look.",
+ "palette": {
+  "field": {
+   "material": "Concrete",
+   "color": [
+    118,
+    116,
+    110
+   ]
+  },
+  "tile": {
+   "material": "Slate",
+   "color": [
+    86,
+    88,
+    94
+   ]
+  },
+  "stage": {
+   "material": "Granite",
+   "color": [
+    128,
+    124,
+    118
+   ]
+  },
+  "wall": {
+   "material": "Brick",
+   "color": [
+    140,
+    92,
+    70
+   ]
+  },
+  "trim": {
+   "material": "Metal",
+   "color": [
+    60,
+    64,
+    72
+   ]
+  },
+  "crate": {
+   "material": "WoodPlanks",
+   "color": [
+    156,
+    112,
+    66
+   ]
+  },
+  "cover": {
+   "material": "Concrete",
+   "color": [
+    96,
+    98,
+    104
+   ]
+  },
+  "path": {
+   "material": "Cobblestone",
+   "color": [
+    104,
+    100,
+    96
+   ]
+  },
+  "roof": {
+   "material": "Slate",
+   "color": [
+    70,
+    60,
+    58
+   ]
+  },
+  "spawn": {
+   "material": "Neon",
+   "color": [
+    80,
+    220,
+    120
+   ]
+  }
+ },
+ "lighting": "golden",
+ "terrain": [
+  {
+   "ground": {
+    "center": [
+     0,
+     0,
+     0
+    ],
+    "size": [
+     520,
+     520
+    ],
+    "material": "Grass",
+    "under": "Rock",
+    "noise": {
+     "amplitude": 10,
+     "scale": 120,
+     "seed": 7
+    },
+    "flat": [
+     {
+      "center": [
+       0,
+       0
+      ],
+      "radius": 150,
+      "height": 0
+     }
+    ]
+   }
+  }
+ ],
+ "build": [
+  {
+   "floor": {
+    "name": "Plaza",
+    "center": [
+     0,
+     0.4,
+     0
+    ],
+    "size": [
+     90,
+     90
+    ],
+    "thickness": 0.4,
+    "mat": "tile",
+    "checker": [
+     15,
+     "field"
+    ]
+   }
+  },
+  {
+   "ring": {
+    "name": "Perimeter",
+    "center": [
+     0,
+     0,
+     0
+    ],
+    "radius": 128,
+    "height": 10,
+    "thickness": 3,
+    "segments": 32,
+    "mat": "wall",
+    "gaps": 4
+   }
+  },
+  {
+   "stairs": {
+    "name": "StageStepsS",
+    "start": [
+     0,
+     0,
+     62
+    ],
+    "dir": "-Z",
+    "steps": 4,
+    "rise": 1.5,
+    "run": 3,
+    "width": 12,
+    "mat": "stage"
+   }
+  },
+  {
+   "part": {
+    "name": "Stage",
+    "size": [
+     40,
+     6,
+     20
+    ],
+    "pos": [
+     0,
+     3,
+     40
+    ],
+    "mat": "stage"
+   }
+  },
+  {
+   "stairs": {
+    "name": "StageStepsW",
+    "start": [
+     -34,
+     0,
+     40
+    ],
+    "dir": "+X",
+    "steps": 4,
+    "rise": 1.5,
+    "run": 3,
+    "width": 10,
+    "mat": "stage"
+   }
+  },
+  {
+   "building": {
+    "name": "NorthHall",
+    "center": [
+     -70,
+     0,
+     -95
+    ],
+    "size": [
+     40,
+     26
+    ],
+    "floors": 2,
+    "floorHeight": 13,
+    "mat": "wall",
+    "slab": "trim",
+    "roof": "flat",
+    "door": {
+     "side": "S",
+     "width": 6,
+     "height": 9
+    },
+    "windows": {
+     "every": 9,
+     "width": 4,
+     "height": 5,
+     "sill": 3
+    },
+    "stairs": true
+   }
+  },
+  {
+   "building": {
+    "name": "EastStore",
+    "center": [
+     100,
+     0,
+     20
+    ],
+    "size": [
+     20,
+     34
+    ],
+    "floors": 1,
+    "floorHeight": 14,
+    "mat": "wall",
+    "roof": "flat",
+    "roofMat": "trim",
+    "door": {
+     "side": "W",
+     "width": 6,
+     "height": 9
+    },
+    "windows": {
+     "every": 10,
+     "width": 4,
+     "height": 6,
+     "sill": 3
+    },
+    "stairs": true
+   }
+  },
+  {
+   "room": {
+    "name": "Ruin",
+    "center": [
+     70,
+     0,
+     -80
+    ],
+    "size": [
+     24,
+     18
+    ],
+    "height": 8,
+    "thickness": 2,
+    "mat": "wall",
+    "openings": [
+     {
+      "side": "S",
+      "at": 0,
+      "width": 10,
+      "height": 8
+     },
+     {
+      "side": "W",
+      "at": 0,
+      "width": 6,
+      "height": 4,
+      "sill": 2
+     }
+    ]
+   }
+  },
+  {
+   "cover": {
+    "name": "WestCover",
+    "center": [
+     -85,
+     0,
+     20
+    ],
+    "area": [
+     40,
+     90
+    ],
+    "count": 6,
+    "seed": 3,
+    "half": 0.6,
+    "mat": "cover",
+    "gap": 7
+   }
+  },
+  {
+   "breakable": {
+    "name": "Crate",
+    "size": [
+     5,
+     5,
+     5
+    ],
+    "pos": [
+     30,
+     2.5,
+     -30
+    ],
+    "mat": "crate",
+    "health": 40
+   }
+  },
+  {
+   "breakable": {
+    "name": "Crate",
+    "size": [
+     4,
+     4,
+     4
+    ],
+    "pos": [
+     36,
+     2,
+     -26
+    ],
+    "mat": "crate",
+    "health": 30
+   }
+  },
+  {
+   "breakable": {
+    "name": "Crate",
+    "size": [
+     5,
+     5,
+     5
+    ],
+    "pos": [
+     -30,
+     2.5,
+     -40
+    ],
+    "mat": "crate",
+    "health": 40
+   }
+  },
+  {
+   "breakable": {
+    "name": "Pillar",
+    "size": [
+     3,
+     14,
+     3
+    ],
+    "pos": [
+     -40,
+     7,
+     60
+    ],
+    "mat": "trim",
+    "health": 120
+   }
+  },
+  {
+   "path": {
+    "name": "Road",
+    "points": [
+     [
+      0,
+      128
+     ],
+     [
+      0,
+      70
+     ]
+    ],
+    "y": 0.2,
+    "width": 12,
+    "mat": "path"
+   }
+  },
+  {
+   "spawn": {
+    "pos": [
+     57,
+     0,
+     57
+    ],
+    "mat": "spawn"
+   }
+  },
+  {
+   "spawn": {
+    "pos": [
+     -57,
+     0,
+     57
+    ],
+    "mat": "spawn"
+   }
+  },
+  {
+   "spawn": {
+    "pos": [
+     -57,
+     0,
+     -57
+    ],
+    "mat": "spawn"
+   }
+  },
+  {
+   "spawn": {
+    "pos": [
+     57,
+     0,
+     -57
+    ],
+    "mat": "spawn"
+   }
+  }
+ ],
+ "objectives": [
+  {
+   "name": "Centre",
+   "pos": [
+    0,
+    1,
+    0
+   ]
+  }
+ ],
+ "checks": {
+  "open": 30,
+  "fair": 15
+ }
+}

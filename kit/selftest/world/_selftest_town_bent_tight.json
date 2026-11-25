@@ -1,0 +1,124 @@
+{
+ "_note": "NEGATIVE fixture: the tight town (lanes and alleys 4 studs wide) with \"bend\": 8. kit world check must FAIL with 'scale:' errors on its lanes - a bent lane is measured across itself, on the houses' own turned walls, and 4 studs (or the little more a funnel gives it) is under the r6 sheet's 8. Never fix.",
+ "name": "SelftestTownBentTight",
+ "scale": "r6",
+ "palette": {
+  "cobble": {
+   "material": "Cobblestone",
+   "color": [
+    84,
+    82,
+    80
+   ]
+  },
+  "pave": {
+   "material": "Slate",
+   "color": [
+    98,
+    96,
+    94
+   ]
+  },
+  "flag": {
+   "material": "Pavement",
+   "color": [
+    110,
+    106,
+    100
+   ]
+  },
+  "plaster": {
+   "material": "Concrete",
+   "color": [
+    150,
+    140,
+    124
+   ]
+  },
+  "brick": {
+   "material": "Brick",
+   "color": [
+    112,
+    84,
+    72
+   ]
+  },
+  "slate": {
+   "material": "Slate",
+   "color": [
+    58,
+    60,
+    68
+   ]
+  },
+  "hall": {
+   "material": "Limestone",
+   "color": [
+    168,
+    160,
+    146
+   ]
+  },
+  "spawn": {
+   "material": "Neon",
+   "color": [
+    80,
+    220,
+    120
+   ]
+  }
+ },
+ "objectives": [
+  {
+   "name": "Square",
+   "pos": [
+    0,
+    1,
+    0
+   ],
+   "radius": 12
+  }
+ ],
+ "build": [
+  {
+   "town": {
+    "name": "Town",
+    "center": [
+     0,
+     0,
+     0
+    ],
+    "area": [
+     256,
+     224
+    ],
+    "seed": 3,
+    "gates": [
+     "S"
+    ],
+    "square": {
+     "at": [
+      0,
+      0
+     ]
+    },
+    "streets": {
+     "lane": 4,
+     "alley": 4
+    },
+    "mats": {
+     "street": "cobble",
+     "square": "flag",
+     "block": "pave",
+     "wall": "plaster",
+     "wallAlt": "brick",
+     "roof": "slate",
+     "landmark": "hall",
+     "spawn": "spawn"
+    },
+    "bend": 8,
+    "spawns": 2
+   }
+  }
+ ]
+}

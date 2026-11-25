@@ -1,0 +1,15 @@
+[
+ {
+  "object": "magpul pmag 30 ar/m4 gen m3",
+  "part": "magazine",
+  "dim": "length (maximum)",
+  "value": 190.5,
+  "unit": "mm",
+  "source": "https://magpul.com/pmag-30-ar-m4-gen-m3.html",
+  "kind": "published",
+  "note": "",
+  "trust": "high",
+  "id": "fa850ed8",
+  "added": "2026-10-08"
+ }
+]

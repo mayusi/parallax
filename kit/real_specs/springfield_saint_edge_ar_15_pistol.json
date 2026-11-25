@@ -1,0 +1,41 @@
+[
+ {
+  "object": "springfield saint edge ar-15 pistol",
+  "part": "overall",
+  "dim": "length collapsed",
+  "value": 624.84,
+  "unit": "mm",
+  "source": "https://palmettostatearmory.com/springfield-armory-saint-edge-556-ar15-pistol-ste9103556b.html",
+  "kind": "published",
+  "note": "",
+  "trust": "high",
+  "id": "372ef315",
+  "added": "2026-10-08"
+ },
+ {
+  "object": "springfield saint edge ar-15 pistol",
+  "part": "overall",
+  "dim": "length extended",
+  "value": 723.9,
+  "unit": "mm",
+  "source": "https://palmettostatearmory.com/springfield-armory-saint-edge-556-ar15-pistol-ste9103556b.html",
+  "kind": "published",
+  "note": "",
+  "trust": "high",
+  "id": "a5a61657",
+  "added": "2026-10-08"
+ },
+ {
+  "object": "springfield saint edge ar-15 pistol",
+  "part": "barrel",
+  "dim": "length",
+  "value": 261.62,
+  "unit": "mm",
+  "source": "https://palmettostatearmory.com/springfield-armory-saint-edge-556-ar15-pistol-ste9103556b.html",
+  "kind": "published",
+  "note": "",
+  "trust": "high",
+  "id": "a3960a13",
+  "added": "2026-10-08"
+ }
+]

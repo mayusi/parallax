@@ -1,0 +1,54 @@
+[
+ {
+  "object": "m-lok",
+  "part": "slot",
+  "dim": "length",
+  "value": 32.0,
+  "unit": "mm",
+  "source": "https://en.wikipedia.org/wiki/M-LOK",
+  "kind": "published",
+  "note": "",
+  "trust": "high",
+  "id": "8ad50651",
+  "added": "2026-10-08"
+ },
+ {
+  "object": "m-lok",
+  "part": "slot",
+  "dim": "width",
+  "value": 7.0,
+  "unit": "mm",
+  "source": "https://en.wikipedia.org/wiki/M-LOK",
+  "kind": "published",
+  "note": "",
+  "trust": "high",
+  "id": "4c7fddec",
+  "added": "2026-10-08"
+ },
+ {
+  "object": "m-lok",
+  "part": "slot",
+  "dim": "corner radius",
+  "value": 2.38,
+  "unit": "mm",
+  "source": "https://en.wikipedia.org/wiki/M-LOK",
+  "kind": "published",
+  "note": "",
+  "trust": "high",
+  "id": "6eedfc3b",
+  "added": "2026-10-08"
+ },
+ {
+  "object": "m-lok",
+  "part": "slot",
+  "dim": "gap between slots",
+  "value": 8.0,
+  "unit": "mm",
+  "source": "https://en.wikipedia.org/wiki/M-LOK",
+  "kind": "published",
+  "note": "",
+  "trust": "high",
+  "id": "a2b3e552",
+  "added": "2026-10-08"
+ }
+]

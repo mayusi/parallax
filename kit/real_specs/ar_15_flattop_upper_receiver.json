@@ -1,0 +1,15 @@
+[
+ {
+  "object": "ar-15 flattop upper receiver",
+  "part": "rail",
+  "dim": "height above bore centre",
+  "value": 31.04,
+  "unit": "mm",
+  "source": "https://www.practicalmachinist.com/forum/threads/dimensions-for-ar-15-flat-top-upper-reciever.194245/",
+  "kind": "published",
+  "note": "",
+  "trust": "high",
+  "id": "7c5dd0e8",
+  "added": "2026-10-08"
+ }
+]

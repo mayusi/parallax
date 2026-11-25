@@ -1,0 +1,35 @@
+{
+ "_note": "POSITIVE fixture for the same lock: the same world, in a folder whose default.project.json turns StreamingEnabled on. The lock says nothing of the switch.",
+ "name": "StreamsOn",
+ "scale": "r6",
+ "streaming": {
+  "cell": 256
+ },
+ "palette": {
+  "ground": {
+   "material": "Concrete",
+   "color": [
+    96,
+    98,
+    104
+   ]
+  }
+ },
+ "build": [
+  {
+   "floor": {
+    "name": "Ground",
+    "center": [
+     0,
+     0,
+     0
+    ],
+    "size": [
+     600,
+     600
+    ],
+    "mat": "ground"
+   }
+  }
+ ]
+}

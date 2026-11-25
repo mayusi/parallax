@@ -1,0 +1,49 @@
+{
+ "category": "_selftest_frames",
+ "models": {
+  "a": {
+   "added": "2026-10-07",
+   "parts": 1,
+   "file": "fixture"
+  },
+  "b": {
+   "added": "2026-10-07",
+   "parts": 1,
+   "file": "fixture"
+  }
+ },
+ "samples": {
+  "bevelled_share": {
+   "role:frame": [
+    [
+     0.94,
+     1.0,
+     "a",
+     "Frame"
+    ],
+    [
+     0.96,
+     1.0,
+     "b",
+     "Frame"
+    ]
+   ]
+  },
+  "bevel_size_mm": {
+   "role:frame": [
+    [
+     1.0,
+     1.0,
+     "a",
+     "Frame"
+    ],
+    [
+     1.4,
+     1.0,
+     "b",
+     "Frame"
+    ]
+   ]
+  }
+ }
+}

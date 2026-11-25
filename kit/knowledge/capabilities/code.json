@@ -1,0 +1,29 @@
+{
+  "schema": 1,
+  "lane": "code",
+  "menu": [
+    {"tool": "parallax game new <Pascal>", "when": "starting a new game — always before writing any game-specific code"},
+    {"tool": "pure Rules module (no GetService/Instance.new)", "when": "game logic that must be unit-tested and fuzz-tested"},
+    {"tool": "parallax net (from net.json)", "when": "any client-server remote — generates Guard + RateLimit handler"},
+    {"tool": "Guard.* on every remote arg", "when": "server-side validation of every client-sent value"},
+    {"tool": "RateLimit per remote", "when": "preventing client flood attacks on any RemoteEvent"},
+    {"tool": "parallax fuzz", "when": "proving no crashes under hostile inputs (NaN, inf, wrong types)"},
+    {"tool": "parallax mutate (>=80%)", "when": "proving specs catch real bugs in shared modules"},
+    {"tool": "parallax audit", "when": "catching unguarded remotes and backdoor patterns before ship"},
+    {"tool": "workspace:GetServerTimeNow() clock", "when": "any timed game logic — never os.clock() in shared state"},
+    {"tool": "Studio MCP 2-client playtest", "when": "proving replication, remote validation and in-engine behaviour"}
+  ],
+  "ladder": [
+    {"from": "game_logic_in_service", "to": "pure Rules + Service facade", "when": "logic must be fuzz-tested or mutation-tested"},
+    {"from": "hand_wired_OnServerEvent", "to": "parallax net (Guard + RateLimit)", "when": "any remote handler is added"},
+    {"from": "os_clock_shared_state", "to": "workspace:GetServerTimeNow()", "when": "simulation clock, combat timing or audio sync"},
+    {"from": "unit_tests_only", "to": "unit tests + fuzz + Studio 2-client", "when": "any gameplay system before sign-off"},
+    {"from": "close_bug_no_regression", "to": "parallax bug + mutate --regressions", "when": "any bug is fixed"}
+  ],
+  "floor": [
+    "every remote handler uses Guard.* + RateLimit — parallax audit must pass",
+    "shared modules are pure (no GetService/Instance.new) — shared_pure_gate",
+    "fuzz 0 crashes + mutate >=80% before Studio playtest",
+    "Studio 2-client playtest with 0 console errors before sign-off"
+  ]
+}

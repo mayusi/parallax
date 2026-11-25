@@ -1,0 +1,8 @@
+[
+  {
+    "asset": "orbital_sniper",
+    "owner": 80.0,
+    "image": "anchors/orbital_sniper_80.png",
+    "note": "owner: defo an 80 not 89.9, detail not close to the reference (render = rebuild after the bake-material fix; owner graded the build just before)"
+  }
+]

@@ -1,0 +1,34 @@
+{
+ "lane": "code",
+ "version": 1,
+ "drafted": "2026-11-09 (parts libraries P0): from the words the runtime code already uses - the module headers of src/kit (Guard, RateLimit, Loader, Configs, Assets, Bus, Moves, Sfx, Vfx, Anim, Ui, Environment, Ambience, Foley, Music, Acoustics, WorldClock, ZoneMood, Models, Crater, Cutscene, Recorder, Viewmodel ...) and the system template's layers (Rules, Service, Controller, Config, spec). Changed only when the replay says so.",
+ "axes": {
+  "job": "what the module does",
+  "layer": "where it runs"
+ },
+ "look_fields": [],
+ "kinds": [
+  {"id": "validation", "axis": "job", "label": "argument validation (Guard)", "words": ["guard", "validate", "validation", "sanitize", "check argument", "remote input", "untrusted", "type check", "finite number"], "siblings": ["rate_limit", "net"]},
+  {"id": "rate_limit", "axis": "job", "label": "rate limit / throttle", "words": ["rate limit", "ratelimit", "token bucket", "throttle", "spam", "flood", "per second"], "siblings": ["validation"]},
+  {"id": "skeleton", "axis": "job", "label": "game skeleton (Loader, services, lifecycle)", "words": ["loader", "bootstrap", "skeleton", "services", "deps", "lifecycle", "start", "init", "entry point"], "siblings": ["config"]},
+  {"id": "config", "axis": "job", "label": "config / live tuning", "words": ["config", "configs", "tuning", "live tuning", "constants", "settings"], "siblings": ["skeleton"]},
+  {"id": "data", "axis": "job", "label": "saved data / persistence", "words": ["data store", "datastore", "save", "saved data", "profile", "persistence", "leaderstats", "session lock"], "siblings": ["economy"]},
+  {"id": "net", "axis": "job", "label": "remotes / networking", "words": ["remote", "remotes", "remoteevent", "remotefunction", "network", "replication", "fire server", "fire client", "schema", "net"], "siblings": ["validation", "events"]},
+  {"id": "events", "axis": "job", "label": "event bus / signals", "words": ["bus", "event", "events", "signal", "dispatch", "subscribe", "publish", "presentation event"], "siblings": ["net"]},
+  {"id": "combat", "axis": "job", "label": "combat (moves, hits, damage)", "words": ["moves", "move", "hit loop", "hitbox", "damage", "combo", "frame data", "knockback", "stun", "parry", "block", "attack", "weapon", "health"], "siblings": ["physics", "state"]},
+  {"id": "state", "axis": "job", "label": "state machine / rounds", "words": ["state machine", "state", "states", "round", "rounds", "match", "phase", "intermission", "lobby"], "siblings": ["combat"]},
+  {"id": "audio_rt", "axis": "job", "label": "sound runtime (sfx, music, ambience)", "words": ["sfx", "sound", "sounds", "music", "ambience", "foley", "acoustics", "echo", "wind voice", "audio"], "siblings": ["world_rt"]},
+  {"id": "vfx_rt", "axis": "job", "label": "VFX runtime", "words": ["vfx", "effect", "effects", "preset", "particles", "highlight", "emitter", "crater"], "siblings": ["anim_rt"]},
+  {"id": "anim_rt", "axis": "job", "label": "animation runtime", "words": ["anim", "animation", "animator", "track", "keyframe", "pose", "layers", "blend"], "siblings": ["vfx_rt"]},
+  {"id": "ui_rt", "axis": "job", "label": "UI runtime", "words": ["ui", "screen", "gui", "hud", "menu", "button", "spring", "analytics"]},
+  {"id": "world_rt", "axis": "job", "label": "world runtime (lighting, terrain, weather)", "words": ["environment", "lighting", "terrain", "world clock", "time of day", "weather", "gust", "wind", "zone mood", "colour grade", "world meshes"], "siblings": ["audio_rt"]},
+  {"id": "models_rt", "axis": "job", "label": "models / spawning / viewmodel", "words": ["models", "model", "spawn", "assets", "asset id", "viewmodel", "tool", "first person"]},
+  {"id": "camera", "axis": "job", "label": "camera / cutscene / recorder", "words": ["camera", "cutscene", "shake", "recorder", "replay", "cinematic"]},
+  {"id": "physics", "axis": "job", "label": "physics / raycast / projectile", "words": ["physics", "velocity", "raycast", "collision", "projectile", "bullet", "gravity", "assemblylinearvelocity"], "siblings": ["combat"]},
+  {"id": "npc", "axis": "job", "label": "NPC / AI", "words": ["npc", "ai", "enemy", "enemies", "pathfinding", "boss", "mob", "aggro"]},
+  {"id": "economy", "axis": "job", "label": "economy / shop", "words": ["shop", "currency", "coins", "purchase", "gamepass", "developer product", "inventory", "reward"], "siblings": ["data"]},
+  {"id": "rules", "axis": "layer", "label": "pure rules (shared, testable)", "words": ["rules", "pure", "shared", "no game apis", "testable", "returns ok"], "siblings": ["service"]},
+  {"id": "service", "axis": "layer", "label": "server service", "words": ["server", "service", "server authority", "server-side", "authority"], "siblings": ["rules", "controller"]},
+  {"id": "controller", "axis": "layer", "label": "client controller", "words": ["client", "controller", "local", "localscript", "player input", "presentation"], "siblings": ["service"]}
+ ]
+}

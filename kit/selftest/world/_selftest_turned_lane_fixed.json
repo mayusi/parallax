@@ -1,0 +1,132 @@
+{
+ "_note": "The same slanted lane at 8 studs: it fits the r6 sheet (the pair of _selftest_turned_lane.json; the claim typed at 40 degrees, the walls turned to it).",
+ "name": "SelftestTurnedLaneFixed",
+ "scale": "r6",
+ "palette": {
+  "ground": {
+   "material": "Concrete",
+   "color": [
+    96,
+    98,
+    104
+   ]
+  },
+  "wall": {
+   "material": "Brick",
+   "color": [
+    120,
+    110,
+    104
+   ]
+  },
+  "spawn": {
+   "material": "Neon",
+   "color": [
+    80,
+    220,
+    120
+   ]
+  }
+ },
+ "build": [
+  {
+   "floor": {
+    "name": "Ground",
+    "center": [
+     0,
+     -1,
+     0
+    ],
+    "size": [
+     200,
+     200
+    ],
+    "thickness": 2,
+    "mat": "ground"
+   }
+  },
+  {
+   "wall": {
+    "name": "North wall",
+    "from": [
+     -40,
+     -4.5
+    ],
+    "to": [
+     40,
+     -4.5
+    ],
+    "y": 0,
+    "height": 12,
+    "thickness": 1,
+    "mat": "wall",
+    "turn": 40,
+    "about": [
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "wall": {
+    "name": "South wall",
+    "from": [
+     -40,
+     4.5
+    ],
+    "to": [
+     40,
+     4.5
+    ],
+    "y": 0,
+    "height": 12,
+    "thickness": 1,
+    "mat": "wall",
+    "turn": 40,
+    "about": [
+     0,
+     0
+    ]
+   }
+  },
+  {
+   "fit": {
+    "kind": "alley",
+    "name": "Slant lane",
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "from": [
+     -24.513,
+     20.569
+    ],
+    "to": [
+     24.513,
+     -20.569
+    ]
+   }
+  },
+  {
+   "spawn": {
+    "pos": [
+     0,
+     0,
+     0
+    ],
+    "mat": "spawn"
+   }
+  },
+  {
+   "spawn": {
+    "pos": [
+     60,
+     0,
+     60
+    ],
+    "mat": "spawn"
+   }
+  }
+ ]
+}

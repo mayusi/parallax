@@ -1,0 +1,158 @@
+{
+  "schema": 1,
+  "lane": "code",
+  "default_case": "code:gameplay_system",
+  "cases": [
+    {
+      "case_id": "code:new_game_scaffold",
+      "label": "Starting a New Roblox Game Project",
+      "triggers": {
+        "keywords": ["scaffold", "new-game", "setup", "initialize", "bootstrap", "game-new", "rojo", "project-setup"],
+        "requires_both": [
+          ["new", "scaffold", "setup", "initialize", "bootstrap", "create"],
+          ["game", "project", "rojo", "place"]
+        ]
+      },
+      "tier": "simple",
+      "budget_minutes": 10,
+      "required_tools_ordered": [
+        "parallax game new <Pascal>",
+        "answer GAME.md with owner",
+        "parallax game check <Name>",
+        "verify Rojo + runtime sync"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "ROOT_GAMEPLAY", "pattern": "add_gameplay_code_at_repo_root", "why": "Adding new gameplay code directly at repo root bypasses the game folder structure and cannot be installed into another game." },
+        { "id": "FLIP_ACTIVE", "pattern": "flip_shared_games_active", "why": "Flipping shared games/.active without game new corrupts the active game pointer for every other session." }
+      ],
+      "mandatory_gates": ["game_check", "root_gameplay_refused"],
+      "owner_stops": ["verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "scaffold a new Roblox game project with parallax game new and GAME.md",
+        "initialize a new game folder with Rojo setup and runtime sync check",
+        "bootstrap a new game project structure for SampleGame in the games folder"
+      ]
+    },
+    {
+      "case_id": "code:gameplay_system",
+      "label": "Inventory, Shop, Quest, Progression, Round, NPC, Data System",
+      "triggers": {
+        "keywords": ["inventory", "shop", "quest", "progression", "round", "npc", "data", "system", "gameplay", "service", "controller"],
+        "requires_both": []
+      },
+      "tier": "complex",
+      "budget_minutes": 30,
+      "required_tools_ordered": [
+        "parallax new system <Pascal> --game <Name>",
+        "Config + pure Rules (no game:GetService/Instance.new, plain {X,Y,Z}) + Service + Controller + spec (incl. hostile cases)",
+        "parallax test + parallax fuzz (0 crashes) + parallax mutate (>=80%, V4 target >=90%)",
+        "parallax new playtest",
+        "Studio MCP playtest (0 console errors)"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "UNTESTABLE_SERVICE", "pattern": "game_logic_in_service", "why": "Putting game logic in untestable Service instead of pure Rules blocks mutation testing and makes hostile-case coverage impossible." },
+        { "id": "GETSERVICE_SHARED", "pattern": "getservice_in_src_shared", "why": "Calling game:GetService in src/shared breaks the shared-pure gate and makes modules dependent on the Roblox runtime." },
+        { "id": "UNIT_NO_STUDIO", "pattern": "green_unit_tests_no_studio_playtest", "why": "Shipping green unit tests without Studio playtest misses runtime errors that only appear in a live Roblox place." },
+        { "id": "PLAYER_LEAK", "pattern": "leak_per_player_tables", "why": "Leaking per-player tables on PlayerRemoving causes memory growth and eventual server crashes." }
+      ],
+      "mandatory_gates": ["stylua", "selene", "shared_pure_gate", "fuzz==0", "mutate>=80%", "studio_playtest_0_errors"],
+      "owner_stops": ["verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [],
+      "examples": [
+        "build an inventory system with pure Rules, fuzz testing and Studio playtest",
+        "create a quest progression system with Config/Rules/Service and 0 fuzz crashes",
+        "implement a shop data system with mutation testing at 80% and Studio proof"
+      ]
+    },
+    {
+      "case_id": "code:network_remote",
+      "label": "Any Client-to-Server RemoteEvent / RemoteFunction",
+      "triggers": {
+        "keywords": ["remote", "network", "remoteevent", "remotefunction", "client-server", "guard", "ratelimit", "net"],
+        "requires_both": []
+      },
+      "tier": "simple",
+      "budget_minutes": 10,
+      "required_tools_ordered": [
+        "assets/net/<System>.net.json (bounded numbers/strings/vectors)",
+        "parallax net",
+        "src/net/<System>Net.luau (RateLimit + Guard.* on EVERY arg)",
+        "parallax audit",
+        "red-team playtest"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "UNGUARDED_REMOTE", "pattern": "onserverevent_no_ratelimit_guard", "why": "Hand-wired OnServerEvent without RateLimit + Guard.* lets any client send arbitrary data to the server." },
+        { "id": "TRUST_CLIENT", "pattern": "trust_client_position_damage_price", "why": "Trusting client-sent position/damage/price/ownership values allows trivial exploits." },
+        { "id": "SERVER_INVOKE", "pattern": "server_invokeclient", "why": "Server InvokeClient can hang indefinitely if the client never responds, deadlocking the server thread." },
+        { "id": "FIREALL_LOOP", "pattern": "fireallclients_in_loops", "why": "FireAllClients in loops produces network spikes that exceed Roblox remote bandwidth limits." }
+      ],
+      "mandatory_gates": ["parallax_audit (hard fail in verify)", "redteam_playtest"],
+      "owner_stops": [],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [
+        {
+          "file_glob": "src/server/**/*.luau",
+          "regex": "OnServerEvent",
+          "requires_absent": "Guard",
+          "severity": "block",
+          "message": "every remote handler validates with Guard + RateLimit — OnServerEvent found without Guard in this file; use parallax net to generate a RateLimit + Guard-checked handler."
+        }
+      ],
+      "examples": [
+        "add a RemoteEvent for a shop purchase with Guard-checked args and RateLimit",
+        "build a network remote for damage reporting with net.json and parallax audit",
+        "create a RemoteFunction for inventory sync with bounded Guard validation"
+      ]
+    },
+    {
+      "case_id": "code:combat_moveset",
+      "label": "Combat Abilities, Weapon Attacks, Hitboxes, Cancels",
+      "triggers": {
+        "keywords": ["combat", "moveset", "hitbox", "cancel", "startup", "active", "recovery", "combo", "hitstop", "frames"],
+        "requires_both": []
+      },
+      "tier": "complex",
+      "budget_minutes": 30,
+      "required_tools_ordered": [
+        "assets/moves/<Move>.json (from_anim measured phases)",
+        "parallax move",
+        "LOOK at build/moves/<Set>.png",
+        "Moves.serve on ONE unified monotonic simulation clock + hitstop accumulator",
+        "Studio 2-client playtest"
+      ],
+      "v4_upgrade_tools": [],
+      "forbidden_tools": [
+        { "id": "GUESS_FRAMES", "pattern": "guess_startup_active_recovery_frames", "why": "Guessing startup/active/recovery frames produces combat that does not match the animation's real timing." },
+        { "id": "OSCLOCK_COMBAT", "pattern": "os_clock_in_combat_state", "why": "Calling os.clock() inside combat state (Moves.luau) causes split-brain timing where server and client disagree on frame counts." }
+      ],
+      "mandatory_gates": ["move_anim_sync", "no_os_clock_combat", "studio_2client_playtest"],
+      "owner_stops": ["verdict"],
+      "capability_policy": "Full-capability, case-matched execution (NEVER artificially minimal): use the ENTIRE pipeline whenever the piece benefits from it; `required_tools_ordered` is the quality floor, extra non-forbidden pipeline tools are ALWAYS allowed, `forbidden_tools` blocks ONLY tools that degrade this case, and edge-case skips require `--skip-tool <tool> --why \"<reason>\"` logged to `.verify/parallax_session.json`.",
+      "anti_patterns_regex": [
+        {
+          "file_glob": "src/**/Moves.luau",
+          "regex": "os\\.clock\\(",
+          "severity": "block",
+          "message": "use the server's shared clock (workspace:GetServerTimeNow()) — os.clock() inside Moves.luau causes split-brain timing between server and client."
+        },
+        {
+          "file_glob": "src/moves/*.luau",
+          "regex": "os\\.clock\\(",
+          "severity": "block",
+          "message": "use the server's shared clock (workspace:GetServerTimeNow()) — os.clock() inside combat state causes split-brain timing between server and client."
+        }
+      ],
+      "examples": [
+        "build a sword moveset with measured phases, hitbox and 2-client Studio proof",
+        "create a combat ability set from move.json with hitstop and no os.clock()",
+        "implement weapon attack cancels with parallax move and unified simulation clock"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+ "engine": "fx",
+ "recipe": "gpu_smoke",
+ "frames": 64,
+ "grid": 8,
+ "cell": 128,
+ "seed": 57,
+ "params": {
+  "res": [
+   256,
+   256,
+   112
+  ],
+  "steps": 200,
+  "light": "top",
+  "emitter": 0.0001,
+  "inflow_until": 0.0,
+  "heat": 0,
+  "buoyancy": 0.0,
+  "vorticity": 0.9,
+  "turbulence": 0.9,
+  "dissipation": 0.008,
+  "albedo": [
+   0.95,
+   0.88,
+   0.78
+  ],
+  "ambient": 0.4,
+  "fill": 0.5,
+  "key": 1.5,
+  "density": 90,
+  "sheet_start": 0.05,
+  "edge_fade": 0.12,
+  "surge": {
+   "radius": 0.06,
+   "width": 0.05,
+   "height": 0.1,
+   "until": 0.22,
+   "speed": 2.2,
+   "density": 1.0,
+   "heat": 0.0
+  },
+  "sheet_end": 0.72,
+  "weight": 0.12,
+  "edge_floor": false
+ },
+ "post": {
+  "alpha": "coverage",
+  "exposure": 1.2
+ },
+ "about": "the nuke's BASE SURGE simulated on the GPU: a ring on the floor blowing outward (gpusim `surge`), a low rolling dust skirt that spreads and thins - ONE coherent element instead of rows of puffs (owner 2026-10-22: 'the smoke looks bad around')"
+}
