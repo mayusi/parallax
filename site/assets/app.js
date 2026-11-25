@@ -202,7 +202,7 @@
   });
   Array.prototype.forEach.call(document.querySelectorAll(".chips[data-chip-target]"), function (box) {
     var sel = box.getAttribute("data-chip-target");
-    var attr = box.getAttribute("data-chip-attr") || "group";
+    var attr = (box.getAttribute("data-chip-attr") || "group").replace(/^data-/, "");
     Array.prototype.forEach.call(box.querySelectorAll(".chip"), function (c) {
       c.setAttribute("type", "button");
       c.addEventListener("click", function () {
