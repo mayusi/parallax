@@ -1,0 +1,184 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Learning loop · Parallax</title>
+<meta name="description" content="How Parallax learns from verdicts: the golden set, the graveyard, lessons, the vault, and how knowledge gets back into the pipeline.">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/app.js" defer></script>
+</head>
+<body data-root="" data-page="learning">
+<div id="site-header"></div>
+<div class="layout">
+<aside class="sidebar"></aside>
+<main class="content">
+
+<header class="page-head">
+  <p class="eyebrow">Reference</p>
+  <h1>The learning loop</h1>
+  <p class="lead">Every piece you score feeds back into the kit. Lessons from one session are ranked and surfaced in the next. Routes that failed go to a graveyard so they are not retried. Pieces you loved go to a golden set so the next session can see what worked. This page explains the loop from verdict to build-time enforcement.</p>
+</header>
+
+<div class="note"><span class="callout-title">Note</span><p>A few commands take a literal <code>--owner</code> or <code>--by owner</code> flag. In those flags, "owner" means you: the person who runs the kit and scores the work.</p></div>
+
+<section>
+<h2 id="verdicts">Verdicts</h2>
+<p>A verdict is your score and words for a finished piece. It is the only quality signal the kit acts on.</p>
+<pre><code>lune run parallax verdict &lt;kind&gt; &lt;name&gt; &lt;0-10 | keep | redo&gt; "&lt;your words&gt;"</code></pre>
+<p>The <code>kind</code> maps to a vault department: <code>asset</code> and <code>model</code> go to the 3D department, <code>effect</code> and <code>vfx</code> to VFX, <code>screen</code> and <code>ui</code> to UI, <code>sound</code> and <code>sfx</code> to sound, and so on.</p>
+
+<h3 id="golden-graveyard">Golden set and graveyard</h3>
+<dl class="specs">
+  <dt>Score 7 or higher</dt><dd>The piece enters the <strong>golden set</strong> for its department (<code>kit/knowledge/vault/&lt;dept&gt;/golden.md</code>). Future sessions see it as a proven example.</dd>
+  <dt>Score 3 or lower</dt><dd>The piece enters the <strong>graveyard</strong> (<code>kit/knowledge/vault/&lt;dept&gt;/graveyard.md</code>). A score this low needs <code>--route "what failed"</code>, and that route is recorded so it is not tried again.</dd>
+  <dt>Score 4–6</dt><dd>Recorded, but earns no lesson credit in either direction and adds no golden or graveyard row.</dd>
+  <dt><code>keep</code> and <code>redo</code></dt><dd>Direction words without a number. They add no golden or graveyard row and are never averaged into a score. For lesson credit, <code>keep</code> counts as a success and <code>redo</code> as a failure.</dd>
+</dl>
+
+<div class="note"><span class="callout-title">Note</span><p>The open-piece cap (at most 3 unscored new pieces per lane per project) means you must score pieces regularly to keep the lane moving. See <a href="enforcement.html#open-piece-cap">enforcement: open-piece cap</a>.</p></div>
+</section>
+
+<section>
+<h2 id="lessons">Lessons</h2>
+<p>A lesson is a non-obvious finding that future sessions in any project should know. The kit surfaces lessons before new work, and it also asks for them: while a lane owes a lesson from one of your verdicts, <code>new</code> refuses the next piece, and <code>handoff</code> is still written but fails, until the lesson is recorded.</p>
+<pre><code>lune run parallax lesson &lt;area&gt; "what you learned" [--gist "the fix in one line"] [--stage &lt;stage&gt;[,&lt;stage&gt;]] [--family &lt;family&gt;]</code></pre>
+
+<dl class="specs">
+  <dt><code>area</code></dt><dd>The department: <code>3d</code>, <code>vfx</code>, <code>sfx</code>, <code>ui</code>, <code>world</code>, <code>anim</code>, <code>code</code>, <code>qa</code> or <code>kit</code>.</dd>
+  <dt><code>--gist</code></dt><dd>The fix in one line (at most 160 characters), shown when the lesson ranks below the top two.</dd>
+  <dt><code>--stage</code></dt><dd>The stage or stages of the lane's route this lesson applies to. An unknown stage is refused. Without it, the stage is read from the lesson's words.</dd>
+  <dt><code>--family</code></dt><dd>The kind of piece this lesson fits, from the lane's families in <code>kit/knowledge/families.json</code> (for example <code>blade</code> or <code>firearm</code> in 3D, <code>sword</code> in animation). An unknown family is refused. Without it, the family is read from the lesson's words.</dd>
+  <dt>Length limit</dt><dd>At most 1,200 characters per lesson (<code>Vault.LESSON_MAX</code> in <code>kit/lib/vault.luau</code>). A longer text holds more than one lesson: split it.</dd>
+</dl>
+
+<h3 id="citing-lessons">Citing lessons on a piece</h3>
+<p>When you apply lessons to a piece, cite the ones you used. The kit records this, then when you score the piece it credits each cited lesson as helpful or harmful.</p>
+<pre><code>lune run parallax lesson used &lt;id,id,...&gt; --piece &lt;kind&gt; &lt;name&gt;</code></pre>
+<p>The kinds are <code>asset</code>, <code>vfx</code>, <code>screen</code>, <code>sound</code>, <code>world</code> and <code>anim</code>.</p>
+</section>
+
+<section>
+<h2 id="vault">The vault</h2>
+<p>The vault is a folder of Obsidian-compatible Markdown files the kit writes and every harness reads. You can open <code>kit/knowledge/vault/</code> in Obsidian as a viewer; the kit never depends on Obsidian.</p>
+<dl class="specs">
+  <dt>Root</dt><dd><code>kit/knowledge/vault/</code></dd>
+  <dt>Structure</dt><dd>One sub-folder per department: <code>3d/</code>, <code>vfx/</code>, <code>sfx/</code>, <code>ui/</code>, <code>world/</code>, <code>anim/</code>, <code>code/</code>, <code>qa/</code>, <code>kit/</code>, plus <code>shared/</code> for cross-cutting pages and <code>prompt/</code> for PROMPT-X's records.</dd>
+  <dt>Per department</dt><dd><code>index.md</code>, <code>boot.md</code> (shown when a session starts), <code>lessons/</code>, and, as records arrive, <code>verdicts/</code>, <code>golden.md</code>, <code>graveyard.md</code> and <code>rules.md</code>.</dd>
+  <dt>Shared</dt><dd><code>shared/index.md</code> and topic pages that apply across departments.</dd>
+</dl>
+<p>The vault pages shown by <code>status</code> and <code>start</code> are cut to a fixed token budget (<code>vault.budget</code> in <code>kit.config.json</code>). <code>lune run parallax vault page &lt;dept&gt; --full</code> shows the whole page, and <code>--budget N</code> sets another budget.</p>
+</section>
+
+<section>
+<h2 id="retrieval">Retrieval by relevance</h2>
+<p>When you start a session for a piece, the kit ranks the department's lessons for that piece and shows the most relevant ones first.</p>
+<pre><code>lune run parallax start &lt;lane&gt; --for "&lt;piece name or describing words&gt;"</code></pre>
+<p>The ranking (<code>Vault.rank</code> in <code>kit/lib/vault.luau</code>) scores each lesson by:</p>
+<ul>
+  <li>relevance: BM25 word matching between the piece's words and the lesson's text and gist;</li>
+  <li>evidence: your verdicts on the pieces the lesson was cited or shown on (a flagged lesson scores lowest);</li>
+  <li>recency: a small boost for new lessons that fades over about a month;</li>
+  <li>family: a lesson of the piece's family ranks higher, one of another family lower;</li>
+  <li>game: a lesson from another game in the project ranks lower.</li>
+</ul>
+<p>The kit also has a replay evaluation (<code>Vault.eval</code>) that measures, on past citations, how often each ordering would have surfaced the lessons that were actually used.</p>
+</section>
+
+<section>
+<h2 id="build-time">Lessons biting at build time</h2>
+<p>Lessons are not just reading material. For VFX, UI, animation, sound and world pieces, the ranked lessons become a required sheet that you must answer before the piece builds and before <code>verify</code> passes.</p>
+<pre><code># write and check the lessons sheet for a new piece
+lune run parallax answer &lt;vfx|ui|anim|sfx|world&gt; &lt;name&gt;
+
+# for 3D assets
+lune run parallax study &lt;asset&gt; --new</code></pre>
+<p>The sheet asks you to answer the top-ranked lessons that share words with the piece (at most 5 must be answered). For each one you write either <code>- &lt;id&gt;: how this piece applies it</code> or <code>- skip &lt;id&gt;: why it does not apply</code>. Every answer, applied or skipped, needs at least 6 words. The applied ones are recorded as citations on the piece, so your verdict credits them.</p>
+
+<h3 id="reroutes">Reroutes</h3>
+<p>If the piece's route changes after the sheet was answered (for example you switch from a generated mesh to a hand-modelled one), run the same command with <code>--reroute</code>. The old answers are kept under <code>## Earlier answers</code>, and every matched lesson is asked again for the new route.</p>
+</section>
+
+<section>
+<h2 id="lesson-credit">Lesson credit</h2>
+<p>Lesson credit ties each lesson's history to the outcomes of the pieces that used it.</p>
+<ol>
+  <li>When you apply a lesson to a piece, cite it: <code>lune run parallax lesson used &lt;ids&gt; --piece &lt;kind&gt; &lt;name&gt;</code>. The kit records this in <code>board/citations.json</code>.</li>
+  <li>When you later score the piece with <code>verdict</code>, the kit updates each cited lesson:
+    <ul>
+      <li>Score 7 or higher, or <code>keep</code>: the lesson is marked <strong>helpful</strong>.</li>
+      <li>Score 3 or lower, or <code>redo</code>: the lesson is marked <strong>harmful</strong>.</li>
+      <li>Score 4–6: no credit either way.</li>
+    </ul>
+  </li>
+  <li>A lesson is <strong>flagged</strong> when it has three or more uses and harmful leads helpful by two or more. A lesson that was only shown, not named, counts at half weight. Flagged lessons are shown with a warning but are never retired automatically.</li>
+</ol>
+<p>These counts feed the ranking's evidence: helpful lessons rank higher, harmful ones lower.</p>
+</section>
+
+<section>
+<h2 id="rules-and-taste">Distilling rules and taste models</h2>
+<p>Beyond individual lessons, the kit provides two aggregation tools.</p>
+<h3 id="distil">vault distil</h3>
+<p>Distils a department's records into its rules page (<code>rules.md</code>). You can add, edit or retire individual rules:</p>
+<pre><code>lune run parallax vault distil &lt;dept&gt; [--since D] [--rule "new rule text"] [--edit "R-&lt;dept&gt;-&lt;n&gt;: revised text"] [--retire "R-&lt;dept&gt;-&lt;n&gt;: why"]</code></pre>
+<h3 id="taste">taste models</h3>
+<p>A taste model per lane is built from your own scores, never a guess. It is tested leave-one-out and is on only with 20 or more scored pieces that it orders your way at least 60% of the time. It only orders candidates, and you can switch it off at any time:</p>
+<pre><code>lune run parallax taste train &lt;lane&gt;
+lune run parallax taste order &lt;lane&gt; &lt;candidates ...&gt;
+lune run parallax taste off &lt;lane&gt;
+lune run parallax taste on &lt;lane&gt;</code></pre>
+<p>The taste model is an ordering signal only; it does not replace your verdict.</p>
+</section>
+
+<section>
+<h2 id="promote-sync">promote and sync across games</h2>
+<p>Lessons you record with <code>lesson</code> are written to the kit's home, for every project. Proven content moves there with <code>promote</code>, and <code>sync</code> brings the kit home's latest into a project.</p>
+<pre><code># add proven content to the example library every project can start from
+lune run parallax promote &lt;asset|sound|vfx|screen|world|anim&gt; &lt;name&gt; --about "one line"
+
+# pull the latest kit, lessons and examples from the kit home
+lune run parallax sync</code></pre>
+<p><code>promote</code> refuses a piece unless its gate passed after its last edit and your verdict on it in the vault is 7 or more (or you quote your words with <code>--owner "..."</code>). A screen also needs a <code>ui look</code> record of its current build. An example of the same name is replaced only with <code>--force</code>.</p>
+<p><code>sync</code> runs <code>update</code> from the kit home. It replaces the kit's own files. In the vault, it replaces the kit-owned pages (<code>index.md</code>, <code>boot.md</code>, <code>README.md</code>, <code>*.base</code>, <code>_templates/</code>), merges <code>golden.md</code>, <code>graveyard.md</code> and <code>orders.md</code> by appending lines you do not have, and copies other notes (lessons, verdicts, rules) only when they are missing, so what your project recorded is kept.</p>
+</section>
+
+<section>
+<h2 id="regression-floors">Regression floors</h2>
+<p>Once a build is approved, you can lock its measured quality as a floor. A later build that measures worse than the floor fails <code>verify</code>.</p>
+<pre><code>lune run parallax accept &lt;asset&gt; ["your words"] [--lower]
+lune run parallax accept &lt;vfx|screen|sound|world|anim|system&gt; &lt;name&gt;</code></pre>
+<ul>
+  <li>3D: a later build measuring more than 2 raw points below the floor fails. The floor is stored in <code>assets/models/&lt;asset&gt;.accepted.json</code>.</li>
+  <li>Other kinds: the floor is a build you rated 7 or more, and each measured value has its own tolerance. Floors are stored in <code>assets/floors/&lt;kind&gt;/&lt;name&gt;.accepted.json</code>.</li>
+  <li><code>--lower</code> lowers a 3D floor, or moves it to another build. You must confirm it at your own terminal; an agent's shell cannot.</li>
+</ul>
+</section>
+
+<section>
+<h2 id="loop-diagram">The loop</h2>
+<div class="flow">
+  <span class="step">Build a piece</span>
+  <span class="arrow">→</span>
+  <span class="step lock">Answer lessons sheet</span>
+  <span class="arrow">→</span>
+  <span class="step lock">Get your verdict (0–10, keep or redo)</span>
+  <span class="arrow">→</span>
+  <span class="step">Cited lessons credited</span>
+  <span class="arrow">→</span>
+  <span class="step">Vault records golden / graveyard</span>
+  <span class="arrow">→</span>
+  <span class="step">Ranking evidence updates</span>
+  <span class="arrow">→</span>
+  <span class="step">Next piece starts better-informed</span>
+</div>
+</section>
+
+</main>
+<aside class="toc"></aside>
+</div>
+<div id="site-footer"></div>
+<!-- sources: kit/lib/vault.luau, kit/lib/vaultmerge.luau, kit/lib/answers.luau, kit/lib/config.luau, kit/cmd/learn.luau, kit/cmd/judge.luau, kit/qa/accept.luau, kit/cmd/scaffold.luau, kit/knowledge/families.json, kit/knowledge/vault/, scratchpad/site/work/help_all.txt -->
+</body>
+</html>

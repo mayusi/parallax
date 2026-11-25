@@ -1,0 +1,242 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Pipelines · Parallax</title>
+<meta name="description" content="All eight Parallax pipelines: 3D models, visual effects, animation, worlds, interfaces, sound, gameplay systems, and QA.">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/app.js" defer></script>
+</head>
+<body data-root="../" data-page="pipelines">
+<div id="site-header"></div>
+<div class="layout">
+<aside class="sidebar"></aside>
+<main class="content">
+
+<header class="page-head">
+  <p class="eyebrow">Reference</p>
+  <h1>Pipelines</h1>
+  <p class="lead">Parallax organises all creative and engineering work into eight pipelines, one per discipline. Every pipeline follows the same shape: start with your request, look up the right case, plan the work, step through numbered stages with approval locks, pass objective gates, track time against a clock, record your verdict, and let the kit learn from it. This page explains that shared shape and links to the detail for each pipeline.</p>
+</header>
+
+<section>
+<h2 id="pipelines">All eight pipelines</h2>
+<div class="cards">
+  <a class="card" href="3d.html"><div class="kicker">3D models</div><h3>3D models</h3><p>Game-ready props, weapons, and hero meshes — from references to an optimized, uploadable mesh in one planned pass through 10 stages.</p></a>
+  <a class="card" href="vfx.html"><div class="kicker">Visual effects</div><h3>Visual effects</h3><p>Anime- and AAA-grade effects (ultimates, slashes, auras, impacts) built from a measured breakdown of real footage, with textures authored in Blender.</p></a>
+  <a class="card" href="anim.html"><div class="kicker">Animation</div><h3>Animation</h3><p>Measured R6 character animations — authored from a move dossier, calibrated against the native R6 catalog, gated on motion, and proven in Studio frame by frame.</p></a>
+  <a class="card" href="world.html"><div class="kicker">Worlds</div><h3>Worlds</h3><p>Roblox levels and maps — from a creative direction and parametric generators to a world proven playable by numbers and walked in Studio.</p></a>
+  <a class="card" href="ui.html"><div class="kicker">Interfaces</div><h3>Interfaces</h3><p>HUDs, menus, and dialogs — identity-first, compiled from JSON specs, gated on readability and touch targets, and driven by the kit's Ui runtime.</p></a>
+  <a class="card" href="sfx.html"><div class="kicker">Sound</div><h3>Sound</h3><p>Sound effects and loops — real recordings layered with synthesis, measured with the ears tool, and judged by you in a listening booth.</p></a>
+  <a class="card" href="code.html"><div class="kicker">Gameplay systems</div><h3>Gameplay systems</h3><p>Server-authoritative gameplay code — pure tested rules, generated remotes, and combat moves as data, all proven with fuzzing, mutation testing, and in-engine playtests.</p></a>
+  <a class="card" href="qa.html"><div class="kicker">QA</div><h3>QA</h3><p>Security audit, gate selftests, scripted in-engine playtests, and a regression record where every bug you find becomes a permanent spec case.</p></a>
+</div>
+</section>
+
+<section>
+<h2 id="comparison">Comparison</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Pipeline</th>
+      <th>What it makes</th>
+      <th>Stages</th>
+      <th>Your approvals</th>
+      <th>Minimum hardware</th>
+      <th>How to start</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><a href="3d.html">3D models</a></td>
+      <td>Props, weapons, hero meshes</td>
+      <td>10</td>
+      <td>Sheet (stage 2), blockout (stage 4)</td>
+      <td><span class="badge tier">Tier 1</span> Blender 5.2</td>
+      <td><code>lune run parallax start 3d --prompt "..."</code></td>
+    </tr>
+    <tr>
+      <td><a href="vfx.html">Visual effects</a></td>
+      <td>Particle and mesh effects</td>
+      <td>8</td>
+      <td>Test frame + style sheet (stage 2), animatic (stage 2b)</td>
+      <td><span class="badge tier">Tier 1</span> Blender 5.2</td>
+      <td><code>lune run parallax start vfx --prompt "..."</code></td>
+    </tr>
+    <tr>
+      <td><a href="anim.html">Animation</a></td>
+      <td>R6 character clips</td>
+      <td>8</td>
+      <td>Design page (attacks), pose sheet (blocking)</td>
+      <td><span class="badge tier">Tier 1</span> Blender 5.2</td>
+      <td><code>lune run parallax start anim --prompt "..."</code></td>
+    </tr>
+    <tr>
+      <td><a href="world.html">Worlds</a></td>
+      <td>Levels and maps</td>
+      <td>9</td>
+      <td>Direction (stage 0)</td>
+      <td><span class="badge tier">Tier 1</span> Blender 5.2 + Studio</td>
+      <td><code>lune run parallax start world --prompt "..."</code></td>
+    </tr>
+    <tr>
+      <td><a href="ui.html">Interfaces</a></td>
+      <td>HUDs, menus, dialogs</td>
+      <td>8</td>
+      <td>Direction pick (stage 0), verdict (stage 6)</td>
+      <td><span class="badge tier">Tier 0</span> for compile; Tier 1 for renders</td>
+      <td><code>lune run parallax start ui --prompt "..."</code></td>
+    </tr>
+    <tr>
+      <td><a href="sfx.html">Sound</a></td>
+      <td>Sound effects and loops</td>
+      <td>10</td>
+      <td>Direction pick (stage 0), reference picks (stage 1), booth verdict (stage 6)</td>
+      <td><span class="badge tier">Tier 0</span> (CLAP search optional at Tier 2)</td>
+      <td><code>lune run parallax start sfx --prompt "..."</code></td>
+    </tr>
+    <tr>
+      <td><a href="code.html">Gameplay systems</a></td>
+      <td>Systems, remotes, move sets</td>
+      <td>7</td>
+      <td>Game brief (stage 1); accept ratchet at verdict ≥ 7</td>
+      <td><span class="badge tier">Tier 0</span> + Studio for playtests</td>
+      <td><code>lune run parallax start code --prompt "..."</code></td>
+    </tr>
+    <tr>
+      <td><a href="qa.html">QA</a></td>
+      <td>Audit results, playtest reports, regression record</td>
+      <td>4</td>
+      <td>Accept ratchet at verdict ≥ 7</td>
+      <td><span class="badge tier">Tier 0</span> + Studio for playtests</td>
+      <td><code>lune run parallax start qa --prompt "..."</code></td>
+    </tr>
+  </tbody>
+</table>
+</section>
+
+<section>
+<h2 id="shared-shape">The shape every pipeline shares</h2>
+<p>Every pipeline follows the same progression. Understanding it once means you can navigate any pipeline.</p>
+
+<h3>1. Start with your request</h3>
+<p>Every pipeline session starts with a single command. You must run it before any build command is accepted — the kit's gate blocks pipeline work without a fresh session token.</p>
+<pre><code>lune run parallax start &lt;lane&gt; --prompt "&lt;your request in plain words&gt;"</code></pre>
+<p>The <code>--prompt</code> text is compiled by PROMPT-X: it determines the case, the contract floor, the capability menu, and the forbidden routes for this piece. The session token lasts four hours.</p>
+<p>The boot sheet follows: the ranked lessons for this lane, the last handoff, any failing gates, and the next suggested action. Read it before doing anything.</p>
+
+<h3>2. The case lookup</h3>
+<p>Your prompt maps to a CASE in the lane — a named scenario with its contract floor (what must be true for a done result), which routes are forbidden, and which capabilities apply. Use <code>kit case &lt;lane&gt; "..."</code> to look up a case directly.</p>
+
+<h3>3. The plan</h3>
+<p>For any heavy build (a hero asset, a hero effect, a hero system), write a plan file at <code>assets/plans/&lt;piece&gt;.plan.json</code> before starting. The kit gate blocks a heavy build without one. The plan records the tools per part and the beat order from the case's capability menu.</p>
+
+<h3>4. Stages with approval locks</h3>
+<p>Every pipeline has numbered stages. Some stages are locked: the next stage cannot start until you approve the current one. Approval always comes from you — no automated score or gate result unlocks an approval stage.</p>
+<div class="flow">
+  <span class="step">stage N</span>
+  <span class="arrow">→</span>
+  <span class="step lock">approval lock (you)</span>
+  <span class="arrow">→</span>
+  <span class="step">stage N+1</span>
+</div>
+<p>To give approval: <code>kit approve &lt;lane&gt; &lt;name&gt; "&lt;your words&gt;" --by owner --stage &lt;stage&gt;</code>. Some approvals hold only for the exact version you saw (a VFX style sheet, for example): an edited piece needs your approval again.</p>
+
+<h3>5. Gates</h3>
+<p>Between stages, objective gates measure the work. Gates have two effects:</p>
+<table>
+  <thead><tr><th>Effect</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td><span class="badge block">blocks</span></td><td>The build cannot proceed. Fix the issue, then run again.</td></tr>
+    <tr><td><span class="badge warn">warns</span></td><td>The build continues, and the warning is shown in the result.</td></tr>
+  </tbody>
+</table>
+<p>Gates run inside each lane's build commands and inside <code>kit verify</code>. They measure things you should not have to remember to check: topology, remote security, timing, readability, performance thresholds.</p>
+
+<h3>6. The clock</h3>
+<p>In the 3D, VFX, Animation, Worlds, Interfaces and Sound pipelines, every piece runs against a time budget set by its tier. The Gameplay systems and QA pipelines have no clock.</p>
+<table>
+  <thead><tr><th>Tier</th><th>Budget</th><th>When</th></tr></thead>
+  <tbody>
+    <tr><td>Simple</td><td>10 minutes</td><td>A prop, a single sound, a simple screen.</td></tr>
+    <tr><td>Complex</td><td>30 minutes</td><td>A sound set, a complex screen, an effect.</td></tr>
+    <tr><td>Hero</td><td>60 minutes</td><td>A hero asset, a hero effect, a hero screen. Only with your approval (<code>kit approve</code>).</td></tr>
+  </tbody>
+</table>
+<p>When the clock runs out, no change to the piece can be built. The piece as it was can still be rebuilt, looked at and played, and shown to you for a verdict. To extend: <code>kit clock &lt;lane&gt; &lt;name&gt; --extend &lt;minutes&gt; "&lt;your words&gt;"</code>. To restart from scratch: <code>--restart "&lt;your words&gt;"</code>.</p>
+<div class="tip"><span class="callout-title">Tip</span><p>Speed is a quality. A prop in 10 minutes and a hero weapon in 60 minutes that both pass their gates are both good outcomes. The clock is not a soft deadline — it is the production model.</p></div>
+
+<h3>7. Your verdict</h3>
+<p>When the work is done, you score it from 0 to 10 (or say "keep" or "redo") and say why in a few words:</p>
+<pre><code>lune run parallax verdict &lt;kind&gt; &lt;name&gt; &lt;0-10&gt; "one sentence about why"</code></pre>
+<p>The score drives two things:</p>
+<ul>
+  <li>Score ≥ 7 (or "keep"): the piece goes into the golden set. Use <code>kit accept &lt;kind&gt; &lt;name&gt;</code> to lock it as a regression floor — no future change may make it worse.</li>
+  <li>Score ≤ 3 (or "redo"): the route that produced this result goes into the graveyard, the record of failed routes that later sessions see when they start. A verdict of 3 or less needs <code>--route "what failed"</code>.</li>
+</ul>
+
+<h3>8. Lessons</h3>
+<p>Record what you learned during the session so the next one starts better:</p>
+<pre><code>lune run parallax lesson &lt;area&gt; "what I learned" --stage &lt;stage&gt;</code></pre>
+<p>Lessons are ranked by relevance to each new piece and shown at the start of its session. A new piece must have its matched lessons answered (applied or explicitly skipped with a reason of at least six words) before its quality locks pass. This prevents the same mistake twice.</p>
+</section>
+
+<section>
+<h2 id="how-pipelines-work-together">How pipelines work together</h2>
+<p>Most deliverables require more than one pipeline. A combat move needs an animation (from the anim pipeline), hitboxes from the systems pipeline, a sound (from the SFX pipeline), and a visual effect (from the VFX pipeline). These coordinate through the board.</p>
+
+<h3>The cross-lane kickoff brief</h3>
+<p>When a deliverable spans multiple pipelines, start with a kickoff brief. This creates linked tasks on the board for each lane and ensures each lane's session starts with the same context:</p>
+<pre><code>lune run parallax kickoff SwordSlash "a sword slash" \
+  --anim "a two-hit downward slash, R6, 24 frames at 60 fps" \
+  --vfx "a crescent blade trail with impact sparks" \
+  --sfx "a metallic cut, heavy thud on hit" \
+  --code "applies 20 damage, can parry, 10-frame window"</code></pre>
+<p>Each lane then runs its own pipeline independently and links its result back to the kickoff card.</p>
+
+<h3>Hand-offs on the board</h3>
+<p>Every session ends with a handoff, which records what was done, what comes next, and any warnings for the next session. The next session's boot sheet shows the last handoff for the lane.</p>
+<pre><code>lune run parallax handoff "built the slash anim, verdict 8" \
+  --lane anim \
+  --next "VFX lane needs the frame timings from build/animations/Slash.metrics.json" \
+  --warn "recovery is 8 frames — shorter than the design page said; VFX hitbox window must match"</code></pre>
+<p>Timing data from the animation pipeline flows directly into the systems pipeline's move data via <code>"from_anim"</code> in the move JSON. VFX cue times come from the same frame numbers. This chain means a change in one pipeline's output must trigger a rebuild in the pipelines that depend on it.</p>
+
+<h3>The board</h3>
+<p>All tasks, handoffs, decisions, and verdicts are recorded on the kit's local board. Use <code>kit status</code> to see the whole picture at any time, including which tasks are in progress, which are blocked, and what the last handoff for each lane said.</p>
+<pre><code>lune run parallax status          # project briefing, tasks, vault page, next step
+lune run parallax board           # open the local web board on 127.0.0.1:8790</code></pre>
+</section>
+
+<section>
+<h2 id="starting">Starting a pipeline</h2>
+<p>The workflow is the same regardless of which pipeline you are in.</p>
+<pre><code># 1. Start the lane with your request
+lune run parallax start &lt;lane&gt; --prompt "&lt;your request&gt;"
+
+# 2. Check the board
+lune run parallax status
+
+# 3. Claim a task
+lune run parallax task claim &lt;id&gt; --as "what I will make"
+
+# 4. Run the pipeline (commands depend on the lane — see that lane's page)
+
+# 5. Record your verdict
+lune run parallax verdict &lt;kind&gt; &lt;name&gt; &lt;0-10&gt; "..."
+
+# 6. Hand off
+lune run parallax handoff "what I did" --lane &lt;lane&gt; --next "..." --warn "..."</code></pre>
+
+<div class="note"><span class="callout-title">Note</span><p>Pipeline commands are blocked until you run <code>lune run parallax start &lt;lane&gt;</code>. The session token lasts four hours. If you get a gate error saying no session exists, run start again.</p></div>
+</section>
+
+</main>
+<aside class="toc"></aside>
+</div>
+<div id="site-footer"></div>
+<!-- sources: kit/skills/parallax-3d/SKILL.md, kit/skills/parallax-vfx/SKILL.md, kit/skills/parallax-anim/SKILL.md, kit/skills/parallax-world/SKILL.md, kit/skills/parallax-ui/SKILL.md, kit/skills/parallax-sfx/SKILL.md, kit/skills/parallax-systems/SKILL.md, kit/skills/parallax-qa/SKILL.md, kit/harness/AGENTS.parallax.md, README.md, kit/cmd/learn.luau, kit/cmd/kickoff.luau, kit/cmd/vault.luau -->
+</body>
+</html>

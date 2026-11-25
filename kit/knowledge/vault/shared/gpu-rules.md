@@ -2,7 +2,7 @@
 kind: reference
 area: shared
 date: 2026-10-16
-source: kit lessons 3d (2026-10-06), ui (2026-10-14), owner-machine-and-build-profile
+source: kit lessons 3d (2026-10-06), ui (2026-10-14), a build profile measured on a 12 GB RTX 5070
 links: ["[[shared/vision-stack]]", "[[shared/images]]"]
 ---
 

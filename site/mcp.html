@@ -1,0 +1,317 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>MCP server · Parallax</title>
+<meta name="description" content="The Parallax MCP server: tools, prompts, supported AI clients, config paths and uploading to Roblox.">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/app.js" defer></script>
+</head>
+<body data-root="" data-page="mcp">
+<div id="site-header"></div>
+<div class="layout">
+<aside class="sidebar"></aside>
+<main class="content">
+
+<header class="page-head">
+  <h1>MCP server</h1>
+  <p class="lead">Parallax exposes itself as an MCP (Model Context Protocol) server over stdio. Any MCP-capable AI client connects to it, receives the kit's rules at start-up and can then drive every pipeline. This page covers the protocol, all tools, the start prompts, every supported client and how uploads work.</p>
+</header>
+
+<section>
+<h2 id="server-overview">The server</h2>
+<dl class="specs">
+  <dt>Transport</dt><dd>stdio (JSON-RPC 2.0)</dd>
+  <dt>MCP protocol version</dt><dd>The server answers with the version the client asks for in <code>initialize</code>; if the client names none, <code>2025-06-18</code></dd>
+  <dt>Kit version reported</dt><dd><code>3.1.0</code></dd>
+  <dt>Server name</dt><dd><code>parallax</code></dd>
+  <dt>Source file</dt><dd><code>kit/mcp/server.py</code> (Python standard library only)</dd>
+  <dt>Start command</dt><dd><code>connect</code> writes it for you: <code>cmd /c python kit/mcp/server.py</code> on Windows, the machine's Python (<code>python3</code> first) with <code>kit/mcp/server.py</code> elsewhere. Clients that take a pasted block get the script's absolute path. The server finds the project root from its own file.</dd>
+</dl>
+
+<h3>Rules at connect</h3>
+<p>When a client sends <code>initialize</code>, the server returns a short preamble followed by the contents of <code>kit/harness/AGENTS.parallax.md</code> as the <code>instructions</code> field. Every client receives the same rules at the moment it connects — no per-client instruction file is needed, and no client needs to fetch the rules separately.</p>
+<p>The preamble says that Parallax is enforced, not advisory: pipeline work (3D models, VFX, animation, worlds, UI, sound, gameplay systems, QA) is refused until the agent calls <code>parallax_start</code> with the lane and your request (<code>prompt</code>). It points to <code>parallax_case</code> for the request's contract and <code>parallax_skill</code> for the lane's full recipe, says every command ends with <code>summary:</code> and <code>next_action:</code> to act on, and that each <code>lune run parallax &lt;command&gt;</code> in the rules is also the <code>parallax</code> tool with those arguments.</p>
+</section>
+
+<section>
+<h2 id="tools">Tools</h2>
+<p>Eight tools in total. The <code>parallax</code> tool runs any command; the other seven are shortcuts for the most common operations.</p>
+<div class="note"><span class="callout-title">Start here</span><p>Call <code>parallax_start</code> first with the lane and the request. Pipeline work is refused until you do.</p></div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tool</th>
+      <th>Arguments</th>
+      <th>What it does</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code>parallax_start</code></td>
+      <td><code>dept</code> (required): one of <code>3d vfx ui anim world sfx code qa kit</code><br><code>prompt</code>: the request, word for word<br><code>stage</code>: a stage of that lane's route (default: the first)<br><code>game</code>: which game folder this session works in</td>
+      <td>Load one department lane: its boot sheet, stage commands and lessons, open tasks, last handoff and vault page. With <code>prompt</code>, PROMPT-X compiles the request, routes it to its CASE and writes the session token that unlocks pipeline commands. Work only in the named lane.</td>
+    </tr>
+    <tr>
+      <td><code>parallax_prompt</code></td>
+      <td><code>prompt</code> (required): the request, word for word<br><code>lane</code>: the leading lane (optional)<br><code>model</code>: <code>claude</code> | <code>codex</code> | <code>gemini</code> | <code>local</code><br><code>piece</code>: the piece name (optional)</td>
+      <td>Compile the request with PROMPT-X: runs the lane's graveyard and golden records, the CASE contract, the capability menu and a token budget per model. Writes the session token.</td>
+    </tr>
+    <tr>
+      <td><code>parallax_case</code></td>
+      <td><code>lane</code> (required): one of <code>3d vfx ui anim world sfx code qa</code><br><code>words</code> (required): the request</td>
+      <td>The CASE a request maps to in that lane: the contract's floor, forbidden routes, the points where the work must stop for you, and the lane's capability menu and escalation ladder. A short answer (about 25 lines).</td>
+    </tr>
+    <tr>
+      <td><code>parallax_skill</code></td>
+      <td><code>dept</code> (required): one of <code>3d vfx ui anim world sfx code qa kit</code></td>
+      <td>The lane's full recipe (its skill page): every stage, its commands and its traps. Returns the whole output with no line cap. Read this after <code>parallax_start</code> when your harness has no skills folder.</td>
+    </tr>
+    <tr>
+      <td><code>parallax_status</code></td>
+      <td><code>as</code>: who you are (for example <code>"sonnet-4.6@claude-code"</code>)</td>
+      <td>The whole board across all lanes: project brief, tasks in progress / ready / blocked, the last handoff, failing quality gates and the single next step.</td>
+    </tr>
+    <tr>
+      <td><code>parallax_help</code></td>
+      <td>(none)</td>
+      <td>List every command (work board, systems, 3D, VFX, sound, UI, QA, setup).</td>
+    </tr>
+    <tr>
+      <td><code>parallax_verify</code></td>
+      <td>(none)</td>
+      <td>Run the full quality gate: format, selene, types, tests, VFX presets, UI drift, security audit, harness drift, Rojo build. Returns <code>summary:</code> and <code>next_action:</code>.</td>
+    </tr>
+    <tr>
+      <td><code>parallax</code></td>
+      <td><code>args</code> (required): a list of strings — the arguments after <code>lune run parallax</code></td>
+      <td>Run any command. A mutating pipeline command is refused with an exact <code>parallax_start</code> call if there is no fresh session. Act on the final <code>summary:</code> and <code>next_action:</code> lines.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Legacy aliases</h3>
+<p>The names from the kit's previous release still work and map to their <code>parallax_*</code> equivalents with no change in behaviour:</p>
+<table>
+  <thead><tr><th>Legacy name</th><th>Maps to</th></tr></thead>
+  <tbody>
+    <tr><td><code>kit_start</code></td><td><code>parallax_start</code></td></tr>
+    <tr><td><code>kit_skill</code></td><td><code>parallax_skill</code></td></tr>
+    <tr><td><code>kit_status</code></td><td><code>parallax_status</code></td></tr>
+    <tr><td><code>kit_help</code></td><td><code>parallax_help</code></td></tr>
+    <tr><td><code>kit_verify</code></td><td><code>parallax_verify</code></td></tr>
+    <tr><td><code>kit</code></td><td><code>parallax</code></td></tr>
+  </tbody>
+</table>
+</section>
+
+<section>
+<h2 id="prompts">Start prompts</h2>
+<p>The server exposes a <code>start-&lt;lane&gt;</code> prompt for each of the nine lanes. Clients that surface MCP prompts as slash commands show these as quick ways to begin a session in that lane.</p>
+<p>The nine prompts are: <code>start-3d</code>, <code>start-vfx</code>, <code>start-ui</code>, <code>start-anim</code>, <code>start-world</code>, <code>start-sfx</code>, <code>start-code</code>, <code>start-qa</code>, <code>start-kit</code>.</p>
+<p>Each prompt tells the AI to call <code>parallax_start</code> with the matching lane first, act on its <code>next_action:</code> and work only in that department, leaving every other department's files alone.</p>
+<p>Equivalent CLI:</p>
+<pre><code>lune run parallax start 3d --prompt "a mossy stone well"
+lune run parallax start vfx --prompt "a fire slash effect"
+lune run parallax start code --prompt "a double-jump ability"</code></pre>
+</section>
+
+<section>
+<h2 id="clients">Supported clients</h2>
+<p>Connect a client from inside your game folder:</p>
+<pre><code>lune run parallax connect &lt;client&gt;</code></pre>
+<p>Several at once: <code>lune run parallax connect claude,cursor</code>. To remove: <code>lune run parallax connect &lt;client&gt; --remove</code>.</p>
+
+<div class="tabs">
+  <div class="tab-list">
+    <button class="tab" data-tab="cl-claude" aria-selected="true">Claude Code</button>
+    <button class="tab" data-tab="cl-cursor">Cursor</button>
+    <button class="tab" data-tab="cl-vscode">VS Code</button>
+    <button class="tab" data-tab="cl-gemini">Gemini CLI</button>
+    <button class="tab" data-tab="cl-roo">Roo Code</button>
+    <button class="tab" data-tab="cl-opencode">OpenCode</button>
+    <button class="tab" data-tab="cl-codex">Codex CLI</button>
+    <button class="tab" data-tab="cl-windsurf">Windsurf</button>
+    <button class="tab" data-tab="cl-cline">Cline</button>
+    <button class="tab" data-tab="cl-claude-desktop">Claude Desktop</button>
+  </div>
+
+  <div class="tab-panel" data-panel="cl-claude" id="cl-claude">
+    <dl class="specs">
+      <dt>Connect command</dt><dd><code>lune run parallax connect claude</code></dd>
+      <dt>Config written</dt><dd><code>.mcp.json</code> in the game folder</dd>
+      <dt>Guard hooks written</dt><dd><code>.claude/settings.json</code> — <code>PreToolUse</code>, <code>PostToolUse</code> and <code>Stop</code> hooks</dd>
+    </dl>
+    <p>The enforcement guard hooks run <code>kit/scripts/parallax_guard.py</code>: before every write, shell (Bash, PowerShell) and <code>parallax</code> MCP tool call, after every write, and once when the session stops (a single reminder about unfinished pipeline work). The hook intercepts writes to pipeline paths, mutating CLI commands and writes to the session token file.</p>
+    <p>The hook is found through the <code>CLAUDE_PROJECT_DIR</code> environment variable (or the working folder if the variable is not set). A missing script exits 0 so it never blocks everything when the kit is not installed.</p>
+  </div>
+
+  <div class="tab-panel" data-panel="cl-cursor" id="cl-cursor">
+    <dl class="specs">
+      <dt>Connect command</dt><dd><code>lune run parallax connect cursor</code></dd>
+      <dt>Config written</dt><dd><code>.cursor/mcp.json</code> in the game folder</dd>
+      <dt>Guard hooks</dt><dd>None</dd>
+    </dl>
+  </div>
+
+  <div class="tab-panel" data-panel="cl-vscode" id="cl-vscode">
+    <dl class="specs">
+      <dt>Connect command</dt><dd><code>lune run parallax connect vscode</code></dd>
+      <dt>Config written</dt><dd><code>.vscode/mcp.json</code> in the game folder</dd>
+      <dt>Guard hooks</dt><dd>None</dd>
+    </dl>
+    <p>Requires GitHub Copilot agent mode.</p>
+  </div>
+
+  <div class="tab-panel" data-panel="cl-gemini" id="cl-gemini">
+    <dl class="specs">
+      <dt>Connect command</dt><dd><code>lune run parallax connect gemini</code></dd>
+      <dt>Config written</dt><dd><code>.gemini/settings.json</code> in the game folder</dd>
+      <dt>Guard hooks written</dt><dd><code>.gemini/settings.json</code> — <code>BeforeTool</code> and <code>AfterTool</code> hooks</dd>
+    </dl>
+    <p>The enforcement guard hooks run <code>kit/scripts/parallax_guard.py</code> before every <code>write_file</code>, <code>replace</code> and <code>run_shell_command</code> call, and after every <code>write_file</code> and <code>replace</code>. The script is found through <code>GEMINI_PROJECT_DIR</code> (or the working folder).</p>
+  </div>
+
+  <div class="tab-panel" data-panel="cl-roo" id="cl-roo">
+    <dl class="specs">
+      <dt>Connect command</dt><dd><code>lune run parallax connect roo</code></dd>
+      <dt>Config written</dt><dd><code>.roo/mcp.json</code> in the game folder</dd>
+      <dt>Guard hooks</dt><dd>None</dd>
+    </dl>
+  </div>
+
+  <div class="tab-panel" data-panel="cl-opencode" id="cl-opencode">
+    <dl class="specs">
+      <dt>Connect command</dt><dd><code>lune run parallax connect opencode</code></dd>
+      <dt>Config written</dt><dd><code>opencode.json</code> in the game folder</dd>
+      <dt>Guard hooks</dt><dd>None</dd>
+    </dl>
+  </div>
+
+  <div class="tab-panel" data-panel="cl-codex" id="cl-codex">
+    <dl class="specs">
+      <dt>Connect command</dt><dd><code>lune run parallax connect codex</code></dd>
+      <dt>Config</dt><dd>Prints a block to paste into <code>~/.codex/config.toml</code> (global)</dd>
+      <dt>Guard hooks</dt><dd>None</dd>
+    </dl>
+    <p><code>connect codex</code> does not write a file; it prints a TOML block that carries the project's absolute path. Paste the block into <code>~/.codex/config.toml</code>.</p>
+  </div>
+
+  <div class="tab-panel" data-panel="cl-windsurf" id="cl-windsurf">
+    <dl class="specs">
+      <dt>Connect command</dt><dd><code>lune run parallax connect windsurf</code></dd>
+      <dt>Config</dt><dd>Prints a block to paste into <code>~/.codeium/windsurf/mcp_config.json</code> (global)</dd>
+      <dt>Guard hooks</dt><dd>None</dd>
+    </dl>
+    <p><code>connect windsurf</code> prints a JSON block that carries the project's absolute path. Paste the block into <code>~/.codeium/windsurf/mcp_config.json</code>.</p>
+  </div>
+
+  <div class="tab-panel" data-panel="cl-cline" id="cl-cline">
+    <dl class="specs">
+      <dt>Connect command</dt><dd><code>lune run parallax connect cline</code></dd>
+      <dt>Config</dt><dd>Prints a block for Cline's MCP settings (MCP Servers → Configure MCP Servers)</dd>
+      <dt>Guard hooks</dt><dd>None</dd>
+    </dl>
+    <p><code>connect cline</code> prints a JSON block that carries the project's absolute path. Paste it through Cline's MCP settings interface.</p>
+  </div>
+
+  <div class="tab-panel" data-panel="cl-claude-desktop" id="cl-claude-desktop">
+    <dl class="specs">
+      <dt>Connect command</dt><dd><code>lune run parallax connect claude-desktop</code></dd>
+      <dt>Config</dt><dd>Prints a block for <code>claude_desktop_config.json</code> (global)</dd>
+      <dt>Guard hooks</dt><dd>None</dd>
+    </dl>
+    <p>Config path by OS:</p>
+    <ul>
+      <li>Windows: <code>%APPDATA%/Claude/claude_desktop_config.json</code></li>
+      <li>macOS: <code>~/Library/Application Support/Claude/claude_desktop_config.json</code></li>
+      <li>Linux: <code>~/.config/Claude/claude_desktop_config.json</code></li>
+    </ul>
+  </div>
+</div>
+
+<h3>Keeping configs in step</h3>
+<p>After an upgrade or when you add or remove a client, run:</p>
+<pre><code>lune run parallax harness</code></pre>
+<p>This refreshes the connected client's config and hooks. To check without changing anything:</p>
+<pre><code>lune run parallax harness --check</code></pre>
+</section>
+
+<section>
+<h2 id="uploads">Uploads through the Studio MCP</h2>
+<p>Uploads use Roblox Studio's built-in MCP server and Open Cloud. No API key is needed: uploads use your own Studio login.</p>
+
+<h3>The full upload flow</h3>
+<ol>
+  <li>
+    <strong>Run the upload command.</strong> From your game folder:
+    <pre><code>lune run parallax upload</code></pre>
+    The kit screens every new or changed file through the moderation gate (banned words, blood/gore), then writes <code>build/upload_plan.json</code> — one entry per file with the exact <code>open_cloud_invoke</code> call, the file's absolute path and the required permission scopes.
+  </li>
+  <li>
+    <strong>Your AI agent uploads each file.</strong> For each entry in the plan:
+    <ol>
+      <li>Call <code>open_cloud_invoke</code> with that entry's call (the <code>studio_id</code> comes from <code>list_roblox_studios</code>).</li>
+      <li>Poll <code>GET /assets/v1/operations/&lt;operationId&gt;</code> with <code>open_cloud_invoke</code> until <code>done</code> is true.</li>
+      <li>Record the returned id:
+        <pre><code>lune run parallax upload --record &lt;file&gt; &lt;assetId&gt;</code></pre>
+        The kit stores the id in <code>assets/ids.json</code> (and in the VFX registry for textures).
+      </li>
+    </ol>
+  </li>
+  <li>
+    <strong>After the last record call</strong>, the kit recompiles models and screens that use the new ids and prints the experience grant.
+  </li>
+</ol>
+
+<p>To see what is left in the plan:</p>
+<pre><code>lune run parallax upload --pending</code></pre>
+<p>To check the moderation status of a pending item:</p>
+<pre><code>lune run parallax upload --status</code></pre>
+
+<div class="warn-box"><span class="callout-title">Uploads are permanent</span><p>Open Cloud cannot delete uploaded assets. Use the moderation gate before uploading and check <code>--status</code> for items going through Roblox moderation.</p></div>
+
+<h3>One-time setup: creator and universe</h3>
+<p>In the game's <code>kit.config.json</code>:</p>
+<pre><code>"upload": {
+  "creator": "user:&lt;your user id&gt;",
+  "universe": &lt;experience id&gt;
+}</code></pre>
+<p>Your user id is the number in your roblox.com profile URL. <code>"universe"</code> is optional: it is the experience the uploads (audio above all) are granted to, so they play there; the creator still owns them. For group-owned games, use <code>"creator": "group:&lt;group id&gt;"</code>.</p>
+
+<h3>Required Studio permissions</h3>
+<p>In Roblox Studio: <strong>MCP</strong> → <strong>MCP Permissions</strong>. Under <strong>Publish and manage assets</strong>, allow:</p>
+<ul>
+  <li><code>asset:read</code></li>
+  <li><code>asset:write</code></li>
+  <li><code>asset-permissions:write</code> (only if audio should be granted to your experience)</li>
+</ul>
+<p>Also approve your game project's <code>build</code> folder as an upload folder. Changes apply to the client's next request.</p>
+<p>Studio must be open with a place from a published game (not a local, unpublished place) for Open Cloud permissions to work.</p>
+
+<h3>Headless uploads (CI, no Studio)</h3>
+<p>Set <code>ROBLOX_API_KEY</code> in your environment. The kit then uploads by itself without needing Studio open. Never paste a key into a chat or a file; always set it as an environment variable in your shell or CI system.</p>
+<pre><code># set in your shell environment, not on the command line:
+# ROBLOX_API_KEY=...
+lune run parallax upload</code></pre>
+</section>
+
+<section>
+<h2 id="enforcement">Enforcement</h2>
+<p>The MCP server gate is one of the enforcement layers (see <a href="enforcement.html">Enforcement</a>). It intercepts every <code>parallax</code> tool call. If the arguments are a mutating pipeline command and there is no fresh session token, the call returns <code>isError: true</code> with an exact <code>parallax_start</code> call to make next.</p>
+<p>A session is started by calling <code>parallax_start</code> with <code>prompt</code> (or by calling <code>parallax_prompt</code>). The session is valid for 4 hours. Calling <code>parallax_start</code> again starts a new session in the named lane.</p>
+<p>The mutating commands are <code>new</code>, <code>asset</code>, <code>make</code>, <code>cad</code>, <code>gen</code>, <code>optimize</code>, <code>vfx</code>, <code>anim</code>, <code>world</code>, <code>ui</code>, <code>sfx</code>, <code>move</code>, <code>net</code> and <code>upload</code>; a lookup under one of them (for example <code>help</code>, <code>list</code>, <code>--status</code>) is not gated. Read-only commands (<code>status</code>, <code>task list</code>, <code>lessons</code>, <code>case</code>, <code>help</code> and so on) are always allowed.</p>
+<p>For Claude Code and Gemini CLI, the client guard hooks (<code>kit/scripts/parallax_guard.py</code>) are another layer: they run before write and shell calls (and, in Claude Code, <code>parallax</code> MCP calls) and after writes. These hooks also check writes to pipeline paths and direct writes to the session token file.</p>
+<div class="note"><span class="callout-title">Legitimate bypass</span><p>Add <code>--maintenance "&lt;why&gt;"</code> to a command to pass the session gate for real maintenance work. This works from the CLI and through the <code>parallax</code> MCP tool alike (the server passes any call whose arguments carry it), and the CLI logs every use with its reason for your review. Setting <code>PARALLAX_ENFORCE=off</code> also turns the session gate off.</p></div>
+</section>
+
+</main>
+<aside class="toc"></aside>
+</div>
+<div id="site-footer"></div>
+<!-- sources: kit/mcp/server.py, kit/lib/harness.luau, kit/scripts/parallax_guard.py, kit/lib/enforcer.luau, kit/cmd/upload.luau, SETUP.md, README.md -->
+</body>
+</html>

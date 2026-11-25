@@ -1,0 +1,226 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Enforcement · Parallax</title>
+<meta name="description" content="How Parallax enforces its rules: the client guard hook, the MCP server gate, the CLI kernel gate, the stage and quality locks, the git hooks and verify.">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/app.js" defer></script>
+</head>
+<body data-root="" data-page="enforcement">
+<div id="site-header"></div>
+<div class="layout">
+<aside class="sidebar"></aside>
+<main class="content">
+
+<header class="page-head">
+  <p class="eyebrow">Reference</p>
+  <h1>Enforcement</h1>
+  <p class="lead">Parallax does not rely on agents following instructions voluntarily. Its rules are enforced in layers that do not depend on the agent reading anything: a client guard hook, the MCP server gate, the CLI kernel gate, the stage and quality locks, the git hooks, and <code>verify</code>. This page explains each layer, what it checks, the order the layers fire in, and what can be bypassed.</p>
+</header>
+
+<div class="note"><span class="callout-title">Note</span><p>Some commands take a literal <code>--by owner</code> or <code>--owner</code> flag. In those flags, "owner" means you: the person who runs the kit and approves the work.</p></div>
+
+<section>
+<h2 id="layers">The request-time layers, in the order they fire</h2>
+<p>A pipeline command (one that builds or changes content) can be stopped before it runs by three gates. Which ones it meets depends on how it is started: a shell command never passes the MCP server gate, and a client without hooks has no guard hook.</p>
+<div class="tabs">
+  <div class="tab-list">
+    <button class="tab" data-tab="layer-hooks" aria-selected="true">Client guard hook</button>
+    <button class="tab" data-tab="layer-mcp">MCP server gate</button>
+    <button class="tab" data-tab="layer-cli">CLI kernel gate</button>
+  </div>
+  <div class="tab-panel" data-panel="layer-hooks" id="layer-hooks">
+    <p><strong>File:</strong> <code>kit/scripts/parallax_guard.py</code>. It is installed by <code>lune run parallax connect &lt;client&gt;</code> (and kept in step by <code>lune run parallax harness</code>) for the clients that run hooks: Claude Code (a <code>PreToolUse</code> hook on writes, shell calls and the Parallax MCP tools) and Gemini CLI (a <code>BeforeTool</code> hook). It fires first, before the tool call runs.</p>
+    <p>The guard activates on any of four signals:</p>
+    <ul>
+      <li><strong>A</strong>: a mutating <code>lune run parallax|kit &lt;cmd&gt;</code> (or <code>python kit/&lt;lane&gt;/...</code>) outside the read-only allowlist. Wrapper commands (<code>env</code>, <code>timeout</code>, <code>nohup</code>, <code>time</code>, <code>xargs</code>, PowerShell <code>&amp;</code> and <code>Start-Process</code>, <code>pwsh</code> / <code>bash -c</code>) are unwrapped before the check. A command that carries <code>--maintenance</code> is not a signal.</li>
+      <li><strong>B</strong>: a call to the Parallax MCP server.</li>
+      <li><strong>C</strong>: a write to a pipeline path (<code>assets/&lt;kind&gt;/</code>, <code>src/&lt;kind&gt;/</code>, <code>tests/playtest/</code>, <code>library/&lt;kind&gt;/</code>, at the root or under <code>games/&lt;Name&gt;/</code>) or to a hard-protected path (generated model files, the kit's own internals, the session token).</li>
+      <li><strong>D</strong>: the session token itself (<code>.verify/parallax_session.json</code>).</li>
+    </ul>
+    <p>When a signal fires, the guard blocks unless a fresh session covers the work. Generated files and the session token are always blocked: change a generated file's input and rebuild it. The kit's internals need a fresh <code>parallax</code> or <code>kit</code> lane session.</p>
+    <p>A shell command that sets <code>PARALLAX_EXEMPT</code> or <code>*_ENFORCE</code> is treated as tampering. It is blocked unless a fresh <code>parallax</code> or <code>kit</code> lane session is active.</p>
+  </div>
+  <div class="tab-panel" data-panel="layer-mcp" id="layer-mcp">
+    <p><strong>File:</strong> <code>kit/mcp/server.py</code>, function <code>gate()</code> (lines 185–211).</p>
+    <p>The MCP server checks every call to its <code>parallax</code> tool. If the call is a mutating pipeline command and no fresh session covers its lane, the server returns <code>isError: true</code> and prints the exact <code>parallax_start</code> call that creates one. The session token is written by <code>lune run parallax start &lt;lane&gt; --prompt "..."</code> or <code>lune run parallax prompt compile</code>.</p>
+    <p>The mutating command set is: <code>new</code>, <code>asset</code>, <code>make</code>, <code>cad</code>, <code>gen</code>, <code>optimize</code>, <code>vfx</code>, <code>anim</code>, <code>world</code>, <code>ui</code>, <code>sfx</code>, <code>move</code>, <code>net</code>, <code>upload</code>.</p>
+    <p>Never gated: the bootstrap, read-only and governance allowlist (such as <code>start</code>, <code>prompt</code>, <code>status</code>, <code>verify</code>, <code>task</code>, <code>lesson</code>, <code>verdict</code>, <code>approve</code>, <code>plan</code>), <code>asset all</code>, a look-up subcommand (<code>help</code>, <code>list</code>, <code>find</code>, <code>--check</code> and similar), a call that carries <code>--maintenance</code>, and every call when <code>PARALLAX_ENFORCE=off</code>.</p>
+  </div>
+  <div class="tab-panel" data-panel="layer-cli" id="layer-cli">
+    <p><strong>File:</strong> <code>kit/lib/enforcer.luau</code>, function <code>Enforcer.before()</code>; wired in as <code>Cli.before</code> by <code>kit/init.luau</code> (line 80). It runs before every CLI command, however it was started.</p>
+    <p>For each command it does these things, in this order:</p>
+    <ol>
+      <li>Shows the department's vault page when it is due: at most once per department per 120-minute window (<code>kit/lib/vaultgate.luau</code>; <code>vault.reshow_minutes</code> in <code>kit.config.json</code>). This never blocks.</li>
+      <li>Refuses a mutating command without a fresh <code>.verify/parallax_session.json</code> token, or whose lane the token does not cover.</li>
+      <li>Refuses a command whose own words name a route its case forbids.</li>
+      <li>Refuses a heavy build of a named piece without <code>assets/plans/&lt;piece&gt;.plan.json</code>. A plan whose tools the case forbids, or one missing a required upgrade tool that exists on disk, is also refused.</li>
+    </ol>
+    <p>A refusal exits with code <code>6</code> and prints <code>summary:</code> and <code>next_action:</code> lines that name the command that unlocks it.</p>
+  </div>
+</div>
+</section>
+
+<section>
+<h2 id="request-flow">A request through the layers</h2>
+<div class="flow">
+  <span class="step">Agent asks for a pipeline command</span>
+  <span class="arrow">→</span>
+  <span class="step lock">Client guard hook: signal A–D? (clients with hooks)</span>
+  <span class="arrow">→</span>
+  <span class="step lock">MCP server gate: session? (MCP calls only)</span>
+  <span class="arrow">→</span>
+  <span class="step lock">CLI kernel gate: session, lane, route, plan?</span>
+  <span class="arrow">→</span>
+  <span class="step">Command runs (its own stage and quality locks)</span>
+  <span class="arrow">→</span>
+  <span class="step lock">Git hooks at commit</span>
+</div>
+</section>
+
+<section>
+<h2 id="session-token">Session token</h2>
+<p>The session token is a JSON file at <code>.verify/parallax_session.json</code>. It is created by <code>lune run parallax start &lt;lane&gt; --prompt "..."</code> or by <code>lune run parallax prompt compile</code>. It records the lane, the PROMPT-X sha (the id of the compiled prompt packet), the start time, the branch and the active game.</p>
+<dl class="specs">
+  <dt>Time to live</dt><dd>4 hours by default (<code>Enforcer.TTL = 4 * 3600</code>; <code>kit/lib/enforcer.luau</code>).</dd>
+  <dt>Fresh means</dt><dd>Not expired, its PROMPT-X sha names a compiled packet, made on the branch the checkout is on, and made for the active game.</dd>
+  <dt>Coverage</dt><dd>The token's lane, plus the lanes of its case contracts. A <code>parallax</code> or <code>kit</code> lane session covers every lane. A command for a lane the token does not cover is refused.</dd>
+  <dt>Renewed by</dt><dd><code>lune run parallax start &lt;lane&gt; --prompt "..."</code> or <code>lune run parallax prompt compile</code>.</dd>
+  <dt>Protected</dt><dd>The guard hook blocks any direct write to this file, and the CLI kernel refuses a token whose PROMPT-X sha names no compiled packet.</dd>
+</dl>
+</section>
+
+<section>
+<h2 id="plan-files">Plan files for heavy builds</h2>
+<p>A heavy build of a named piece (for example <code>asset</code>, <code>make</code>, <code>gen</code>, or a <code>vfx</code>, <code>anim</code>, <code>world</code> or <code>sfx</code> build of a piece whose input file exists) requires a plan file at <code>assets/plans/&lt;piece&gt;.plan.json</code>. The plan lists the tools chosen for each part or beat, drawn from the lane's capability menu after the references have been seen.</p>
+<p>The CLI kernel refuses the build command when:</p>
+<ul>
+  <li>the plan file does not exist,</li>
+  <li>the plan names a tool the piece's case forbids, or</li>
+  <li>the plan is missing a required upgrade tool that already exists on disk.</li>
+</ul>
+<p>You write the plan file yourself. The lane's menu comes from:</p>
+<pre><code>lune run parallax case &lt;lane&gt; "&lt;the request&gt;"</code></pre>
+<p>Separately, the 3D pipeline's <code>lune run parallax plan &lt;asset&gt;</code> shows an asset's stages in order, refuses a later stage until the earlier ones are done, and keeps its clock.</p>
+</section>
+
+<section>
+<h2 id="quality-locks">Quality locks</h2>
+<p>Quality locks are checks that go beyond "is the session valid" and ask "is the work ready to continue." They are enforced by <code>kit/lib/lanelocks.luau</code>, by the lanes' own build commands, and by <code>lune run parallax verify</code>.</p>
+
+<h3 id="open-piece-cap">Open-piece cap</h3>
+<p>Each lane holds at most <strong>3</strong> new pieces you have not scored, in each project (<code>LaneLocks.OPEN_CAP = 3</code> in <code>kit/lib/lanelocks.luau</code>). "Unscored" means no verdict from you yet (<code>lune run parallax verdict ...</code> not yet run). The project root and each <code>games/&lt;Name&gt;/</code> count separately. At the cap, <code>new</code> refuses the next piece, the lane's build commands refuse a new piece, and <code>verify</code> fails above it. A piece you waived holds no slot.</p>
+
+<h3 id="lessons-sheet">Lessons sheet</h3>
+<p>A new VFX, UI, animation, sound or world piece must have its ranked lessons answered (via <code>lune run parallax answer &lt;lane&gt; &lt;name&gt;</code>) before it builds and before <code>verify</code>'s quality locks pass. For 3D assets, <code>lune run parallax study &lt;asset&gt; --new</code> fills the same role.</p>
+<p>Each lesson you must answer gets either <code>- &lt;id&gt;: how this piece applies it</code> or <code>- skip &lt;id&gt;: why it does not apply</code>, each at least 6 words. If the piece's route changes, run the command with <code>--reroute</code>: the earlier answers are kept under a heading <code>## Earlier answers</code> and every matched lesson is asked again for the new route.</p>
+
+<h3 id="approval-locks">Approval locks</h3>
+<p>Some steps wait for your go-ahead, recorded with <code>lune run parallax approve &lt;lane&gt; &lt;name&gt; "&lt;your words&gt;" --by owner</code>. They differ by lane: for example, a new complex, hero or AAA 3D asset needs your approval of its brief, a new sound needs a reference you chose (or your synth-only waiver), and a new world needs real reference stills. Some stages are locked one by one with <code>--stage</code>: <code>sheet</code> and <code>blockout</code> in 3D, <code>style</code> and <code>animatic</code> in VFX, and <code>blocking</code> and <code>design</code> in animation. A stage approval is asked again when its artefact changes or is made again.</p>
+
+<h3 id="clocks">The 10 / 30 / 60-minute clocks</h3>
+<p>Each piece gets a time budget by tier:</p>
+<ul>
+  <li>Prop or simple: 10 minutes</li>
+  <li>Complex: 30 minutes</li>
+  <li>Hero or AAA: 60 minutes, only when you approved the piece; otherwise it counts as complex</li>
+</ul>
+<p>A piece that names no tier takes its lane's default: effects, animation clips and worlds are complex; a single sound and a screen are simple. Past the budget, the lane's build commands refuse any change to that piece. You extend or restart the budget with your words:</p>
+<pre><code>lune run parallax clock &lt;lane&gt; &lt;name&gt; --extend &lt;minutes&gt; "&lt;your words&gt;"
+lune run parallax clock &lt;lane&gt; &lt;name&gt; --restart "&lt;your words&gt;"</code></pre>
+<p>The clock records the words with each extension. One extension is at most 120 minutes. The kit expects these words to be yours; it does not check who typed them.</p>
+</section>
+
+<section>
+<h2 id="git-hooks">Git hooks</h2>
+<p>Two git hooks are installed in a clone when <code>install</code>, <code>connect</code> or <code>harness</code> runs in it (git never copies hooks between clones).</p>
+
+<h3 id="pre-commit">pre-commit</h3>
+<p>File: <code>kit/scripts/precommit.py</code>. Runs on every <code>git commit</code> and checks only the staged files, not the whole tree:</p>
+<ul>
+  <li>Staged Luau files must pass <code>stylua --check</code> (format) and <code>selene</code> (lint).</li>
+  <li>Staged Python files must compile.</li>
+  <li>The Parallax backstop (<code>kit/scripts/parallax_guard.py --hook pre-commit</code>): staged pipeline files are scanned for their cases' anti-patterns, and when the commit touches files the harness writes or reads, <code>lune run parallax harness --check</code> must pass.</li>
+</ul>
+<p>A missing tool is skipped with a note; it never causes a false refusal. The hook has no bypass flag: fix the staged files and commit again (never <code>--no-verify</code>).</p>
+
+<h3 id="lane-fence">commit-msg (lane fence)</h3>
+<p>File: <code>kit/scripts/lane_fence.py</code>; driven by <code>kit/knowledge/lanes.json</code>. Each lane owns a set of path prefixes there (the same paths inside <code>games/&lt;Name&gt;/</code> count too). The fence refuses a commit that touches two or more lanes' exclusive paths unless the commit message contains the whole word <code>cross</code>.</p>
+<ul>
+  <li>Lanes listed together count as one: <code>sfx</code> with <code>world</code>, and <code>code</code> with <code>qa</code>.</li>
+  <li>The project's first commit (its install) is not fenced.</li>
+  <li>A golden or graveyard row that links a verdict note must be committed with that note.</li>
+  <li><code>lanes.json</code>'s <code>mode</code> decides: <code>enforce</code> refuses, <code>warn</code> only prints.</li>
+</ul>
+<pre><code># a commit mixing 3D and VFX work intentionally:
+git commit -m "cross: sync vfx textures from new sword model"</code></pre>
+<div class="warn-box"><span class="callout-title">Watch out</span><p>Files not listed in any lane's exclusive paths are shared and can appear in any commit without triggering the fence.</p></div>
+</section>
+
+<section>
+<h2 id="verify-selftest-audit">verify, selftest, audit and prove</h2>
+<dl class="specs">
+  <dt><code>lune run parallax verify</code></dt>
+  <dd>The full gate: format → selene → types → tests → VFX → UI → world → moves → contract → anim → models → audit → build, with the Python tests running beside them. <code>--continue</code> runs every gate and names every failure, not only the first.</dd>
+  <dt><code>lune run parallax selftest</code></dt>
+  <dd>Feeds every content gate a bad fixture and passes only when all were caught. <code>--lane</code> runs only the named lanes' cases; <code>--changed</code> runs only the lanes with changed files. A case green at the same inputs is reused from a cache unless you pass <code>--no-cache</code> (the cold proof).</dd>
+  <dt><code>lune run parallax audit</code></dt>
+  <dd>Security audit: every remote handler is checked for unvalidated arguments, and <code>src/</code> is scanned for backdoor patterns (<code>require(&lt;id&gt;)</code>, <code>loadstring</code>, <code>getfenv</code>). Runs as a step inside <code>verify</code> and can be run standalone.</dd>
+  <dt><code>lune run parallax prove</code></dt>
+  <dd>Checks HEAD out into a sandbox worktree beside the project, runs <code>verify</code> there (and <code>selftest</code> with <code>--selftest</code>), and shows the verdict (sha, date) in <code>status</code>. <code>--ref &lt;sha&gt;</code> proves a specific commit.</dd>
+</dl>
+</section>
+
+<section>
+<h2 id="modes">enforce, audit and off modes</h2>
+<p>The environment variable <code>PARALLAX_ENFORCE</code> (or <code>KIT_ENFORCE</code>) sets the mode. Set it in your own environment; a shell command that sets it counts as tampering (see the guard hook).</p>
+<table>
+  <thead><tr><th>Mode</th><th>Guard hook</th><th>MCP server gate</th><th>CLI kernel gate</th><th>pre-commit</th></tr></thead>
+  <tbody>
+    <tr><td><code>enforce</code> (default)</td><td>Blocks</td><td>Refuses</td><td>Refuses</td><td>Enforced</td></tr>
+    <tr><td><code>audit</code></td><td>Says it, does not block</td><td>Refuses</td><td>Says it, runs anyway</td><td>Enforced</td></tr>
+    <tr><td><code>off</code></td><td>Off</td><td>Off</td><td>Off</td><td>Format, lint and compile still enforced</td></tr>
+  </tbody>
+</table>
+<div class="note"><span class="callout-title">Note</span><p>The pre-commit hook's format, lint and compile checks run in every mode.</p></div>
+
+<h3 id="escape-hatches">Escape hatches</h3>
+<p>Two escapes exist for maintenance work on gated commands. Both need a reason, and both are logged into the session file when one exists, for your review.</p>
+<pre><code># run a gated command without a session (not pipeline work)
+lune run parallax &lt;cmd&gt; --maintenance "&lt;why&gt;"
+
+# skip one tool the plan or case would require
+lune run parallax &lt;cmd&gt; --skip-tool &lt;tool&gt; --why "&lt;why&gt;"</code></pre>
+</section>
+
+<section>
+<h2 id="bypass-table">What can and cannot be bypassed</h2>
+<table>
+  <thead><tr><th>Gate</th><th>Can be bypassed?</th><th>How</th></tr></thead>
+  <tbody>
+    <tr><td>Client guard hook (commands)</td><td><span class="badge warn">logged escape</span></td><td><code>--maintenance "&lt;why&gt;"</code> on the command</td></tr>
+    <tr><td>Client guard hook (generated files, session token)</td><td><span class="badge block">no</span></td><td>Change the input and rebuild; start a session</td></tr>
+    <tr><td>MCP server gate</td><td><span class="badge warn">logged escape</span></td><td>Start a session (<code>parallax_start</code> or <code>parallax_prompt</code>), or <code>--maintenance "&lt;why&gt;"</code></td></tr>
+    <tr><td>CLI kernel token check</td><td><span class="badge warn">logged escape</span></td><td><code>--maintenance "&lt;why&gt;"</code></td></tr>
+    <tr><td>CLI kernel tool check</td><td><span class="badge warn">logged escape</span></td><td><code>--skip-tool &lt;tool&gt; --why "&lt;why&gt;"</code></td></tr>
+    <tr><td>Open-piece cap</td><td><span class="badge warn">your verdict or waiver</span></td><td>Score a piece with <code>verdict</code>, or waive it with <code>approve ... --waive</code></td></tr>
+    <tr><td>Lessons sheet</td><td><span class="badge warn">per lesson</span></td><td><code>- skip &lt;id&gt;: &lt;6+ word reason&gt;</code> in the sheet</td></tr>
+    <tr><td>Approval locks</td><td><span class="badge warn">per step</span></td><td><code>--waive &lt;step&gt;</code> in <code>approve</code></td></tr>
+    <tr><td>Time-budget clock</td><td><span class="badge warn">your words</span></td><td><code>clock --extend</code> or <code>clock --restart</code></td></tr>
+    <tr><td>pre-commit hook</td><td><span class="badge block">no</span></td><td>Fix the staged files</td></tr>
+    <tr><td>Lane fence (commit-msg)</td><td><span class="badge warn">opt-in</span></td><td>Write <code>cross</code> in the commit message</td></tr>
+    <tr><td>PARALLAX_EXEMPT / *_ENFORCE in shell</td><td><span class="badge block">tampering</span></td><td>Blocked unless a fresh <code>parallax</code> / <code>kit</code> lane session is active</td></tr>
+  </tbody>
+</table>
+</section>
+
+</main>
+<aside class="toc"></aside>
+</div>
+<div id="site-footer"></div>
+<!-- sources: README.md, kit/mcp/server.py, kit/lib/enforcer.luau, kit/lib/vaultgate.luau, kit/lib/lanelocks.luau, kit/lib/answers.luau, kit/lib/harness.luau, kit/init.luau, kit/scripts/parallax_guard.py, kit/scripts/precommit.py, kit/scripts/lane_fence.py, kit/knowledge/lanes.json, kit/tools/lanecheck.py, kit/tools/plan.py, kit/cmd/learn.luau, kit/cmd/content.luau -->
+</body>
+</html>

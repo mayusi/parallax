@@ -1,0 +1,483 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Animation pipeline · Parallax</title>
+<meta name="description" content="Build R6 character animations measured from real footage, gated on motion, and proven in Studio frame by frame before upload.">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/app.js" defer></script>
+</head>
+<body data-root="../" data-page="lane-anim">
+<div id="site-header"></div>
+<div class="layout">
+<aside class="sidebar"></aside>
+<main class="content">
+
+<nav class="lane-nav" aria-label="Pipelines">
+  <a href="3d.html">3D models</a><a href="vfx.html">Visual effects</a><a href="anim.html" class="active">Animation</a><a href="world.html">Worlds</a>
+  <a href="ui.html">Interfaces</a><a href="sfx.html">Sound</a><a href="code.html">Gameplay systems</a><a href="qa.html">QA</a>
+</nav>
+
+<header class="page-head">
+  <p class="eyebrow">Pipeline</p>
+  <h1>Animation</h1>
+  <p class="lead">Build R6 character animations that are measured, not guessed. Every clip starts with a move dossier of the real move, is authored from scratch by a procedural spring engine calibrated against Roblox's native R6 catalog, passes motion gates, and is proven in Studio frame by frame before upload.</p>
+  <div class="meta-row">
+    <span class="badge tier">Tier 1+ for Blender</span>
+    <span class="badge lock">2–3 approvals</span>
+    <span class="badge">10 / 30 / 60 min clock</span>
+  </div>
+</header>
+
+<section>
+<h2 id="at-a-glance">At a glance</h2>
+<dl class="specs">
+  <dt>Makes</dt>
+  <dd>R6 KeyframeSequence animations: attacks, abilities, emotes, idles, hit reactions, locomotion cycles, cutscenes, and prop clips. Each clip ships as a Rojo model and an uploaded Roblox asset ID.</dd>
+  <dt>Hardware</dt>
+  <dd><span class="badge tier">Tier 0</span> Motion building and gates require only a CPU. <span class="badge tier">Tier 1+</span> Blender 5.2 is required for rig-based authoring, retargeting imported clips, and the Blender authoring route.</dd>
+  <dt>Your approvals</dt>
+  <dd>Up to three: (1) the design page for an attack string, before any single move in the string is built; (2) the key-pose blocking sheet for each individual strike, sword, or kick move; (3) your verdict on the finished clip, 0–10.</dd>
+  <dt>Clock</dt>
+  <dd>10 min for a simple clip, 30 min for a complex one, 60 min for a hero clip (requires explicit approval to reach that tier). The clock starts when you run <code>lune run parallax anim &lt;Name&gt;</code> or <code>lune run parallax anim bake &lt;Name&gt;</code>. Past the budget, no change rebuilds the clip; show what exists and wait for your words to reopen it.</dd>
+  <dt>Results land in</dt>
+  <dd><code>build/animations/&lt;Name&gt;.clip.json</code>, <code>build/animations/&lt;Name&gt;.sheet/</code> (pose sheet, timing chart, gif), <code>src/animations/&lt;Name&gt;.model.json</code> (Rojo model). The runtime reads clips from <code>ReplicatedStorage.KitAnimations</code>.</dd>
+</dl>
+</section>
+
+<section>
+<h2 id="flow">The flow in one line</h2>
+<div class="flow">
+  <span class="step">dossier</span>
+  <span class="arrow">→</span>
+  <span class="step lock">design page (you approve, strings only)</span>
+  <span class="arrow">→</span>
+  <span class="step lock">key-pose blocking (you approve)</span>
+  <span class="arrow">→</span>
+  <span class="step">candidates</span>
+  <span class="arrow">→</span>
+  <span class="step">motion gates</span>
+  <span class="arrow">→</span>
+  <span class="step">pick gallery</span>
+  <span class="arrow">→</span>
+  <span class="step">Studio proof</span>
+  <span class="arrow">→</span>
+  <span class="step lock">verdict (you score 0–10)</span>
+</div>
+<p>Approval steps are marked. The design page applies only to an attack string; the blocking applies to strike, sword and kick moves. Promotion needs your verdict of 7 or above.</p>
+</section>
+
+<section>
+<h2 id="stages">The stages</h2>
+<button class="expand-all" data-expand-target="#stages-list">Expand all</button>
+<ol class="stages" id="stages-list">
+
+  <li>
+    <span class="num">1</span>
+    <details id="stage-dossier">
+      <summary><span class="name">Dossier</span><span class="what">Measure the real move from footage; write the move dossier.</span></summary>
+      <div class="body">
+        <p>Every clip starts with a <strong>move dossier</strong> (<code>assets/animations/dossiers/&lt;move&gt;.json</code>): phase timings measured from real footage, the mechanics of each phase, what cues make it read clearly, common mistakes, and the R6 translation (how the move works on a rig with no knees or elbows — which joints slide, what the torso does).</p>
+        <p>Footage is analysed offline with MediaPipe Pose. Files go in <code>_artifacts/footage/&lt;move&gt;/</code> and are never committed. The dossier must carry <strong>measured evidence</strong> for every moving phase: a source with real timings (<code>real_s</code>) and where they were measured. A dossier built on inference alone, or one that lacks numeric checks, is refused at build time.</p>
+        <p>Every rejection you give must be recorded in the dossier (<code>owner_rejections</code>) before a rebuild is allowed. A "bad" verdict blocks the rebuild until the dossier answers the rejection with what changed. This enforces the loop: record the verdict → re-research → update the dossier → build to the checks → look at the render → then show the result.</p>
+        <pre><code>lune run parallax new anim &lt;PascalName&gt;
+# edit assets/animations/dossiers/&lt;Name&gt;.json
+lune run parallax anim dossier check &lt;Name&gt;</code></pre>
+        <p>Produces: a schema-2 dossier with measured phase timings, numeric checks, an R6 translation, and a list of common mistakes.</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">1a</span>
+    <details id="stage-design">
+      <summary><span class="name">Design page</span> <span class="badge lock">you approve</span><span class="what">Design a string of attacks as one page before any individual move is posed.</span></summary>
+      <div class="body">
+        <p>A set of related attacks is designed as <strong>one page</strong> before anything is posed. The design page specifies, for each attack: the cut direction (down, left, up, thrust, etc.), the height (high/mid/low), what the body does (plant, step in, lunge, spin, etc.), the intent (calm/proper/aggressive), frame budgets at 60 fps (windup, active, recovery), which pose the move ends in, and what may come next. The page also specifies how the game links moves in the string: by pose (each move ends where the next starts) or by blend (the game cross-fades).</p>
+        <p>The check catches two attacks that are cousins: the same cut, height, and body action. It also measures whether the blade paths of two attacks are fewer than 2.8 studs apart on average — that too is a cousin pair, named with the attack numbers.</p>
+        <p>You must approve the drawn page before any move in the string can be blocked or built. A new move is refused if its string has no approved design page.</p>
+        <pre><code>lune run parallax anim design &lt;Set&gt; --new --attacks 4
+# draw and inspect the page:
+lune run parallax anim design &lt;Set&gt;
+# approve after viewing the page:
+lune run parallax anim design &lt;Set&gt; --approve "&lt;your words&gt;" --by owner --id &lt;id&gt;</code></pre>
+        <p>Produces: <code>assets/animations/designs/&lt;Set&gt;.design.json</code> and <code>build/animations/&lt;Set&gt;.design.png</code> (a row per attack: the cut wheel, frame budget, three silhouettes, the string's rhythm bar, all problems listed).</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">1b</span>
+    <details id="stage-blocking">
+      <summary><span class="name">Key-pose blocking</span> <span class="badge lock">you approve</span><span class="what">Hold each key pose large, side by side with its reference frame; get your approval before motion is built.</span></summary>
+      <div class="body">
+        <p>Before any motion is generated for a strike, sword, or kick move, the key poses are shown to you held still, large, from three views (player camera, side, top), beside the dossier's reference frame for that phase. A real-time GIF shows the poses playing at the right hold durations.</p>
+        <p>You can note what is wrong on any pose (<code>--note &lt;pose&gt; "words"</code>). The note travels with the pose through edits. The next sheet print marks each note as answered (what changed in that pose's own key) or not answered (unchanged, or changed only by its neighbours).</p>
+        <p>Your approval is a yes to the poses <em>as they are now</em>. Any later change — a pose turned, retimed, added, or dropped — makes the approval stale and holds the build again. The finished clip is also held to the approved poses: each pose is looked for in the clip at its own moment (within 0.05 s, with a tolerance of 10°/0.25 studs for joints and 1.25 studs for the blade tip). A pose the clip never reaches fails with the joint name and the amount it is off.</p>
+        <pre><code>lune run parallax anim block &lt;Move&gt; --sheet
+# inspect every keys/ page at full size, then show the sheet and gif
+lune run parallax anim block &lt;Move&gt; --note 3 "left arm is wrong"
+lune run parallax anim block &lt;Move&gt; --approve "&lt;your words&gt;" --by owner --id &lt;id&gt;</code></pre>
+        <p>Produces: <code>build/animations/&lt;Move&gt;.blocking/</code> containing <code>blocking.clip.json</code>, the pose sheet PNG, the GIF, and reference columns.</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">2</span>
+    <details id="stage-author">
+      <summary><span class="name">Author</span><span class="what">Generate candidates from scratch on the procedural spring engine, calibrated against the native R6 catalog.</span></summary>
+      <div class="body">
+        <p>The kit builds candidates from scratch using its procedural spring engine. The route depends on the clip type:</p>
+        <ul>
+          <li><strong>Strike moves:</strong> a director beat script drives gesture specs, which drive a pose prior, which drives the <code>proc_r6</code> spring engine at dense 60 fps. Calibrated bands from the native R6 catalog control snap timing (~0.2 s then hold), joint slides (0.6–1.7 studs), torso speed at the hit (1,100–3,300 deg/s), and head/arm drag (3 and 2 frames respectively). Candidates differ by effort sliders, arm habits, and blade lines.</li>
+          <li><strong>Weapon moves:</strong> a weapon dossier drives <code>proc_blade</code>. Grip, direction, torso yaw/pitch/roll, foot placement, overshoot, and lag are authored directly. The free arm takes a loved arm habit or a pose-prior mode plus whip.</li>
+          <li><strong>Locomotion:</strong> normative gait curves (from published biomechanics data) drive the generator. Approved R6 catalog runs carry the legs forward by sliding them and pump the forward hand across the midline.</li>
+          <li><strong>Library clips:</strong> vetted CC0 or CC BY clips can be imported (<code>kit anim import</code>), but they are the bar and the calibration, never the source of a finished move: motion folded to R6 from other engines is in the graveyard.</li>
+          <li><strong>Blender authoring:</strong> you author on the kit rig in Blender using IK and NLA, then bake back to the kit's clip spec.</li>
+        </ul>
+        <p>The intent (calm / proper / aggressive) is a first-class input. It is read from the R6 strikes' own tempo thirds: each intent samples its own effort range, and a candidate that reads as a different intent is refused.</p>
+        <p>About 2.5× the final gallery count of gate-clean candidates are built. Eight that are most different from each other (by motion distance, not by slider distance) are chosen for the pick sheet. With prior picks and rejections from earlier rounds of the same generator, half of the pool is likely-good candidates and half are informative ones that explore the edges.</p>
+        <pre><code>lune run parallax anim candidates &lt;Name&gt; --dossier &lt;move&gt; --n 8
+lune run parallax anim candidates &lt;Name&gt; --intent calm
+# breed from picks:
+lune run parallax anim candidates &lt;Name&gt; --round 2 --parents a,b</code></pre>
+        <p>Produces: <code>build/candidates/&lt;Name&gt;/round_K/</code> with clip JSON files, GIFs, pose sheets, and metrics.</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">3</span>
+    <details id="stage-gates">
+      <summary><span class="name">Motion gates</span><span class="what">Automated checks that block any candidate that fails physics and readability rules.</span></summary>
+      <div class="body">
+        <p>Every candidate passes a set of motion gates before it is shown to you. These are filters, not rankings: a candidate that fails any gate is dropped from the pool entirely.</p>
+        <p>The gates are described in the <a href="#gates">Gates</a> section below. Beyond the numeric thresholds, the kit also runs:</p>
+        <ul>
+          <li><strong>Weapon-in-hand check:</strong> at every frame, the nearer hand must be within 0.1 studs of the weapon's hilt-to-tip line. A clip whose weapon is in no hand fails with the frame range.</li>
+          <li><strong>Penetration check:</strong> the weapon, hands, and feet are swept against the body's collision boxes between frames. Any contact that is not declared in the move fails with the part and frame.</li>
+          <li><strong>Procedural gates:</strong> readable, statue, face, floaty, robot_arm, jitter, copy_floor, style_band and frozen_limb filter candidates too.</li>
+          <li><strong>Human-vs-machine critic (a command you run):</strong> <code>lune run parallax anim critic &lt;clip.json&gt;</code> scores a clip with a classifier trained on loved R6 clips versus the moves you rejected. Below a P(human-made) of 0.5 it warns that the clip reads machine-made: rebuild it from real pieces rather than hand-posing frames. It does not filter candidates.</li>
+          <li><strong>R6 vocabulary gate:</strong> the kit measures per-phase joint slides, arm habits, and whip against the range the loved native R6 clips show. A limb frozen below the loved minimum on both slide and turn fails. Measures below the loved 10th percentile are manifest warnings.</li>
+          <li><strong>Dossier checks:</strong> numeric checks authored in the dossier (e.g. a maximum knee travel, a minimum hip turn) are run on every candidate. A strike clip that misses one of its own dossier checks is not built; checks that an arm choice is not held to are warnings.</li>
+        </ul>
+        <pre><code># gates run automatically inside kit anim candidates
+# run the critic alone:
+lune run parallax anim critic build/candidates/&lt;Name&gt;/round_1/&lt;id&gt;.clip.json</code></pre>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">4</span>
+    <details id="stage-picks">
+      <summary><span class="name">Pick gallery</span><span class="what">View candidates as real-time GIFs from the player's camera; pick one to build into a game clip.</span></summary>
+      <div class="body">
+        <p>Gate-clean candidates are shown as a gallery: real-time GIFs from the player's camera (every 4th frame at 66 ms; every 2nd frame for fast cuts or spins at two or more turns per second). Each card shows the kit's warnings — a limb or blade below the loved range — underneath the GIF.</p>
+        <p>You pick one or more candidates. Your picks and rejections steer the next round: half the new candidates are likely-good (near the picks), half are informative (away from the rejected region). An "all bad" response steers the next round away from everything that was rejected. Gallery tuning tracks what the pool has learned from your choices.</p>
+        <p>Once you have picked a candidate, it becomes the basis for the game clip. The game clip spec references the candidate by its round number and ID, so the kit can reproduce the exact motion from tracked parameters.</p>
+        <pre><code>lune run parallax anim candidates &lt;Name&gt;
+lune run parallax anim picks &lt;Name&gt; --round 1
+lune run parallax anim gallery &lt;Name&gt;</code></pre>
+        <p>Produces: a standalone HTML gallery page with every GIF embedded. <code>kit anim gallery &lt;Name&gt;</code> shows what the gallery has learned from your picks.</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">5</span>
+    <details id="stage-studio">
+      <summary><span class="name">Studio proof</span><span class="what">Step through the clip frame by frame on a fresh R6 humanoid in Studio; compare every joint against the clip.</span></summary>
+      <div class="body">
+        <p>The candidate you picked becomes a game clip. The kit rebuilds it from the tracked candidate parameters and bakes the full 60 fps clip. Then it proves the clip in Roblox Studio, frame by frame, on a fresh humanoid (never the client-owned player).</p>
+        <p>The proof compares every joint against the clip at a tolerance of 2° and 0.05 studs. Markers in the clip (Hit, ActiveStart, etc.) are checked within ±1 frame of their authored time. A joint that is off by more than the tolerance fails with the joint name and the amount.</p>
+        <p>The look command (<code>lune run parallax anim look &lt;Name&gt; --rig R6</code>) renders the clip in Blender on the kit rig, as a person judges it. The play command (<code>lune run parallax anim play &lt;Name&gt; --rig R6 --run --studio &lt;id&gt;</code>) is the frame-by-frame proof that must pass: the kit runs the probe in the Studio window you name, which you open on a copy of <code>build/place.rbxlx</code>; never a shared Studio.</p>
+        <pre><code>lune run parallax anim &lt;Name&gt;              # build the game clip
+lune run parallax anim look &lt;Name&gt; --rig R6
+lune run parallax anim play &lt;Name&gt; --rig R6 --run --studio &lt;id&gt;   # frame-by-frame proof</code></pre>
+        <p>Produces: <code>src/animations/&lt;Name&gt;.model.json</code> (Rojo model), <code>build/animations/&lt;Name&gt;.metrics.json</code>, and Studio proof results in the terminal.</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">6</span>
+    <details id="stage-verdict">
+      <summary><span class="name">Verdict and ship</span> <span class="badge lock">you score 0–10</span><span class="what">Record a verdict, upload, and promote if the score is 7 or above.</span></summary>
+      <div class="body">
+        <p>After the Studio proof, you give a verdict: a score from 0 to 10 and your words. A score of 7 or above adds the clip to the golden set, which calibrates the quality bar for future clips. A score of 3 or below puts the route in the graveyard, which the pipeline refuses to repeat without your explicit permission.</p>
+        <p>Every rejection must be answered in the dossier before a rebuild is allowed. A rejection without an updated dossier blocks the next build.</p>
+        <pre><code>lune run parallax verdict anim &lt;Name&gt; 8 "loved the shoulder read"
+lune run parallax anim judge &lt;Name&gt;    # judge packet for reviewer
+# upload after a good verdict:
+lune run parallax upload</code></pre>
+        <p>Promotes to <code>ReplicatedStorage.KitAnimations</code>. The runtime plays the clip via <code>local Anim = require(ReplicatedStorage.kit.Anim); Anim.play(humanoid, "Slash")</code>. Hit markers connect via <code>track:GetMarkerReachedSignal("Hit")</code>.</p>
+      </div>
+    </details>
+  </li>
+
+</ol>
+</section>
+
+<section>
+<h2 id="gates">Gates</h2>
+<p>All gates run inside <code>lune run parallax anim &lt;Name&gt;</code> and inside <code>kit verify</code> on every built clip. Thresholds can be overridden per spec under <code>"gate"</code>.</p>
+
+<h3>Blocking gates</h3>
+<table>
+  <thead><tr><th>Gate</th><th>What it measures</th><th>Threshold</th><th>Effect</th></tr></thead>
+  <tbody>
+    <tr><td><code>foot_slide</code></td><td>Planted foot skate per frame (non-locomotion clips)</td><td>≤ 0.1 studs/frame</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td><code>foot_skate</code></td><td>Foot speed vs ground speed (locomotion only)</td><td>≤ 0.15 studs/frame</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td><code>pop_deg</code></td><td>Joint angle jump between adjacent frames</td><td>≤ 15°</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td><code>loop_seam_deg</code></td><td>Joint angle difference between first and last frame of a loop</td><td>≤ 2°</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td><code>hit_before</code></td><td>Frames from the fastest motion to the Hit event (early hits)</td><td>≤ 1 frame</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td><code>hit_after</code></td><td>Frames from the fastest motion to the Hit event (late hits)</td><td>≤ 3 frames</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td><code>penetration</code></td><td>Weapon, hand, or foot depth below the rest floor</td><td>≤ 0.08 studs</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>weapon in hand</td><td>Distance of nearer hand from the weapon's hilt-to-tip line</td><td>≤ 0.1 studs</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>procedural gates</td><td>readable, statue, face, floaty, robot_arm, jitter, copy_floor, style_band, frozen_limb</td><td>—</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>dossier checks (strike)</td><td>A strike clip's own numeric dossier checks</td><td>Defined in the dossier</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>approved poses</td><td>Each approved pose found in the clip within its authored moment</td><td>≤ 10° / 0.25 studs, blade tip ≤ 1.25 studs</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>source freshness</td><td>SHA-256 of the source file, generator, and rig matches the built clip's record</td><td>Exact match</td><td><span class="badge block">blocks</span></td></tr>
+  </tbody>
+</table>
+
+<h3>Warning gates</h3>
+<table>
+  <thead><tr><th>Gate</th><th>What it measures</th><th>Threshold</th><th>Effect</th></tr></thead>
+  <tbody>
+    <tr><td>R6 vocabulary</td><td>Per-phase joint slide and turn vs the loved native R6 catalog</td><td>Below loved p10 is a warning</td><td><span class="badge warn">warns</span></td></tr>
+    <tr><td>dossier checks (arm choices)</td><td>Dossier checks that an arm choice is not held to</td><td>Defined in the dossier</td><td><span class="badge warn">warns</span></td></tr>
+    <tr><td>human-vs-machine critic</td><td>P(human-made), when you run <code>anim critic</code></td><td>Below 0.5 warns</td><td><span class="badge warn">warns</span></td></tr>
+    <tr><td>Roblox 30 fps sampling</td><td>Motion lost when Roblox resamples a 60 fps curve animation at 30 fps</td><td>Report only</td><td><span class="badge warn">warns</span></td></tr>
+  </tbody>
+</table>
+<div class="note"><span class="callout-title">Note</span><p>Roblox samples curve animations at 30 frames per second. A clip authored at 60 fps loses its odd frames when exported as a CurveAnimation — up to 5.2° on a fast cut's arm. The kit keeps its own clips as KeyframeSequences (every frame plays). A clip made at 30 fps may be exported as a CurveAnimation at no loss.</p></div>
+</section>
+
+<section>
+<h2 id="io">Inputs and outputs</h2>
+<div class="tabs">
+  <div class="tab-list">
+    <button class="tab" data-tab="io-in" aria-selected="true">Inputs</button>
+    <button class="tab" data-tab="io-out">Outputs</button>
+    <button class="tab" data-tab="io-game">In the game</button>
+  </div>
+  <div class="tab-panel" data-panel="io-in" id="io-in">
+    <ul>
+      <li><code>assets/animations/dossiers/&lt;Name&gt;.json</code>: move dossier — phase timings, mechanics, R6 translation, numeric checks, reference frames from real footage.</li>
+      <li><code>assets/animations/designs/&lt;Set&gt;.design.json</code>: approved attack string design page.</li>
+      <li><code>assets/animations/blocks/&lt;Name&gt;.blocking.json</code>: approved key-pose blocking record.</li>
+      <li><code>assets/animations/&lt;Name&gt;.move.json</code>: weapon move spec — grip, direction, torso, foot schedule, overshoot, lag.</li>
+      <li><code>assets/animations/&lt;Name&gt;.pose.json</code>: hand-posed keyframe spec for R6 attacks.</li>
+      <li><code>assets/animations/&lt;Name&gt;.json</code>: keyframe spec for other clips — character-space keys, beats, events, feel.</li>
+      <li><code>assets/animations/&lt;Name&gt;.blend</code>: Blender source file, once authored on the kit rig.</li>
+      <li><code>assets/rigs/R6_IK.md</code>: kit rig documentation (drive controllers, never copy the armature).</li>
+      <li><code>_artifacts/footage/&lt;move&gt;/</code>: private footage files, never committed. The footage is used offline for MediaPipe Pose analysis.</li>
+    </ul>
+  </div>
+  <div class="tab-panel" data-panel="io-out" id="io-out">
+    <ul>
+      <li><code>build/animations/&lt;Name&gt;.clip.json</code>: the full 60 fps clip data.</li>
+      <li><code>build/animations/&lt;Name&gt;.sheet/</code>: pose sheet (<code>pose_sheet.png</code>), <code>keys/</code> (each pose large, full-size), <code>strip_player.png</code> / <code>strip_side.png</code>, <code>timing.png</code> (timing chart).</li>
+      <li><code>build/animations/&lt;Name&gt;.metrics.json</code>: gate results, R6 vocabulary measures, timing chart readings.</li>
+      <li><code>build/animations/&lt;Name&gt;.r6.blend</code>: Blender file for scrubbing the R6 result.</li>
+      <li><code>build/candidates/&lt;Name&gt;/round_K/</code>: candidate clips, GIFs, and metrics.</li>
+      <li><code>src/animations/&lt;Name&gt;.model.json</code>: Rojo model for Studio.</li>
+    </ul>
+  </div>
+  <div class="tab-panel" data-panel="io-game" id="io-game">
+    <p>After upload, clips live in <code>ReplicatedStorage.KitAnimations</code>.</p>
+    <pre><code>local Anim = require(ReplicatedStorage.kit.Anim)
+
+-- play a clip:
+Anim.play(humanoid, "Slash")
+
+-- locomotion blending:
+Anim.locomotion(character, { walk = "Walk", run = "Run" })
+
+-- hit marker:
+track:GetMarkerReachedSignal("Hit"):Connect(function() ... end)
+
+-- upper-body version (for attacking while moving):
+-- built automatically when the move spec says "upper": true
+-- the runtime plays the Upper variant while the character is locomoting</code></pre>
+    <p>The runtime also supports pose matching (enter a clip at the frame nearest your character's current pose), distance matching (enter at the frame that far from the stop), secondary motion (accessory sway on a spring), ragdoll get-up blends, motion warping (root travel cut short of walls), and cutscenes synced across all clients on the server clock.</p>
+  </div>
+</div>
+</section>
+
+<section>
+<h2 id="tools">Tools and hardware</h2>
+<table>
+  <thead><tr><th>Tool</th><th>Used for</th><th>Tier</th></tr></thead>
+  <tbody>
+    <tr><td>Blender 5.2</td><td>Kit rig (IK controllers), NLA authoring, bakes, retargeting imported clips, R6 fold from R15 sources, rendering pose sheets and strips</td><td><span class="badge tier">Tier 1+</span></td></tr>
+    <tr><td>proc_r6 spring engine (<code>kit/anim/proc_r6.py</code>)</td><td>Procedural R6 candidate generation for strikes, kicks, and sword moves; calibrated against the native R6 catalog</td><td><span class="badge tier">Tier 0</span></td></tr>
+    <tr><td>MediaPipe Pose</td><td>Offline footage analysis: measures phase timings, foot speed, hip and chest turn, pivot, lean, and arms from real footage clips</td><td>—</td></tr>
+    <tr><td>MuJoCo</td><td>Physics-based hit reactions: simulates an impulse on a base idle to generate reaction candidates</td><td>—</td></tr>
+    <tr><td>R6 motion model (trained locally with <code>kit/anim/motion_model.py train</code>; not shipped)</td><td>Neural locomotion fill for gaps of 30 or more frames in imported clips</td><td><span class="badge">Optional, needs PyTorch</span></td></tr>
+    <tr><td>Roblox Studio with its MCP (<code>execute_luau</code>)</td><td>Frame-by-frame proof and playtest runs</td><td><span class="badge">Separate install, any tier</span></td></tr>
+    <tr><td>human-vs-machine critic (<code>kit/anim/motion_critic.py</code>)</td><td>Classifier trained on loved and rejected clips; a command you run, it warns below 0.5</td><td><span class="badge tier">Tier 0</span></td></tr>
+  </tbody>
+</table>
+</section>
+
+<section>
+<h2 id="commands">Commands</h2>
+<pre><code># ── start the lane ────────────────────────────────────────────────────────────
+lune run parallax start anim --prompt "a two-handed sword combo, three attacks"
+
+# ── new clip spec ─────────────────────────────────────────────────────────────
+lune run parallax new anim &lt;PascalName&gt;
+
+# ── move dossier ──────────────────────────────────────────────────────────────
+lune run parallax anim dossier check &lt;Name&gt;    # validate the dossier
+lune run parallax anim dossier footage &lt;Name&gt; &lt;video.mp4&gt;  # MediaPipe analysis
+
+# ── attack string design page (strings only) ──────────────────────────────────
+lune run parallax anim design &lt;Set&gt; --new --attacks 4 --weapon sword
+lune run parallax anim design &lt;Set&gt;            # draw + check the page
+lune run parallax anim design &lt;Set&gt; --approve "&lt;your words&gt;" --by owner --id &lt;id&gt;
+
+# ── key-pose blocking ─────────────────────────────────────────────────────────
+lune run parallax anim block &lt;Move&gt; --sheet    # draw the blocking sheet and gif
+lune run parallax anim block &lt;Move&gt; --note 2 "right arm too high"
+lune run parallax anim block &lt;Move&gt; --approve "&lt;your words&gt;" --by owner --id &lt;id&gt;
+lune run parallax anim block &lt;Move&gt; --state    # check if blocking is approved
+
+# ── candidates ────────────────────────────────────────────────────────────────
+lune run parallax anim candidates &lt;Name&gt; --dossier &lt;move&gt; --n 8
+lune run parallax anim candidates &lt;Name&gt; --intent calm
+lune run parallax anim candidates &lt;Name&gt; --round 2 --parents a,b  # breed from picks
+
+# ── pick gallery ──────────────────────────────────────────────────────────────
+lune run parallax anim picks &lt;Name&gt; --round 1
+lune run parallax anim gallery &lt;Name&gt;          # gallery tuning state
+
+# ── build the game clip ───────────────────────────────────────────────────────
+lune run parallax anim &lt;Name&gt;                  # build clip, sheet, metrics
+lune run parallax anim sheet &lt;Name&gt;            # pose sheet alone (~17 s)
+lune run parallax anim timing &lt;Name&gt;           # timing chart alone (~1 s)
+
+# ── Studio proof ─────────────────────────────────────────────────────────────
+lune run parallax anim look &lt;Name&gt; --rig R6
+lune run parallax anim play &lt;Name&gt; --rig R6 --run --studio &lt;id&gt;   # frame-by-frame proof
+
+# ── critic ───────────────────────────────────────────────────────────────────
+lune run parallax anim critic &lt;clip.json&gt;
+
+# ── import a vetted CC0 clip ──────────────────────────────────────────────────
+lune run parallax anim import &lt;file&gt; --clip &lt;Clip&gt; --as &lt;Name&gt;
+
+# ── Blender authoring route ───────────────────────────────────────────────────
+lune run parallax anim blend &lt;Name&gt;            # open Blender rig
+lune run parallax anim bake &lt;Name&gt;             # bake .blend back to spec
+
+# ── locomotion ────────────────────────────────────────────────────────────────
+lune run parallax anim new Walk --gait walk
+
+# ── verdict and ship ─────────────────────────────────────────────────────────
+lune run parallax anim judge &lt;Name&gt;
+lune run parallax verdict anim &lt;Name&gt; 8 "great shoulder read"
+lune run parallax upload</code></pre>
+</section>
+
+<section>
+<h2 id="learning">How it learns</h2>
+<p>The pipeline improves from every clip you score.</p>
+<ul>
+  <li><strong>Golden set:</strong> clips with a verdict of 7 or above join the golden set. The golden set calibrates the procedural spring engine: speed, amplitude, lag, slides, and gate thresholds are measured from these clips. Future candidates are held to the same standards.</li>
+  <li><strong>Graveyard:</strong> a clip with a verdict of 3 or below puts its route in the graveyard. The route is refused for future clips of the same kind until you explicitly permit it. The faults you name are measured on the real clips you rejected (<code>kit/anim/owner_faults.py</code>) and gate every generated weapon candidate; <code>kit selftest</code> proves each one.</li>
+  <li><strong>Human-vs-machine critic:</strong> the critic is trained on loved native R6 clips and the moves you rejected; re-train it (<code>python kit/anim/motion_critic.py train</code>) as both sets grow. A clip that passes the numeric gates but reads as machine-made is rebuilt from pieces.</li>
+  <li><strong>Gallery tuning:</strong> your picks and rejections on the candidate gallery steer the axes of the next round. The gallery tracks what the generator has learned from your choices for each move. After an "all bad" response, the next round steers away from every rejected region.</li>
+  <li><strong>Dossier loop:</strong> every rejection must be answered in the dossier before a rebuild. The dossier records what was learned, what changed, and what the new checks are. This prevents rebuilding blind.</li>
+  <li><strong>Vault distillation:</strong> after enough new verdicts, the kit can distil evidence into live rules for the vault.</li>
+</ul>
+</section>
+
+<section>
+<h2 id="limits">Known limits</h2>
+<div class="limit"><span class="callout-title">Known limit</span><p>No locomotion start, stop, or pivot clips exist yet. The runtime API (<code>start</code>, <code>stop</code>, <code>pivot</code>, <code>turnLeft</code>, <code>turnRight</code>) is built and ready, but the library has no such clips to fill it.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>Prop clips are built and gated against the prop's joints, and the runtime has a prop player (<code>AnimProp</code>: an AnimationController and Animator on the spawned model, stepped on the character's clock), but the kit's skill does not yet record a prop clip proven in Studio. The check that clips still fit a rebuilt model (<code>--check</code>) does not run by itself.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>Roblox samples curve animations at 30 frames per second. A 60 fps clip loses its odd frames — up to 5.2° on a fast arm cut. The kit's own clips stay as KeyframeSequences and are not affected.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>The R6 motion model is not suitable for combat moves yet; the procedural spring engine outperformed it on loved attack clips. The model is used only for filling long gaps in imported locomotion clips.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>Runtime rules (foot placement, motion matching, pose matching, get-up blends, secondary motion) have been written and pass their spec tests, but several of them — reading the pose and ground off a live character, writing the answers after the Animator, capturing a ragdoll's pose — have not been seen to move in a live Studio session.</p></div>
+</section>
+
+<section>
+<h2 id="session">A typical session</h2>
+<pre><code># 1. Start the lane with your request
+lune run parallax start anim --prompt "a two-handed katana combo, three attacks"
+
+# 2. Check the board for the current task
+lune run parallax status --dept anim
+
+# 3. Claim the task
+lune run parallax task claim &lt;id&gt; --as "building the kesa combo"
+
+# 4. Build the move dossier for the first attack
+#    - measure footage offline with MediaPipe Pose
+#    - write phase timings, R6 translation, numeric checks
+lune run parallax anim dossier check KesaKiri
+
+# 5. Design the full three-attack string
+lune run parallax anim design KatanaCombo --new --attacks 3 --weapon sword
+lune run parallax anim design KatanaCombo
+# → inspect build/animations/KatanaCombo.design.png
+lune run parallax anim design KatanaCombo --approve "looks right" --by owner --id &lt;id&gt;
+
+# 6. Block each move's key poses
+lune run parallax anim block KesaKiri --sheet
+# → inspect build/animations/KesaKiri.blocking/ (every keys/ page at full size)
+lune run parallax anim block KesaKiri --approve "good" --by owner --id &lt;id&gt;
+
+# 7. Build candidates
+lune run parallax anim candidates KesaKiri --dossier katana_swing --n 8 --intent calm
+
+# 8. Pick from the gallery
+lune run parallax anim picks KesaKiri --round 1
+# → pick candidates a and c
+
+# 9. Breed a second round from the picks
+lune run parallax anim candidates KesaKiri --round 2 --parents a,c --n 8
+
+# 10. Build the game clip from the chosen candidate
+lune run parallax anim KesaKiri
+# → inspect build/animations/KesaKiri.sheet/ (every keys/ page, timing.png)
+
+# 11. Studio proof
+lune run parallax anim look KesaKiri --rig R6
+lune run parallax anim play KesaKiri --rig R6 --run --studio &lt;id&gt;
+
+# 12. Record a verdict
+lune run parallax verdict anim KesaKiri 8 "smooth shoulder lead, right timing"
+
+# 13. Upload and hand off
+lune run parallax upload
+lune run parallax task done &lt;id&gt;
+lune run parallax handoff "built KesaKiri (8/10), two attacks remaining" --lane anim \
+  --next "block MakkoOroshi next" --as "agent"</code></pre>
+</section>
+
+<section>
+<h2 id="related">Related</h2>
+<div class="cards">
+  <a class="card" href="3d.html"><div class="kicker">Pipeline</div><h3>3D models</h3><p>Build the weapons and props your animations hold, complete with joint travel for mechanisms.</p></a>
+  <a class="card" href="vfx.html"><div class="kicker">Pipeline</div><h3>Visual effects</h3><p>Layer VFX presets on attack markers from the same clips this pipeline ships.</p></a>
+  <a class="card" href="code.html"><div class="kicker">Pipeline</div><h3>Gameplay systems</h3><p>Wire the Moves, AnimRagdoll, and AnimCrowd runtimes that consume these clips.</p></a>
+  <a class="card" href="../enforcement.html"><div class="kicker">Reference</div><h3>Enforcement</h3><p>How gates, clocks, blocking locks, and dossier loops are enforced across all pipelines.</p></a>
+  <a class="card" href="../learning.html"><div class="kicker">Reference</div><h3>Learning</h3><p>How verdicts, the golden set, and gallery tuning improve quality over time.</p></a>
+</div>
+</section>
+
+</main>
+<aside class="toc"></aside>
+</div>
+<div id="site-footer"></div>
+<!-- sources: kit/skills/parallax-anim/SKILL.md, kit/skills/parallax-anim/reference/10-gate-thresholds.md, kit/skills/parallax-anim/reference/00-full-page-2026-10-16.md, kit/knowledge/vault/anim/boot.md, kit/harness/AGENTS.parallax.md -->
+</body>
+</html>

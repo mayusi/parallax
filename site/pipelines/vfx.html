@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Visual Effects · Parallax</title>
+<meta name="description" content="How the Parallax VFX pipeline builds anime- and AAA-grade Roblox effects from measured scene breakdowns, beat charts, Blender textures, and a browser player.">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/app.js" defer></script>
+</head>
+<body data-root="../" data-page="lane-vfx">
+<div id="site-header"></div>
+<div class="layout">
+<aside class="sidebar"></aside>
+<main class="content">
+
+<nav class="lane-nav" aria-label="Pipelines">
+  <a href="3d.html">3D models</a><a href="vfx.html" class="active">Visual effects</a><a href="anim.html">Animation</a><a href="world.html">Worlds</a>
+  <a href="ui.html">Interfaces</a><a href="sfx.html">Sound</a><a href="code.html">Gameplay systems</a><a href="qa.html">QA</a>
+</nav>
+
+<header class="page-head">
+  <p class="eyebrow">Pipelines</p>
+  <h1>Visual Effects</h1>
+  <p class="lead">The VFX pipeline builds anime- and AAA-grade effects — ultimates, beams, slashes, explosions, auras, charge-ups, impacts — as version-3 layer-stack presets. Every effect starts from a measured breakdown of real footage, is approved three times (beat chart, animatic and style sheet), textured in Blender, and judged in a browser player as the effect alone.</p>
+  <div class="meta-row">
+    <span class="badge tier">Tier 1+</span>
+    <span class="badge lock">3 approvals (chart, animatic, style sheet)</span>
+    <span class="badge">10 / 30 / 60 min clock</span>
+    <span class="badge">8 stages</span>
+  </div>
+</header>
+
+<section>
+<h2 id="at-a-glance">At a glance</h2>
+<dl class="specs">
+  <dt>Makes</dt>
+  <dd>Version-3 layer-stack presets (<code>assets/effects/&lt;name&gt;.json</code>): ultimates, beam attacks, slashes, explosions, auras, charge-ups, impacts, environmental effects. Textures are made in Blender and uploaded separately.</dd>
+  <dt>Hardware</dt>
+  <dd>
+    <span class="badge tier">Tier 1</span> Blender 5.2 is required for texture recipes, simulation bakes (cloth, soft-body, sand, hair, Geometry Nodes, water, FLIP liquids), and renders.<br>
+    <span class="badge tier">Tier 2</span> BiRefNet for silhouette tracing from reference footage.<br>
+    <span class="badge tier">Tier 0</span> The browser player runs without a GPU.
+  </dd>
+  <dt>Your approvals</dt>
+  <dd>Three stops: (1) the <strong>beat chart with one test frame</strong> of the key beat, before any full version is built; (2) the <strong>animatic</strong> (motion as flat shapes), before textures are applied; (3) the <strong>style sheet</strong> (every beat's look as a scene-vs-ours pair), after a recorded play.</dd>
+  <dt>Clock</dt>
+  <dd>Simple: 10 min · Complex: 30 min (default) · Hero: 60 min. The clock starts when you first run <code>kit vfx &lt;name&gt;</code> or <code>kit vfx evolve &lt;name&gt;</code>. Past budget, nothing new builds until you extend with your words.</dd>
+  <dt>Results land in</dt>
+  <dd><code>build/vfx/&lt;name&gt;.png</code> (frames-over-time sheet), <code>library/vfx/&lt;kind&gt;/&lt;name&gt;/</code> (every version, forever), <code>build/textures/&lt;key&gt;.png</code> (uploaded texture sheets).</dd>
+  <dt>Built and judged</dt>
+  <dd>In the browser player (<code>kit vfx play &lt;name&gt;</code>). Effects are never built or judged inside Roblox Studio. Studio is used only to prove engine facts.</dd>
+</dl>
+</section>
+
+<section>
+<h2 id="flow">The flow in one line</h2>
+<div class="flow">
+  <span class="step">breakdown</span><span class="arrow">→</span>
+  <span class="step lock">chart + test frame (you approve)</span><span class="arrow">→</span>
+  <span class="step">method plan (104 methods, beat by beat)</span><span class="arrow">→</span>
+  <span class="step lock">animatic (you approve motion)</span><span class="arrow">→</span>
+  <span class="step">textures (Blender)</span><span class="arrow">→</span>
+  <span class="step">preset (layer stack)</span><span class="arrow">→</span>
+  <span class="step">browser player</span><span class="arrow">→</span>
+  <span class="step lock">style sheet (you approve look)</span><span class="arrow">→</span>
+  <span class="step">judge + evolve</span><span class="arrow">→</span>
+  <span class="step">ship</span>
+</div>
+<p>Building an effect inside Roblox Studio is off this route and graveyard-flagged. The browser player is where effects are made and judged.</p>
+</section>
+
+<section>
+<h2 id="stages">The stages</h2>
+<button class="expand-all" data-expand-target="#stages-list">Expand all</button>
+<ol class="stages" id="stages-list">
+
+  <li>
+    <span class="num">1</span>
+    <details id="stage-breakdown">
+      <summary><span class="name">Breakdown</span> <span class="what">Measure the real source footage frame by frame: outline every beat, record every timing, trace every drawn shape.</span></summary>
+      <div class="body">
+        <p>The breakdown is the foundation of every effect. Without real footage frames, there is nothing to build from — effects built from description text alone have scored 4 to 6; every 8-or-above effect was built from real frames.</p>
+        <p><strong>Step 1 — coarse pass (2 fps):</strong> <code>kit vfx breakdown &lt;set&gt; --clip &lt;file&gt; --fps 2</code> samples the footage and builds a beat sheet in <code>refs_measured/&lt;set&gt;.beats.md</code> with measured colours per beat. Footage files are private and are never committed.</p>
+        <p><strong>Step 2 — timing (dense):</strong> <code>kit vfx breakdown &lt;set&gt; --dense</code> reads every shot of every beat at the clip's full frame rate. It captures how the light arrives, how long it holds, how it leaves, and where freeze frames or slow-motion marks fall. The output is <code>refs_measured/&lt;set&gt;.timing.md</code> and large frames in <code>build/vfx/breakdown/&lt;set&gt;_dense/</code>. The chart is timed from this, never from the coarse pass.</p>
+        <p><strong>Step 3 — trace:</strong> <code>kit vfx trace &lt;set&gt; --beat N</code> reads a beat's frames into outline curves and flat tones. The traces land in <code>build/vfx/trace/&lt;set&gt;/</code>; open each <code>beat&lt;k&gt;_d&lt;nn&gt;.png</code> to see the outline laid on its frame. A shot whose camera moves is refused unless you trace it with <code>--track</code> (the frames are stabilised first); <code>kit vfx track &lt;set&gt; --beat N</code> shows what the track follows. A flat background cannot be followed, and nothing is guessed.</p>
+        <pre><code>lune run parallax vfx breakdown &lt;set&gt; --clip &lt;file&gt; --fps 2
+lune run parallax vfx breakdown &lt;set&gt; --dense
+lune run parallax vfx track &lt;set&gt; --beat N   # what the camera track follows
+lune run parallax vfx trace &lt;set&gt; --beat N [--track] [--box ...]</code></pre>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">2</span>
+    <details id="stage-chart">
+      <summary><span class="name">Chart</span> <span class="badge lock">you approve</span><span class="what">Draw the beat chart with timing, one test frame of the key beat, and the palette — approved before any full version.</span></summary>
+      <div class="body">
+        <p><code>kit vfx chart &lt;set&gt;</code> draws every beat on the clock, marks hold and slow-motion frames, places the source frame beside each beat, and renders one test frame of the key beat. The palette (up to five colours) is derived from the footage measurements. The method plan is drawn under every beat in plain words.</p>
+        <p>You must approve the chart — including the test frame — before any full version of the effect will build. Record your approval with <code>kit vfx chart &lt;set&gt; --approve "..." --by owner</code>. If the chart changes, it needs a new approval.</p>
+        <p>Before showing the chart, <code>kit vfx keyread &lt;set&gt; --effect &lt;name&gt;</code> reads the test frame beside the key source frame on five dimensions (coverage, light, colour layers, detail, separate pieces). If it falls short on two or more, it is not ready to show.</p>
+        <pre><code>lune run parallax vfx chart &lt;set&gt;
+lune run parallax vfx chart &lt;set&gt; --approve "&lt;your words&gt;" --by owner</code></pre>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">2a</span>
+    <details id="stage-method-plan">
+      <summary><span class="name">Method plan</span> <span class="what">Assign the kit's 104 effect-making methods beat by beat before the chart is shown.</span></summary>
+      <div class="body">
+        <p>The method register is a list of 104 effect-making techniques that covers every approach the kit has built. Each method records its state (<code>has</code>, <code>partly</code>, <code>missing</code>, or <code>not_roblox</code> when Roblox has no place for it), how the kit does it, what tool it uses, and its proof — what in a preset shows the method is actually used (a layer kind, a key on that layer, a texture recipe).</p>
+        <p>Before the beat chart is shown to you, every beat must have a method assignment. Use <code>kit vfx methods --set &lt;set&gt; --beat N --use id,id</code> to assign methods. Use <code>--not id="&lt;reason&gt;"</code> to leave one out with a reason. The chart draws the plan under each beat in your words; your approval locks the plan you saw.</p>
+        <p>Two methods are asked for by a beat's own words: <strong>hand-drawn effects animation</strong> (<code>hand_drawn</code>; cues such as "flame", "fire", "slash", "smoke", "puff", "wisp", "tongue": traced, then inked) and <strong>fracture</strong> (<code>fracture</code>; cues such as "shatter", "crumble", "breaks apart"). Such a method must be used, or left out with a reason you have seen; otherwise the build is refused.</p>
+        <pre><code>lune run parallax vfx methods                      # the full 104-method list
+lune run parallax vfx methods "drawn flame"         # one method: how, tool, proof
+lune run parallax vfx methods --set &lt;set&gt;           # view plan beat by beat
+lune run parallax vfx methods --set &lt;set&gt; --beat N --use id,id [--not id="&lt;why&gt;"]</code></pre>
+        <div class="note"><span class="callout-title">Note</span><p>The method gate reads what a preset is made of, not how it looks. A planned method used badly still passes the gate. The gate also reads layer tags, not the actual clock — a layer tagged for beat 1 that runs on beat 2 is not caught.</p></div>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">2b</span>
+    <details id="stage-animatic">
+      <summary><span class="name">Animatic</span> <span class="badge lock">you approve</span><span class="what">Every beat as a flat shape at the chart's timing, recorded in the player, then shown beside the source in motion.</span></summary>
+      <div class="body">
+        <p>The animatic proves the motion before any texture work. Each beat is represented as one flat shape (disc, ring, arc, bar, wall) at the chart's timing and the scene's measured share of the frame. Hit-stops are included.</p>
+        <p>The result is recorded in the browser player and laid beside the source footage frame by frame (<code>build/vfx/animatic/&lt;set&gt;_side.mp4</code>). Watch the video; check that the motion reads correctly. The comparison frames are in <code>build/vfx/dailies/&lt;set&gt;_animatic/</code>.</p>
+        <p>You must approve the animatic before textures are applied. The approval is recorded in the chart JSON and the preset build lock reads it.</p>
+        <pre><code>lune run parallax vfx animatic &lt;set&gt;
+lune run parallax approve vfx &lt;set&gt; "&lt;your words&gt;" --by owner --stage animatic</code></pre>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">3</span>
+    <details id="stage-textures">
+      <summary><span class="name">Textures</span> <span class="what">Build surface looks with compositing sheets, trace and ink hand-drawn beats, and author Blender recipes for each material.</span></summary>
+      <div class="body">
+        <p>Textures are made in two ways depending on what the beat needs.</p>
+        <p><strong>Surface looks</strong> (a skin, a ring, a glow, cracks, energy flows) are tried quickly as compositing sheets before any Blender render: <code>kit vfx comp &lt;key&gt; --new ring|skin|blobs|branches|map</code>. Edit the comp block (shape, panning noise, warp, erosion, the scene's colours in its ramp, halftone), re-run, and open the strip. A surface made of parts that behave differently — a steady core in a halo that tears — is authored as a node graph (<code>--new graph</code>).</p>
+        <p><strong>Hand-drawn sheets</strong> (beats the breakdown traced) are inked first: <code>kit vfx ink &lt;key&gt; --from build/vfx/trace/&lt;set&gt;/beat&lt;k&gt;.json</code>. Each cell is one drawing. Play the ink sheet in the browser before using it in a preset.</p>
+        <p><strong>Blender recipes</strong> (<code>assets/textures/&lt;key&gt;.json</code>, <code>engine: fx</code>) are authored for surfaces that need real Cycles renders — light bursts, volumetric fire, lit dust, energy flows, glowing cracks. The UV axis matters: beam textures are authored with their strip upright (Roblox runs the image's vertical axis along the beam). After a build, open <code>build/textures/_fx_review.png</code> before uploading.</p>
+        <pre><code>lune run parallax vfx comp &lt;key&gt; --new ring|skin|blobs|branches|map|shock|graph
+lune run parallax vfx ink &lt;key&gt; --from build/vfx/trace/&lt;set&gt;/beat&lt;k&gt;.json
+lune run parallax vfx &lt;name&gt;          # builds and renders changed textures
+lune run parallax upload --only build/textures/&lt;key&gt;.png</code></pre>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">4</span>
+    <details id="stage-preset">
+      <summary><span class="name">Preset</span> <span class="what">Author the version-3 layer stack: mesh shells, flipbooks, particles, beams, cameras, lights, and simulations.</span></summary>
+      <div class="body">
+        <p>The preset file (<code>assets/effects/&lt;name&gt;.json</code>, version 3) is a stack of layers. Each layer declares its kind (mesh, flipbook, particle emitter, beam, camera, light, ground) and its keys (texture, life, rate, colour, curve, beat tag). Variants and parts let you build an effect as a set of reusable components.</p>
+        <p><strong>Mesh shells</strong> (<code>flame</code>, <code>tongue</code>, <code>spiral</code>, <code>bolt</code>) are volume forms run by the kit's EditableMesh runtime. They give the anime silhouette that flat cards cannot.</p>
+        <p><strong>Simulations</strong> are baked in Blender and referenced as mesh sequences or flipbooks rather than simulated in the game. The pipeline supports cloth (<code>kit vfx cloth</code>), soft-body (<code>kit vfx soft</code>), sand (<code>kit vfx sand</code>), hair/fur (<code>kit vfx hair</code>), Geometry Nodes ripple/scatter (<code>kit vfx geonodes</code>), water height-fields (<code>kit vfx water</code>), and FLIP/PBF liquid flipbooks (<code>kit vfx liquid</code>).</p>
+        <p><strong>Fracture debris</strong>: objects that break into their own pieces are fractured before runtime (<code>kit vfx fracture &lt;name&gt;</code>), not thrown-rock particles. Pieces that should stay where they land use <code>"rest": true</code> on the layer. Debris pieces can also fall as real rigid bodies in the game (<code>"floor": "world"</code> on the debris layer).</p>
+        <p>The validator runs on every build: caps, pro norms, legacy key checks, and the method gate all run before the build output is accepted.</p>
+        <pre><code>lune run parallax vfx &lt;name&gt;                     # build + validate preset
+lune run parallax vfx fracture &lt;name&gt; --size w,d[,h] --pieces 14
+lune run parallax vfx cloth &lt;name&gt; --pin top --wind 0,0,2
+lune run parallax vfx soft &lt;name&gt; --drop 6 --soft 0.6
+lune run parallax vfx sand &lt;name&gt; --mode slump --repose 34
+lune run parallax vfx hair &lt;name&gt; --root cap --move toss
+lune run parallax vfx geonodes &lt;name&gt; --recipe ripple|scatter
+lune run parallax vfx water &lt;name&gt; --recipe drop|rain|slosh|dam|surge
+lune run parallax vfx liquid &lt;key&gt; --solver flip --scene dam|drop|slosh</code></pre>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">5</span>
+    <details id="stage-play">
+      <summary><span class="name">Play</span> <span class="what">Run the browser player with the kit's one-clock runtime; record and open the dailies sheet to compare against the source.</span></summary>
+      <div class="body">
+        <p>The browser player (<code>kit vfx play &lt;name&gt;</code>) runs the effect at full frame rate with the kit's measured Roblox rules. This is where the effect is made and judged — not in Roblox Studio. Studio is used only to prove engine facts (see the limits section).</p>
+        <p>The player uses a one-clock runtime (<code>VfxStage</code>) that supports hit-stop and slow motion. Freezing a stage also disables rate emitters, so the timing matches what the game will play. The player runs at the resolution the browser is set to and reads the render target directly on recording.</p>
+        <p><code>--record</code> saves a play to <code>build/vfx/dailies/&lt;name&gt;/</code> and builds the dailies sheet: the source's consecutive frames above your effect at the same moments from the hit, two per picture. Open the key beat's frames. The light curves for each beat are on <code>beat&lt;k&gt;_page.png</code>.</p>
+        <p>After recording, run <code>kit checks run vfx &lt;name&gt;</code> for the automatic quality checks (static level vs the library's range, impact-frame coverage).</p>
+        <pre><code>lune run parallax vfx play &lt;name&gt;
+lune run parallax vfx play &lt;name&gt; --record
+lune run parallax vfx dailies &lt;name&gt;    # re-run the dailies sheet from a stored recording</code></pre>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">6 (removed)</span>
+    <details id="stage-booth">
+      <summary><span class="name">Studio booth</span> <span class="what">Removed from the route.</span></summary>
+      <div class="body">
+        <p>The Studio booth stage — building and capturing effects inside Roblox Studio with no animation around them — was removed from the route and placed in the graveyard. Studio is used only for proving engine facts (measuring how Roblox behaves). Effects are built and judged in the browser player only.</p>
+        <div class="warn-box"><span class="callout-title">Watch out</span><p>Effects are made and judged as the effect alone, with nothing animated around it, in the browser player. Studio captures are off the route.</p></div>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">7</span>
+    <details id="stage-judge">
+      <summary><span class="name">Judge</span> <span class="what">Scene frame vs render per beat, one difference named, one edit made; then four variants, you pick.</span></summary>
+      <div class="body">
+        <p><code>kit vfx judge &lt;name&gt;</code> runs the verifier: for each beat, the source frame and your render are placed side by side, one difference is named, and one edit is proposed.</p>
+        <p><code>kit vfx evolve &lt;name&gt;</code> builds four variants from the current state along different axes. You pick the one to continue. Your picks steer the axes of the next evolve round. An agent's pick is never counted — only yours.</p>
+        <pre><code>lune run parallax vfx judge &lt;name&gt;
+lune run parallax vfx evolve &lt;name&gt;
+lune run parallax verdict vfx &lt;name&gt; &lt;0-10&gt; "&lt;your words&gt;"</code></pre>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">8</span>
+    <details id="stage-ship">
+      <summary><span class="name">Ship</span> <span class="what">Vault check green, then promote to the library. Only on a verdict ≥ 7.</span></summary>
+      <div class="body">
+        <p><code>kit vfx vault check</code> must pass before shipping. It confirms every version is saved in <code>library/vfx/</code> with its README, no file is missing or stale, and every earlier version is preserved. <code>kit promote vfx &lt;name&gt; --about "..."</code> adds the effect to the kit's example library — only on a verdict of 7 or above. Run <code>kit lesson vfx</code> to record any lessons from the session.</p>
+        <pre><code>lune run parallax vfx vault check
+lune run parallax promote vfx &lt;name&gt; --about "&lt;one line&gt;"   # only on verdict ≥ 7
+lune run parallax lesson vfx "&lt;what you learned&gt;"</code></pre>
+      </div>
+    </details>
+  </li>
+
+</ol>
+</section>
+
+<section>
+<h2 id="gates">Gates</h2>
+<p>The validator runs on every preset build. Blocking gates refuse the build output.</p>
+
+<h3 id="gates-blocking">Blocking gates (caps)</h3>
+<table>
+  <thead><tr><th>Gate</th><th>What it measures</th><th>Threshold</th><th>Effect</th></tr></thead>
+  <tbody>
+    <tr><td><code>layers</code></td><td>Total layers in the preset.</td><td>≤ 150</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td><code>count</code></td><td>Particles one emitter layer emits at its moment.</td><td>≤ 200 per layer</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td><code>rate</code></td><td>Emission rate of one emitter layer.</td><td>≤ 400 / s per layer</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>Live particles</td><td>Particles alive at the peak, across the whole effect.</td><td>≤ ~1,500 (a warning over 800)</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td><code>lifetime</code></td><td>Maximum particle lifetime.</td><td>≤ 20 s</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td><code>flipbook_fps</code></td><td>Flipbook playback frame rate.</td><td>≤ 30 fps</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td><code>light_range</code></td><td>Dynamic light range.</td><td>≤ 60 studs</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td><code>duration</code></td><td>All layers end by the preset's duration.</td><td>Required</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>Method gate</td><td>Beat with no plan; planned method with no layer proof; reason not seen by you; approved method dropped; asked-for method (hand-drawn, fracture) neither used nor explained.</td><td>0 violations</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>Legacy keys</td><td><code>spreadAngle</code>, <code>fov</code> on fov layers, shake <code>frequency</code>, big opaque camera-facing card on ground.</td><td>0 on new pieces</td><td><span class="badge block">blocks</span></td></tr>
+  </tbody>
+</table>
+
+<h3 id="gates-warning">Pro norms and the recording gate</h3>
+<p>The pro norms are measured from shipped Roblox effects and reported beside yours. <code>frames_on_screen</code> is part of the recording gate, read from a recorded play.</p>
+<table>
+  <thead><tr><th>Gate</th><th>What it measures</th><th>Threshold</th></tr></thead>
+  <tbody>
+    <tr><td>Non-additive layers</td><td>Share of layers that are not fully additive.</td><td>~44% from shipped games</td></tr>
+    <tr><td>Layer lifetime</td><td>Average layer lifetime.</td><td>~0.58 s from shipped games</td></tr>
+    <tr><td>Curve shape</td><td>Curves front-loaded (most energy early).</td><td>Front-loaded</td></tr>
+    <tr><td>Dark twin</td><td>Every bright shape should have a darker shape behind it.</td><td>Present</td></tr>
+    <tr><td>Colour count</td><td>Distinct palette colours.</td><td>~5 from shipped games</td></tr>
+    <tr><td><code>frames_on_screen</code></td><td>Strike on screen before re-frame shots.</td><td>≥ 3% of hero view in the second before</td></tr>
+  </tbody>
+</table>
+</section>
+
+<section>
+<h2 id="io">Inputs and outputs</h2>
+<div class="tabs">
+  <div class="tab-list">
+    <button class="tab" data-tab="io-in" aria-selected="true">Inputs</button>
+    <button class="tab" data-tab="io-out">Outputs</button>
+    <button class="tab" data-tab="io-game">In the game</button>
+  </div>
+  <div class="tab-panel" data-panel="io-in" id="io-in">
+    <ul>
+      <li><code>refs_measured/&lt;set&gt;.beats.md</code> — beat sheet from the coarse breakdown.</li>
+      <li><code>refs_measured/&lt;set&gt;.timing.md</code> — dense timing from the full-rate pass.</li>
+      <li>Source footage under <code>assets/effects/refs/&lt;set&gt;/clip/</code> — private and git-ignored, never committed.</li>
+      <li><code>assets/effects/refs/&lt;name&gt;/</code> — reference stills per beat.</li>
+      <li><code>assets/effects/parts/</code> — reusable layer parts shared between effects.</li>
+      <li><code>assets/textures/&lt;key&gt;.json</code> — Blender texture recipes (<code>engine: fx</code>).</li>
+      <li><code>assets/effects/&lt;name&gt;.json</code> — the version-3 preset file.</li>
+    </ul>
+  </div>
+  <div class="tab-panel" data-panel="io-out" id="io-out">
+    <ul>
+      <li><code>build/vfx/&lt;name&gt;.png</code> — frames-over-time sheet.</li>
+      <li><code>build/textures/&lt;key&gt;.png</code> — rendered and uploaded texture sheets.</li>
+      <li><code>build/vfx/dailies/&lt;name&gt;/</code> — scene vs ours per beat (640 px per frame, two per picture).</li>
+      <li><code>build/vfx/breakdown/</code> — coarse and dense breakdown frames.</li>
+      <li><code>build/vfx/trace/&lt;set&gt;/</code> — outline traces per beat.</li>
+      <li><code>build/vfx/ink/</code> — inked drawing sheets.</li>
+      <li><code>library/vfx/&lt;kind&gt;/&lt;name&gt;/</code> — every version, forever, with README and verdicts.</li>
+    </ul>
+  </div>
+  <div class="tab-panel" data-panel="io-game" id="io-game">
+    <p>Textures are uploaded via <code>kit upload</code> using the Studio MCP's <code>open_cloud_invoke</code>. The runtime modules live in <code>ReplicatedStorage.kit</code>:</p>
+    <ul>
+      <li><code>VfxStage</code> — plays a preset on the one-clock system (hit-stop, slow motion; freezing a stage disables rate emitters).</li>
+      <li><code>VfxCompose</code> — manages beats, parts, and variants.</li>
+      <li><code>VfxMesh</code> — runs EditableMesh shells (note: vertex alpha and TextureID alpha are ignored by Studio; mesh shells need a SurfaceAppearance for alpha).</li>
+      <li><code>VfxValidate3</code> — the runtime validator.</li>
+    </ul>
+    <p>Preload textures before play with <code>VfxStage.preload</code> — an uploaded image is usable in Studio within seconds, but without preloading the first burst may be lost.</p>
+  </div>
+</div>
+</section>
+
+<section>
+<h2 id="tools">Tools and hardware</h2>
+<div class="chips" data-chip-target="#vfx-tools-table" data-chip-attr="data-tier">
+  <button class="chip active" data-value="all">All</button>
+  <button class="chip" data-value="tier-0">Tier 0</button>
+  <button class="chip" data-value="tier-1">Tier 1</button>
+  <button class="chip" data-value="tier-2">Tier 2</button>
+</div>
+<table id="vfx-tools-table">
+  <thead><tr><th>Tool</th><th>Used for</th><th>Tier</th></tr></thead>
+  <tbody>
+    <tr data-tier="tier-0"><td>Browser player (<code>kit/vfx/player</code>, three.js)</td><td>All effect playback, recording, and judging. Runs without a GPU.</td><td><span class="badge tier">Tier 0</span></td></tr>
+    <tr data-tier="tier-1"><td>Blender 5.2</td><td>Texture recipes (Cycles renders), simulation bakes (cloth, soft-body, sand, hair, Geometry Nodes, water, FLIP/PBF liquids).</td><td><span class="badge tier">Tier 1</span></td></tr>
+    <tr data-tier="any"><td>Roblox Studio with its MCP</td><td>Proving engine facts only (never for building or judging effects).</td><td><span class="badge">Separate install, any tier</span></td></tr>
+    <tr data-tier="tier-2"><td>BiRefNet</td><td>Silhouette tracing from reference footage; counting foreground coverage.</td><td><span class="badge tier">Tier 2</span></td></tr>
+  </tbody>
+</table>
+</section>
+
+<section>
+<h2 id="commands">Commands</h2>
+<pre><code># ── Session start (required before any build) ──────────────────────────────
+lune run parallax start vfx --prompt "a fire slash ultimate"
+
+# ── Effect creation ───────────────────────────────────────────────────────
+lune run parallax new vfx &lt;snake&gt; [--from hit_sparks]
+
+# ── Breakdown ─────────────────────────────────────────────────────────────
+lune run parallax vfx breakdown &lt;set&gt; --clip &lt;file&gt; --fps 2
+lune run parallax vfx breakdown &lt;set&gt; --dense
+lune run parallax vfx track &lt;set&gt; --beat N          # what the camera track follows
+lune run parallax vfx trace &lt;set&gt; --beat N [--track] [--box ...]
+
+# ── Chart and approvals ───────────────────────────────────────────────────
+lune run parallax vfx chart &lt;set&gt;
+lune run parallax vfx chart &lt;set&gt; --approve "&lt;your words&gt;" --by owner
+lune run parallax vfx stylesheet &lt;effect&gt;
+lune run parallax approve vfx &lt;effect&gt; "&lt;your words&gt;" --by owner --stage style
+lune run parallax approve vfx &lt;set&gt; "&lt;your words&gt;" --by owner --stage animatic
+
+# ── Method plan ───────────────────────────────────────────────────────────
+lune run parallax vfx methods
+lune run parallax vfx methods "drawn flame"
+lune run parallax vfx methods --set &lt;set&gt;
+lune run parallax vfx methods --set &lt;set&gt; --beat N --use id,id [--not id="&lt;why&gt;"]
+
+# ── Animatic ──────────────────────────────────────────────────────────────
+lune run parallax vfx animatic &lt;set&gt;
+
+# ── Textures ──────────────────────────────────────────────────────────────
+lune run parallax vfx comp &lt;key&gt; --new ring|skin|blobs|branches|map|shock|graph
+lune run parallax vfx ink &lt;key&gt; --from &lt;trace.json&gt;
+lune run parallax vfx &lt;name&gt;                        # build + validate preset
+
+# ── Simulations (Blender, Tier 1) ─────────────────────────────────────────
+lune run parallax vfx fracture &lt;name&gt; --size w,d[,h] [--pieces 14] [--impact x,z]
+lune run parallax vfx cloth &lt;name&gt; --pin top|left|corners --wind x,y,z [--loop]
+lune run parallax vfx soft &lt;name&gt; --drop 6 --soft 0.6
+lune run parallax vfx sand &lt;name&gt; --mode slump|pour --repose 34
+lune run parallax vfx hair &lt;name&gt; --root cap|line --move toss|sway
+lune run parallax vfx geonodes &lt;name&gt; --recipe ripple|scatter
+lune run parallax vfx water &lt;name&gt; --recipe drop|rain|slosh|dam|surge
+lune run parallax vfx liquid &lt;key&gt; --solver flip|pbf --scene dam|drop|slosh
+
+# ── Browser player ────────────────────────────────────────────────────────
+lune run parallax vfx play &lt;name&gt;
+lune run parallax vfx play &lt;name&gt; --record
+lune run parallax vfx dailies &lt;name&gt;
+
+# ── Judge and evolve ──────────────────────────────────────────────────────
+lune run parallax vfx judge &lt;name&gt;
+lune run parallax vfx evolve &lt;name&gt;
+lune run parallax verdict vfx &lt;name&gt; &lt;0-10&gt; "&lt;your words&gt;"
+
+# ── Library ───────────────────────────────────────────────────────────────
+lune run parallax vfx vault find|get|verdict|check
+lune run parallax promote vfx &lt;name&gt; --about "&lt;one line&gt;"   # only on verdict ≥ 7</code></pre>
+</section>
+
+<section>
+<h2 id="learning">How it learns</h2>
+
+<h3 id="learning-verdicts">Verdicts and the golden set</h3>
+<p>Every verdict is recorded. A verdict of 7 or above adds the effect to the golden set — the calibration baseline for future quality checks. A verdict of 3 or below puts its build route in the graveyard; every failed route becomes a gate that checks the same failure on the real piece (selftest fixtures in <code>kit/selftest/vfx/owner_faults/</code>). Re-run <code>kit vfx director learn</code> after every verdict so the director learns from it.</p>
+
+<h3 id="learning-library">The library rule</h3>
+<p>Everything the VFX pipeline makes goes to <code>library/vfx/</code> with a README. Nothing is ever deleted. Every earlier version is preserved under a new name. <code>kit verify</code> fails when anything made is missing or stale. To fix a stale library, run <code>lune run parallax vfx vault</code>.</p>
+<p>Reuse mechanics before making new ones: <code>kit vfx vault find "&lt;words&gt;"</code>, <code>kit new vfx &lt;name&gt; --from &lt;source&gt;</code>, and the parts in <code>assets/effects/parts/</code>. The look is never reused — only the mechanics.</p>
+
+<h3 id="learning-methods">The 104-method register</h3>
+<p>The method register (<code>kit/vfx/methods.json</code>) tracks 104 effect-making techniques. Each method has a state: <code>has</code> (the kit does it), <code>partly</code>, <code>missing</code>, or <code>not_roblox</code> (Roblox has no place for it; the register names a stand-in method). Proof of use is enforced per preset via the method gate.</p>
+
+<h3 id="learning-graveyard">The graveyard</h3>
+<p>Every failed route is now a gate on real pieces — not just a note. If the graveyard says a certain approach scored 0, that approach is refused on a new piece unless you approve an override. Known graveyard entries include: all-mesh auras, re-using last session's frames, building from description text alone, all-additive long-lived layers, untextured Neon ribbons seen edge-on, and smoke as many generic puff cards.</p>
+
+<h3 id="learning-evolve">Evolve and gallery tuning</h3>
+<p>The evolve loop (<code>kit vfx evolve &lt;name&gt;</code>) builds four variants at once along different axes. Your picks steer the axes of the next round. An agent's pick is never counted; only your choices tune the direction. <code>kit vfx director learn</code> distils the vault into a director profile (<code>kit/knowledge/vault/vfx/director.md</code>) that shapes new briefs; re-run it after every verdict.</p>
+</section>
+
+<section>
+<h2 id="engine-facts">Engine facts</h2>
+<p>These facts were measured in Roblox Studio with the probe script (<code>kit/vfx/facts.luau</code>). Trust them over documentation.</p>
+<table>
+  <thead><tr><th>Fact</th><th>What it means for building</th></tr></thead>
+  <tbody>
+    <tr><td>EditableMesh vertex alpha ignored</td><td>A mesh shell's <code>fadeIn</code>, <code>fadeOut</code>, <code>fadeSides</code>, and <code>erode</code> are invisible in Studio. Only a SurfaceAppearance (ColorMap + AlphaMode Transparency) gives a mesh alpha. A dissolving mesh must use a baked flipbook, not <code>erode</code>.</td></tr>
+    <tr><td>EditableMesh TextureID alpha ignored</td><td>Mesh shells draw their whole texture square, opaque. The browser player shows both vertex alpha and texture alpha; Studio does not. Player and Studio will disagree on mesh layers.</td></tr>
+    <tr><td>Particles do not draw EditableImage textures</td><td>An EditableImage set as a particle texture is accepted but invisible. Upload real textures via <code>kit upload</code>.</td></tr>
+    <tr><td>Wobble cost (~0.25 ms per 697-vertex flame per frame)</td><td>60 wobbling mesh layers = 14–17 ms, which is the whole frame budget. Keep wobbling layers few.</td></tr>
+    <tr><td>Beam texture axis</td><td>The image's vertical axis runs along the beam, horizontal across the width. Author beam textures with strips upright.</td></tr>
+    <tr><td><code>FaceCamera = false</code> on a Beam</td><td>Makes the beam a one-sided wall. Use <code>plane: "up"</code> to draw both faces.</td></tr>
+    <tr><td>Additive layers add up near a beam</td><td>Multiple additive layers (glows, curtain, waves, halo, bloom) go flat white near the beam. Keep the sprites that ride a beam few and small; judge from the nearest camera.</td></tr>
+    <tr><td>Studio ticks ~20 Hz when unfocused</td><td>Affects recordings. The booth freeze compensates by freezing on exact times so captured frames stay correct.</td></tr>
+    <tr><td>ParticleEmitter with TimeScale 0 still emits</td><td>Setting TimeScale to 0 does not stop emission.</td></tr>
+    <tr><td>Two ColorCorrections add</td><td>End grades before a flash frame; two active ColorCorrections stack their effects.</td></tr>
+  </tbody>
+</table>
+</section>
+
+<section>
+<h2 id="limits">Known limits</h2>
+<div class="limit"><span class="callout-title">Known limit</span><p>Water does not break or spray yet. The water pipeline (<code>kit vfx water</code>) supports drops, rain, sloshing, dams, and surges, but no breakaway spray.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>Liquids are flipbook slices only — a 2D slice with no depth, baked as a sheet. Liquid simulations (<code>kit vfx liquid</code>) are never matched to a real scene yet.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>The Mantaflow GPU smoke route is not yet proven end-to-end. Use <code>kit/vfx/gpusim.py</code> for simulated smoke/steam/dust, baked as a lit flipbook of one event at a time.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>Camera stabilisation fails on flat backgrounds. If the tracked background has no discernible features, the track will report failure and nothing is guessed.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>The method gate reads structure, not look quality. A planned method used badly (a hand-drawn texture placed at the wrong scale, an ink sheet played too fast) passes the gate. The gate also reads layer beat tags, not the actual clock position.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>Mesh dissolve must use a baked flipbook, never <code>erode</code>. The validator warns on <code>erode</code>; the method gate refuses it on new pieces.</p></div>
+</section>
+
+<section>
+<h2 id="typical-session">A typical session</h2>
+<pre><code># 1. Start the lane with your request
+lune run parallax start vfx --prompt "a lightning charge-up burst"
+
+# 2. Create the effect
+lune run parallax new vfx lightning_charge
+
+# 3. Break down real footage of electrical discharges
+lune run parallax vfx breakdown thunder_ref --clip assets/effects/refs/thunder_ref/clip/lightning.mp4 --fps 2
+lune run parallax vfx breakdown thunder_ref --dense
+lune run parallax vfx trace thunder_ref --beat 1
+lune run parallax vfx trace thunder_ref --beat 2
+
+# 4. Assign methods beat by beat
+lune run parallax vfx methods --set thunder_ref
+lune run parallax vfx methods --set thunder_ref --beat 1 --use lightning,branching,camera_shake
+lune run parallax vfx methods --set thunder_ref --beat 2 --use hit_flash,impact_frame,bloom
+
+# 5. Draw the chart with the method plan visible; check the test frame
+lune run parallax vfx chart thunder_ref
+# open build/vfx/charts/thunder_ref.png (the chart and its test frame)
+
+# 6. Approve the chart (the test frame must look right first)
+lune run parallax vfx chart thunder_ref --approve "test frame reads, timing matches" --by owner
+
+# 7. Build and approve the animatic
+lune run parallax vfx animatic thunder_ref
+# watch build/vfx/animatic/thunder_ref_side.mp4
+lune run parallax approve vfx thunder_ref "motion timing is right" --by owner --stage animatic
+
+# 8. Build Blender texture recipes
+# edit assets/textures/lightning_bolt.json (engine: fx, strip upright for beam)
+lune run parallax vfx lightning_charge    # builds textures + validates preset
+
+# 9. Run in the browser player and record
+lune run parallax vfx play lightning_charge --record
+# open build/vfx/dailies/lightning_charge/ — compare key beat frames against source
+
+# 10. Style sheet and approval
+lune run parallax vfx stylesheet lightning_charge
+lune run parallax approve vfx lightning_charge "colours and timing match scene" --by owner --stage style
+
+# 11. Judge and evolve
+lune run parallax vfx judge lightning_charge
+lune run parallax vfx evolve lightning_charge
+# pick the best variant
+
+# 12. Verdict and ship
+lune run parallax verdict vfx lightning_charge 8 "burst reads, good weight on the hold"
+lune run parallax vfx vault check
+lune run parallax promote vfx lightning_charge --about "a lightning charge-up burst"</code></pre>
+</section>
+
+<section>
+<h2 id="related">Related</h2>
+<div class="cards">
+  <a class="card" href="3d.html"><div class="kicker">Pipeline</div><h3>3D Models</h3><p>Build game-ready meshes from references and CAD through 10 measured stages.</p></a>
+  <a class="card" href="anim.html"><div class="kicker">Pipeline</div><h3>Animation</h3><p>Author R6 character animations measured from real footage and proven in Studio.</p></a>
+  <a class="card" href="world.html"><div class="kicker">Pipeline</div><h3>Worlds</h3><p>Build Roblox levels from JSON blueprints with real-hydrology terrain and playability checks.</p></a>
+  <a class="card" href="../enforcement.html"><div class="kicker">Reference</div><h3>Enforcement</h3><p>How gates, clocks, and the method register keep the pipelines honest.</p></a>
+  <a class="card" href="../learning.html"><div class="kicker">Reference</div><h3>Learning</h3><p>Verdicts, the golden set, the graveyard, and how lessons reach future builds.</p></a>
+</div>
+</section>
+
+</main>
+<aside class="toc"></aside>
+</div>
+<div id="site-footer"></div>
+<!-- sources: kit/skills/parallax-vfx/SKILL.md, kit/knowledge/vault/vfx/boot.md, kit/skills/parallax-vfx/reference/14-caps-enforced.md, kit/skills/parallax-vfx/reference/18-the-method-plan-the-owner-s-104-methods.md, kit/skills/parallax-vfx/reference/13-engine-facts-measured-in-studio-trust-th.md, kit/skills/parallax-vfx/reference/12-runtime.md, README.md (VFX sections 170-199), scratchpad/recon/lanes_3d_vfx_anim_world.md (VFX section), scratchpad/recon/tiers.md -->
+</body>
+</html>

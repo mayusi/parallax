@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>QA · Parallax</title>
+<meta name="description" content="Test a Roblox game like a tester: security audit, gate self-tests, scripted in-engine playtests, and a regression record where every bug becomes a spec and a mutation case.">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/app.js" defer></script>
+</head>
+<body data-root="../" data-page="lane-qa">
+<div id="site-header"></div>
+<div class="layout">
+<aside class="sidebar"></aside>
+<main class="content">
+
+<nav class="lane-nav" aria-label="Pipelines">
+  <a href="3d.html">3D models</a><a href="vfx.html">Visual effects</a><a href="anim.html">Animation</a><a href="world.html">Worlds</a>
+  <a href="ui.html">Interfaces</a><a href="sfx.html">Sound</a><a href="code.html">Gameplay systems</a><a href="qa.html" class="active">QA</a>
+</nav>
+
+<header class="page-head">
+  <p class="eyebrow">Pipeline</p>
+  <h1>QA</h1>
+  <p class="lead">Tests a Roblox game like a tester: a security audit of every remote, a self-test that proves every content gate catches its bad fixture, scripted in-engine playtests with a performance probe driven through the Studio MCP, and a regression record where every bug you find becomes a spec case and a mutation case. Your verdict is the bar; the accept ratchet keeps it.</p>
+  <div class="meta-row">
+    <span class="badge tier">Tier 0</span>
+    <span class="badge lock">1 approval</span>
+  </div>
+</header>
+
+<section>
+<h2 id="at-a-glance">At a glance</h2>
+<dl class="specs">
+  <dt>Makes</dt>
+  <dd>Audit results, selftest results, playtest result JSON files, and a regression record (<code>tests/regressions.json</code>) that keeps every confirmed bug alive as a runnable test.</dd>
+  <dt>Hardware</dt>
+  <dd><span class="badge tier">Tier 0</span> for audit, selftest, and mutation testing (run in Lune). Studio (installed locally) is required for in-engine playtests.</dd>
+  <dt>Your approvals</dt>
+  <dd>One: when you rate a feature 7 or above, run <code>kit accept</code> to register it as a regression floor. The kit refuses any future change that drops below it.</dd>
+  <dt>When to run</dt>
+  <dd>Before calling any feature done; after adding or changing remotes; when importing free models or third-party code; for a performance check.</dd>
+</dl>
+</section>
+
+<section>
+<h2 id="flow">The flow in one line</h2>
+<div class="flow">
+  <span class="step">audit</span>
+  <span class="arrow">→</span>
+  <span class="step">selftest</span>
+  <span class="arrow">→</span>
+  <span class="step">playtest</span>
+  <span class="arrow">→</span>
+  <span class="step lock">record + accept (verdict ≥ 7)</span>
+</div>
+</section>
+
+<section>
+<h2 id="stages">The stages</h2>
+<button class="expand-all" data-expand-target="#stages-list">Expand all</button>
+<ol class="stages" id="stages-list">
+
+  <li>
+    <span class="num">1</span>
+    <details id="stage-audit">
+      <summary><span class="name">Audit</span><span class="what">Static security check of every remote handler in the game.</span></summary>
+      <div class="body">
+        <p><code>kit audit</code> reads every <code>OnServerEvent</code> and <code>OnServerInvoke</code> handler in the game's server scripts. For each one it checks:</p>
+        <ul>
+          <li>Every client argument is validated with Guard, typeof, type, or a check function.</li>
+          <li>The handler calls a RateLimit before doing any work.</li>
+        </ul>
+        <p>It also flags these patterns regardless of where they appear:</p>
+        <ul>
+          <li><code>require(&lt;asset id&gt;)</code> — a numeric ID passed to require is a free-model backdoor.</li>
+          <li><code>loadstring</code> — dynamic code execution.</li>
+          <li>Server-side <code>InvokeClient</code> — exploitable for denial of service.</li>
+          <li><code>getfenv</code> / <code>setfenv</code> — environment manipulation.</li>
+          <li><code>FireAllClients</code> inside a loop — a network flood.</li>
+        </ul>
+        <p>The audit runs automatically inside <code>kit verify</code>. If you have an intentional exception, record it:</p>
+        <pre><code># In kit.config.json, add:
+# "qa": { "auditIgnore": ["src/server/AdminService.luau:47"] }
+# The entry must be exactly "file:line" (or "file", or "file:rule"); keep the reason in your notes, not in the string.
+lune run parallax audit</code></pre>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">2</span>
+    <details id="stage-selftest">
+      <summary><span class="name">Selftest</span><span class="what">Prove every content gate still catches its designated bad fixture.</span></summary>
+      <div class="body">
+        <p>Every content gate (3D topology, VFX caps, remote schema, move validation, and so on) has a deliberately broken fixture in <code>kit/selftest/&lt;lane&gt;/</code>. <code>kit selftest</code> runs the gate against that fixture and fails if the gate does not catch it.</p>
+        <p>This prevents "gate rot": a gate that has been loosened or broken without anyone noticing. Never edit a gate or its fixture to make something pass.</p>
+        <p><code>kit vault check</code> is a separate step that runs as part of <code>kit verify</code>. It checks the knowledge vault for missing frontmatter, broken wikilinks, and stale indexes.</p>
+        <pre><code>lune run parallax selftest
+lune run parallax verify   # runs the audit and the vault check with every other gate (not selftest)</code></pre>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">3</span>
+    <details id="stage-playtest">
+      <summary><span class="name">Playtest</span><span class="what">Run scripted checks inside a live Roblox Studio session through the Studio MCP.</span></summary>
+      <div class="body">
+        <p>A playtest is a Luau script that runs inside a Studio play session and reports results as JSON. Its first line declares which side it runs on:</p>
+        <pre><code>-- runs on: Server</code></pre>
+        <p>Use the check API to write assertions:</p>
+        <pre><code>-- runs on: Server
+return function(t)
+    local player = t.player()
+    if not t.check("player spawned", player ~= nil) then
+        return
+    end
+    t.check("kit runtime present", t.find("ReplicatedStorage.kit") ~= nil)
+end</code></pre>
+        <p>The script returns one function that receives <code>t</code>; the bundle calls it.</p>
+        <p><strong>Running through Studio MCP:</strong></p>
+        <ol>
+          <li><code>kit playtest bundle &lt;name&gt;</code> — compile the script.</li>
+          <li>MCP: <code>start_stop_play(true)</code> to start a play session.</li>
+          <li>MCP: <code>execute_luau</code> with the bundle code.</li>
+          <li>Save the returned JSON.</li>
+          <li>MCP: <code>start_stop_play(false)</code> to stop.</li>
+          <li><code>kit playtest record &lt;name&gt; &lt;file&gt;</code> to store the result.</li>
+          <li>Skim <code>get_console_output</code> for errors from other scripts.</li>
+        </ol>
+        <p>Any console error — from any script, not just your playtest — fails the run. The performance probe (configured in <code>qa.perf</code> inside <code>kit.config.json</code>) measures memory, workspace instance count, and frame time against thresholds you set.</p>
+        <pre><code>lune run parallax new playtest smoke
+lune run parallax playtest bundle smoke
+# then run through Studio MCP (see above)
+lune run parallax playtest record smoke build/playtest/smoke.json</code></pre>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">4</span>
+    <details id="stage-record">
+      <summary><span class="name">Record</span> <span class="badge lock">verdict ≥ 7 to accept</span><span class="what">Exploratory play, regression record, and the accept ratchet.</span></summary>
+      <div class="body">
+        <p>After scripted playtests, play the game as a hostile player. Try things that should not work:</p>
+        <ul>
+          <li>Spam a remote faster than its rate limit allows.</li>
+          <li>Send a request from far away (position outside the valid range).</li>
+          <li>Send a request while dead.</li>
+          <li>Have two players act simultaneously on the same object.</li>
+          <li>Leave in the middle of an action (disconnect during a combo, a shop transaction, a respawn).</li>
+        </ul>
+        <p>Every bug you find becomes a spec case and a mutation case:</p>
+        <pre><code>lune run parallax bug "shop charges twice on rapid click" \
+  --spec tests/shop.spec.luau \
+  --module src/shared/ShopRules.luau \
+  --line "if cart.pending then" \
+  --from "processPurchase(cart)" \
+  --to "processPurchase(cart); processPurchase(cart)"</code></pre>
+        <p>Run <code>kit mutate --regressions</code> to replant all regression bugs and confirm your specs still catch every one of them.</p>
+        <p>When you are satisfied with a feature, record your verdict and lock the floor:</p>
+        <pre><code>lune run parallax verdict system combat 8 "no exploits found, perf green"
+lune run parallax accept system combat</code></pre>
+      </div>
+    </details>
+  </li>
+
+</ol>
+</section>
+
+<section>
+<h2 id="gates">Gates</h2>
+
+<h3>Audit gate</h3>
+<table>
+  <thead><tr><th>Gate</th><th>What it checks</th><th>Effect</th></tr></thead>
+  <tbody>
+    <tr><td>Argument validation</td><td>Every client argument on every <code>OnServerEvent</code> / <code>OnServerInvoke</code> handler validated with Guard, typeof, type, or a check function.</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>Rate limit</td><td>A handler with no rate limit or cooldown.</td><td><span class="badge warn">warns</span></td></tr>
+    <tr><td><code>require(&lt;asset id&gt;)</code></td><td>Numeric asset ID passed to require (free-model backdoor).</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td><code>loadstring</code></td><td>Dynamic code execution.</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>Server <code>InvokeClient</code></td><td>Server invoking a client function.</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td><code>getfenv</code> / <code>setfenv</code></td><td>Environment manipulation.</td><td><span class="badge warn">warns</span></td></tr>
+    <tr><td><code>FireAllClients</code> in loops</td><td>Network flood.</td><td><span class="badge warn">warns</span></td></tr>
+  </tbody>
+</table>
+
+<h3>Selftest gate</h3>
+<table>
+  <thead><tr><th>Gate</th><th>What it checks</th><th>Effect</th></tr></thead>
+  <tbody>
+    <tr><td>Gate self-catch</td><td>Every content gate catches its designated bad fixture in <code>kit/selftest/&lt;lane&gt;/</code>.</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>Vault check</td><td>Vault pages have frontmatter, wikilinks resolve, indexes are current.</td><td><span class="badge block">blocks</span></td></tr>
+  </tbody>
+</table>
+
+<h3>Playtest gate</h3>
+<table>
+  <thead><tr><th>Gate</th><th>What it checks</th><th>Threshold</th><th>Effect</th></tr></thead>
+  <tbody>
+    <tr><td>Console errors</td><td>Any error in the Studio console during the play session, from any script.</td><td>Zero</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>Memory</td><td>Game memory vs <code>qa.perf.memoryMb</code> in <code>kit.config.json</code> (Studio's figure includes the editor); client memory vs <code>qa.perf.clientMemoryMb</code>.</td><td>Default 1500 MB / 1100 MB</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>Instance count</td><td>Workspace instance count vs <code>qa.perf.instances</code>.</td><td>Default 60,000</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>Frame time</td><td>Frame work per heartbeat vs <code>qa.perf.heartbeatMs</code>.</td><td>Default 20 ms</td><td><span class="badge block">blocks</span></td></tr>
+  </tbody>
+</table>
+</section>
+
+<section>
+<h2 id="io">Inputs and outputs</h2>
+<div class="tabs">
+  <div class="tab-list">
+    <button class="tab" data-tab="io-in" aria-selected="true">Inputs</button>
+    <button class="tab" data-tab="io-out">Outputs</button>
+    <button class="tab" data-tab="io-game">In the game</button>
+  </div>
+  <div class="tab-panel" data-panel="io-in" id="io-in">
+    <ul>
+      <li><code>tests/playtest/&lt;name&gt;.luau</code>: playtest scripts. First line declares side (<code>-- runs on: Server</code> or <code>-- runs on: Client</code>).</li>
+      <li><code>kit.config.json</code> key <code>qa.perf</code>: performance thresholds (<code>memoryMb</code>, <code>instances</code>, <code>heartbeatMs</code>, <code>clientMemoryMb</code>, <code>highlights</code>, <code>shadowLights</code>, <code>shadowRadius</code>); a key you leave out uses the kit's default.</li>
+      <li><code>kit.config.json</code> key <code>qa.auditIgnore</code>: accepted-risk entries — each exactly <code>"file:line"</code>, <code>"file"</code> or <code>"file:rule"</code>.</li>
+      <li>The game's server scripts (read by the audit).</li>
+      <li>The kit's selftest fixtures in <code>kit/selftest/&lt;lane&gt;/</code> (read by selftest).</li>
+    </ul>
+  </div>
+  <div class="tab-panel" data-panel="io-out" id="io-out">
+    <ul>
+      <li><code>build/playtest/&lt;name&gt;.result.json</code>: the playtest result, check by check, plus the console log.</li>
+      <li><code>tests/regressions.json</code>: bug registry — every confirmed bug as a spec case and a mutation case. Never delete entries; add them.</li>
+      <li>Playtest verdicts in <code>kit/knowledge/vault/qa/playtests/</code>: one Markdown file per playtest type.</li>
+    </ul>
+  </div>
+  <div class="tab-panel" data-panel="io-game" id="io-game">
+    <p>The QA pipeline does not add runtime modules to the game. It tests the modules added by the systems pipeline and verifies that the kit's own runtime is present and behaving correctly.</p>
+    <p>The built-in <code>smoke</code> playtest checks three things automatically: the player spawns alive, the kit runtime is present under <code>ReplicatedStorage.kit</code>, and the workspace stays stable while idle (fewer than 500 new instances over a 3-second wait).</p>
+  </div>
+</div>
+</section>
+
+<section>
+<h2 id="check-api">The check API</h2>
+<p>Playtest scripts use a small API injected by <code>kit playtest bundle</code>. Each script returns <code>function(t) ... end</code>; the bundle calls it with <code>t</code>.</p>
+<table>
+  <thead><tr><th>Call</th><th>What it does</th></tr></thead>
+  <tbody>
+    <tr><td><code>t.check(name, cond, detail?, fix?)</code></td><td>Assert a boolean. <code>detail</code> is extra information logged on failure. <code>fix</code> is a suggested fix for the report.</td></tr>
+    <tr><td><code>t.wait(seconds)</code></td><td>Pause the playtest for a fixed duration.</td></tr>
+    <tr><td><code>t.waitFor(fn, timeout?)</code></td><td>Poll <code>fn()</code> until it returns true or the timeout (default 10 s) expires.</td></tr>
+    <tr><td><code>t.player(timeout?)</code></td><td>Wait (default 15 s) for the first player with a spawned character, and return the Player.</td></tr>
+    <tr><td><code>t.find("A.B.C")</code></td><td>Find an instance by dot-separated path from <code>game</code>. Returns the instance or nil.</td></tr>
+  </tbody>
+</table>
+<pre><code>-- runs on: Server
+-- tests/playtest/health_smoke.luau
+return function(t)
+    local player = t.player(10)
+    t.check("player joined", player ~= nil)
+
+    local character = t.waitFor(function()
+        return player and player.Character
+    end, 8)
+    t.check("character spawned", character ~= nil)
+
+    local humanoid = character and character:FindFirstChildOfClass("Humanoid")
+    t.check("humanoid exists", humanoid ~= nil)
+    t.check("full health on spawn", humanoid and humanoid.Health == humanoid.MaxHealth, "Health: " .. tostring(humanoid and humanoid.Health))
+end</code></pre>
+</section>
+
+<section>
+<h2 id="tools">Tools and hardware</h2>
+<table>
+  <thead><tr><th>Tool</th><th>Purpose</th><th>Tier required</th></tr></thead>
+  <tbody>
+    <tr><td>Lune 0.10.5</td><td>Runs <code>kit audit</code>, <code>kit selftest</code>, and mutation testing.</td><td><span class="badge tier">Tier 0</span></td></tr>
+    <tr><td>Roblox Studio with MCP enabled</td><td>Required for in-engine playtests (stage 3).</td><td><span class="badge tier">Tier 0 hardware + Studio</span></td></tr>
+    <tr><td>Roblox Studio MCP tools</td><td><code>start_stop_play</code>, <code>execute_luau</code>, <code>get_console_output</code>.</td><td><span class="badge tier">Tier 0 hardware + Studio</span></td></tr>
+  </tbody>
+</table>
+<div class="tip"><span class="callout-title">Tip</span><p>Check <code>get_studio_state</code> before starting a playtest. Studio is a shared resource — another session may already have a play session running. Never close another session's play.</p></div>
+</section>
+
+<section>
+<h2 id="commands">Commands</h2>
+<pre><code># Start the lane (required before any pipeline command)
+lune run parallax start qa --prompt "test the combat system"
+
+# Static checks
+lune run parallax audit                        # security audit alone
+lune run parallax selftest                     # prove every gate catches its bad fixture
+lune run parallax verify                       # the full gate (audit + vault check + every other gate; not selftest)
+
+# Playtests
+lune run parallax new playtest &lt;name&gt;         # scaffold tests/playtest/&lt;name&gt;.luau
+lune run parallax playtest bundle &lt;name&gt;      # compile for Studio MCP
+lune run parallax playtest record &lt;name&gt; &lt;file&gt;  # store result JSON
+
+# Regression record
+lune run parallax bug "&lt;what&gt;" \
+  --spec &lt;spec file&gt; --module &lt;module&gt; \
+  --line "&lt;piece of the line&gt;" \
+  --from &lt;as it is&gt; --to &lt;the bug&gt;         # register a bug as spec + mutation case
+
+lune run parallax mutate --regressions         # replant all regression bugs
+
+# Verdict and accept ratchet
+lune run parallax verdict &lt;kind&gt; &lt;name&gt; &lt;0-10&gt; "..."
+lune run parallax accept &lt;kind&gt; &lt;name&gt;       # lock verdict ≥ 7 as regression floor</code></pre>
+</section>
+
+<section>
+<h2 id="how-it-learns">How it learns</h2>
+<p>QA has two compounding mechanisms: the regression record and the lesson vault.</p>
+<h3>Regression record</h3>
+<p>Every bug in <code>tests/regressions.json</code> is replanted by <code>kit mutate --regressions</code> on every future run. A spec that stops catching a regression is a failure. The record only grows — entries are never removed. Over time it builds a comprehensive hostile-input suite for the whole game.</p>
+
+<h3>Lesson vault</h3>
+<p>Record QA traps and techniques with <code>kit lesson qa "..."</code>. Example: "a registered KeyframeSequence loads asynchronously in Edit mode — wait for <code>track.Length &gt; 0</code> before reading frame data."</p>
+
+<h3>Verdict ratchet</h3>
+<p>When you rate a feature 7 or above and run <code>kit accept</code>, no future change may regress it below that floor. The ratchet is the mechanism that makes QA permanent: once something is good, it stays good.</p>
+
+<h3>Playtest vault</h3>
+<p>Every completed playtest type (for example, a combat smoke test, a shop transaction test, a UI storybook test) is stored as a named Markdown file in <code>kit/knowledge/vault/qa/playtests/</code>. The next session starts by reading what has already been proven.</p>
+</section>
+
+<section>
+<h2 id="limits">Known limits</h2>
+<div class="limit"><span class="callout-title">Known limit</span><p>Studio is shared between sessions. Always call <code>get_studio_state</code> first to check whether another session is already running a play. Never close another session's play session.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>An unfocused Studio window renders at around 5 frames per second. Timing-sensitive checks (frame-exact hitbox windows, animation markers) may behave differently when Studio is not in focus.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>A server started inside a Lune job dies when the job ends. The kit starts its own servers outside the job (WMI breakaway, a per-launch token).</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>Lune's <code>stdio.prompt</code> does not work in an agent shell. Any step that requires your direct input stays yours — it cannot be automated.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>A <code>KeyframeSequence</code> registered in Edit mode loads asynchronously. Wait for <code>track.Length &gt; 0</code> before reading its frame data, or checks will read an empty sequence.</p></div>
+</section>
+
+<section>
+<h2 id="typical-session">A typical session</h2>
+<p>This is the shape of a complete QA session, from start to acceptance.</p>
+<ol>
+  <li>Start the lane: <code>lune run parallax start qa --prompt "test the combat system"</code>. Read the boot sheet and the last handoff.</li>
+  <li>Run the static checks first — they are fast and GPU-free:
+    <ul>
+      <li><code>kit audit</code>: fix any unvalidated arguments or missing rate limits.</li>
+      <li><code>kit selftest</code>: confirm every gate is still catching its bad fixture.</li>
+      <li><code>kit verify</code>: the full gate (audit + vault check + all other gates; selftest runs separately).</li>
+    </ul>
+  </li>
+  <li>Write a playtest for the core flow: <code>kit new playtest combat_smoke</code>. Add checks for spawn, kit runtime, and a basic attack landing.</li>
+  <li>Bundle and run through Studio MCP. Record the result. Fix any console errors.</li>
+  <li>Play the game as a hostile player. Try spamming, disconnecting mid-action, sending requests from outside the valid range. For every bug found, run <code>kit bug</code> to register it.</li>
+  <li>Run <code>kit mutate --regressions</code> to prove all regression specs still pass.</li>
+  <li>Record your verdict: <code>kit verdict system combat 7 "no exploits, perf within budget"</code>. Run <code>kit accept system combat</code>.</li>
+  <li>Hand off: <code>kit handoff "QA green, 2 bugs found and registered" --lane qa --next "..."</code>.</li>
+</ol>
+</section>
+
+<section>
+<h2 id="related">Related</h2>
+<div class="cards">
+  <a class="card" href="code.html"><div class="kicker">Pipeline</div><h3>Gameplay systems</h3><p>Writes the systems, remotes, and moves that QA tests.</p></a>
+  <a class="card" href="index.html"><div class="kicker">Overview</div><h3>All pipelines</h3><p>How all eight pipelines fit together and how to start one.</p></a>
+</div>
+</section>
+
+</main>
+<aside class="toc"></aside>
+</div>
+<div id="site-footer"></div>
+<!-- sources: kit/skills/parallax-qa/SKILL.md, kit/skills/parallax-qa/reference/01-1-static-no-studio.md, kit/skills/parallax-qa/reference/02-2-in-engine-playtests-*.md, kit/knowledge/vault/qa/boot.md, kit/qa/harness.luau, kit/qa/smoke.luau, kit/templates/playtest.luau, kit/lib/config.luau, kit/cmd/qa.luau, kit/lib/audit.luau, kit/cmd/core.luau -->
+</body>
+</html>

@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Interfaces · Parallax</title>
+<meta name="description" content="How the Parallax UI pipeline builds identity-first Roblox screens: HUDs, menus, shops, dialogs, compiled from JSON specs and driven by the Ui runtime.">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/app.js" defer></script>
+</head>
+<body data-root="../" data-page="lane-ui">
+<div id="site-header"></div>
+<div class="layout">
+<aside class="sidebar"></aside>
+<main class="content">
+
+<nav class="lane-nav" aria-label="Pipelines">
+  <a href="3d.html">3D models</a><a href="vfx.html">Visual effects</a><a href="anim.html">Animation</a><a href="world.html">Worlds</a>
+  <a href="ui.html" class="active">Interfaces</a><a href="sfx.html">Sound</a><a href="code.html">Gameplay systems</a><a href="qa.html">QA</a>
+</nav>
+
+<header class="page-head">
+  <p class="eyebrow">Pipeline</p>
+  <h1>Interfaces</h1>
+  <p class="lead">The UI pipeline builds Roblox screens — HUDs, menus, shops, death screens, status sheets, and dialogs — that look like one game and no other. Every screen starts from an identity pack that pins tokens, type, shapes, motion rules, and bans before any art is made. Specs written in JSON are compiled to Rojo models, gated for readability and touch, previewed at phone, tablet, and desktop with real fonts, and driven in-game by the kit's Ui runtime.</p>
+  <div class="meta-row">
+    <span class="badge tier">Tier 0+</span>
+    <span class="badge lock">2 approvals</span>
+    <span class="badge">10 / 30 / 60 min clock</span>
+  </div>
+</header>
+
+<section>
+<h2 id="at-a-glance">At a glance</h2>
+<dl class="specs">
+  <dt>Makes</dt>
+  <dd>Rojo models (<code>src/ui/&lt;Name&gt;.model.json</code>), preview sheets at three viewports, motion strips, fuzz and localisation reports, saliency maps, identity style guides, and Studio capture scripts.</dd>
+  <dt>Hardware</dt>
+  <dd>
+    <span class="badge tier">Tier 0</span> Compile, gates, fuzz, localisation, saliency, fonts, the blind A/B page, and all text tools — no GPU needed.<br>
+    <span class="badge tier">Tier 1</span> <code>kit ui render</code> (Blender Cycles) and <code>kit ui spin</code> (3D plate previews).<br>
+    <span class="badge tier">Tier 2</span> Reference ranking by similarity (SigLIP 2) and reference-based piece tracing.<br>
+    <span class="badge tier">Tier 3</span> Local VLM (Qwen3-VL) for identity screening. Without Tier 3 the kit sends your AI client a packet to review instead.
+  </dd>
+  <dt>Your approvals</dt>
+  <dd>Two: your direction pick (stage 0) before any new identity is unlocked, and your verdict (scored 0–10 with words) in stage 6. Promotion to the library's examples needs a verdict of 7 or higher.</dd>
+  <dt>Clock</dt>
+  <dd>10 min for a simple screen, 30 min for a complex one, 60 min for a hero screen. Hero screens require <code>kit approve</code> first. Past the budget, no change to the screen can be built (the screen as it was can still be rebuilt and looked at); extend only on your words via <code>kit clock ui &lt;name&gt; --extend &lt;minutes&gt; "&lt;your words&gt;"</code>.</dd>
+  <dt>Results land in</dt>
+  <dd><code>src/ui/</code> (Rojo models, never edit these), <code>build/ui/</code> (previews, motion strips, fuzz and saliency outputs), <code>library/ui/</code> (the permanent archive — <code>kit verify</code> fails if anything is missing).</dd>
+</dl>
+</section>
+
+<section>
+<h2 id="flow">The flow in one line</h2>
+<div class="flow">
+  <span class="step lock">direction (you pick)</span>
+  <span class="arrow">→</span>
+  <span class="step">refs (≥ 2 stills at ≥ 1080p)</span>
+  <span class="arrow">→</span>
+  <span class="step">identity (tokens, type, motion, bans)</span>
+  <span class="arrow">→</span>
+  <span class="step">pieces (rendered / traced / inked / lettered)</span>
+  <span class="arrow">→</span>
+  <span class="step">assemble + compile</span>
+  <span class="arrow">→</span>
+  <span class="step">look (sheet + motion strip)</span>
+  <span class="arrow">→</span>
+  <span class="step lock">judge + verdict (you score)</span>
+  <span class="arrow">→</span>
+  <span class="step lock">promote (verdict ≥ 7)</span>
+</div>
+</section>
+
+<section>
+<h2 id="stages">The stages</h2>
+<button class="expand-all" data-expand-target="#stages-list">Expand all</button>
+<ol class="stages" id="stages-list">
+
+  <li>
+    <span class="num">0</span>
+    <details id="stage-direction">
+      <summary><span class="name">Direction</span> <span class="badge lock">you approve</span><span class="what">Generate 3–5 original design directions; you pick one before any identity is written.</span></summary>
+      <div class="body">
+        <p>Start every new visual look here, not at the identity. The command reads your words and produces 3–5 directions. Each direction names a world object, a verb, and a signature moment — a concrete visual idea, not a mood board. The kit then renders sketch frames onto a world shot so you can compare them side by side before committing.</p>
+        <p>A new identity is locked until you pick a direction. Identities older than this rule are exempt.</p>
+        <pre><code>lune run parallax ui direct new MyGame --ask "a ruined city at dusk, tactical, clean readouts"
+lune run parallax ui direct board   # view the sketch frames; pick one</code></pre>
+        <p><strong>Produces:</strong> Direction spec files in <code>assets/ui/directions/</code> and sketch frames in <code>build/ui/directions/</code>.</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">1</span>
+    <details id="stage-refs">
+      <summary><span class="name">References</span><span class="what">Collect ≥ 2 real stills of the exact screen type at ≥ 1080p, measured at 1:1.</span></summary>
+      <div class="body">
+        <p>References are the ceiling, not inspiration. You need at least two real, full-resolution stills of the specific screen type you are building — a health bar, a menu, a death screen. Gallery contact sheets are not acceptable (they collapse at measurement). Measure each still at 1:1 and record everything in <code>REFS.md</code>.</p>
+        <p>Every later stage is locked until this gate passes. The selftest fixture for the locked state is <code>kit/selftest/ui/refs_too_small</code>.</p>
+        <pre><code>lune run parallax ui refs MyTheme "&lt;game&gt;" "&lt;words&gt;"   # real stills into refs/MyTheme/candidates
+lune run parallax ui measure &lt;still&gt;                    # layout + palette measured by script</code></pre>
+        <p><strong>Produces:</strong> <code>REFS.md</code> entries for the screen type.</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">2</span>
+    <details id="stage-identity">
+      <summary><span class="name">Identity</span><span class="what">Sample tokens from the references and compile the identity pack: type trio, shapes, motion, bans, minimums.</span></summary>
+      <div class="body">
+        <p>An identity pack is a JSON file at <code>assets/ui/identities/&lt;name&gt;.json</code>. It is built from your references by the <code>kit ui identity</code> command, which samples colour tokens, selects an <code>Enum.Font</code> trio, defines shape language and motion rules, and records bans and minimums for the screens that use it.</p>
+        <p>Important: Roblox does not support custom TTF fonts. Every font in an identity is an <code>Enum.Font</code> value mapped to its Google Fonts family in <code>kit/ui/fonts.json</code> (each font file sha256-pinned in <code>kit/ui/fonts.lock.json</code>). There is no letter-spacing; glyph lists are the alternative.</p>
+        <p>Every screen that names the identity in its spec compiles against its rules.</p>
+        <pre><code>lune run parallax ui identity MyTheme --from refs</code></pre>
+        <p><strong>Produces:</strong> <code>assets/ui/identities/MyTheme.json</code>.</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">3</span>
+    <details id="stage-pieces">
+      <summary><span class="name">Pieces</span><span class="what">Make every hero piece as rendered art, a trace, an ink, lettering, or a 3D spin — never a tinted font glyph.</span></summary>
+      <div class="body">
+        <p>A "piece" is any image asset a screen references. The pipeline enforces a medium rule: every hero piece must be one of the following, chosen before the build starts:</p>
+        <ul>
+          <li><strong>Render</strong> — a Blender Cycles render (<span class="badge tier">Tier 1</span>), read back by the kit to confirm it matches the spec.</li>
+          <li><strong>Trace</strong> — a 1:1 crop of a real reference still, upscaled (Real-ESRGAN) and cut out (BiRefNet): the reference's own pixels are the art.</li>
+          <li><strong>Ink</strong> — a real picture turned into halftone ink, flat cel (<code>--mode cel</code>, best on official 2D key art) or a HUD icon.</li>
+          <li><strong>Letter</strong> — a lettered title or logotype drawn at the identity's lettering defaults.</li>
+          <li><strong>Spin</strong> — a flat piece made into a bevelled 3D mesh with its art on the face, rendered as a turntable flipbook (plus the FBX).</li>
+        </ul>
+        <p>A typed font glyph with a tint is never acceptable as a hero piece. The one exception is a realistic HUD readout backed by <code>"typed_hero_evidence"</code> in the identity, citing the exact still that shows such a readout.</p>
+        <p>If you change the medium of a piece — gaining a route, not losing one — the build refuses until you re-answer every lesson for the new route via <code>kit answer ui &lt;name&gt; --reroute</code>.</p>
+        <pre><code>lune run parallax ui render MyTheme/Icon
+lune run parallax ui trace MyTheme/Logo --from &lt;still&gt; --box x,y,w,h
+lune run parallax ui ink MyTheme/Card --from &lt;picture&gt; --mode cel
+lune run parallax ui letter MyTheme/Title --text "..."
+lune run parallax ui spin MyTheme/Medal</code></pre>
+        <p><strong>Produces:</strong> Art files in <code>assets/ui/art/&lt;identity&gt;/</code>.</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">4</span>
+    <details id="stage-assemble">
+      <summary><span class="name">Assemble</span><span class="what">Compile the JSON spec to a Rojo model; anchors and gates run automatically.</span></summary>
+      <div class="body">
+        <p>The screen spec (<code>assets/ui/&lt;Name&gt;.json</code>) defines every node: type, text, layout, motion, state variants, pieces, and the identity it belongs to. The compiler resolves anchors via <code>kit ui gauge</code> — a "gauge" node provides a measured anchor point, and <code>crest_width</code> sets the global scale so child nodes scale in proportion. Children of a warped parent follow that parent's transform.</p>
+        <p>The HUD size contract applies when a screen is driven partly by game code. Its contract file at <code>assets/ui/huds/&lt;Hud&gt;.json</code> records the code path, a block helper and resize function, and the measured size of each block from the approved reference round. <code>kit ui hudsize</code> (and <code>kit verify</code>) runs the HUD's own resize code at 1920×1080 and at desktop sizes and fails any block that falls below its floor times its reference size.</p>
+        <p>All compile-time gates run here (see the Gates section). The model written to <code>src/ui/&lt;Name&gt;.model.json</code> is generated; never edit it by hand.</p>
+        <pre><code>lune run parallax ui MyScreen          # compile + all gates
+lune run parallax ui MyScreen --motion  # compile + generate motion strip</code></pre>
+        <p><strong>Produces:</strong> <code>src/ui/&lt;Name&gt;.model.json</code> (Rojo model), <code>build/ui/&lt;Name&gt;.png</code> (preview sheet).</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">5</span>
+    <details id="stage-look">
+      <summary><span class="name">Look</span><span class="what">View the preview sheet and motion strip at all three viewports; record what you saw.</span></summary>
+      <div class="body">
+        <p>The preview sheet renders the screen at phone, tablet, and desktop viewports using the actual Roblox <code>Enum.Font</code> values and their mapped Google Fonts families — not stand-ins. You must look at this sheet before the judge stage. No look record means no judge and no promotion.</p>
+        <p>The motion strip (<code>build/ui/&lt;Name&gt;.motion.png</code>) shows every animated node's enter choreography as a horizontal filmstrip. If you have a reel spec (<code>&lt;Name&gt;.reel.json</code>), <code>kit ui reel</code> renders it to a GIF and an annotated strip showing bar drains, rolling counters, and state flips in timeline order.</p>
+        <p>The motion critic (<code>&lt;Name&gt;.critic.json</code>) checks Material 3 timing rules automatically: ease-out on enter, ease-in on leave, entrances between 0.15 s and 0.6 s, staggered siblings, a 3–8% overshoot on the hero beat, and a still moment to read. It produces advice you review here.</p>
+        <pre><code>lune run parallax ui reel MyScreen                    # render the reel to GIF + strip
+lune run parallax ui look MyScreen "bar drains clean, counter rolls at right speed"</code></pre>
+        <p><strong>Produces:</strong> <code>build/ui/&lt;Name&gt;.motion.png</code>, <code>build/ui/&lt;Name&gt;.reel.gif</code> (if a reel spec exists), look record in the stage board.</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">6</span>
+    <details id="stage-judge">
+      <summary><span class="name">Judge</span> <span class="badge lock">you approve</span><span class="what">Two fresh judges check for bugs; you give a verdict scored 0–10.</span></summary>
+      <div class="body">
+        <p>Two independent judge passes run on the compiled screen, checking for bugs: wrong state shown, an empty flip face, a number node displaying "1 HITS", overlapping text. Each judge is fresh-context — it has not seen earlier stages.</p>
+        <p>After the judge passes, the verifier produces a diff and one edit per piece. You then give a verdict with a score (0–10) and words. The score is recorded as <code>kit verdict screen</code>.</p>
+        <p>A verdict is sha-keyed: it belongs to the build you judged. Never carry a verdict from one build onto a changed one.</p>
+        <pre><code>lune run parallax ui judge MyScreen
+lune run parallax ui judge MyScreen --owner 8 "sharp, reads at a glance"</code></pre>
+        <p><strong>Produces:</strong> Judge reports in <code>build/judge/ui/&lt;Name&gt;/</code>, verdict entry in the vault.</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">7</span>
+    <details id="stage-promote">
+      <summary><span class="name">Promote</span> <span class="badge lock">verdict ≥ 7 required</span><span class="what">Upload art to Roblox, archive everything to the library, and add the screen to the example library.</span></summary>
+      <div class="body">
+        <p>Upload the art first: art that is not uploaded shows blank in-game — the runtime resolves asset IDs, not local file paths. After upload, <code>kit ui vault check</code> confirms the library entry is complete (renders, traces, anchors, refs, verdict, and reel if one was made). <code>kit promote</code> adds the screen to the example library as a reuse candidate, only on a verdict of 7 or higher.</p>
+        <pre><code>lune run parallax upload                   # upload all pending art
+lune run parallax ui vault check           # confirm the library entry is complete
+lune run parallax promote screen MyScreen --about "health bar with ghost drain and counter"</code></pre>
+        <p><strong>Produces:</strong> Uploaded asset IDs in <code>assets/ids.json</code>, vault entry in <code>library/ui/</code>.</p>
+      </div>
+    </details>
+  </li>
+
+</ol>
+</section>
+
+<section>
+<h2 id="gates">Gates</h2>
+
+<h3>Blocking gates (errors)</h3>
+<table>
+  <thead><tr><th>Gate</th><th>What it checks</th><th>Threshold</th><th>Effect</th></tr></thead>
+  <tbody>
+    <tr><td><code>identity</code></td><td>Hero or AAA screen references a known identity pack.</td><td>—</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td><code>contrast</code></td><td>Contrast ratio between text and its background.</td><td>&lt; 3</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td><code>text_size</code></td><td>Minimum text size on any device.</td><td>&lt; 12 px</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td><code>hero_glyph</code></td><td>Hero piece is a typed font glyph (not lettered, rendered, or a digit-set number). Exception: <code>"typed_hero_evidence"</code> in the identity for a realistic readout.</td><td>—</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td><code>number_node</code></td><td>Number node has no text, a character outside its charset, or a pitch outside 0.5–1.2.</td><td>—</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td><code>hud_size</code></td><td>HUD block at runtime falls below its reference floor times the floor multiplier (<code>kit ui hudsize</code>).</td><td>below floor × reference</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td><code>banned_component</code></td><td>A node's type is a banned word, or its name contains a banned word (camel humps and underscores split words). A screen on the grandfather list gets a warning instead.</td><td>—</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td><code>photosensitivity</code></td><td>Flash count in a reel (WCAG 2.3.1): more than 3 flashes per second over a quarter of a 10-degree field.</td><td>&gt; 3 / s</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td><code>saliency</code></td><td>Run by its own command, <code>kit ui saliency</code> (not part of the compile): simulated first looks must land on the focus element.</td><td>&lt; 85% on focus</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td><code>spec_drift</code></td><td>Generated Rojo model in <code>src/ui/</code> was edited or is stale relative to the spec.</td><td>—</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td><code>refs_gate</code></td><td>Hero route: fewer than 2 reference stills of the screen type, or stills below 1080p.</td><td>&lt; 2 stills at ≥ 1080p</td><td><span class="badge block">blocks</span></td></tr>
+  </tbody>
+</table>
+
+<h3>Warning gates (AI-tell detection)</h3>
+<table>
+  <thead><tr><th>Gate</th><th>What it warns about</th></tr></thead>
+  <tbody>
+    <tr><td><code>habit_face</code></td><td>Gotham or similar "habit" typeface used under a custom identity.</td></tr>
+    <tr><td><code>purple_accent</code></td><td>Indigo or purple accent colour — a common generated-UI default.</td></tr>
+    <tr><td><code>uniform_radius</code></td><td>One corner radius applied to every element.</td></tr>
+    <tr><td><code>mass_enter</code></td><td>A menu where all elements enter at the same time (no stagger).</td></tr>
+    <tr><td><code>flat_panel</code></td><td>A flat untextured panel with no depth or material.</td></tr>
+    <tr><td><code>no_type_hierarchy</code></td><td>No distinction in font size or weight between heading and body levels.</td></tr>
+    <tr><td><code>center_hud</code></td><td>HUD information blocked in the screen centre.</td></tr>
+    <tr><td><code>no_text_outline</code></td><td>Text drawn over the world with no outline.</td></tr>
+    <tr><td><code>contrast_soft</code></td><td>Contrast ratio below 4.5 (not an error but below accessibility guidance).</td></tr>
+    <tr><td><code>text_size_soft</code></td><td>Text smaller than 14 px on any device.</td></tr>
+    <tr><td><code>touch_target</code></td><td>Interactive touch target smaller than 44 px.</td></tr>
+    <tr><td><code>below_minimums</code></td><td>Text, button, or icon below the identity's stated minimums.</td></tr>
+    <tr><td><code>art_not_uploaded</code></td><td>A piece has no uploaded asset ID — it will show blank in-game.</td></tr>
+    <tr><td><code>type_levels</code></td><td>Typography v7.13: two size levels closer than 1.12× apart.</td></tr>
+    <tr><td><code>counter_in_proportional</code></td><td>A rolling counter using a proportional typeface (digits shift width between frames).</td></tr>
+    <tr><td><code>palette_count</code></td><td>More than 7 colours each covering more than 2% of the painted area.</td></tr>
+    <tr><td><code>palette_balance</code></td><td>No colour exceeds 40% of the painted area (the 60-30-10 rule is not met).</td></tr>
+    <tr><td><code>near_align</code></td><td>Craft v7.2: element edges or centres 1–3 px off a sibling's alignment.</td></tr>
+    <tr><td><code>uneven_gap</code></td><td>Craft v7.2: three or more siblings 1–4 px off even spacing.</td></tr>
+    <tr><td><code>squint</code></td><td>Craft v7.3: blurring the frame shows the spec's focus outside the top 3 visual regions.</td></tr>
+  </tbody>
+</table>
+</section>
+
+<section>
+<h2 id="io">Inputs and outputs</h2>
+<div class="tabs">
+  <div class="tab-list">
+    <button class="tab" data-tab="io-in" aria-selected="true">Inputs</button>
+    <button class="tab" data-tab="io-out">Outputs</button>
+    <button class="tab" data-tab="io-game">In the game</button>
+  </div>
+
+  <div class="tab-panel" data-panel="io-in" id="io-in">
+    <ul>
+      <li><code>assets/ui/identities/&lt;name&gt;.json</code> — the identity pack: colour tokens, font trio, shape language, motion rules, bans, and minimums.</li>
+      <li><code>assets/ui/&lt;Name&gt;.json</code> — the screen spec: node tree, types, text, layout, states, motion, and the identity it belongs to.</li>
+      <li><code>assets/ui/art/&lt;identity&gt;/</code> — piece art files (renders, traces, inks, lettered images) referenced by name in the spec.</li>
+      <li><code>assets/ui/&lt;Name&gt;.reel.json</code> — optional motion reel: tracks keying node properties over time, expanded from macros (<code>flipbook</code>, <code>cycle</code>, <code>weave</code>).</li>
+      <li><code>assets/ui/huds/&lt;Hud&gt;.json</code> — HUD size contract for screens whose layout is driven by game code rather than by the spec alone.</li>
+      <li>Reference stills in <code>REFS.md</code> — ≥ 2 real stills at ≥ 1080p of the exact screen type, measured at 1:1.</li>
+    </ul>
+  </div>
+
+  <div class="tab-panel" data-panel="io-out" id="io-out">
+    <ul>
+      <li><code>src/ui/&lt;Name&gt;.model.json</code> — the compiled Rojo model. Never edit this by hand; it is regenerated every build.</li>
+      <li><code>build/ui/&lt;Name&gt;.png</code> — preview sheet at phone, tablet, and desktop viewports using real fonts.</li>
+      <li><code>build/ui/&lt;Name&gt;.motion.png</code> — animated enter choreography as a horizontal filmstrip.</li>
+      <li><code>build/ui/&lt;Name&gt;.reel.gif</code> and <code>build/ui/&lt;Name&gt;.reel.png</code> — reel render (if a reel spec exists).</li>
+      <li><code>build/ui/booth/&lt;Name&gt;.studio.luau</code> — Studio capture script for the engine proof.</li>
+      <li><code>build/ui/fuzz/&lt;Name&gt;.json</code> — fuzz report: overflow, squeeze, and off-screen issues with max-length text and large numbers.</li>
+      <li><code>build/ui/loc/&lt;Name&gt;.json</code> — localisation report: pseudo-translation overflow and a list of lettered words that must have per-language versions.</li>
+      <li><code>build/judge/ui/&lt;Name&gt;/saliency/map.png</code> — saliency heat map from 24 simulated first looks.</li>
+      <li><code>build/ui/guide/&lt;identity&gt;.html</code> — identity style guide HTML page (from <code>kit ui guide</code>): tokens, type roles, shapes, motion, bans, and every screen wearing the identity.</li>
+      <li><code>library/ui/</code> — permanent archive; <code>kit verify</code> fails if anything is missing or stale.</li>
+    </ul>
+  </div>
+
+  <div class="tab-panel" data-panel="io-game" id="io-game">
+    <p>All screens compiled by this pipeline are driven client-side via <code>ReplicatedStorage.kit.Ui</code>. The UiMotion client script binds every kit screen automatically on load: hover, press, loops per node, per-viewport scale, and the enter choreography when a screen is enabled. You call the Ui API for state changes, data binding, and transitions.</p>
+
+    <h3>Core Ui API (client only)</h3>
+    <pre><code>-- Fill a bar to 42%; the Ghost node drains late when health falls
+Ui.bar(Ui.find("RpgHud", "Hud.Vitals.Hp"), 0.42)
+
+-- Roll a counter to a new number (thousands separators are kept)
+Ui.counter(Ui.find("RpgHud", "Hud.RpgBox.Souls"), 15210)
+
+-- Set a "glyphs" label's text in the identity's own lettering
+Ui.write(Ui.find("RiffNameplate", "Plate.Name"), player.DisplayName)
+
+-- Enable a screen and play its enter choreography; false fades it out
+Ui.show(playerGui.RpgDeath, true)
+
+-- Transition from one screen to the next
+Ui.transition(playerGui.RpgTitle, playerGui.RpgHud)
+
+-- Apply a damped spring to any numeric, UDim2, Vector2, or Color3 property
+-- frequency in Hz; damping 1 = critical, below 1 pops
+Ui.spring(frame, "Position", UDim2.fromScale(0.5, 0.5), 4, 0.6)
+
+-- Set a designed state on a control (nil returns to idle)
+Ui.setState(Ui.find("SimShop", "Shop.Window.Grid.Pack1.Buy"), "locked")
+
+-- Draw a Path2D vector line to 60% of its full length
+Ui.path(Ui.find("RaceHud", "Hud.Dial.Boost"), 0.6)
+
+-- Fire pooled UI particles from the identity's preset
+Ui.burst(Ui.find("RushHud", "Hud.Callout"), "smash")
+
+-- Attach a world-space nameplate to a part
+Ui.attach(StarterGui.RiffNameplate, enemy.Head)
+
+-- Pin a world marker to the edge of the screen when off-screen
+Ui.track(Ui.find("Hud", "Hud.Goal"), workspace.Goal)
+
+-- Push a queued toast ("good" uses the identity's success colour)
+Ui.toast(Ui.find("Hud", "Hud.Toasts"), "Saved!", "good")
+
+-- Apply a runtime material to a node (shimmer, ping, burn_in, split, flicker)
+Ui.fx(node, "burn_in")
+
+-- Honour a player's accessibility setting: stills split/flicker/ping (WCAG 2.3.1)
+Ui.setReduceFlashing(true)</code></pre>
+
+    <h3>Combat Feedback Kit (UiCombat)</h3>
+    <p>The <code>UiCombat</code> module provides rules for world markers, damage arcs, and streak ladders. Its rules are pure and tested separately in Lune. Access via <code>Ui.waypoint</code>, <code>Ui.damageArc</code>, <code>Ui.streakLadder</code>, and <code>Ui.compare</code>.</p>
+    <p>A marker whose margin is below half its own size (the pin hangs off the screen edge) fails the compile gate. A streak ladder with settings the runtime cannot honour also fails at compile time.</p>
+
+    <h3>Player accessibility</h3>
+    <p>The kit reads Roblox's native <code>GuiService.ReducedMotionEnabled</code> (2026). When set, enter animations become a short fade and loops stay still, satisfying WCAG 2.3.3. <code>Ui.setReduceFlashing</code> stills split, flicker, and ping effects on the caller's device. <code>Ui.setHighContrast(true)</code> gives every kit text a solid dark outline; <code>false</code> puts the design back.</p>
+  </div>
+</div>
+</section>
+
+<section>
+<h2 id="tools">Tools and hardware</h2>
+<div class="chips" data-chip-target="#tools-table" data-chip-attr="data-tier">
+  <button class="chip active" data-value="all">All</button>
+  <button class="chip" data-value="0">Tier 0</button>
+  <button class="chip" data-value="1">Tier 1</button>
+  <button class="chip" data-value="2">Tier 2</button>
+  <button class="chip" data-value="3">Tier 3</button>
+</div>
+<table id="tools-table">
+  <thead><tr><th>Tool</th><th>Used for</th><th>Tier</th></tr></thead>
+  <tbody>
+    <tr data-tier="0"><td>Python compiler (<code>kit/ui/</code>)</td><td>Compile JSON specs to Rojo models, run all gates.</td><td><span class="badge tier">Tier 0</span></td></tr>
+    <tr data-tier="0"><td>Font fetcher (<code>kit ui fonts</code>)</td><td>Download and pin Google Fonts families that match every <code>Enum.Font</code> value.</td><td><span class="badge tier">Tier 0</span></td></tr>
+    <tr data-tier="0"><td>Flash checker (<code>kit/ui/flash.py</code>)</td><td>Count flashes per second in a reel against WCAG 2.3.1.</td><td><span class="badge tier">Tier 0</span></td></tr>
+    <tr data-tier="0"><td>Fuzz renderer (<code>kit ui fuzz</code>)</td><td>Render the screen with 60%-longer words and maximum numbers to find overflow.</td><td><span class="badge tier">Tier 0</span></td></tr>
+    <tr data-tier="0"><td>Localisation renderer (<code>kit ui loc</code>)</td><td>Render a pseudo-translation (accented, 40% longer, bracketed) to find layout breaks.</td><td><span class="badge tier">Tier 0</span></td></tr>
+    <tr data-tier="0"><td>Saliency map (<code>kit ui saliency</code>)</td><td>Simulate 24 first looks with a luminance+colour-opponent centre-surround model; fail under 85% fixation on the focus.</td><td><span class="badge tier">Tier 0</span></td></tr>
+    <tr data-tier="0"><td>OCR reader (RapidOCR, local)</td><td>Read the words in reference stills (<code>kit ui read</code>).</td><td><span class="badge tier">Tier 0</span></td></tr>
+    <tr data-tier="0"><td>A/B tester (<code>kit ui ab</code>)</td><td>Show two screens blind as X/Y in random order on a local page; record the verdict.</td><td><span class="badge tier">Tier 0</span></td></tr>
+    <tr data-tier="0"><td>Studio MCP (<code>kit ui booth</code>)</td><td>Capture the screen in the Roblox engine for the final engine proof.</td><td><span class="badge tier">Tier 0</span></td></tr>
+    <tr data-tier="1"><td>Blender Cycles (<code>kit ui render</code>)</td><td>Render hero pieces as 3D-lit images for the screen.</td><td><span class="badge tier">Tier 1</span></td></tr>
+    <tr data-tier="1"><td>Blender spin (<code>kit ui spin</code>)</td><td>Render a 3D plate for a carousel or world-space UI element.</td><td><span class="badge tier">Tier 1</span></td></tr>
+    <tr data-tier="2"><td>SigLIP 2 (vision Tier 2)</td><td>Rank reference stills by similarity to the target piece; find near-duplicate references.</td><td><span class="badge tier">Tier 2</span></td></tr>
+    <tr data-tier="2"><td>Trace (<code>kit ui trace</code>)</td><td>Crop a reference still at 1:1, upscale it (Real-ESRGAN) and cut it out (BiRefNet).</td><td><span class="badge tier">Tier 2</span></td></tr>
+    <tr data-tier="3"><td>Qwen3-VL (local VLM, Tier 3)</td><td>Screen identity directions and concept plates against the identity's bans and pillars locally. Without Tier 3, the kit sends a packet to your AI client instead.</td><td><span class="badge tier">Tier 3</span></td></tr>
+  </tbody>
+</table>
+</section>
+
+<section>
+<h2 id="commands">Commands</h2>
+<pre><code># Start the lane (required before any other UI command)
+lune run parallax start ui --prompt "a ruined city tactical HUD"
+
+# Creative direction
+lune run parallax ui direct new MyGame --ask "..."    # generate 3-5 directions
+lune run parallax ui direct board                     # view sketch frames; pick one
+
+# Identity
+lune run parallax ui identity MyTheme --from refs     # build identity from references
+
+# Piece making
+lune run parallax ui render MyTheme/Icon              # Blender Cycles render (Tier 1)
+lune run parallax ui trace MyTheme/Logo --from &lt;still&gt; --box x,y,w,h   # 1:1 crop, upscaled, cut out
+lune run parallax ui ink MyTheme/Card --from &lt;picture&gt; --mode cel     # ink / cel / icon
+lune run parallax ui letter MyTheme/Title --text "..."  # lettered title / logotype
+lune run parallax ui spin MyTheme/Medal               # bevelled 3D mesh turntable
+
+# Build + preview
+lune run parallax ui MyScreen                         # compile + all gates
+lune run parallax ui MyScreen --motion                # compile + motion strip
+lune run parallax ui plan MyScreen                    # stage board (locked/unlocked state)
+lune run parallax ui reel MyScreen                    # render reel to GIF + strip
+lune run parallax ui hudsize                          # measure HUD code at screen sizes
+
+# Quality checks
+lune run parallax ui fuzz MyScreen                    # overflow check with max-length text
+lune run parallax ui loc MyScreen                     # pseudo-translation / localisation
+lune run parallax ui saliency MyScreen                # first-look saliency (need ≥ 85% on focus)
+lune run parallax ui judge MyScreen                   # run two fresh judges for bugs
+lune run parallax ui judge MyScreen --owner 8 "..."   # record your verdict (0-10 + words)
+lune run parallax ui booth MyScreen                   # Studio engine capture
+
+# Comparisons and regression
+lune run parallax ui ab A B                           # blind A/B with recorded verdict
+lune run parallax ui diff MyScreen                    # compare against golden (--approve locks it)
+lune run parallax ui look MyScreen "..."              # record what you saw (required before judge)
+
+# Style guide and library
+lune run parallax ui guide MyTheme                    # write identity style guide HTML
+lune run parallax ui vault find "health bar"          # search library before making
+lune run parallax ui vault check                      # verify library completeness
+
+# Upload and promote
+lune run parallax upload                              # upload all pending art
+lune run parallax promote screen MyScreen --about "..."</code></pre>
+</section>
+
+<section>
+<h2 id="learning">How it learns</h2>
+<p>Verdicts of 7 or higher go into the golden set. Verdicts of 3 or lower go into the graveyard, the lane's record of failed routes, which every new session sees when it starts, so the same mistake is not repeated.</p>
+<p>Record a technique or trap at any time:</p>
+<pre><code>lune run parallax lesson ui "rolling counters need a mono face — proportional digits shift width"</code></pre>
+<p>After five or more new verdicts, <code>kit vault distil ui</code> produces an updated set of live rules from the verdict record. The golden regression floor is set by <code>kit ui diff &lt;Screen&gt; --approve</code> after a verdict of 7 or higher. Future builds that regress against the floor are flagged.</p>
+<p>Start from proof: <code>kit examples screen</code> shows every screen you have rated, with its score. Known examples include an arcade title screen and menu (9.2 each), a gauge-style screen (8.5), a field HUD (8), and a smear-style card (8).</p>
+<div class="tip"><span class="callout-title">Tip</span><p><code>lune run parallax ui vault find "&lt;words&gt;"</code> searches the library before you start. Reuse a proven piece from the library rather than making a new one from scratch.</p></div>
+</section>
+
+<section>
+<h2 id="limits">Known limits</h2>
+<div class="limit"><span class="callout-title">Known limit</span><p>Roblox caps <code>TextSize</code> at 100. There is no letter-spacing on text labels; use glyph lists as the alternative.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>Roblox does not support custom TTF fonts. Every font must be an <code>Enum.Font</code> value. The pipeline maps each one to its Google Fonts family for previews.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>SigLIP 2 cannot find faces in ink art. If a piece is an inked portrait, similarity search will not locate it by face.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>A derived screen can drop new nodes. Look at a derived screen's preview after you add nodes.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>Light direction across pieces is not measured yet. The pipeline does not enforce consistent light direction between separately made pieces on the same screen.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>Taste is yours: the kit's own judge rates screens lower than people do. Use it for catching bugs, not for quality scores.</p></div>
+</section>
+
+<section>
+<h2 id="session">A typical session</h2>
+<pre><code># 1. Start the lane with the request
+lune run parallax start ui --prompt "a sword-fighting game HUD with health, stamina, and an ability timer"
+
+# 2. Check what is pending from the last session
+lune run parallax ui plan SwordHud    # stage board; see which stage is open
+
+# 3. Make sure you have direction and an identity
+lune run parallax ui direct new SwordGame --ask "fast, grounded, no gloss; worn metal UI"
+lune run parallax ui direct board     # view sketches; pick the one that fits
+
+# 4. Build identity from two reference stills you measured at 1:1
+lune run parallax ui identity SwordTheme --from refs
+
+# 5. Make the hero piece (health icon) as a render
+lune run parallax ui render SwordTheme/HealthIcon   # Blender Cycles; reads the picture back
+
+# 6. Compile the full screen and check gates
+lune run parallax ui SwordHud --motion   # compile + motion strip
+
+# 7. Look at the preview sheet and strip — record what you saw
+# (open build/ui/SwordHud.png and SwordHud.motion.png)
+lune run parallax ui look SwordHud "health drain ghost works; ability timer reads at phone size"
+
+# 8. Run fuzz and localisation checks before the judge
+lune run parallax ui fuzz SwordHud
+lune run parallax ui loc SwordHud
+
+# 9. Judge and record your verdict
+lune run parallax ui judge SwordHud
+lune run parallax ui judge SwordHud --owner 8 "clean, reads fast, good weight on the icon"
+
+# 10. Upload the art; promote only if the verdict is 7 or higher
+lune run parallax upload
+lune run parallax ui vault check
+lune run parallax promote screen SwordHud --about "sword-fighting HUD with ghost drain and ability timer"
+
+# 11. Hand off with what you did and what comes next
+lune run parallax handoff "built SwordHud: identity, render, compile, verdict 8" \
+  --lane ui --next "add the death screen" --as "kit"</code></pre>
+</section>
+
+<section>
+<h2 id="related">Related</h2>
+<div class="cards">
+  <a class="card" href="vfx.html"><div class="kicker">Pipeline</div><h3>Visual effects</h3><p>Particle systems and mesh-based effects that play alongside UI feedback.</p></a>
+  <a class="card" href="anim.html"><div class="kicker">Pipeline</div><h3>Animation</h3><p>Character animations that the UI motion critic times its enters against.</p></a>
+  <a class="card" href="sfx.html"><div class="kicker">Pipeline</div><h3>Sound</h3><p>UI click and feedback sounds that play when <code>Sfx.play</code> is called from a screen.</p></a>
+  <a class="card" href="code.html"><div class="kicker">Pipeline</div><h3>Gameplay systems</h3><p>The server-side data that the Ui runtime reads and displays.</p></a>
+  <a class="card" href="../enforcement.html"><div class="kicker">Reference</div><h3>Enforcement</h3><p>How the kit's gates and audit hooks are structured.</p></a>
+  <a class="card" href="../learning.html"><div class="kicker">Reference</div><h3>Learning</h3><p>How verdicts, lessons, and vault distillation work across all pipelines.</p></a>
+</div>
+</section>
+
+</main>
+<aside class="toc"></aside>
+</div>
+<div id="site-footer"></div>
+<!-- sources: kit/skills/parallax-ui/SKILL.md, kit/skills/parallax-ui/reference/10-gates.md, kit/skills/parallax-ui/reference/08-motion-v2-a-choreography-not-a-hover.md, kit/skills/parallax-ui/reference/09-in-game-replicatedstorage-kit-ui-client.md, kit/skills/parallax-ui/reference/11-fonts.md, kit/knowledge/vault/ui/boot.md, src/kit/Ui.luau, README.md, kit/skills/parallax-ui/reference/04-commands-at-a-glance-lune-run-kit-ui-sub.md, kit/ui/trace.py, kit/ui/spin.py, kit/cmd/learn.luau -->
+</body>
+</html>

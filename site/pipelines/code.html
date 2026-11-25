@@ -1,0 +1,414 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gameplay systems · Parallax</title>
+<meta name="description" content="Build server-authoritative Roblox gameplay code: the game skeleton, pure tested systems, generated remotes, and combat moves as data.">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/app.js" defer></script>
+</head>
+<body data-root="../" data-page="lane-code">
+<div id="site-header"></div>
+<div class="layout">
+<aside class="sidebar"></aside>
+<main class="content">
+
+<nav class="lane-nav" aria-label="Pipelines">
+  <a href="3d.html">3D models</a><a href="vfx.html">Visual effects</a><a href="anim.html">Animation</a><a href="world.html">Worlds</a>
+  <a href="ui.html">Interfaces</a><a href="sfx.html">Sound</a><a href="code.html" class="active">Gameplay systems</a><a href="qa.html">QA</a>
+</nav>
+
+<header class="page-head">
+  <p class="eyebrow">Pipeline</p>
+  <h1>Gameplay systems</h1>
+  <p class="lead">Builds server-authoritative Roblox gameplay code: the game skeleton with live configuration and data storage, gameplay systems with pure tested rules, type-safe remotes generated from schemas, and combat moves described as data. The result is a game that the other pipelines can run inside.</p>
+  <div class="meta-row">
+    <span class="badge tier">Tier 0</span>
+    <span class="badge lock">1 approval</span>
+    <span class="badge">no clock</span>
+  </div>
+</header>
+
+<section>
+<h2 id="at-a-glance">At a glance</h2>
+<dl class="specs">
+  <dt>Makes</dt>
+  <dd>A game folder (Loader, Configs, data storage), gameplay systems (Rules modules, Services, Controllers), rate-limited and Guard-checked remote wrappers, and a move set (frames, hitboxes, cancels).</dd>
+  <dt>Hardware</dt>
+  <dd><span class="badge tier">Tier 0</span> for all systems work: rules, remotes, fuzzing, mutation testing, and move validation run in Lune with no GPU. Studio (installed locally) is required for in-engine playtests.</dd>
+  <dt>Your approvals</dt>
+  <dd>One: the game brief (GAME.md answered with you at stage 1). Anything you rate 7 or above is locked in as a regression floor via <code>kit accept</code>.</dd>
+  <dt>Clock</dt>
+  <dd>None. This pipeline has no time budget; the clock covers the 3D, VFX, Animation, Worlds, Interfaces and Sound pipelines.</dd>
+  <dt>Runtime modules</dt>
+  <dd><code>Guard</code>, <code>RateLimit</code>, <code>Loader</code>, <code>Configs</code>, <code>Moves</code> / <code>MovesRules</code>, <code>Sfx</code> / <code>SfxRules</code>, <code>Vfx</code>, <code>Anim</code>, <code>Ui</code>, <code>Assets</code>, <code>Environment</code>, <code>Bus</code>, <code>Recorder</code>. All live under <code>ReplicatedStorage.kit</code>; never edit them directly.</dd>
+</dl>
+</section>
+
+<section>
+<h2 id="flow">The flow in one line</h2>
+<div class="flow">
+  <span class="step lock">brief (you approve GAME.md)</span>
+  <span class="arrow">→</span>
+  <span class="step">arena</span>
+  <span class="arrow">→</span>
+  <span class="step">systems + specs</span>
+  <span class="arrow">→</span>
+  <span class="step">remotes + audit</span>
+  <span class="arrow">→</span>
+  <span class="step">moves</span>
+  <span class="arrow">→</span>
+  <span class="step">playtests</span>
+  <span class="arrow">→</span>
+  <span class="step lock">accept (verdict ≥ 7)</span>
+</div>
+</section>
+
+<section>
+<h2 id="stages">The stages</h2>
+<button class="expand-all" data-expand-target="#stages-list">Expand all</button>
+<ol class="stages" id="stages-list">
+
+  <li>
+    <span class="num">1</span>
+    <details id="stage-brief">
+      <summary><span class="name">Brief</span> <span class="badge lock">you approve</span><span class="what">Create the game folder and answer GAME.md with you.</span></summary>
+      <div class="body">
+        <p>Every game lives in its own folder. <code>kit game new &lt;Name&gt;</code> scaffolds <code>games/&lt;Name&gt;/</code> with <code>src/</code>, <code>assets/</code>, <code>tests/</code>, and its own <code>board/</code>. GAME.md captures the game's intent, mechanics, and constraints; <code>kit game check</code> verifies it. <code>kit new system</code> refuses to run before a game folder exists.</p>
+        <pre><code>lune run parallax game new MyGame
+lune run parallax game check</code></pre>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">2</span>
+    <details id="stage-world">
+      <summary><span class="name">World</span><span class="what">Generate an arena with spawns and objectives.</span></summary>
+      <div class="body">
+        <p>The gameplay arena comes from the world pipeline generators. Run <code>kit world check &lt;Name&gt;</code> and confirm zero errors (R6 reachability, spawns, camera clearance) before writing a single line of system code. A broken arena makes systems untestable.</p>
+        <pre><code>lune run parallax new world Arena
+lune run parallax world check Arena</code></pre>
+        <p>See the <a href="world.html">Worlds pipeline</a> for the full details.</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">3</span>
+    <details id="stage-systems">
+      <summary><span class="name">Systems</span><span class="what">Scaffold a Config, Rules module, Service, Controller, and spec; fuzz and mutate.</span></summary>
+      <div class="body">
+        <p><code>kit new system &lt;PascalName&gt;</code> creates five files: a Config (plain tuning data; bind it with <code>Configs.bind</code> for live values), a Rules module (pure Luau: no Roblox APIs, fully testable in Lune), a Service (server-side, calls Rules), a Controller (client-side), and a spec file.</p>
+        <p><strong>Rules module rules:</strong> every decision lives in Rules, with a spec case for it — including hostile input (NaN, negative numbers, wrong types). <code>src/shared</code> must stay pure: no <code>game:GetService</code>, no <code>Instance.new</code>; siblings loaded via <code>require("./X")</code>. Use strict mode; stylua and selene must pass clean.</p>
+        <p><strong>Fuzzing:</strong> <code>kit fuzz &lt;Name&gt;Rules</code> sends NaN, inf, wrong types, and boundary values through every Rules function. A throw is a crash — zero allowed.</p>
+        <p><strong>Mutation testing:</strong> <code>kit mutate &lt;Name&gt;Rules</code> plants bugs one at a time and reports the fraction your specs catch (the kill rate), naming every survivor. The route's target is at least 80 %; the command reports the rate and does not enforce it.</p>
+        <pre><code>lune run parallax new system Combat
+lune run parallax fuzz CombatRules
+lune run parallax mutate CombatRules</code></pre>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">4</span>
+    <details id="stage-net">
+      <summary><span class="name">Net</span><span class="what">Generate type-safe, rate-limited remote wrappers from a schema.</span></summary>
+      <div class="body">
+        <p>Write <code>assets/net/&lt;System&gt;.net.json</code> to describe every remote: event name, arguments (types, ranges), and a rate limit. Run <code>kit net</code> to generate <code>src/net/&lt;System&gt;Net.luau</code> — a typed wrapper you never edit directly.</p>
+        <p>The schema gate refuses an unbounded client number, an unlimited string, a Vector3 with no magnitude cap, or a request with no rate. <code>kit verify</code> fails if a generated file is edited or becomes stale.</p>
+        <p>After generating remotes, run <code>kit audit</code> and then a red-team playtest: try to break the system by sending bad arguments directly.</p>
+        <pre><code>lune run parallax net
+lune run parallax audit</code></pre>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">5</span>
+    <details id="stage-moves">
+      <summary><span class="name">Moves</span><span class="what">Describe combat moves as data: frames, hitboxes, cancels, and cues.</span></summary>
+      <div class="body">
+        <p>A move is a JSON file in <code>assets/moves/&lt;Move&gt;.json</code>. Its startup, active, and recovery frame counts come from the animation pipeline's measured phases (use <code>"from_anim"</code> to reference them directly). Hitboxes are given per frame (size, offset); damage, stun, knockback, hit-stop and blockstun belong to the move. Cancels name which moves can interrupt which. Sound and VFX cues are referenced by frame number.</p>
+        <p><code>kit move</code> validates the data (flags ghost hitboxes outside active frames, over-large boxes, combo links that are not cancels), checks that a swing or whoosh sound cue leads the first active frame by 50 to 300 ms, measures on-block advantage and time-to-kill, writes <code>src/moves/&lt;Set&gt;.json</code> and a move sheet at <code>build/moves/&lt;Set&gt;.png</code>. Look at the sheet — it is not optional.</p>
+        <p>In game, <code>Moves.serve("&lt;Set&gt;")</code> runs the full server loop: cancels, combo scaling, per-frame hitboxes via <code>GetPartBoundsInBox</code> on the server's own positions, hit, block, chip, parry, i-frame dodge, damage, stun, knockback, hit-stop, and Sfx / Vfx playback from the data.</p>
+        <pre><code>lune run parallax move</code></pre>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">6</span>
+    <details id="stage-playtests">
+      <summary><span class="name">Playtests</span><span class="what">Run scripted in-engine checks through the Studio MCP; any console error fails.</span></summary>
+      <div class="body">
+        <p>Scaffold a playtest with <code>kit new playtest &lt;snake&gt;</code>. This creates <code>tests/playtest/&lt;name&gt;.luau</code> with the check API (<code>t.check</code>, <code>t.wait</code>, <code>t.waitFor</code>, <code>t.player</code>, <code>t.find</code>) already imported. Write checks for every game state you care about.</p>
+        <p><code>kit playtest bundle &lt;name&gt;</code> compiles the script. Then use the Studio MCP to run it: <code>start_stop_play(true)</code>, <code>execute_luau</code> with the bundle, save the returned JSON, <code>start_stop_play(false)</code>, then <code>kit playtest record &lt;name&gt; &lt;file&gt;</code>. Any console error — from any script — fails the playtest. The performance probe (from <code>qa.perf</code> in <code>kit.config.json</code>) measures memory, workspace instance count, and frame time.</p>
+        <pre><code>lune run parallax new playtest smoke_combat
+lune run parallax playtest bundle smoke_combat</code></pre>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">7</span>
+    <details id="stage-accept">
+      <summary><span class="name">Accept</span> <span class="badge lock">verdict ≥ 7</span><span class="what">Run the full quality gate; lock anything you rated 7 or above as a regression floor.</span></summary>
+      <div class="body">
+        <p><code>kit verify --game &lt;Name&gt;</code> runs the full sequence: format → selene → types → tests → VFX → UI → world → moves → contract → anim → models → audit → build. All must pass.</p>
+        <p>Record your verdict with <code>kit verdict system &lt;name&gt; &lt;score&gt; "..."</code>. For anything you score 7 or above, run <code>kit accept system &lt;name&gt;</code> to register it as a regression floor — the kit will refuse any future change that regresses below it.</p>
+        <pre><code>lune run parallax verify --game MyGame
+lune run parallax verdict system combat 8 "feels good, hitboxes precise"
+lune run parallax accept system combat</code></pre>
+      </div>
+    </details>
+  </li>
+
+</ol>
+</section>
+
+<section>
+<h2 id="gates">Gates</h2>
+
+<h3>Security audit (<code>kit audit</code>)</h3>
+<p>Runs inside <code>kit verify</code>. Checks every <code>OnServerEvent</code> and <code>OnServerInvoke</code> handler in the game's server scripts.</p>
+<table>
+  <thead><tr><th>Gate</th><th>What it checks</th><th>Threshold</th><th>Effect</th></tr></thead>
+  <tbody>
+    <tr><td>Argument validation</td><td>Every client argument is validated with Guard, typeof, type, or a check function.</td><td>All arguments</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>Rate limit</td><td>A handler with no rate limit or cooldown.</td><td>All handlers</td><td><span class="badge warn">warns</span></td></tr>
+    <tr><td><code>require(&lt;asset id&gt;)</code></td><td>Free-model backdoor pattern — a numeric asset ID passed to require.</td><td>Zero allowed</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td><code>loadstring</code></td><td>Dynamic code execution.</td><td>Zero allowed</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>Server <code>InvokeClient</code></td><td>Server invoking a client function: exploitable for denial of service.</td><td>Zero allowed</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td><code>getfenv</code> / <code>setfenv</code></td><td>Environment manipulation.</td><td>Zero allowed</td><td><span class="badge warn">warns</span></td></tr>
+    <tr><td><code>FireAllClients</code> in loops</td><td>Network flood.</td><td>Zero allowed</td><td><span class="badge warn">warns</span></td></tr>
+  </tbody>
+</table>
+
+<div class="note"><span class="callout-title">Accepted risk</span><p>If a pattern is intentional, add its <code>"file:line"</code> to <code>qa.auditIgnore</code> in <code>kit.config.json</code>, and keep the reason in your notes: the entry must be exactly <code>"file:line"</code> (or <code>"file"</code>, or <code>"file:rule"</code>). The audit will skip that exact line.</p></div>
+
+<h3>Remote schema gate (<code>kit net</code>)</h3>
+<table>
+  <thead><tr><th>Gate</th><th>What it refuses</th><th>Effect</th></tr></thead>
+  <tbody>
+    <tr><td>Unbounded number</td><td>A client number argument with no min/max range.</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>Unlimited string</td><td>A client string argument with no maximum length.</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>Uncapped Vector3</td><td>A client Vector3 with no magnitude cap.</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>No rate limit</td><td>A remote declared without a rate.</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>Stale generated file</td><td>A <code>src/net/*.luau</code> file edited by hand or out of sync with its schema.</td><td><span class="badge block">blocks</span></td></tr>
+  </tbody>
+</table>
+
+<h3>Systems gates</h3>
+<table>
+  <thead><tr><th>Gate</th><th>What it checks</th><th>Threshold</th><th>Effect</th></tr></thead>
+  <tbody>
+    <tr><td>Fuzz</td><td>No Rules function throws on hostile input (NaN, inf, wrong types).</td><td>Zero crashes</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>Mutation baseline</td><td>The specs must pass on the unmutated copy before mutants are counted; the kill rate itself (target ≥ 80 %) is reported, not enforced.</td><td>Green baseline</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>Format / lint</td><td>stylua and selene must pass clean.</td><td>Zero errors</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>Move validation (<code>kit move</code>)</td><td>No ghost hitboxes outside active frames, no over-large boxes, no combo links that skip cancels.</td><td>Zero violations</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>Swing lead (<code>kit move</code>)</td><td>On a move that deals damage, a swing or whoosh sound cue starts before the first active frame.</td><td>50–300 ms lead</td><td><span class="badge block">blocks</span></td></tr>
+  </tbody>
+</table>
+</section>
+
+<section>
+<h2 id="io">Inputs and outputs</h2>
+<div class="tabs">
+  <div class="tab-list">
+    <button class="tab" data-tab="io-in" aria-selected="true">Inputs</button>
+    <button class="tab" data-tab="io-out">Outputs</button>
+    <button class="tab" data-tab="io-game">In the game</button>
+  </div>
+  <div class="tab-panel" data-panel="io-in" id="io-in">
+    <ul>
+      <li><code>GAME.md</code>: the game brief (answered by you at stage 1).</li>
+      <li><code>src/shared/&lt;Name&gt;Config.luau</code>: live configuration values.</li>
+      <li><code>src/shared/&lt;Name&gt;Rules.luau</code>: pure rules module (no Roblox APIs).</li>
+      <li><code>assets/net/&lt;System&gt;.net.json</code>: remote schema (types, ranges, rate limits).</li>
+      <li><code>assets/moves/&lt;Move&gt;.json</code>: move data (frames, hitboxes, cancels, cues).</li>
+      <li><code>assets/moves/sets/&lt;Set&gt;.json</code>: a named set of moves (members, combo scaling, health).</li>
+      <li><code>tests/playtest/&lt;name&gt;.luau</code>: in-engine playtest scripts.</li>
+    </ul>
+  </div>
+  <div class="tab-panel" data-panel="io-out" id="io-out">
+    <ul>
+      <li><code>src/net/&lt;System&gt;Net.luau</code>: generated typed remote wrappers — never edit these by hand.</li>
+      <li><code>src/moves/&lt;Set&gt;.json</code>: compiled move set (synced to <code>ReplicatedStorage.KitMoves</code>).</li>
+      <li><code>build/moves/&lt;Set&gt;.png</code>: the move sheet — look at this after every <code>kit move</code> run.</li>
+      <li><code>build/playtest/&lt;name&gt;.result.json</code>: playtest result from Studio.</li>
+      <li><code>tests/regressions.json</code>: bug registry — every confirmed bug as a spec case and a mutation case.</li>
+    </ul>
+  </div>
+  <div class="tab-panel" data-panel="io-game" id="io-game">
+    <p>All kit modules live under <code>ReplicatedStorage.kit</code> and are never edited directly.</p>
+    <ul>
+      <li><strong>Guard</strong>: validate client arguments. <code>Guard.number(v, min, max)</code>, <code>Guard.integer</code>, <code>Guard.string(v, maxLen)</code>, <code>Guard.oneOf</code>, <code>Guard.boolean</code>, <code>Guard.vector3</code> (rejects NaN and inf components), <code>Guard.withinRange</code>.</li>
+      <li><strong>RateLimit</strong>: per-player token bucket. <code>RateLimit.new(capacity, refillPerSecond)</code>; <code>limit:take(player.UserId, os.clock())</code>; <code>limit:forget(player.UserId)</code> on <code>PlayerRemoving</code>.</li>
+      <li><strong>Moves</strong>: server-side combat loop. <code>Moves.serve("&lt;Set&gt;")</code> runs hitboxes, cancels, stun, knockback, hit-stop. <code>Moves.client("&lt;Set&gt;").use / block / parry</code> for the client.</li>
+      <li><strong>Bus</strong>: presentation event bus. Server: <code>Bus.publish("Hit", payload, {near=250})</code>. Client: <code>Bus.start()</code> once, then <code>Bus.on("Hit", fn)</code>. Clients cannot publish. Listeners are isolated — one error does not stop others.</li>
+      <li><strong>Recorder</strong>: flight recorder. Keeps the last 64 remote calls in memory and prints them to the output when any error is logged. The wrappers <code>kit net</code> generates record every call.</li>
+      <li><strong>Loader</strong>: service bootstrap (required services started in dependency order).</li>
+      <li><strong>Configs</strong>: live tuning through Roblox's Experience Configs (ConfigService); <code>Configs.bind("Combat", CombatConfig)</code> returns the live values, with your Config module's values as the fallback.</li>
+    </ul>
+  </div>
+</div>
+</section>
+
+<section>
+<h2 id="server-request-order">Server request order</h2>
+<p>Every <code>OnServerEvent</code> and <code>OnServerInvoke</code> handler should follow this order. The security audit does not check the order itself: it fails the build on an unvalidated client argument and warns on a handler with no rate limit.</p>
+<div class="flow">
+  <span class="step">enabled check</span>
+  <span class="arrow">→</span>
+  <span class="step"><code>limit:take(player.UserId, os.clock())</code></span>
+  <span class="arrow">→</span>
+  <span class="step"><code>Guard.*</code> on every argument</span>
+  <span class="arrow">→</span>
+  <span class="step"><code>Rules.check(...)</code></span>
+  <span class="arrow">→</span>
+  <span class="step">act</span>
+  <span class="arrow">→</span>
+  <span class="step">reply</span>
+</div>
+<p>A malformed packet returns silently. Never trust client positions, damage values, prices, or ownership claims.</p>
+<pre><code>-- A handler that follows the order
+CombatRemote.OnServerEvent:Connect(function(player, rawMoveId)
+    if not CombatConfig.enabled then return end
+    if not limit:take(player.UserId, os.clock()) then return end
+    local ok, moveId = Guard.oneOf(rawMoveId, CombatConfig.validMoves)
+    if not ok then return end
+    local ok2, err = CombatRules.check(player, moveId)
+    if not ok2 then return end
+    -- act
+    CombatService.applyMove(player, moveId)
+    -- reply (optional)
+end)</code></pre>
+</section>
+
+<section>
+<h2 id="tools">Tools and hardware</h2>
+<table>
+  <thead><tr><th>Tool</th><th>Purpose</th><th>Tier required</th></tr></thead>
+  <tbody>
+    <tr><td>Lune 0.10.5</td><td>Runs all kit CLI commands, specs, fuzzing, and mutation tests.</td><td><span class="badge tier">Tier 0</span></td></tr>
+    <tr><td>Luau-LSP 1.70.1 + StyLua 2.5.2 + Selene 0.32.0</td><td>Type checking, formatting, and linting (run by <code>kit verify</code>).</td><td><span class="badge tier">Tier 0</span></td></tr>
+    <tr><td>Roblox Studio with MCP enabled</td><td>In-engine playtests and performance probes (required for stage 6).</td><td><span class="badge tier">Tier 0 hardware + Studio</span></td></tr>
+    <tr><td>Rojo 7.7.1</td><td>Syncs your source tree into Studio.</td><td><span class="badge tier">Tier 0</span></td></tr>
+  </tbody>
+</table>
+
+<h3>Vetted libraries</h3>
+<p>Only libraries installed through <code>kit add</code> are allowed. Any other library must be vetted (two independent sources, license verified, install script read) and recorded in <code>VETLOG.md</code>.</p>
+<table>
+  <thead><tr><th>Library</th><th>Purpose</th></tr></thead>
+  <tbody>
+    <tr><td><code>profilestore</code></td><td>Player data storage.</td></tr>
+    <tr><td><code>trove</code></td><td>Lifecycle management (clean up connections on destroy).</td></tr>
+    <tr><td><code>cmdr</code></td><td>In-game admin commands.</td></tr>
+    <tr><td><code>zap</code></td><td>High-performance networking.</td></tr>
+  </tbody>
+</table>
+<pre><code>lune run parallax add profilestore</code></pre>
+</section>
+
+<section>
+<h2 id="commands">Commands</h2>
+<pre><code># Start the lane (required before any pipeline command)
+lune run parallax start code --prompt "a combat system with blocking and parrying"
+
+# Game folder
+lune run parallax game new MyGame       # scaffold game folder and GAME.md
+lune run parallax game check            # verify the brief
+
+# Systems
+lune run parallax new system Combat     # scaffold Config + Rules + Service + Controller + spec
+lune run parallax fuzz CombatRules      # hostile-input fuzzing (zero crashes required)
+lune run parallax mutate CombatRules    # mutation testing (target: kill rate ≥ 80 %)
+
+# Remotes
+lune run parallax net                   # generate wrappers from assets/net/*.net.json
+lune run parallax audit                 # security audit (also inside verify)
+
+# Moves
+lune run parallax move                  # validate move data, write sheet to build/moves/
+
+# Playtests
+lune run parallax new playtest smoke_combat
+lune run parallax playtest bundle smoke_combat   # compile for Studio MCP
+
+# Quality gate and verdict
+lune run parallax verify --game MyGame
+lune run parallax verdict system combat 8 "hitboxes precise, no console errors"
+lune run parallax accept system combat
+
+# Utilities
+lune run parallax docs "Humanoid.WalkSpeed"   # Studio API reference with declared type
+lune run parallax add profilestore            # install vetted library</code></pre>
+</section>
+
+<section>
+<h2 id="how-it-learns">How it learns</h2>
+<p>The systems pipeline has two learning mechanisms: a regression record and the lesson vault.</p>
+<h3>Regression record</h3>
+<p>Every confirmed bug becomes a spec case and a mutation case in <code>tests/regressions.json</code>. Use <code>kit bug</code> to register it:</p>
+<pre><code>lune run parallax bug "damage applied twice on parry" \
+  --spec tests/combat.spec.luau \
+  --module src/shared/CombatRules.luau \
+  --line "if parried then" \
+  --from "applyDamage(attacker, victim)" \
+  --to "applyDamage(attacker, victim); applyDamage(attacker, victim)"</code></pre>
+<p><code>kit mutate --regressions</code> replants all regression bugs to prove your specs still catch them.</p>
+
+<h3>Lesson vault</h3>
+<p>Record traps and techniques with <code>kit lesson code "..."</code>. Lessons are ranked by relevance to each new piece and shown at lane start. Use <code>kit lessons code</code> to read them all.</p>
+
+<h3>Verdict ratchet</h3>
+<p>When you rate something 7 or above, run <code>kit accept system &lt;name&gt;</code>. The kit then refuses any future change that regresses the system below that floor.</p>
+</section>
+
+<section>
+<h2 id="limits">Known limits</h2>
+<div class="limit"><span class="callout-title">Known limit</span><p>Green specs are not proof of a working game. The engine proves it, in playtests. A system that passes all Lune tests can still break inside Roblox Studio due to timing, network ownership, or engine-specific behaviour.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>Lune specs have no <code>Vector3</code> global. Rules modules must take plain <code>{X, Y, Z}</code> tables instead. <code>Guard.vector3</code> is a server-side check only (it uses <code>typeof</code>).</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p><code>wally install</code> kills a running <code>rojo serve</code> process. Stop rojo before running wally, then restart it.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>Call <code>SetNetworkOwner(nil)</code> on a part before the server pushes it.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>selene's printed error count is on the line before the last two lines of its output. Reading the wrong line gives a false zero.</p></div>
+</section>
+
+<section>
+<h2 id="typical-session">A typical session</h2>
+<p>This is the shape of a complete systems session, from start to accepted verdict.</p>
+<ol>
+  <li>Start the lane: <code>lune run parallax start code --prompt "a health and respawn system"</code>. Read the boot sheet, the ranked lessons, and the last handoff.</li>
+  <li>Claim a task from the board: <code>kit task claim &lt;id&gt; --as "..."</code>.</li>
+  <li>If no game folder exists yet: <code>kit game new MyGame</code>, answer GAME.md with you, run <code>kit game check</code>.</li>
+  <li>Scaffold the system: <code>kit new system Health</code>. Write every decision as a pure function in <code>HealthRules.luau</code> with a spec case per branch, including hostile input.</li>
+  <li>Write the remote schema in <code>assets/net/Health.net.json</code>. Run <code>kit net</code>. Run <code>kit audit</code>.</li>
+  <li>Run <code>kit fuzz HealthRules</code> (zero crashes) and <code>kit mutate HealthRules</code> (target: kill rate ≥ 80 %).</li>
+  <li>Write a playtest: <code>kit new playtest health_smoke</code>. Add checks for the core states. Bundle it and run it through Studio MCP. Record the result.</li>
+  <li>Run <code>kit verify --game MyGame</code>. Fix any failures.</li>
+  <li>Record your verdict: <code>kit verdict system health 8 "respawn timing feels right"</code>. If 7 or above: <code>kit accept system health</code>.</li>
+  <li>Hand off: <code>kit handoff "built Health system, all gates green, verdict 8" --lane code --next "..."</code>.</li>
+</ol>
+</section>
+
+<section>
+<h2 id="related">Related</h2>
+<div class="cards">
+  <a class="card" href="qa.html"><div class="kicker">Pipeline</div><h3>QA</h3><p>The testing pipeline: audit, selftest, scripted playtests, and the regression record.</p></a>
+  <a class="card" href="anim.html"><div class="kicker">Pipeline</div><h3>Animation</h3><p>Measured R6 animations whose phase timings feed directly into move frame data.</p></a>
+  <a class="card" href="world.html"><div class="kicker">Pipeline</div><h3>Worlds</h3><p>The arena from stage 2, with proven R6 reachability before any system code is written.</p></a>
+  <a class="card" href="index.html"><div class="kicker">Overview</div><h3>All pipelines</h3><p>How all eight pipelines fit together and how to start one.</p></a>
+</div>
+</section>
+
+</main>
+<aside class="toc"></aside>
+</div>
+<div id="site-footer"></div>
+<!-- sources: kit/skills/parallax-systems/SKILL.md, kit/skills/parallax-systems/reference/03-a-new-system.md, kit/skills/parallax-systems/reference/04-combat-moves-as-data.md, kit/skills/parallax-systems/reference/05-server-request-order-the-audit-enforces-.md, kit/skills/parallax-systems/reference/06-kit-runtime-replicatedstorage-kit-kit-ow.md, src/kit/Guard.luau, src/kit/RateLimit.luau, kit/knowledge/vault/code/boot.md, kit/skills/parallax-qa/reference/01-1-static-no-studio.md, src/kit/MovesRules.luau, src/kit/Recorder.luau, src/kit/Configs.luau, kit/lib/audit.luau, kit/cmd/qa.luau, kit/test/mutate.luau, kit/templates/system/__NAME__Config.luau, kit/cmd/learn.luau -->
+</body>
+</html>

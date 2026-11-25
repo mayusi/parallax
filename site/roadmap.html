@@ -1,0 +1,188 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Roadmap · Parallax</title>
+<meta name="description" content="The engine support plan, platform status, and known limits in each pipeline.">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/app.js" defer></script>
+</head>
+<body data-root="" data-page="roadmap">
+<div id="site-header"></div>
+<div class="layout">
+<aside class="sidebar"></aside>
+<main class="content">
+
+<header class="page-head">
+  <p class="eyebrow">Reference</p>
+  <h1>Roadmap</h1>
+  <p class="lead">Parallax ships for Roblox today. This page describes the engine support plan, platform status and known limits in each pipeline. It reflects what the repo states; it does not carry promises or delivery dates.</p>
+</header>
+
+<section>
+<h2 id="engine-agnostic-core">What is engine-agnostic today</h2>
+<p>Roughly 70% of <code>kit/</code> is not about Roblox at all. The engine-agnostic core includes:</p>
+<ul>
+  <li><strong>Governance:</strong> the work board, lane sessions, PROMPT-X, the cases, the quality locks, verdicts and the knowledge vault, the CLI and MCP gates, the git hooks.</li>
+  <li><strong>Content tools:</strong> Blender modelling, UVs, bakes, sculpt and CAD; the vision and audio tools; reference finding; the effect player and texture baking; animation authoring and its gates.</li>
+  <li><strong>Engine-neutral outputs:</strong> FBX and glTF models with PBR maps, animated glTF clips (<code>kit/anim/export_clip.py</code>), OGG sound, world blueprints as JSON, interface specs as JSON.</li>
+  <li><strong>Pure runtime rules:</strong> the <code>*Rules</code> modules, rate limiting, move data, effect budgets and validation in <code>src/kit/</code> hold no engine calls.</li>
+</ul>
+<p>The Roblox-specific layer is thin: the emitters that turn the neutral data into Rojo models and places, the Luau runtime wrappers around the DataModel, the Studio MCP bridge for playtests, and the Open Cloud uploads.</p>
+</section>
+
+<section>
+<h2 id="engine-seam">The engine seam</h2>
+<p>A project names its engine in <code>kit.config.json</code> (or <code>parallax.config.json</code>):</p>
+<pre><code>{ "engine": "roblox" }</code></pre>
+<p><code>roblox</code> is the default and the only engine with emitters today. The values <code>godot</code>, <code>unreal</code> and <code>unity</code> are recognised and answered with a pointer to the roadmap in <code>docs/ENGINES.md</code>. Running <code>lune run parallax doctor</code> shows the active engine.</p>
+<p>The planned directory layout separates the core from one emitter set per engine:</p>
+<pre><code>kit/
+  core/        engine-agnostic: governance, PROMPT-X, vault, board, DCC, vision, audio DSP
+  engines/
+    roblox/    Rojo .model.json / .rbxlx, Luau remotes, the Studio MCP bridge, Open Cloud
+    godot/     .tscn / .tres text compiler, glTF animation libraries, Godot CLI / MCP, GDScript or C# runtime
+    unreal/    Unreal Python AssetImportTask, .umap / .uasset, Niagara / MetaSounds, Remote Control
+    unity/     C# AssetPostprocessor and .meta, Prefab / UXML / USS, Unity MCP, a runtime package
+runtime/
+  core/        pure rules and state machines
+  roblox/      today's src/kit/ Luau wrappers
+  godot/       addons/parallax/
+  unreal/      Plugins/Parallax/
+  unity/       Packages/com.parallax.runtime/</code></pre>
+</section>
+
+<section>
+<h2 id="nine-drivers">The nine drivers per engine</h2>
+<p>Each engine implements the same nine drivers over the same neutral inputs. The Roblox column shows what exists today.</p>
+<table>
+  <thead>
+    <tr><th>Driver</th><th>Neutral input</th><th>Roblox (today)</th><th>Godot 4 (planned)</th><th>Unreal Engine 5 (planned)</th><th>Unity (planned)</th></tr>
+  </thead>
+  <tbody>
+    <tr><td>Asset</td><td>Model manifests, <code>.glb</code> / <code>.fbx</code>, PBR maps, <code>.ogg</code></td><td><code>.model.json</code> + uploaded ids</td><td><code>.glb</code> / <code>.tscn</code> with import settings</td><td><code>AssetImportTask</code> → StaticMesh, Texture2D</td><td><code>AssetPostprocessor</code> + <code>.meta</code></td></tr>
+    <tr><td>Scene</td><td>World blueprint JSON, interface JSON</td><td>Rojo models + places</td><td>Plain-text <code>.tscn</code> scenes</td><td>Python → <code>.umap</code> actors, UMG</td><td>Prefabs / scenes, UXML + USS</td></tr>
+    <tr><td>Animation</td><td>Clip JSON + rig + beat markers</td><td>KeyframeSequence</td><td>glTF → AnimationLibrary + method tracks</td><td>FBX / GLB → AnimSequence + notifies</td><td>AnimationClip + events</td></tr>
+    <tr><td>Material</td><td>PBR maps + VFX layer stack</td><td>SurfaceAppearance, emitters, beams</td><td>StandardMaterial3D, GPUParticles3D</td><td>Material instances, Niagara</td><td>URP / HDRP Lit, VFX Graph</td></tr>
+    <tr><td>Audio</td><td>Sound event catalog</td><td>The Sfx runtime on the Audio API</td><td>AudioServer buses</td><td>MetaSounds + modulation buses</td><td>AudioMixer snapshots</td></tr>
+    <tr><td>Engine bridge</td><td>Playtest scenario + performance probe</td><td>The Studio MCP</td><td><code>godot --headless</code> / Godot MCP + GUT</td><td>Remote Control / Unreal MCP</td><td>Unity MCP / <code>-executeMethod</code></td></tr>
+    <tr><td>Code</td><td>Remote schemas + gameplay scripts</td><td>Luau remotes, StyLua, Selene, luau-lsp</td><td>Validated <code>@rpc</code> wrappers, gdlint</td><td><code>UFUNCTION(Server, WithValidation)</code></td><td>Server RPCs, Roslyn</td></tr>
+    <tr><td>Publish</td><td>Upload jobs + moderation gate</td><td>Open Cloud through the Studio MCP</td><td><code>--export-release</code> → itch.io / Steam</td><td>RunUAT → Steam / Fab</td><td>Addressables → Steam</td></tr>
+    <tr><td>Runtime SDK</td><td>Neutral JSON (moves, effects, sounds, UI)</td><td><code>src/kit/</code> (Luau)</td><td><code>addons/parallax/</code></td><td><code>UParallaxSubsystem</code></td><td><code>com.parallax.runtime</code></td></tr>
+  </tbody>
+</table>
+</section>
+
+<section>
+<h2 id="godot-first">Why Godot first</h2>
+<p>Godot's scenes and resources are plain text, like Rojo's model files, so the kit can compile them offline and check them in CI. Godot imports glTF natively, and the kit already exports glTF models, animated glTF clips and OGG sound. <code>godot --headless</code> runs playtests with no editor daemon.</p>
+<p>Unreal Engine and Unity follow, behind the same MCP server and the same gates.</p>
+</section>
+
+<section>
+<h2 id="readme-roadmap">Also planned</h2>
+<p>The README's roadmap lists these, in no fixed order:</p>
+<ul>
+  <li>macOS and Linux as first-class platforms.</li>
+  <li>A one-step install of the MCP server.</li>
+  <li>The known limits: locomotion clips and input steering, water that breaks and sprays, a proven smoke route, a runtime prop player, and quality checks for town dressing.</li>
+  <li>Shared knowledge: opt-in syncing of lessons and golden sets between projects and teams.</li>
+</ul>
+</section>
+
+<section>
+<h2 id="platform">Platform support</h2>
+<dl class="specs">
+  <dt>Windows 10 and 11</dt><dd>The primary platform: Parallax is "Windows first". The zero-GPU core runs on any Windows 10 or 11 PC.</dd>
+  <dt>macOS and Linux</dt><dd>On the roadmap as first-class platforms. Release 3.1.0 made tool discovery portable (Blender, COLMAP, Instant Meshes, the Python launcher), and <code>doctor</code> reports the Studio MCP per operating system.</dd>
+  <dt>Tier 4 (full 3D generation)</dt><dd>Needs CUDA 13, an NVIDIA GPU with 12–16+ GB VRAM, 32 GB RAM, Windows and MSVC 2022.</dd>
+</dl>
+<div class="note"><span class="callout-title">Note</span><p>Roblox Studio and its MCP server are needed for uploads and in-engine playtests. Studio runs on Windows and macOS only; <code>doctor</code> looks for the macOS bridge at <code>/Applications/RobloxStudio.app/Contents/MacOS/StudioMCP</code>, and on Linux it reports the bridge as unavailable.</p></div>
+</section>
+
+<section>
+<h2 id="pipeline-limits">Known limits in each pipeline</h2>
+<p>These are limits stated in the kit's own help and skill pages. They describe the current code, not a commitment to change it in a particular order.</p>
+<div class="note"><span class="callout-title">Note</span><p>The literal <code>--by owner</code> flag below means you: the person who runs the kit and approves the work.</p></div>
+
+<div class="tabs">
+  <div class="tab-list">
+    <button class="tab" data-tab="next-3d" aria-selected="true">3D models</button>
+    <button class="tab" data-tab="next-vfx">VFX</button>
+    <button class="tab" data-tab="next-anim">Animation</button>
+    <button class="tab" data-tab="next-world">Worlds</button>
+    <button class="tab" data-tab="next-ui">Interfaces</button>
+    <button class="tab" data-tab="next-sfx">Sound</button>
+    <button class="tab" data-tab="next-code">Code</button>
+    <button class="tab" data-tab="next-qa">QA</button>
+  </div>
+
+  <div class="tab-panel" data-panel="next-3d" id="next-3d">
+    <div class="limit"><span class="callout-title">Known limit</span><p><code>sharpen</code> makes a generated part's soft surface sharp, view by view, but it cannot fix a shape. Look at the shape from every view first.</p></div>
+    <div class="limit"><span class="callout-title">Known limit</span><p><code>gen mv-shape</code> and <code>gen paint</code> (Hunyuan3D-2) are for private assets only. The reason is the Tencent Hunyuan licence recorded in <code>VETLOG.md</code>, which limits where their outputs may be shown.</p></div>
+    <div class="limit"><span class="callout-title">Known limit</span><p><code>vision angle</code> and <code>vision edit</code> (Qwen-Image-Edit) are LOW TRUST: their pictures are generated, so look at them and never measure from them.</p></div>
+    <div class="limit"><span class="callout-title">Known limit</span><p>Tier 4 (full 3D generation) requires CUDA 13, an NVIDIA GPU with 12–16+ GB VRAM, Windows and MSVC 2022. Lower tiers build with CAD, procedural scripts and vetted CC0 meshes.</p></div>
+    <div class="tip"><span class="callout-title">Tip</span><p>The parts libraries (<code>lune run parallax parts &lt;lane&gt;</code>) file each lane's past parts by kind, with your verdicts and words on them. The more pieces you build and score, the more a new piece can look up.</p></div>
+  </div>
+
+  <div class="tab-panel" data-panel="next-vfx" id="next-vfx">
+    <div class="limit"><span class="callout-title">Known limit</span><p>Effects are made and judged in the browser player (<code>vfx play</code>). <code>vfx booth</code>, which captures a preset in Roblox Studio, is off the VFX route: Studio only proves engine facts.</p></div>
+    <div class="limit"><span class="callout-title">Known limit</span><p>The water simulation (<code>vfx water</code>) holds water's mathematics but was never matched to a real scene, and nothing in it breaks or sprays. <code>vfx liquid</code> is a side-view flipbook with no depth.</p></div>
+    <div class="limit"><span class="callout-title">Known limit</span><p>Frame breakdowns (<code>vfx breakdown</code>) and the other clip tools use ffmpeg.</p></div>
+    <div class="tip"><span class="callout-title">Tip</span><p>The <code>vfx methods</code> command lists the kit's method catalog. Use <code>vfx methods --set &lt;set&gt;</code> to plan which methods a new effect set's beats use before building.</p></div>
+  </div>
+
+  <div class="tab-panel" data-panel="next-anim" id="next-anim">
+    <div class="limit"><span class="callout-title">Known limit</span><p>The authoring tools (key poses, strikes, cycles, rearm, the feel pass) work on R6. Each build also compiles R15 KeyframeSequences, and <code>anim import</code> retargets a real animation onto the R15 rig.</p></div>
+    <div class="limit"><span class="callout-title">Known limit</span><p>A named animation build starts its clock: 30 minutes for a complex clip (the default), 10 for a simple one, 60 for a hero clip you approved. Past it, no change builds until you extend it with your words (<code>clock --extend</code>).</p></div>
+  </div>
+
+  <div class="tab-panel" data-panel="next-world" id="next-world">
+    <div class="limit"><span class="callout-title">Known limit</span><p>A world errors above 10,000 parts and warns above 3,000 (heavy for mobile): merge pieces or use meshes.</p></div>
+    <div class="limit"><span class="callout-title">Known limit</span><p><code>world look</code> renders stations in Blender (Tier 1). <code>world studio</code> shows the same stations in Roblox Studio's own light and needs Studio open with its MCP.</p></div>
+  </div>
+
+  <div class="tab-panel" data-panel="next-ui" id="next-ui">
+    <div class="limit"><span class="callout-title">Known limit</span><p>UI pieces start from real reference images, not words. The refs lock lives in the UI compile step.</p></div>
+    <div class="limit"><span class="callout-title">Known limit</span><p><code>ui booth</code> and <code>ui bundle</code> show a screen in Roblox Studio, so they need Studio running with its MCP.</p></div>
+  </div>
+
+  <div class="tab-panel" data-panel="next-sfx" id="next-sfx">
+    <div class="limit"><span class="callout-title">Known limit</span><p>The SFX pipeline renders to OGG for Roblox.</p></div>
+    <div class="limit"><span class="callout-title">Known limit</span><p>A new sound requires a reference you chose (<code>approve sfx &lt;name&gt; "words" --by owner</code>) or your synth-only waiver (<code>--waive refs</code>) before it builds.</p></div>
+    <div class="limit"><span class="callout-title">Known limit</span><p>The <code>sfx av</code> sub-command uses ffmpeg.</p></div>
+  </div>
+
+  <div class="tab-panel" data-panel="next-code" id="next-code">
+    <div class="limit"><span class="callout-title">Known limit</span><p><code>net</code> generates Luau remotes for Roblox. Other engines' equivalents are the Code driver of the multi-engine plan.</p></div>
+    <div class="limit"><span class="callout-title">Known limit</span><p>Fuzzing (<code>fuzz</code>) and mutation testing (<code>mutate</code>) run on <code>src/shared</code> modules only, not on server or client scripts.</p></div>
+    <div class="limit"><span class="callout-title">Known limit</span><p>The <code>docs</code> command searches the Roblox Engine API locally using Studio's own <code>en-us.json</code>. It does not cover third-party libraries or other engines.</p></div>
+  </div>
+
+  <div class="tab-panel" data-panel="next-qa" id="next-qa">
+    <div class="limit"><span class="callout-title">Known limit</span><p>Playtests (<code>playtest run</code>) are driven through the Roblox Studio MCP, so they need Studio installed and running with its MCP server enabled.</p></div>
+    <div class="limit"><span class="callout-title">Known limit</span><p>The <code>prove</code> command checks out the committed tree into a sandbox. Uncommitted edits are not included.</p></div>
+    <div class="limit"><span class="callout-title">Known limit</span><p><code>selftest</code> reuses a case that was green at the same inputs unless you pass <code>--no-cache</code> (the cold proof). The cache is off by default in a linked worktree such as <code>prove</code>'s sandbox.</p></div>
+  </div>
+</div>
+</section>
+
+<section>
+<h2 id="contributing">Contributing</h2>
+<p>Each engine driver is its own piece of work with a clear neutral input and a clear engine output. Ideas, prototypes and pull requests are welcome. See <code>docs/ENGINES.md</code> for the full driver table and <code>CONTRIBUTING.md</code> for how to work on the kit.</p>
+<div class="cards">
+  <a class="card" href="commands.html"><div class="kicker">Reference</div><h3>Command reference</h3><p>The kit's commands, with syntax and purpose.</p></a>
+  <a class="card" href="enforcement.html"><div class="kicker">Reference</div><h3>Enforcement</h3><p>The layers that enforce the kit's rules.</p></a>
+  <a class="card" href="learning.html"><div class="kicker">Reference</div><h3>Learning loop</h3><p>How verdicts, lessons and vault entries feed back into the pipeline.</p></a>
+</div>
+</section>
+
+</main>
+<aside class="toc"></aside>
+</div>
+<div id="site-footer"></div>
+<!-- sources: docs/ENGINES.md, README.md, CHANGELOG.md, VETLOG.md, kit/lib/config.luau, kit/cmd/setup.luau, kit/lib/world.luau, kit/skills/parallax-vfx/SKILL.md, kit/skills/parallax-anim/SKILL.md, kit/skills/parallax-world/SKILL.md, kit/skills/parallax-qa/SKILL.md, kit/cmd/anim.luau, kit/cmd/content.luau, kit/lib/lanelocks.luau, kit/vfx/breakdown.py, kit/audio/av.py, scratchpad/site/work/help_all.txt -->
+</body>
+</html>

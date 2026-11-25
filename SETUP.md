@@ -164,9 +164,9 @@ and your lanes need - if you are an AI agent, ask the person which tier they wan
 |---|---|---|
 | **0 · Zero-GPU core** | any PC | steps 1-4 |
 | **1 · DCC & CAD** (3D, bakes, renders, animation, worlds) | any CPU | install Blender 5.2, then the three below |
-| **2 · Light vision core** (cut-outs, depth, similarity; 2.4 GB) | the CPU or a 4 GB GPU | `lune run parallax vision setup` |
-| **3 · Local VLM & diffusion** (+44.6 GB) | an NVIDIA GPU with 12 GB, 16 GB RAM | `lune run parallax vision setup --tier vision` |
-| **4 · Full 3D generation** (+25-70 GB) | CUDA 13, 12-16+ GB VRAM, 32 GB RAM, MSVC 2022 | `lune run parallax vision setup --tier gen` + [`kit/gen/README.md`](kit/gen/README.md) |
+| **2 · Light vision core** (cut-outs, depth, similarity; 2.43 GB) | the CPU or a 4 GB GPU | PyTorch + transformers + safetensors (below), then `lune run parallax vision setup` |
+| **3 · Local VLM & diffusion** (+44.58 GB of models) | an NVIDIA GPU with 12 GB, 16 GB RAM | `lune run parallax vision setup --tier vision` + the `diffusers` and TRELLIS.2 environments ([`kit/gen/README.md`](kit/gen/README.md)) |
+| **4 · Full 3D generation** (+~24.5 GB of models + 25-70 GB of generator environments) | CUDA 13, 12-16+ GB VRAM, 32 GB RAM, MSVC 2022 | `lune run parallax vision setup --tier gen` + [`kit/gen/README.md`](kit/gen/README.md) |
 
 **Tier 1.** Install Blender 5.2 LTS from [blender.org](https://www.blender.org/download/) into its default folder
 (`C:\Program Files\Blender Foundation\`): Parallax finds the newest version there. Anywhere else, set an environment
@@ -177,6 +177,28 @@ lune run parallax tools setup kit-python
 lune run parallax tools setup cad
 lune run parallax tools setup mitsuba
 ```
+
+**Tier 2 runtime (before `vision setup`).** No `lune run parallax` command installs PyTorch. Install PyTorch for your
+GPU (pytorch.org's selector) into the kit's Python 3.11, then:
+
+```powershell
+pip install transformers safetensors
+```
+
+(The kit's own CUDA environments in [`kit/gen/README.md`](kit/gen/README.md) use torch 2.10.0+cu130 from
+download.pytorch.org/whl/cu130.) Then `lune run parallax vision setup`.
+
+**Tier 3 environments.** `vision setup --tier vision` downloads weights only; two Python environments are built by hand
+from [`kit/gen/README.md`](kit/gen/README.md):
+- the `diffusers` environment ("Diffusion models"): SDXL, its VAE, the depth ControlNet, the two DiffusionLight LoRAs,
+  DPT-Large and FLUX.2 klein (`vision light`, `vision concept`, `vision plate`);
+- the TRELLIS.2 environment (`trellis2`, "Reinstall from scratch"): Depth Anything 3, MoGe-2, Marigold-IID and SAM 3
+  (`vision relief`, `vision albedo`, `vision parts`).
+
+Qwen3-VL-4B runs in the kit's Python with the Tier 2 runtime.
+
+**Tier 4 size.** About 24.5 GB of models (Qwen-Image-Edit and its stable-diffusion.cpp runner) plus 25-70 GB of 3D
+generator environments (TRELLIS.2 and Pixal3D in `trellis2`, `partcrafter`, `hunyuan3d2`).
 
 **Tiers 2-4.** `lune run parallax vision setup --list` shows every model with its tier and size. Each download is
 pinned to a commit and kept only if its size and hash match ([VETLOG.md](VETLOG.md)); an interrupted download resumes.

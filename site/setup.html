@@ -1,0 +1,437 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Setup · Parallax</title>
+<meta name="description" content="Install Parallax from scratch: base tools, the kit, Roblox Studio, your AI client, and the first run.">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/app.js" defer></script>
+</head>
+<body data-root="" data-page="setup">
+<div id="site-header"></div>
+<div class="layout">
+<aside class="sidebar"></aside>
+<main class="content">
+
+<header class="page-head">
+  <p class="eyebrow">Getting started</p>
+  <h1>Setup</h1>
+  <p class="lead">This guide takes a Windows 10 or 11 machine to a working Parallax project. It covers the toolchain, the kit, Roblox Studio, your AI client and a first run. Every step has the command, the check that proves it worked and what to do if it fails.</p>
+</header>
+
+<section>
+<h2 id="ai-prompt">Hand this to your AI</h2>
+<p>If you want your AI agent to run setup for you, copy the prompt below, fill in the two blanks and paste it into your client.</p>
+<pre><code>Set up Parallax for me. Follow SETUP.md from https://github.com/mayusi/parallax step by step.
+My game folder: &lt;C:\path\to\MyGame&gt;.  My AI client: &lt;Claude Code | Cursor | VS Code | Gemini CLI | Codex | ...&gt;.
+Run every check and compare it with the expected result. Stop and ask me when a step needs me
+(admin prompts, sign-ins, Roblox Studio settings). Never ask me for a password or an API key.</code></pre>
+
+<p>Your agent should follow these rules when it reads that prompt:</p>
+<ul>
+  <li>Do each step in order. Run its check and compare it with the expected output.</li>
+  <li>A failed check is not a next step. Follow the step's recovery notes, then run the check again. Never skip a step or continue past a failed check.</li>
+  <li>Stop and ask you when a step requires human action: an installer UAC prompt, signing in, Roblox Studio's own settings switches, or a choice that is yours (the game folder, your AI client, which optional lanes to install).</li>
+  <li>Never ask for, type or store a password, token or API key.</li>
+  <li>Report at the end using the final check's <code>summary:</code> lines.</li>
+</ul>
+<p>Every Parallax command ends with <code>summary:</code> and <code>next_action:</code>. When a check fails, its <code>next_action:</code> is usually the fix.</p>
+</section>
+
+<section>
+<h2 id="what-you-need">What you need</h2>
+<table>
+  <thead><tr><th>Tool</th><th>Needed for</th><th>Required</th></tr></thead>
+  <tbody>
+    <tr><td>Windows 10 or 11</td><td>everything (most commands also run on macOS and Linux; full support is on the roadmap)</td><td>yes</td></tr>
+    <tr><td>Git</td><td>cloning; the kit's git hooks</td><td>yes</td></tr>
+    <tr><td>Rokit → Rojo 7.7.1, Wally 0.3.2, Selene 0.32.0, StyLua 2.5.2, Lune 0.10.5, luau-lsp 1.70.1</td><td>the kit runs on Lune; the rest build and check Luau</td><td>yes</td></tr>
+    <tr><td>Python 3.11 with numpy, scipy, Pillow, matplotlib, pytest</td><td>the kit's Python tools and tests, and its MCP server</td><td>yes</td></tr>
+    <tr><td>An MCP-capable AI client</td><td>driving the kit</td><td>yes</td></tr>
+    <tr><td>Roblox Studio (latest) with its MCP server</td><td>seeing the game, playtests, uploads</td><td>for real use</td></tr>
+    <tr><td>Node.js LTS</td><td>the VFX effect player's checks</td><td>for VFX</td></tr>
+    <tr><td>ffmpeg</td><td>sound, effect breakdowns and recordings</td><td>for sound and VFX</td></tr>
+    <tr><td>Blender 5.2</td><td>3D, effect bakes, animation, world and UI renders</td><td>for those lanes</td></tr>
+    <tr><td>Local AI models (vision stack, CAD, 3D generators)</td><td>references, segmentation, similarity, hard surfaces, drafts</td><td>optional, by hardware tier</td></tr>
+  </tbody>
+</table>
+</section>
+
+<section>
+<h2 id="steps">Installation steps</h2>
+<button class="expand-all" data-expand-target="#steps-list">Expand all</button>
+<ol class="stages" id="steps-list">
+
+  <li>
+    <span class="num">1</span>
+    <details id="stage-base-tools">
+      <summary><span class="name">Base tools</span><span class="what">Install Git, Python 3.11, Node.js and ffmpeg.</span></summary>
+      <div class="body">
+        <p>Skip any tool you already have. Run this in PowerShell:</p>
+        <pre><code>winget install --id Git.Git -e
+winget install --id Python.Python.3.11 -e
+winget install --id OpenJS.NodeJS.LTS -e
+winget install --id Gyan.FFmpeg -e</code></pre>
+        <p>Open a new terminal (installers change PATH only for new terminals), then install the Python packages:</p>
+        <pre><code>python -m pip install numpy scipy pillow matplotlib pytest</code></pre>
+        <p><strong>Check</strong></p>
+        <pre><code>git --version
+python --version
+node --version
+ffmpeg -version
+python -c "import numpy, scipy, PIL, matplotlib, pytest; print('python packages ok')"</code></pre>
+        <p>You should see a version line for each tool, <code>Python 3.11.x</code>, and <code>python packages ok</code>.</p>
+        <p><strong>If it fails</strong> — "not recognized": open a new terminal and try again. Still failing: install the tool from its own site (git-scm.com, python.org — tick "Add python.exe to PATH" — nodejs.org, ffmpeg.org) and open a new terminal. If <code>python</code> opens the Microsoft Store, turn off the "App execution aliases" for python in Windows Settings.</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">2</span>
+    <details id="stage-rokit">
+      <summary><span class="name">Rokit</span><span class="what">Install Rokit, the Roblox toolchain manager that pins exact versions.</span></summary>
+      <div class="body">
+        <pre><code>Invoke-RestMethod https://raw.githubusercontent.com/rojo-rbx/rokit/main/scripts/install.ps1 | Invoke-Expression</code></pre>
+        <p>Open a new terminal.</p>
+        <p><strong>Check</strong> — <code>rokit --version</code> prints a version.</p>
+        <p><strong>If it fails</strong> — download <code>rokit.exe</code> from the latest release page at github.com/rojo-rbx/rokit and run <code>.\rokit.exe self-install</code> in that folder, then open a new terminal.</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">3</span>
+    <details id="stage-get-parallax">
+      <summary><span class="name">Get Parallax</span><span class="what">Clone the kit and install its toolchain and packages.</span></summary>
+      <div class="body">
+        <p>Choose a folder for the kit (your games live in their own folders next to it):</p>
+        <pre><code>git clone https://github.com/mayusi/parallax.git
+cd parallax
+rokit install
+wally install</code></pre>
+        <p><code>rokit install</code> may ask once whether you trust each tool. They are the six tools in <code>rokit.toml</code> from their official authors — answer yes. An AI agent cannot answer an interactive trust prompt; ask the person to run <code>rokit install</code> once in their own terminal.</p>
+        <p><strong>Check</strong></p>
+        <pre><code>lune run parallax version</code></pre>
+        <p>You should see <code>summary: kit 3.1.0</code> (or newer).</p>
+        <p><strong>If it fails</strong> — <code>lune</code> not recognized: open a new terminal (Rokit adds its folder to PATH). <code>wally install</code> fails: check your internet connection and run it again.</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">4</span>
+    <details id="stage-doctor">
+      <summary><span class="name">Check the toolchain</span><span class="what">Run doctor to confirm Tier 0 is complete and see what higher tiers need.</span></summary>
+      <div class="body">
+        <pre><code>lune run parallax doctor</code></pre>
+        <p><strong>Check</strong> — every Tier 0 tool (Rokit's six, Python and its packages, Node.js, ffmpeg, the Wally packages) is found, and the output includes a <code>machine tier: N</code> line (then ends with <code>summary:</code> and <code>next_action:</code>). Missing optional tools are listed with the lane each one blocks and how to get it — that is fine until you use that lane.</p>
+        <p><strong>If it fails</strong> — install what it names, open a new terminal, and run <code>doctor</code> again.</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">5</span>
+    <details id="stage-hardware-tier">
+      <summary><span class="name">Choose your hardware tier</span><span class="what">Install optional tools and AI models based on what your machine supports and which lanes you need.</span></summary>
+      <div class="body">
+        <p>Parallax runs on any PC and grows with your hardware. Steps 1–4 already give you Tier 0. Go as far up as your machine and your lanes need.</p>
+        <p>See the <a href="hardware.html">Hardware and models</a> page for the full tier table, the AI models each tier adds and what each one unlocks.</p>
+        <p><strong>Tier 1 — DCC and CAD</strong> (3D, bakes, animation, worlds). Any CPU. Install Blender 5.2 LTS from blender.org into its default folder (<code>C:\Program Files\Blender Foundation\</code>); Parallax finds the newest version there. If you install it somewhere else, set a <code>BLENDER</code> environment variable to the full path of <code>blender.exe</code>. Then:</p>
+        <pre><code>lune run parallax tools setup kit-python
+lune run parallax tools setup cad
+lune run parallax tools setup mitsuba</code></pre>
+        <p>The <code>vision setup</code> commands below download model weights only. Each model also needs a runtime, which the <a href="hardware.html#tiers">Hardware and models</a> page names tier by tier.</p>
+        <p><strong>Tier 2 — Light vision core</strong> (cut-outs, depth, similarity; ~2.4 GB). CPU or a 4 GB GPU. These models run in the kit's own Python, which needs PyTorch, transformers and safetensors. No Parallax command installs them: <code>doctor</code>'s "torch (vision)" row says <code>pip torch</code>. Pick the PyTorch build for your OS and GPU with the selector at pytorch.org, install transformers and safetensors with pip, then:</p>
+        <pre><code>lune run parallax vision setup</code></pre>
+        <p><strong>Tier 3 — Local VLM and diffusion</strong> (~44.6 GB more). An NVIDIA GPU with 12 GB VRAM and 16 GB RAM. SAM 3 (a gated model) is included in this tier; it requires you to request access on Hugging Face with your own account and set <code>HF_TOKEN</code> in your environment — without it the tier skips SAM 3 and the free SAM 2.1 masks stand in:</p>
+        <pre><code>lune run parallax vision setup --tier vision</code></pre>
+        <p>Qwen3-VL runs in the kit's own Python. The other Tier 3 models need two environments that this command does not create: the diffusers environment (SDXL, FLUX.2, DiffusionLight) and the TRELLIS.2 environment (Depth Anything 3, MoGe-2, Marigold-IID, SAM 3). Set both up from <code>kit/gen/README.md</code>; the TRELLIS.2 environment is compiled with CUDA 13 and MSVC 2022.</p>
+        <p><strong>Tier 4 — Full 3D generation</strong> (~24.5 GB more of models, plus the generator environments). CUDA 13, 12–16+ GB VRAM, 32 GB RAM, MSVC 2022. qwen-image-edit runs in sd-cpp, a native Windows program this command downloads. After the models, follow <code>kit/gen/README.md</code> for the generator environments:</p>
+        <pre><code>lune run parallax vision setup --tier gen</code></pre>
+        <p>Each Tier 4 generator has its own licence; some restrict territories or uses. Read its <code>VETLOG.md</code> row before installing. Everything runs on your machine; nothing is sent to a cloud service.</p>
+        <p>To list all models with their tier and size before downloading:</p>
+        <pre><code>lune run parallax vision setup --list</code></pre>
+        <p><strong>Check</strong> — <code>lune run parallax doctor</code> prints <code>machine tier: N</code> and, below Tier 4, exactly what the next tier needs. <code>lune run parallax vision doctor</code> runs the core models on a probe image and prints the torch version and GPU it found.</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">6</span>
+    <details id="stage-roblox-studio">
+      <summary><span class="name">Roblox Studio and its MCP server</span><span class="badge lock">you do this</span><span class="what">Enable the Studio MCP server so the kit can drive playtests and uploads.</span></summary>
+      <div class="body">
+        <p>Roblox Studio has a built-in MCP server. Parallax uses it to drive playtests, look at the game in the engine and upload assets through Open Cloud with your own Studio login — no API key needed.</p>
+        <ol>
+          <li><strong>Install Roblox Studio</strong> from create.roblox.com and sign in. <em>You do this — not your AI agent.</em></li>
+          <li><strong>Open a place from a published game.</strong> Open Cloud permissions are saved per game; a local, unpublished place cannot use them.</li>
+          <li><strong>Turn the MCP server on:</strong> open <strong>Assistant</strong>, click <strong>…</strong> → <strong>Manage MCP Servers</strong>, and turn on <strong>Enable Studio as MCP server</strong>. <em>You do this — the AI agent must not change these switches.</em></li>
+          <li><strong>Add the Roblox Studio MCP to your AI client.</strong> Assistant's settings offer a quick connect for Claude Code, Codex CLI, Claude Desktop, Cursor, Gemini CLI and VS Code. For any other client, add this entry (Windows):
+            <pre><code>{
+  "mcpServers": {
+    "Roblox_Studio": {
+      "command": "cmd.exe",
+      "args": ["/c", "%LOCALAPPDATA%\\Roblox\\mcp.bat"]
+    }
+  }
+}</code></pre>
+            On macOS the command is <code>/Applications/RobloxStudio.app/Contents/MacOS/StudioMCP</code>.
+          </li>
+          <li><strong>Allow uploads</strong> — <em>you do this:</em> click <strong>MCP</strong> in Studio's bottom-right corner → <strong>MCP Permissions</strong>. Under <strong>Publish and manage assets</strong>, allow <code>asset:read</code> and <code>asset:write</code> (and <code>asset-permissions:write</code> if audio should be granted to your experience). Approve your game project's <code>build</code> folder as an upload folder. Changes apply to the client's next request.</li>
+        </ol>
+        <p><strong>Check</strong> — Assistant → <strong>…</strong> → <strong>Manage MCP Servers</strong> shows a green indicator, and your AI client lists the Roblox Studio tools (for example <code>list_roblox_studios</code>).</p>
+        <p><strong>If it fails</strong> — restart Studio and the AI client; check the path and the JSON syntax of the config. Roblox's own guides: <a href="https://create.roblox.com/docs/studio/mcp">Connect to the Studio MCP server</a> and <a href="https://create.roblox.com/docs/studio/mcp-open-cloud">Use Open Cloud with the Studio MCP server</a>.</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">7</span>
+    <details id="stage-game-project">
+      <summary><span class="name">Make your game project</span><span class="what">Install the kit into a new game folder.</span></summary>
+      <div class="body">
+        <p>From the kit's folder, point <code>install</code> at your game folder (it is created if it does not exist; an existing Rojo project keeps its files):</p>
+        <pre><code>lune run parallax install ..\MyGame
+cd ..\MyGame
+git add -A
+git commit -m "Start from Parallax (cross)"</code></pre>
+        <p><code>install</code> copies the kit (<code>kit/</code>) and its in-game runtime (<code>src/kit/</code>), starter content, a work board (<code>board/</code> with <code>BRIEF.md</code>) and the git hooks, then runs <code>rokit install</code>, <code>wally install</code> and <code>git init</code>. It writes no AI-client files — the next step adds the one you use.</p>
+        <p>The word <code>cross</code> in the commit message tells the lane fence — the git hook that keeps each commit to one department — that this commit spans every department on purpose.</p>
+        <p><strong>Check</strong></p>
+        <pre><code>lune run parallax status</code></pre>
+        <p>You should see the board's summary and a <code>next_action:</code>.</p>
+        <p><strong>If it fails</strong> — if <code>install</code> reports that <code>rokit install</code> or <code>wally install</code> failed, run them in the game folder yourself, then <code>lune run parallax doctor</code>.</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">8</span>
+    <details id="stage-ai-client">
+      <summary><span class="name">Connect your AI client</span><span class="what">Write the MCP config and enforcement hooks for the client you use.</span></summary>
+      <div class="body">
+        <p>Run this in the game folder:</p>
+        <pre><code>lune run parallax connect &lt;client&gt;</code></pre>
+        <p>Use your client's name from the table below.</p>
+
+        <div class="tabs">
+          <div class="tab-list">
+            <button class="tab" data-tab="client-claude" aria-selected="true">Claude Code</button>
+            <button class="tab" data-tab="client-cursor">Cursor</button>
+            <button class="tab" data-tab="client-vscode">VS Code</button>
+            <button class="tab" data-tab="client-gemini">Gemini CLI</button>
+            <button class="tab" data-tab="client-roo">Roo Code</button>
+            <button class="tab" data-tab="client-opencode">OpenCode</button>
+            <button class="tab" data-tab="client-codex">Codex CLI</button>
+            <button class="tab" data-tab="client-windsurf">Windsurf</button>
+            <button class="tab" data-tab="client-cline">Cline</button>
+            <button class="tab" data-tab="client-claude-desktop">Claude Desktop</button>
+          </div>
+
+          <div class="tab-panel" data-panel="client-claude" id="client-claude">
+            <pre><code>lune run parallax connect claude</code></pre>
+            <p>Writes <code>.mcp.json</code> (the MCP server entry) and <code>.claude/settings.json</code> (the enforcement guard hooks). Restart Claude Code in the game folder afterwards.</p>
+            <dl class="specs">
+              <dt>Config file</dt><dd><code>.mcp.json</code> in the game folder</dd>
+              <dt>Guard hooks</dt><dd><code>.claude/settings.json</code> — <code>PreToolUse</code>, <code>PostToolUse</code> and <code>Stop</code> hooks that run <code>kit/scripts/parallax_guard.py</code></dd>
+            </dl>
+          </div>
+
+          <div class="tab-panel" data-panel="client-cursor" id="client-cursor">
+            <pre><code>lune run parallax connect cursor</code></pre>
+            <p>Writes <code>.cursor/mcp.json</code> in the game folder. Restart Cursor in the game folder afterwards.</p>
+            <dl class="specs">
+              <dt>Config file</dt><dd><code>.cursor/mcp.json</code> in the game folder</dd>
+              <dt>Guard hooks</dt><dd>none for Cursor</dd>
+            </dl>
+          </div>
+
+          <div class="tab-panel" data-panel="client-vscode" id="client-vscode">
+            <pre><code>lune run parallax connect vscode</code></pre>
+            <p>Writes <code>.vscode/mcp.json</code> in the game folder. Restart VS Code in the game folder afterwards.</p>
+            <dl class="specs">
+              <dt>Config file</dt><dd><code>.vscode/mcp.json</code> in the game folder</dd>
+              <dt>Guard hooks</dt><dd>none for VS Code</dd>
+            </dl>
+          </div>
+
+          <div class="tab-panel" data-panel="client-gemini" id="client-gemini">
+            <pre><code>lune run parallax connect gemini</code></pre>
+            <p>Writes <code>.gemini/settings.json</code> (the MCP entry and the enforcement guard hooks). Restart Gemini CLI in the game folder afterwards.</p>
+            <dl class="specs">
+              <dt>Config file</dt><dd><code>.gemini/settings.json</code> in the game folder</dd>
+              <dt>Guard hooks</dt><dd><code>.gemini/settings.json</code> — <code>BeforeTool</code> and <code>AfterTool</code> hooks that run <code>kit/scripts/parallax_guard.py</code></dd>
+            </dl>
+          </div>
+
+          <div class="tab-panel" data-panel="client-roo" id="client-roo">
+            <pre><code>lune run parallax connect roo</code></pre>
+            <p>Writes <code>.roo/mcp.json</code> in the game folder. Restart Roo Code in the game folder afterwards.</p>
+            <dl class="specs">
+              <dt>Config file</dt><dd><code>.roo/mcp.json</code> in the game folder</dd>
+              <dt>Guard hooks</dt><dd>none for Roo Code</dd>
+            </dl>
+          </div>
+
+          <div class="tab-panel" data-panel="client-opencode" id="client-opencode">
+            <pre><code>lune run parallax connect opencode</code></pre>
+            <p>Writes <code>opencode.json</code> in the game folder. Restart OpenCode in the game folder afterwards.</p>
+            <dl class="specs">
+              <dt>Config file</dt><dd><code>opencode.json</code> in the game folder</dd>
+              <dt>Guard hooks</dt><dd>none for OpenCode</dd>
+            </dl>
+          </div>
+
+          <div class="tab-panel" data-panel="client-codex" id="client-codex">
+            <pre><code>lune run parallax connect codex</code></pre>
+            <p>Prints a block to paste into <code>~/.codex/config.toml</code> (the kit's global config path for Codex CLI). The block carries this project's absolute path.</p>
+            <dl class="specs">
+              <dt>Config file</dt><dd><code>~/.codex/config.toml</code> (global; you paste it)</dd>
+              <dt>Guard hooks</dt><dd>none for Codex CLI</dd>
+            </dl>
+          </div>
+
+          <div class="tab-panel" data-panel="client-windsurf" id="client-windsurf">
+            <pre><code>lune run parallax connect windsurf</code></pre>
+            <p>Prints a block to paste into <code>~/.codeium/windsurf/mcp_config.json</code>. The block carries this project's absolute path.</p>
+            <dl class="specs">
+              <dt>Config file</dt><dd><code>~/.codeium/windsurf/mcp_config.json</code> (global; you paste it)</dd>
+              <dt>Guard hooks</dt><dd>none for Windsurf</dd>
+            </dl>
+          </div>
+
+          <div class="tab-panel" data-panel="client-cline" id="client-cline">
+            <pre><code>lune run parallax connect cline</code></pre>
+            <p>Prints a block for Cline's MCP settings (MCP Servers → Configure MCP Servers). The block carries this project's absolute path.</p>
+            <dl class="specs">
+              <dt>Config file</dt><dd>Cline's MCP settings (global; you paste it)</dd>
+              <dt>Guard hooks</dt><dd>none for Cline</dd>
+            </dl>
+          </div>
+
+          <div class="tab-panel" data-panel="client-claude-desktop" id="client-claude-desktop">
+            <pre><code>lune run parallax connect claude-desktop</code></pre>
+            <p>Prints a block for <code>claude_desktop_config.json</code>. On Windows: <code>%APPDATA%/Claude/claude_desktop_config.json</code>. On macOS: <code>~/Library/Application Support/Claude/claude_desktop_config.json</code>.</p>
+            <dl class="specs">
+              <dt>Config file</dt><dd><code>claude_desktop_config.json</code> (global; you paste it)</dd>
+              <dt>Guard hooks</dt><dd>none for Claude Desktop</dd>
+            </dl>
+          </div>
+        </div>
+
+        <p>To connect several clients at once: <code>lune run parallax connect claude,cursor</code>. To remove an entry: <code>lune run parallax connect &lt;client&gt; --remove</code>.</p>
+
+        <p><strong>Check</strong> — <code>lune run parallax connect</code> (no arguments) lists your client as <code>connected</code>. Clients that print a block are not tracked — check them in the client. The client should show the tools <code>parallax_start</code>, <code>parallax_status</code>, <code>parallax_skill</code> and the others.</p>
+        <p><strong>If it fails</strong> — the client does not list the tools: make sure it was started in the game folder, that <code>python</code> works in a new terminal, and that you approved the server.</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">9</span>
+    <details id="stage-first-run">
+      <summary><span class="name">First run and final check</span><span class="what">Ask the board what it shows and run the three final checks.</span></summary>
+      <div class="body">
+        <p>In your AI client, in the game folder:</p>
+        <pre><code>Call parallax_status and tell me what the board says.</code></pre>
+        <p>Then fill in <code>board/BRIEF.md</code> (what the game is) and ask for the first piece, for example:</p>
+        <pre><code>Start the 3d lane: a mossy stone well for the village square.</code></pre>
+        <p><strong>Final check</strong> — in the game folder:</p>
+        <pre><code>lune run parallax harness --check
+lune run parallax doctor
+lune run parallax verify</code></pre>
+        <p><code>harness --check</code> says the git hooks and every connected client's config are in step. <code>doctor</code> shows no missing required tool. <code>verify</code> ends with <code>summary: verify: all gates green</code>. The first <code>verify</code> takes a while.</p>
+      </div>
+    </details>
+  </li>
+
+</ol>
+</section>
+
+<section>
+<h2 id="uploads">Uploading to Roblox</h2>
+<p><code>lune run parallax upload</code> screens every new or changed file through a moderation gate (banned words, blood) and writes an upload plan at <code>build/upload_plan.json</code> with the exact Roblox Studio MCP call for each file.</p>
+<p>Your agent then, for each file:</p>
+<ol>
+  <li>Calls <code>open_cloud_invoke</code> with that file's call from <code>build/upload_plan.json</code> (the <code>studio_id</code> comes from <code>list_roblox_studios</code>).</li>
+  <li>Polls <code>GET /assets/v1/operations/&lt;operationId&gt;</code> with <code>open_cloud_invoke</code> until <code>done</code> is true.</li>
+  <li>Records the returned id: <code>lune run parallax upload --record &lt;file&gt; &lt;assetId&gt;</code>.</li>
+</ol>
+<p><code>lune run parallax upload --pending</code> lists what is left; after the last one the kit recompiles the models and screens that use the new ids.</p>
+<div class="note"><span class="callout-title">One-time setup</span><p>In the game's <code>kit.config.json</code>, set <code>"upload": {"creator": "user:&lt;your user id&gt;", "universe": &lt;experience id&gt;}</code>. Your user id is the number in your roblox.com profile URL; the universe is the experience that should play the audio.</p></div>
+<div class="warn-box"><span class="callout-title">Uploads are permanent</span><p>Open Cloud cannot delete uploaded assets. New images and sounds go through Roblox moderation: check status with <code>lune run parallax upload --status</code>.</p></div>
+<p>For headless runs (CI, no Studio open): set <code>ROBLOX_API_KEY</code> in your environment and the kit uploads by itself — never paste a key into a chat or a file.</p>
+</section>
+
+<section>
+<h2 id="updating">Updating</h2>
+<div class="tabs">
+  <div class="tab-list">
+    <button class="tab" data-tab="update-upgrade" aria-selected="true">From a GitHub release</button>
+    <button class="tab" data-tab="update-clone">From a local clone</button>
+    <button class="tab" data-tab="update-300">Coming from 3.0.0</button>
+  </div>
+
+  <div class="tab-panel" data-panel="update-upgrade" id="update-upgrade">
+    <p>Inside your game folder:</p>
+    <pre><code>lune run parallax upgrade --check
+lune run parallax upgrade</code></pre>
+    <p><code>--check</code> compares the installed version (<code>kit/UPSTREAM.json</code>) with the latest release and writes nothing. <code>upgrade</code> refuses when you have edited the kit's own files (<code>--force</code> overrides) or have uncommitted changes (commit first, or pass <code>--allow-dirty</code>).</p>
+    <p>It downloads the release, checks its SHA-256 before unpacking, backs up the current kit, then updates in four zones: the kit's code is replaced (a file you added under <code>kit/</code> stays); starter content and lessons are only added to; the knowledge vault is merged (your lessons, verdicts and rules are kept); your game's code and content are left alone. An error while replacing the kit's files restores the backup.</p>
+    <p>Pass <code>--tag vX.Y.Z</code> to pick a specific release; <code>--from &lt;tarball&gt;</code> (with its <code>.sha256</code>) installs a downloaded one. Restart your AI client afterwards if it says the MCP server changed.</p>
+    <p>After an update, <code>lune run parallax harness</code> refreshes the connected client's config and hooks. Commit the update on its own:</p>
+    <pre><code>git add -A
+git commit -m "Update Parallax (cross)"</code></pre>
+  </div>
+
+  <div class="tab-panel" data-panel="update-clone" id="update-clone">
+    <p>In the kit's folder, pull the latest changes:</p>
+    <pre><code>git pull</code></pre>
+    <p>Then, from the kit's folder, push the update into a game:</p>
+    <pre><code>lune run parallax update ..\MyGame</code></pre>
+    <p>Or, from inside the game folder:</p>
+    <pre><code>lune run parallax sync</code></pre>
+    <p>A game holding a later kit version than the clone is refused — <code>git pull</code> the clone first, or pass <code>--force</code> to install the clone's kit anyway.</p>
+  </div>
+
+  <div class="tab-panel" data-panel="update-300" id="update-300">
+    <p>A game made with 3.0.0 has no <code>upgrade</code> command yet. Update it once from the local clone route (above), and <code>upgrade</code> works from then on.</p>
+    <p>After updating from 3.0.0, <code>lune run parallax harness</code> removes what that version wrote for every AI client (instruction blocks, rule files, skill copies and the kit's entry in each client's project MCP config), keeping anything you wrote yourself. The connected client that is running the update keeps its entry and hooks. Then connect any other client you use again:</p>
+    <pre><code>lune run parallax connect &lt;client&gt;</code></pre>
+  </div>
+</div>
+</section>
+
+<section>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<table>
+  <thead><tr><th>Problem</th><th>Fix</th></tr></thead>
+  <tbody>
+    <tr><td><code>lune</code>, <code>rokit</code> or <code>python</code> "not recognized"</td><td>Open a new terminal; check the tool's install step.</td></tr>
+    <tr><td><code>rokit install</code> stops at a trust prompt</td><td>Answer yes for the tools in <code>rokit.toml</code>, or run it once in your own terminal.</td></tr>
+    <tr><td>A pipeline command says <code>REFUSED</code> / exits with 6</td><td>Start the lane first: call <code>parallax_start</code> (or <code>lune run parallax start &lt;lane&gt; --prompt "&lt;the request&gt;"</code>).</td></tr>
+    <tr><td><code>harness --check</code> reports files out of step</td><td>Run <code>lune run parallax harness</code>, then commit what it changed if you share that client config.</td></tr>
+    <tr><td>The AI client does not show the <code>parallax</code> tools</td><td>Start the client in the game folder, approve the server, restart it.</td></tr>
+    <tr><td>The Studio MCP refuses a file or a scope</td><td>Go to <strong>MCP</strong> → <strong>MCP Permissions</strong> in Studio and approve the scope and the <code>build</code> folder.</td></tr>
+    <tr><td><code>rojo serve</code> cannot connect</td><td>Only one project can serve on the port; stop the other one. Save a copy of the place before the first Connect — Rojo replaces what it manages.</td></tr>
+    <tr><td>The AI broke something</td><td><code>git restore .</code> (uncommitted) or <code>git revert</code> (a commit). Edited kit files: <code>lune run parallax sync</code> restores them in a game installed from a local clone; in a game installed from a release, restore them with <code>git checkout -- &lt;the files&gt;</code>. <code>lune run parallax status</code> shows the last handoff and open tasks.</td></tr>
+  </tbody>
+</table>
+</section>
+
+<section>
+<h2 id="uninstalling">Uninstalling</h2>
+<p><strong>A single game:</strong> run <code>lune run parallax connect &lt;client&gt; --remove</code> for each connected client (for a client that prints a block, it tells you which block to delete from that client's config). Then delete <code>kit/</code>, <code>src/kit/</code> and <code>parallax.luau</code>, and remove the kit's two git hooks, <code>commit-msg</code> (the lane fence) and <code>pre-commit</code> (the commit gate). Your game's own files are untouched.</p>
+<p><strong>The kit itself:</strong> delete the kit's folder. Rokit's tools live in <code>%USERPROFILE%\.rokit</code>; the optional local models are in <code>%USERPROFILE%\.cache\roblox-kit</code>.</p>
+</section>
+
+</main>
+<aside class="toc"></aside>
+</div>
+<div id="site-footer"></div>
+<!-- sources: SETUP.md, kit/lib/harness.luau, kit/mcp/server.py, kit/cmd/setup.luau, kit/cmd/learn.luau, kit/cmd/upgrade.luau, kit/vision/setup.py, kit/vision/run.py, kit/cmd/judge.luau, kit/gen/README.md -->
+</body>
+</html>

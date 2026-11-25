@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Command reference · Parallax</title>
+<meta name="description" content="Command reference for the Parallax kit CLI, with syntax, purpose, groups and exit codes.">
+<link rel="icon" href="assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="assets/style.css">
+<script src="assets/app.js" defer></script>
+</head>
+<body data-root="" data-page="commands">
+<div id="site-header"></div>
+<div class="layout">
+<aside class="sidebar"></aside>
+<main class="content">
+
+<header class="page-head">
+  <p class="eyebrow">Reference</p>
+  <h1>Command reference</h1>
+  <p class="lead">The commands listed by the kit's own help (<code>lune run parallax help --all</code>), grouped, with their syntax and purpose. The CLI is <code>lune run parallax &lt;command&gt; [args]</code>. Each command prints <code>summary:</code> and <code>next_action:</code> when it finishes. Older scripts may say <code>lune run kit</code>; that is the same CLI.</p>
+  <div class="meta-row"><span class="badge">lune run parallax &lt;command&gt;</span></div>
+</header>
+
+<div class="note"><span class="callout-title">Note</span><p>Some commands take a literal <code>--by owner</code> or <code>--owner</code> flag. In those flags, "owner" means you: the person who runs the kit and approves the work. Syntax below is shortened in places; <code>lune run parallax help --all</code> prints every flag.</p></div>
+
+<section>
+<h2 id="filter">Browse commands</h2>
+<div class="chips" data-chip-target="#cmd-table" data-chip-attr="data-group">
+  <button class="chip active" data-value="all">All</button>
+  <button class="chip" data-value="setup">Setup &amp; project</button>
+  <button class="chip" data-value="board">Sessions &amp; board</button>
+  <button class="chip" data-value="prompt">PROMPT-X &amp; cases</button>
+  <button class="chip" data-value="3d">3D models</button>
+  <button class="chip" data-value="vfx">VFX</button>
+  <button class="chip" data-value="anim">Animation</button>
+  <button class="chip" data-value="world">Worlds</button>
+  <button class="chip" data-value="ui">Interfaces</button>
+  <button class="chip" data-value="sfx">Sound</button>
+  <button class="chip" data-value="code">Code &amp; QA</button>
+  <button class="chip" data-value="check">Checking &amp; proof</button>
+  <button class="chip" data-value="learning">Learning</button>
+  <button class="chip" data-value="kit">Install &amp; update</button>
+</div>
+<input class="filter" type="search" placeholder="Filter commands..." data-filter-target="#cmd-table" aria-label="Filter commands">
+
+<table id="cmd-table">
+  <thead>
+    <tr><th>Command</th><th>Purpose</th></tr>
+  </thead>
+  <tbody>
+    <!-- Setup & project -->
+    <tr data-group="setup"><td><code>init [--name Game] [--no-starter]</code></td><td>Make this project kit-ready (idempotent: adds only what is missing).</td></tr>
+    <tr data-group="setup"><td><code>status [--as who] [--dept area] [--json]</code></td><td>Project briefing: board, last handoff, failing gates, your department's vault page and next step.</td></tr>
+    <tr data-group="setup"><td><code>new &lt;game|system|asset|sound|vfx|screen|world|anim|playtest&gt; &lt;name&gt; [--from example] [--part]</code></td><td>Scaffold from a template or a proven example.</td></tr>
+    <tr data-group="setup"><td><code>examples [asset|sound|vfx|screen|world|anim]</code></td><td>List the proven examples you can start from.</td></tr>
+    <tr data-group="setup"><td><code>connect [&lt;client&gt;[,...]] [--remove]</code></td><td>Connect an AI client to the kit's MCP server (plus the guard's hooks where the client runs hooks); no client lists them and what is connected.</td></tr>
+    <tr data-group="setup"><td><code>doctor</code></td><td>Check every tool the pipeline uses and the hardware tier this machine reaches (0 to 4).</td></tr>
+    <tr data-group="setup"><td><code>skill &lt;lane|skill name&gt;</code></td><td>Print a lane's full recipe (its skill page) for any harness or model.</td></tr>
+    <tr data-group="setup"><td><code>start &lt;3d|vfx|ui|anim|world|sfx|code|qa|kit&gt; [--stage s] [--for piece] [--prompt "words" [--model M]]</code></td><td>Load one lane: boot sheet, rules, ranked lessons, open tasks, last handoff and vault page; <code>--prompt</code> compiles your request with PROMPT-X and writes the session.</td></tr>
+    <tr data-group="setup"><td><code>game [list] | new &lt;Name&gt; | use &lt;Name&gt;|none | ports [--fix] | check [Name] | sync [Name] | plan [Name]</code></td><td>Game folders (<code>games/&lt;Name&gt;/</code>): list, create, switch the active game, check and plan.</td></tr>
+    <tr data-group="setup"><td><code>asset-id &lt;built file&gt; &lt;rbxassetid://N | N&gt;</code></td><td>Record an uploaded asset's id in <code>assets/ids.json</code>.</td></tr>
+    <!-- Sessions & board -->
+    <tr data-group="board"><td><code>task add|list|show|claim|note|check|done|block|review|drop|release|sweep [--dry]</code></td><td>Manage tasks on the work board (one Markdown file per task in <code>board/tasks</code>).</td></tr>
+    <tr data-group="board"><td><code>task ask|unsure|rework "text" [--on card] [--area]</code></td><td>Record a question, an uncertainty or a rework note.</td></tr>
+    <tr data-group="board"><td><code>task route [--apply]</code></td><td>Give loose ends still filed under "other" a lane from their words; <code>--apply</code> writes, otherwise it only shows.</td></tr>
+    <tr data-group="board"><td><code>task resume</code></td><td>Where was I: what this session holds, then every loose end.</td></tr>
+    <tr data-group="board"><td><code>handoff "what I did" [--lane dept] [--next "..."] [--warn "..."] [--as who]</code></td><td>End of session: write a handoff for the next model to read.</td></tr>
+    <tr data-group="board"><td><code>decide "title" --decision "..." --why "..." [--rejected "..."] [--area dept]</code></td><td>Record a design decision in the board and the vault.</td></tr>
+    <tr data-group="board"><td><code>log "message" [--as who]</code></td><td>One-line entry in today's journal.</td></tr>
+    <tr data-group="board"><td><code>board [--port 8790] [--no-open] | board stop</code></td><td>Open the local task board web page over the same task files the CLI writes.</td></tr>
+    <tr data-group="board"><td><code>review &lt;name&gt; [--lane 3d|vfx|anim|world] [--port 8791] [--no-open] [--dry] | review &lt;name&gt; --stages</code></td><td>One page for one piece: its stages, pictures, notes, and Approve / Redo / verdict controls that run the kit's own commands.</td></tr>
+    <tr data-group="board"><td><code>verdict &lt;kind&gt; &lt;name&gt; &lt;0-10|keep|redo&gt; "words" [--route "what failed"] [...]</code></td><td>Record your verdict on a piece (the only quality signal): 7 or more goes to the golden set, 3 or less to the graveyard.</td></tr>
+    <tr data-group="board"><td><code>verdict list [kind] [name] | verdict trend [kind] | verdict pending [lane]</code></td><td>List, trend or show pending verdicts.</td></tr>
+    <tr data-group="board"><td><code>approve &lt;lane&gt; &lt;name&gt; "words" --by owner [--waive step,... | --stage s] | approve list [lane]</code></td><td>Record your go-ahead (or a waiver of one step) for a new piece, or for one stage's artefact.</td></tr>
+    <tr data-group="board"><td><code>kickoff &lt;Name&gt; "brief" --anim "..." --vfx "..." --sfx "..." --code "..." [--3d|--ui|--world|--qa "..."]</code></td><td>One brief across lanes: one task per lane, each with the whole brief and its own part.</td></tr>
+    <tr data-group="board"><td><code>grade &lt;asset&gt; &lt;0-100&gt; ["what is wrong / right"]</code></td><td>Your numeric score for a built asset (confirmed at your terminal); recalibrates the quality scale.</td></tr>
+    <tr data-group="board"><td><code>grades [--fit] [--write] [...]</code></td><td>How well the quality score follows your grades; refit or import a round.</td></tr>
+    <tr data-group="board"><td><code>parts &lt;lane&gt; kinds|index|find "words"|plan piece|label|eval|health|credit piece|look-allow piece --from past "words" --by owner</code></td><td>The parts libraries: each lane's past parts filed by kind, looked up part by part for a new piece.</td></tr>
+    <tr data-group="board"><td><code>alike index | alike &lt;picture|piece&gt; [--lane L] [--k N] [--refs] | alike dupes</code></td><td>Search by look: the past pieces that look closest to a picture or piece, with your verdict on each.</td></tr>
+    <tr data-group="board"><td><code>taste train &lt;lane&gt; | taste order &lt;lane&gt; &lt;candidates ...&gt; | taste off|on &lt;lane&gt;</code></td><td>A per-lane taste model from your own scores; it only orders candidates.</td></tr>
+    <tr data-group="board"><td><code>contract new &lt;hero&gt; --model ... --moves ... | check [hero] | list</code></td><td>The cross-lane contract of a hero weapon (model, moves, VFX, sounds, UI); <code>check</code> fails by name on any drift.</td></tr>
+    <!-- PROMPT-X & cases -->
+    <tr data-group="prompt"><td><code>prompt compile "words" [--model M] [--answers "q1=A"] [--lane L] [--piece name] [--no-session]</code></td><td>Compile your words into a repo-grounded prompt with PROMPT-X. Writes the session token unless <code>--no-session</code>.</td></tr>
+    <tr data-group="prompt"><td><code>prompt clarify "words"</code></td><td>Only the questions (at most three) for a request.</td></tr>
+    <tr data-group="prompt"><td><code>prompt route "words"</code></td><td>The lanes a request needs and the graveyard and golden records it pulls.</td></tr>
+    <tr data-group="prompt"><td><code>prompt case &lt;lane&gt; "words"</code></td><td>The matched case contract and the lane's capability menu.</td></tr>
+    <tr data-group="prompt"><td><code>prompt evolve &lt;packet.json&gt; &lt;0-10&gt; "words" [--dry] | prompt evolve --verdicts [--dry]</code></td><td>Evolve the PROMPT-X template from a recorded verdict, or from every verdict whose piece had a prompt.</td></tr>
+    <tr data-group="prompt"><td><code>prompt bench [--model M]</code></td><td>Replay 10 real failed prompts; each must carry its guardrail.</td></tr>
+    <tr data-group="prompt"><td><code>prompt sub "text"</code></td><td>The positive-word substitution for image-generator prompts, alone.</td></tr>
+    <tr data-group="prompt"><td><code>case &lt;3d|vfx|anim|world|ui|sfx|code|qa&gt; "words" [--piece name]</code></td><td>The CASE for a request in a lane: contract floor, forbidden routes, capability menu (at most 25 lines).</td></tr>
+    <!-- 3D models -->
+    <tr data-group="3d"><td><code>asset &lt;name|all&gt; [--geo] [--fast] [--rebake] [--schematic] [--inspect Part]</code></td><td>Build a 3D asset: FBX, PBR maps, gates and a labelled 6-view sheet.</td></tr>
+    <tr data-group="3d"><td><code>optimize &lt;name&gt; [--budget triangles] [--retopo group]</code></td><td>Make the game version of a master asset, cut to the tier's triangle budget with the master's detail baked on.</td></tr>
+    <tr data-group="3d"><td><code>showcase &lt;name&gt; [--frames n] [--samples n]</code></td><td>Present a built model: turntable, mechanism GIF and poster.</td></tr>
+    <tr data-group="3d"><td><code>gen &lt;name&gt; --image &lt;picture&gt; [...]</code></td><td>Generate a textured mesh from one picture (TRELLIS.2, offline).</td></tr>
+    <tr data-group="3d"><td><code>gen texture &lt;asset&gt; --image &lt;picture&gt; [...]</code></td><td>Paint an asset's own last build from a picture.</td></tr>
+    <tr data-group="3d"><td><code>gen omni &lt;name&gt; --image &lt;picture&gt; --from-asset &lt;asset&gt; [--control point|voxel|bbox]</code></td><td>Generate a shape from a picture, steered by an asset's code-built blockout (Hunyuan3D-Omni; approved for private experiments only, see <code>VETLOG.md</code>).</td></tr>
+    <tr data-group="3d"><td><code>gen parts &lt;name&gt; --image &lt;picture&gt; --parts 1-16 [...]</code></td><td>Generate separate part meshes (PartCrafter, untextured).</td></tr>
+    <tr data-group="3d"><td><code>gen mv-shape &lt;name&gt; --front &lt;pic&gt; [...]</code></td><td>Generate a shape from up to 4 views of an object (Hunyuan3D-2mv; private assets only).</td></tr>
+    <tr data-group="3d"><td><code>gen paint &lt;asset|mesh&gt; --image &lt;picture&gt; [...]</code></td><td>Texture an existing mesh from one picture (Hunyuan3D-2 Delight + Paint; private assets only).</td></tr>
+    <tr data-group="3d"><td><code>gen views &lt;name&gt; --view side=&lt;rgba.png&gt; [...]</code></td><td>Generate a shape lined up with 2–4 cut-out views (Pixal3D).</td></tr>
+    <tr data-group="3d"><td><code>models</code></td><td>Rebuild <code>src/models/*.model.json</code> from built assets and their uploaded ids.</td></tr>
+    <tr data-group="3d"><td><code>validate &lt;file.fbx|.blend&gt;</code></td><td>Run the Roblox mesh gate on any model file.</td></tr>
+    <tr data-group="3d"><td><code>calibrate</code></td><td>Build the axis/scale calibration FBX (import once in Studio).</td></tr>
+    <tr data-group="3d"><td><code>cad check &lt;asset&gt; [--only Part] [--jobs n] [--no-fillet] [--look] [--zoom cx,cy,cz,size]</code></td><td>Check every CAD part of an asset without Blender: closed solid, volume, open edges, fillets.</td></tr>
+    <tr data-group="3d"><td><code>watch &lt;asset&gt; [--geo] [--once]</code></td><td>Rebuild an asset on every save through a persistent Blender.</td></tr>
+    <tr data-group="3d"><td><code>materials [query] | --sheet | --looks [query] | --scans | --fetch &lt;ids&gt; | --tones &lt;photo&gt;</code></td><td>Measured real materials (albedo, metalness, roughness) to build with.</td></tr>
+    <tr data-group="3d"><td><code>fit &lt;asset&gt; [--write] | fit camera &lt;photo&gt; --asset &lt;name&gt;</code></td><td>Fit an asset's parameters against references, or find the camera a photo was taken from.</td></tr>
+    <tr data-group="3d"><td><code>plan &lt;asset&gt; [--stage key] [--extend min "words"] [--restart "words"]</code></td><td>The 3D pipeline for one asset in order, locked by stage, with the clock.</td></tr>
+    <tr data-group="3d"><td><code>rate make &lt;round&gt; &lt;asset ...&gt; | serve &lt;round&gt; | import &lt;round&gt; | list</code></td><td>Your grading page: built models in a 3D viewer beside their references; import records the scores as verdicts.</td></tr>
+    <tr data-group="3d"><td><code>look closeup|lookdev|details|zebra|edges|silhouette|sheet &lt;asset&gt; [...]</code></td><td>A built asset's detail at hero distance: close-ups, look-dev, shot-list details, dents (zebra), edge rounds, outlines against the reference, and the presentation sheet.</td></tr>
+    <tr data-group="3d"><td><code>family &lt;name&gt; [--build dir]</code></td><td>Check which sides of a snap-module family meet with no seam.</td></tr>
+    <tr data-group="3d"><td><code>design direction|maker|explore|review &lt;Piece&gt; [...]</code></td><td>Creative direction: direction doc, maker language, silhouette exploration, build review.</td></tr>
+    <tr data-group="3d"><td><code>study &lt;asset&gt; [--new | --reroute]</code></td><td>Reference study before the shape: every reference read, your version decided, lessons cited.</td></tr>
+    <tr data-group="3d"><td><code>sheet &lt;asset&gt; [--check] [--out file.png]</code></td><td>The model sheet you approve before any shape: traced views, hero features boxed, palette.</td></tr>
+    <tr data-group="3d"><td><code>blockout &lt;asset&gt; [--again] [--check] [--out file.png]</code></td><td>The blockout you approve before detail or bake: clay views, scale beside an R6 character.</td></tr>
+    <tr data-group="3d"><td><code>sharpen &lt;part.glb&gt; --about "what it is" [...]</code></td><td>Sharpen a generated part's soft surface view by view, projected back as colour and normal maps. It cannot fix a shape.</td></tr>
+    <tr data-group="3d"><td><code>pack &lt;asset&gt; [object|size|colours|time ...]</code></td><td>The asset's pack: every module's result in one place for the build to read.</td></tr>
+    <tr data-group="3d"><td><code>dossier new "object" --category c [...] | dossier "object" | dossier source|fact|part|tell|marking|add|images|check|sheet|review|approve ...</code></td><td>The object dossier: every fact graded from its sources, the anatomy, pictures and models reviewed.</td></tr>
+    <tr data-group="3d"><td><code>make &lt;name&gt; "object" [--tier prop|complex|hero] [--private] [...]</code></td><td>Run every stage of the 3D pipeline inside a hard time budget; report in <code>build/make/&lt;name&gt;/</code>.</td></tr>
+    <tr data-group="3d"><td><code>make-gate &lt;name&gt; &lt;sheet|blockout&gt; [--tier complex|hero|aaa]</code></td><td><code>make</code>'s stop: have you approved this piece's model sheet or blockout as it is now?</td></tr>
+    <tr data-group="3d"><td><code>trim-stale [--dir folder]</code></td><td>List models laid into a trim sheet that has been rebuilt since.</td></tr>
+    <tr data-group="3d"><td><code>schematic &lt;asset&gt;</code></td><td>Blueprint sheets for a mechanism: orthographic, section, exploded and motion.</td></tr>
+    <tr data-group="3d"><td><code>trace &lt;image&gt; --name &lt;outline&gt; [...]</code></td><td>Trace a reference view into the outline a build extrudes.</td></tr>
+    <tr data-group="3d"><td><code>vision setup|doctor|serve|edges|cutout|depth|mask|similar|differ|view|relief|parts|albedo|vectorize|upscale|light|concept|angle|edit [...]</code></td><td>Local vision models: edges, cutout, depth, look-alike, colour, vectorise, upscale, lighting, concept sheets, new angles and edits.</td></tr>
+    <tr data-group="3d"><td><code>accept &lt;asset&gt; ["words"] [--lower]</code></td><td>Lock the approved build as a regression floor; a later build more than 2 raw points below it fails.</td></tr>
+    <tr data-group="3d"><td><code>refs find|expand|dims|colour|patent|profiles|crop|rank|pick|measure|hull|rectify|views|coverage|parts|outline|detail|inlays|inventory|redraw|frames|read|font|edges ...</code></td><td>Reference tools: find free-licensed pictures and 3D models, measure, crop, rank and pick.</td></tr>
+    <tr data-group="3d"><td><code>library find "object" | library get &lt;uid&gt; | library inspect &lt;uid|model&gt; --name &lt;name&gt; [...]</code></td><td>Find and download licensed reference models (Sketchfab, Smithsonian) and inspect their parts.</td></tr>
+    <tr data-group="3d"><td><code>learn &lt;inspection|name&gt; --category c [--roles "Part=role"] | learn remove &lt;name&gt; --category c</code></td><td>Add (or remove) a dissected reference model in the kit's knowledge of a category.</td></tr>
+    <tr data-group="3d"><td><code>learned show &lt;category&gt; | learned compare &lt;inspection|name&gt; --category c</code></td><td>Show what the kit has learned about a category from real models, or compare a build with it.</td></tr>
+    <tr data-group="3d"><td><code>judge &lt;asset&gt; [--record] [--score] [--pair] [--tally]</code></td><td>The verifier: per view, a reference crop beside a model crop, one difference and one edit for a fresh reviewer.</td></tr>
+    <!-- VFX -->
+    <tr data-group="vfx"><td><code>vfx [name ...]</code></td><td>Build VFX presets: Blender renders, textures, gate.</td></tr>
+    <tr data-group="vfx"><td><code>vfx breakdown &lt;set&gt; --clip &lt;file&gt; [--fps 2] | vfx breakdown &lt;set&gt; --dense [--beat N]</code></td><td>Break a reference clip into per-beat frames.</td></tr>
+    <tr data-group="vfx"><td><code>vfx chart &lt;set&gt; [--key N] [--test png|mp4@s]</code></td><td>The beat chart: every beat on the clock beside its scene frame, with one test frame of the key beat.</td></tr>
+    <tr data-group="vfx"><td><code>vfx bar &lt;style&gt; &lt;clip&gt; [--from s --to s] [--approved] | vfx measure &lt;name&gt; --vs-bar &lt;style&gt;</code></td><td>The bar: measure an effect against reference clips you named (never a score).</td></tr>
+    <tr data-group="vfx"><td><code>vfx evolve &lt;name&gt; [--sheet | --pick K "words"]</code></td><td>A round of variants of a preset; you pick, and your picks steer the next round.</td></tr>
+    <tr data-group="vfx"><td><code>vfx cost &lt;name&gt;</code></td><td>A preset's cost line, from measured engine facts.</td></tr>
+    <tr data-group="vfx"><td><code>vfx play &lt;name&gt; [--record] [--variant v]</code></td><td>Serve the browser effect player (full frame rate, metrics; <code>--record</code> = mp4 + metrics gate).</td></tr>
+    <tr data-group="vfx"><td><code>vfx dailies &lt;name&gt; [--view v] [--beat N] [--frames 12]</code></td><td>The scene's frames above the effect's at the same moments from the hit.</td></tr>
+    <tr data-group="vfx"><td><code>vfx stylesheet &lt;name&gt; [--view v]</code></td><td>The style sheet for an effect (approved with <code>approve vfx ... --stage style</code>).</td></tr>
+    <tr data-group="vfx"><td><code>vfx fracture &lt;name&gt; --size w,d[,h] [--shape slab|disc] [--pieces 14] [--impact x,z]</code></td><td>Break a slab or disc into its own pieces for a destruction effect.</td></tr>
+    <tr data-group="vfx"><td><code>vfx flare [--light x,y] [--ghosts 5] [--streak 0.6] [--squeeze 1.6]</code></td><td>Draw where a lens flare's glow, streak and ghosts fall for a light.</td></tr>
+    <tr data-group="vfx"><td><code>vfx settle &lt;plan&gt; [--life 2.5] [--gravity 120] [--speed 30]</code></td><td>When the last fractured piece comes to rest.</td></tr>
+    <tr data-group="vfx"><td><code>vfx field &lt;name&gt; [--new vortex|wind|fountain|path]</code></td><td>Create or update an authored particle field.</td></tr>
+    <tr data-group="vfx"><td><code>vfx forced [--ref 40] [--keep 1] [--at 10,40,160]</code></td><td>Print what forced perspective does to a mesh's screen size at each distance.</td></tr>
+    <tr data-group="vfx"><td><code>vfx comp &lt;key&gt; [--new ring|skin|blobs|branches|map] | vfx dissolve &lt;key&gt; --from &lt;texture|plain&gt; [...]</code></td><td>Try a surface look as a comp sheet in seconds; bake a break-up (dissolve) sheet.</td></tr>
+    <tr data-group="vfx"><td><code>vfx methods ["words" | --set &lt;set&gt; [--beat N --use id,id --not id="why"]]</code></td><td>List the method catalog, or plan which methods a set's beats use.</td></tr>
+    <tr data-group="vfx"><td><code>vfx migrate [name ...] [--apply] [--judged "words"]</code></td><td>List what each preset carries that the current caps refuse; <code>--apply</code> fixes it in place (a piece you judged only with your words).</td></tr>
+    <tr data-group="vfx"><td><code>vfx impostor &lt;sim&gt; [--angles 8..16] [--light side]</code></td><td>One simulated cloud seen from a ring of 8 to 16 angles, as impostor flipbooks.</td></tr>
+    <tr data-group="vfx"><td><code>vfx track &lt;set&gt; | vfx trace &lt;set&gt; | vfx ink &lt;key&gt; --from &lt;trace.json&gt; [...]</code></td><td>Track and trace a reference set's beats; ink a trace's drawings again as a sheet.</td></tr>
+    <tr data-group="vfx"><td><code>vfx booth &lt;name&gt;</code></td><td>Capture a preset in the real Roblox engine (the VFX route builds effects in the browser player instead).</td></tr>
+    <tr data-group="vfx"><td><code>vfx judge &lt;name&gt; [--record f]</code></td><td>The verifier: scene frame against render per beat, one difference and one edit.</td></tr>
+    <tr data-group="vfx"><td><code>vfx refs &lt;name&gt; &lt;url|file&gt; ...</code></td><td>Add reference stills to an effect, with their sources logged.</td></tr>
+    <tr data-group="vfx"><td><code>vfx import &lt;dir&gt; --prefix p</code></td><td>Turn a vetted sprite pack into texture specs.</td></tr>
+    <tr data-group="vfx"><td><code>vfx expand &lt;name&gt; [--variant v] [--check]</code></td><td>Expand a preset (or one variant); <code>--check</code> runs the gate's own checks on that one preset.</td></tr>
+    <tr data-group="vfx"><td><code>vfx vault check|list|find "words"|get &lt;effect&gt; --as &lt;new&gt;|verdict &lt;effect&gt; "words"</code></td><td>The VFX library: health, list, find, copy an effect, record a verdict.</td></tr>
+    <!-- Animation -->
+    <tr data-group="anim"><td><code>anim [Name ...] [--no-look]</code></td><td>Compile <code>assets/animations/*.json</code> or <code>*.blend</code> into clips, R6 + R15 KeyframeSequences, a time strip and motion gates.</td></tr>
+    <tr data-group="anim"><td><code>anim sheet &lt;Name&gt; [--dossier move] [--clip clip.json]</code></td><td>Key poses large on the rig beside the dossier's reference frames, with 12-fps strips.</td></tr>
+    <tr data-group="anim"><td><code>anim timing &lt;Name&gt; [--clip clip.json] [--move move.json | --no-move]</code></td><td>Timing strip for a move.</td></tr>
+    <tr data-group="anim"><td><code>anim prop &lt;Prop&gt;</code></td><td>Prop animation build.</td></tr>
+    <tr data-group="anim"><td><code>anim match pose|distance|motion &lt;clip.json ...&gt; --out &lt;table&gt;</code></td><td>Measure how closely candidates match a reference on pose, distance or motion.</td></tr>
+    <tr data-group="anim"><td><code>anim design &lt;Set&gt; [--new --attacks n | --from moves | --approve "words" --by owner --id id | --state]</code></td><td>Design a move set: create, review and approve the design.</td></tr>
+    <tr data-group="anim"><td><code>anim block &lt;Move&gt; --sheet [...] | --note | --approve "words" --by owner --id id | --state | --check</code></td><td>Blocking: key poses held at the move's timing for you to approve; <code>--check</code> compares the finished clip with them.</td></tr>
+    <tr data-group="anim"><td><code>anim rig --probe | --from &lt;dump&gt; | &lt;rig&gt; --blend</code></td><td>Engine rig data, a rig from a dump, or a rig as a .blend.</td></tr>
+    <tr data-group="anim"><td><code>anim blend &lt;Name&gt; [--preview]</code></td><td>A spec's keys or a gait's clip as an animator's .blend.</td></tr>
+    <tr data-group="anim"><td><code>anim bake &lt;Name&gt;</code></td><td>Bake a .blend into the clip.</td></tr>
+    <tr data-group="anim"><td><code>anim look &lt;Name&gt; [--rig R6] [--stop]</code></td><td>Render the clip in Blender as a person judges it (a GIF and a sheet); <code>--studio</code> bundles a Studio probe instead.</td></tr>
+    <tr data-group="anim"><td><code>anim measure &lt;Name&gt; [--vs Other]</code></td><td>What the clip does in numbers; <code>--vs</code> gives the distance between two clips.</td></tr>
+    <tr data-group="anim"><td><code>anim fit &lt;Name&gt; --to &lt;Reference&gt;</code></td><td>Set an R6 gait's parameters from a reference clip's measured curves.</td></tr>
+    <tr data-group="anim"><td><code>anim rearm &lt;Name&gt; --from &lt;Clip&gt;</code></td><td>Put a weapon into a finished R6 clip: both arms on the hilt, Hits re-timed to the tip.</td></tr>
+    <tr data-group="anim"><td><code>anim feel &lt;Name&gt; --from &lt;Clip&gt;</code></td><td>The feel pass on a finished body: anticipation, strike snap, hitstop, overshoot and settle, slow recovery.</td></tr>
+    <tr data-group="anim"><td><code>anim new &lt;Name&gt; --pose | --cycle &lt;kind&gt; | --strike &lt;kind&gt;</code></td><td>A new animation: key poses on your rig, a locomotion cycle from an approved clip's poses, or an authored R6 strike.</td></tr>
+    <tr data-group="anim"><td><code>anim edit &lt;Name&gt;</code></td><td>Turn a posed file into an editable .blend, which becomes the source.</td></tr>
+    <tr data-group="anim"><td><code>anim profile &lt;Name&gt; [--vs Ref]</code></td><td>The craft numbers of an R6 clip; <code>--vs</code> states every gap to an approved reference.</td></tr>
+    <tr data-group="anim"><td><code>anim pose-from &lt;Ref&gt; --as &lt;Name&gt;</code></td><td>A finished R6 clip as editable key poses on your rig.</td></tr>
+    <tr data-group="anim"><td><code>anim derive &lt;Name&gt;</code></td><td>A new animation from loved clips' curves, by a recipe (retime, amplify, mirror, blend and more).</td></tr>
+    <tr data-group="anim"><td><code>anim snaps &lt;Name&gt;</code></td><td>Find single frames that jump much further than their neighbours.</td></tr>
+    <tr data-group="anim"><td><code>anim book</code></td><td>The style book: every R6 clip measured with one ruler beside your verdicts.</td></tr>
+    <tr data-group="anim"><td><code>anim verdict &lt;Name&gt; &lt;word&gt;</code></td><td>Record your word on a clip.</td></tr>
+    <tr data-group="anim"><td><code>anim moveset &lt;Set&gt;</code></td><td>Check a moveset as one thing: chain seams, guard, tempo, snaps, a contact sheet.</td></tr>
+    <tr data-group="anim"><td><code>anim sil &lt;Name&gt; [--vs Ref]</code></td><td>Flat silhouettes and hand and foot arcs, with the reference underneath.</td></tr>
+    <tr data-group="anim"><td><code>anim keys &lt;Name&gt; --from &lt;Reference&gt;</code></td><td>A finished reference's body as editable technique keys.</td></tr>
+    <tr data-group="anim"><td><code>anim play &lt;Name&gt; | anim record &lt;Name&gt; &lt;file&gt;</code></td><td>Bundle the Studio probe that plays the clip and reports every joint; <code>record</code> compares that report with the clip.</td></tr>
+    <tr data-group="anim"><td><code>anim judge &lt;Name&gt; [--record file]</code></td><td>A packet for a fresh reviewer; <code>--record</code> validates and keeps the verdict.</td></tr>
+    <!-- Worlds -->
+    <tr data-group="world"><td><code>world [--no-look] | world check|look|studio|terrain|web [...]</code></td><td>Compile world blueprints into <code>Workspace.KitWorld</code>, run the gates, and render station views; the sub-commands prove it plays and show it.</td></tr>
+    <!-- Interfaces -->
+    <tr data-group="ui"><td><code>ui [Screen ...] [--motion]</code></td><td>Compile <code>assets/ui/*.json</code>: gates, build, phone/tablet/desktop previews.</td></tr>
+    <tr data-group="ui"><td><code>ui fonts</code></td><td>Fetch the real font faces the screens name (vetted, pinned) so previews draw what the player sees.</td></tr>
+    <tr data-group="ui"><td><code>ui identities</code></td><td>List every visual identity with its fonts, references and plates, and report broken ones.</td></tr>
+    <tr data-group="ui"><td><code>ui plan &lt;Screen&gt;</code></td><td>The stage board for a screen.</td></tr>
+    <tr data-group="ui"><td><code>ui look &lt;Screen&gt; "seen"</code></td><td>Record what you saw in the look step.</td></tr>
+    <tr data-group="ui"><td><code>ui judge &lt;Screen ...&gt; [--record v.json] [--owner score "words"]</code></td><td>Two fresh judges; <code>--owner</code> keeps your verdict as the anchor.</td></tr>
+    <tr data-group="ui"><td><code>ui reel &lt;Screen&gt;</code></td><td>Gameplay motion as a GIF from <code>&lt;Screen&gt;.reel.json</code>.</td></tr>
+    <tr data-group="ui"><td><code>ui booth &lt;Screen&gt;</code></td><td>The screen in Studio.</td></tr>
+    <tr data-group="ui"><td><code>ui refs &lt;identity&gt; "game" "words"</code></td><td>Gather real reference stills for an identity into a candidates folder with a contact sheet.</td></tr>
+    <tr data-group="ui"><td><code>ui measure &lt;still&gt;</code></td><td>Measure a reference still by script: colour shares, the accent field, masses.</td></tr>
+    <tr data-group="ui"><td><code>ui read &lt;still&gt; [--crops] [--draft Screen] | ui read motion|type|rank ...</code></td><td>Name and box the interface pieces of a game still; rank reference candidates.</td></tr>
+    <tr data-group="ui"><td><code>ui spin &lt;id&gt;/&lt;piece&gt; [--material gold]</code></td><td>Turn a flat piece into a bevelled 3D mesh that spins: flipbook, sprite sheet and FBX.</td></tr>
+    <tr data-group="ui"><td><code>ui icon find "words" | ui icon make &lt;id&gt;/&lt;piece&gt; --icon &lt;name&gt;</code></td><td>Find or make a UI icon.</td></tr>
+    <tr data-group="ui"><td><code>ui identity &lt;id&gt; --from refs</code></td><td>An identity draft from measured references.</td></tr>
+    <tr data-group="ui"><td><code>ui ink &lt;id&gt;/&lt;piece&gt; --from &lt;picture&gt; [--mode ink|cel|icon]</code></td><td>Ink a real picture into flat art in the identity's grammar.</td></tr>
+    <tr data-group="ui"><td><code>ui letter &lt;id&gt;/&lt;piece&gt; --text ... [--style persona]</code></td><td>Flat cut lettering from real pinned fonts.</td></tr>
+    <tr data-group="ui"><td><code>ui smear &lt;id&gt;/&lt;piece&gt; --from &lt;picture&gt; [--split]</code></td><td>A smear of a real picture: its pixels dragged into a trail, echo frames, speed lines.</td></tr>
+    <tr data-group="ui"><td><code>ui render &lt;id&gt;/&lt;piece&gt;</code></td><td>Render a UI piece in Blender (chrome logotypes, lit plates).</td></tr>
+    <tr data-group="ui"><td><code>ui trace &lt;id&gt;/&lt;piece&gt; --from &lt;still&gt;</code></td><td>Trace a piece from a reference picture.</td></tr>
+    <tr data-group="ui"><td><code>ui gauge &lt;Screen&gt;</code></td><td>Build an ornate gauge HUD from its small spec (<code>&lt;Screen&gt;.gauge.json</code>).</td></tr>
+    <tr data-group="ui"><td><code>ui find "words"</code></td><td>Search the proven-piece bank.</td></tr>
+    <tr data-group="ui"><td><code>ui bundle &lt;Screen&gt;</code></td><td>A compiled screen as a Studio script, to see it in the engine before anything uploads.</td></tr>
+    <tr data-group="ui"><td><code>ui hudsize [Hud]</code></td><td>Measure a HUD written as game code against its reference.</td></tr>
+    <!-- Sound -->
+    <tr data-group="sfx"><td><code>sfx &lt;name|all&gt;</code></td><td>Render <code>assets/sounds/&lt;name&gt;.json</code> to OGG, run the audio gate and numeric ears.</td></tr>
+    <tr data-group="sfx"><td><code>sfx sheet|set|listen|av|match|find|index|identity|modal|mix|catalog [...]</code></td><td>The rest of the sound pipeline (<code>kit/cmd/sfx.luau</code>).</td></tr>
+    <tr data-group="sfx"><td><code>audio-check &lt;file|dir&gt;</code></td><td>Run the Roblox audio gate and numeric ears on any sound file.</td></tr>
+    <!-- Code & QA -->
+    <tr data-group="code"><td><code>verify [--continue]</code></td><td>The full gate: format → selene → types → tests → VFX → UI → world → moves → contract → anim → models → audit → build, Python tests beside them.</td></tr>
+    <tr data-group="code"><td><code>test [kit|project]</code></td><td>Run every <code>*.spec.luau</code> under frktest.</td></tr>
+    <tr data-group="code"><td><code>format</code></td><td>Auto-format all Luau (StyLua).</td></tr>
+    <tr data-group="code"><td><code>lint</code></td><td>Format check + Selene + types.</td></tr>
+    <tr data-group="code"><td><code>build</code></td><td>Rojo sourcemap and <code>build/place.rbxlx</code>.</td></tr>
+    <tr data-group="code"><td><code>add [name]</code></td><td>Install a vetted library (pinned). No name lists the catalog.</td></tr>
+    <tr data-group="code"><td><code>docs &lt;words | Class.member&gt; [--k 6]</code></td><td>Search the Roblox Engine API reference locally.</td></tr>
+    <tr data-group="code"><td><code>net [--check]</code></td><td>Generate remotes from <code>assets/net/</code> schemas: every client argument rate-limited and Guard-checked.</td></tr>
+    <tr data-group="code"><td><code>fuzz [Name|path ...]</code></td><td>Hostile input at every function of <code>src/shared</code> modules.</td></tr>
+    <tr data-group="code"><td><code>mutate [Name|path ...] [--max 80] | mutate --regressions [file.json]</code></td><td>Mutation testing: plant one bug at a time, run the specs, fail on survivors.</td></tr>
+    <tr data-group="code"><td><code>bug "what" --spec ... --module ... --line "..." --from "..." --to "..."</code></td><td>Record a fixed bug as a regression case in <code>tests/regressions.json</code>.</td></tr>
+    <tr data-group="code"><td><code>move [Set]</code></td><td>Moves as data: validate move JSONs and render <code>build/moves/&lt;Set&gt;.png</code>.</td></tr>
+    <tr data-group="code"><td><code>audit</code></td><td>Security audit: remote handlers checked for unvalidated arguments, <code>src/</code> scanned for backdoor patterns.</td></tr>
+    <tr data-group="code"><td><code>playtest list|place|bundle &lt;name&gt;|run &lt;name&gt; [--studio id]|record &lt;name&gt; &lt;file&gt;</code></td><td>In-engine playtest scenarios run through the Studio MCP.</td></tr>
+    <tr data-group="code"><td><code>selftest [--lane &lt;lane&gt;[,...]] [--changed] [--no-cache | --cache]</code></td><td>Feed every content gate a bad fixture; pass when all were caught.</td></tr>
+    <!-- Checking & proof -->
+    <tr data-group="check"><td><code>prove [--ref sha] [--selftest] [--prepare] [--reuse-anim] [--dir path]</code></td><td>Prove the committed tree: check HEAD out into a sandbox, run <code>verify</code> (and optionally <code>selftest</code>), show the verdict in <code>status</code>.</td></tr>
+    <tr data-group="check"><td><code>accept &lt;vfx|screen|sound|world|anim|system&gt; &lt;name&gt;</code></td><td>Lock an approved build of another kind as a regression floor (<code>verify</code> holds it).</td></tr>
+    <tr data-group="check"><td><code>checks list|run|validate &lt;lane&gt; [target] [--dry]</code></td><td>Your recurring words as checks on the work: list, run or test them against your verdicts.</td></tr>
+    <!-- Learning -->
+    <tr data-group="learning"><td><code>lesson &lt;area&gt; "what you learned" [--gist "fix"] [--stage s] [--family f]</code></td><td>Record a non-obvious lesson for every future session (at most 1,200 characters).</td></tr>
+    <tr data-group="learning"><td><code>lesson used &lt;id,...&gt; --piece &lt;kind&gt; &lt;name&gt;</code></td><td>Name the lessons you applied to a piece; your verdict later credits them.</td></tr>
+    <tr data-group="learning"><td><code>lessons [area] [words...] [--stage s] [--all] [--n 25]</code></td><td>Read lessons: newest 25 per area, or those naming every given word.</td></tr>
+    <tr data-group="learning"><td><code>answer &lt;vfx|ui|anim|sfx|world&gt; &lt;name&gt; [--show | --reroute]</code></td><td>Write and check the lessons sheet for a new piece.</td></tr>
+    <tr data-group="learning"><td><code>promote &lt;asset|sound|vfx|screen|world|anim&gt; &lt;name&gt; --about "one line" [--force]</code></td><td>Add proven content to the example library every project can start from.</td></tr>
+    <tr data-group="learning"><td><code>vault check|page &lt;dept&gt; [--full] [--budget N]|index|grave|golden|distil|sync|prune-verdicts|calibrate|garden [dept]</code></td><td>The knowledge vault: health, pages, rows, rules, sync and pruning.</td></tr>
+    <tr data-group="learning"><td><code>clock &lt;vfx|ui|anim|sfx|world|3d&gt; &lt;name&gt; --extend &lt;minutes&gt; "words" | --restart "words"</code></td><td>Extend or restart a piece's time budget with your words.</td></tr>
+    <!-- Install & update -->
+    <tr data-group="kit"><td><code>harness [--check]</code></td><td>Keep the git hooks and every connected AI client's config and guard hooks in step; remove what older kits wrote.</td></tr>
+    <tr data-group="kit"><td><code>install &lt;path&gt; [--update]</code></td><td>Copy the kit into another project and run its init.</td></tr>
+    <tr data-group="kit"><td><code>update &lt;path&gt; [--force]</code></td><td>Refresh the kit in another project (kit-owned files only).</td></tr>
+    <tr data-group="kit"><td><code>version</code></td><td>Print the kit version.</td></tr>
+    <tr data-group="kit"><td><code>sync [--force]</code></td><td>Pull the latest kit, lessons and examples from the kit's home into this project.</td></tr>
+    <tr data-group="kit"><td><code>upgrade [--check] [--tag vX.Y.Z] [--from tarball.tar.gz [--sha256 hex|file]] [--force] [--allow-dirty]</code></td><td>Update the kit from a GitHub release without a local clone.</td></tr>
+    <tr data-group="kit"><td><code>moderation check [file ...] | moderation clear &lt;file&gt; "words" --by owner|governor</code></td><td>Screen files for what Roblox moderation could flag; clear a verdict.</td></tr>
+    <tr data-group="kit"><td><code>upload [--dry-run] [--status] [--adopt] [--only text] [--except text] [--force] [--studio]</code></td><td>Upload every built asset to Roblox through the Studio MCP; every file is screened first.</td></tr>
+    <tr data-group="kit"><td><code>upload --record &lt;file&gt; &lt;assetId&gt; | upload --pending</code></td><td>Store a returned asset id, or show what is left in the upload plan.</td></tr>
+    <tr data-group="kit"><td><code>tools doctor [--deep] | tools setup [kit-python|mitsuba|cad] [--check]</code></td><td>Check or install pinned optional tools.</td></tr>
+  </tbody>
+</table>
+<div class="note"><span class="callout-title">Note</span><p>Some lane sub-commands are documented in the lane's skill page rather than in the CLI help, for example the VFX simulations <code>vfx cloth</code>, <code>soft</code>, <code>sand</code>, <code>hair</code>, <code>geonodes</code>, <code>water</code>, <code>liquid</code> and <code>points</code>. Print a lane's skill with <code>lune run parallax skill &lt;lane&gt;</code>.</p></div>
+</section>
+
+<section>
+<h2 id="exit-codes">Exit codes</h2>
+<table>
+  <thead><tr><th>Code</th><th>Meaning</th></tr></thead>
+  <tbody>
+    <tr><td><code>0</code></td><td>Pass: the command succeeded.</td></tr>
+    <tr><td><code>1</code></td><td>Lint: format check, Selene, types or the security audit failed.</td></tr>
+    <tr><td><code>2</code></td><td>Tests: a Luau spec or a Python test failed.</td></tr>
+    <tr><td><code>3</code></td><td>Build: the Rojo build or sourcemap failed.</td></tr>
+    <tr><td><code>4</code></td><td>Playtest: an in-engine scenario failed.</td></tr>
+    <tr><td><code>5</code></td><td>Toolchain: a required tool is missing.</td></tr>
+    <tr><td><code>6</code></td><td>Content gate: a pipeline gate refused the content, or the Parallax gate refused the command.</td></tr>
+    <tr><td><code>7</code></td><td>Usage: the command was called with invalid arguments.</td></tr>
+  </tbody>
+</table>
+<p>The client guard hook is separate: it uses Claude Code's own codes, where <code>2</code> means blocked.</p>
+</section>
+
+</main>
+<aside class="toc"></aside>
+</div>
+<div id="site-footer"></div>
+<!-- sources: scratchpad/site/work/help_all.txt, kit/cmd/anim.luau, kit/cmd/content.luau, kit/cmd/work.luau, kit/cmd/prompt.luau, kit/cmd/core.luau, kit/cmd/learn.luau, kit/refs/dossier.py, kit/vfx/bar.py, kit/vfx/cost.py, kit/vfx/impostor.py, kit/vfx/flare.py, kit/skills/parallax-vfx/SKILL.md, kit/skills/parallax-vfx/reference/14-caps-enforced.md, kit/lib/run.luau, kit/lib/enforcer.luau, kit/scripts/parallax_guard.py -->
+</body>
+</html>

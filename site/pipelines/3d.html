@@ -1,0 +1,475 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>3D Models · Parallax</title>
+<meta name="description" content="How the Parallax 3D pipeline turns references and budgets into game-ready Roblox meshes in one planned pass through 10 stages.">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/app.js" defer></script>
+</head>
+<body data-root="../" data-page="lane-3d">
+<div id="site-header"></div>
+<div class="layout">
+<aside class="sidebar"></aside>
+<main class="content">
+
+<nav class="lane-nav" aria-label="Pipelines">
+  <a href="3d.html" class="active">3D models</a><a href="vfx.html">Visual effects</a><a href="anim.html">Animation</a><a href="world.html">Worlds</a>
+  <a href="ui.html">Interfaces</a><a href="sfx.html">Sound</a><a href="code.html">Gameplay systems</a><a href="qa.html">QA</a>
+</nav>
+
+<header class="page-head">
+  <p class="eyebrow">Pipelines</p>
+  <h1>3D Models</h1>
+  <p class="lead">The 3D pipeline builds game-ready meshes — weapons, props, vehicles, creatures, building pieces — for Roblox in one planned pass. It starts from real references and sourced sizes, routes each part through the right tool (CAD for machined parts, generators for organic drafts), and ends with an optimised asset. Complex and hero pieces stop twice for your approval; props do not.</p>
+  <div class="meta-row">
+    <span class="badge tier">Tier 1+</span>
+    <span class="badge lock">2 approvals (sheet, blockout)</span>
+    <span class="badge">10 / 30 / 60 min clock</span>
+    <span class="badge">10 stages</span>
+  </div>
+</header>
+
+<section>
+<h2 id="at-a-glance">At a glance</h2>
+<dl class="specs">
+  <dt>Makes</dt>
+  <dd>Weapons, props, vehicles, creatures, and building pieces. Each asset is a Rojo model (<code>.model.json</code>) ready to spawn in Studio, plus a game-optimised low-poly mesh baked from the high.</dd>
+  <dt>Hardware</dt>
+  <dd>
+    <span class="badge tier">Tier 1</span> Blender 5.2 and the OpenCASCADE CAD environment are required for all builds.<br>
+    <span class="badge tier">Tier 2</span> Light vision models (cut-outs, depth, similarity) for reference work and coverage checks.<br>
+    <span class="badge tier">Tier 3</span> Local VLM (<code>qwen3-vl-4b</code>) for reference inventory and engraved-text reading.<br>
+    <span class="badge tier">Tier 4</span> 3D draft generators (TRELLIS.2, Pixal3D, Hunyuan3D-2mv, PartCrafter) for organic-part drafts only.
+  </dd>
+  <dt>Your approvals</dt>
+  <dd>Two hard stops for a complex or hero asset: the <strong>model sheet</strong> (every hero feature drawn with sourced sizes, before any build) and the <strong>blockout</strong> (big shapes in clay, before any detail or bake). Props skip both.</dd>
+  <dt>Clock</dt>
+  <dd>Prop: 10 min · Complex: 30 min · Hero: 60 min of build time per attempt. The clock starts at the first build. Past budget, nothing new is built until you reopen it with your words (<code>kit plan &lt;name&gt; --extend &lt;min&gt; "&lt;your words&gt;"</code>, or <code>--restart "&lt;your words&gt;"</code> for a new attempt).</dd>
+  <dt>Results land in</dt>
+  <dd><code>build/renders/&lt;name&gt;.png</code> (six views + feature close-ups), <code>src/models/&lt;name&gt;.model.json</code> (Rojo model), and, after <code>lune run parallax upload</code>, the asset ids in <code>assets/</code> (<code>uploads.json</code> and the id files).</dd>
+</dl>
+</section>
+
+<section>
+<h2 id="flow">The flow in one line</h2>
+<div class="flow">
+  <span class="step">brief</span><span class="arrow">→</span>
+  <span class="step">gather + study</span><span class="arrow">→</span>
+  <span class="step lock">sheet (you approve)</span><span class="arrow">→</span>
+  <span class="step">draft (organic parts)</span><span class="arrow">→</span>
+  <span class="step lock">blockout (you approve)</span><span class="arrow">→</span>
+  <span class="step">shape</span><span class="arrow">→</span>
+  <span class="step">surface</span><span class="arrow">→</span>
+  <span class="step">mechanism</span><span class="arrow">→</span>
+  <span class="step">judge</span><span class="arrow">→</span>
+  <span class="step">ship</span>
+</div>
+<p>Props run this entire flow inside a single timed command (<code>kit make &lt;name&gt; "&lt;object&gt;" --tier prop</code>, ~6 min). Complex and hero assets stop at the two approval points and resume once you approve.</p>
+</section>
+
+<section>
+<h2 id="stages">The stages</h2>
+<button class="expand-all" data-expand-target="#stages-list">Expand all</button>
+<ol class="stages" id="stages-list">
+
+  <li>
+    <span class="num">0</span>
+    <details id="stage-brief">
+      <summary><span class="name">Brief</span> <span class="what">Define what it is, set its budget tier, list the hero features, and choose a build route per part.</span></summary>
+      <div class="body">
+        <p>The brief file (<code>&lt;name&gt;.brief.md</code>) records: what the asset is, its tier (prop / complex / hero), which features must work correctly, whose design it follows, and a parts plan — a build route for each part family (machined, organic, cloth, thin plate, and so on). The tier is the budget and the quality bar; it cannot be raised by editing the brief after a build has started.</p>
+        <pre><code>lune run parallax new asset &lt;snake&gt; [--from sword]</code></pre>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">1</span>
+    <details id="stage-gather">
+      <summary><span class="name">Gather</span> <span class="what">Collect every reference before any shape is made, then lock the route with a study.</span></summary>
+      <div class="body">
+        <p>This stage builds the asset's pack: a dossier of approved facts, sourced sizes, and pictures; two reference models graded for quality (noise, holes, missing detail); traced outlines for every view and part; and reference-model sections for hard-surface parts. Coverage must reach ≥ 2 px/mm per hero feature before you move on.</p>
+        <p>The pack ends with the <strong>study</strong>: you read each reference, decide what your version keeps, changes, adds as a signature, and sets as target numbers. Each matched vault lesson is applied or skipped with a written reason. The study locks the shape; changing the route later means answering every lesson again from scratch. Copied answers are rejected.</p>
+        <pre><code># dossier, reference models, traced views
+lune run parallax refs find "&lt;object&gt;"
+lune run parallax refs expand "&lt;idea&gt;"
+lune run parallax refs dims find "&lt;object&gt; [part]"
+lune run parallax refs patent &lt;D-number&gt;
+lune run parallax refs coverage &lt;name&gt;
+lune run parallax vision cutout &lt;picture&gt; --rgba
+lune run parallax vision upscale &lt;picture&gt; --x 4
+
+# lock the study (required before any build)
+lune run parallax study &lt;name&gt; --new</code></pre>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">2</span>
+    <details id="stage-sheet">
+      <summary><span class="name">Sheet</span> <span class="badge lock">you approve</span><span class="what">Draw the model sheet — every hero feature pictured, sized, and at ≥ 2 px/mm — before any build.</span></summary>
+      <div class="body">
+        <p>The model sheet is a single page that shows every view of the asset and, for each hero feature named in the brief, a cropped picture box, its sourced size, and confirmation that the box is at least 2 px/mm. It is refused while any hero feature is missing a box, a size, or falls below the coverage threshold.</p>
+        <p>Props skip the model sheet. For complex and hero assets the sheet must be approved before any 3D generator or build command will run.</p>
+        <p>Record your approval words exactly, because a changed sheet needs a new approval.</p>
+        <pre><code>lune run parallax sheet &lt;name&gt;
+lune run parallax approve 3d &lt;name&gt; "&lt;your words&gt;" --by owner --stage sheet</code></pre>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">3</span>
+    <details id="stage-draft">
+      <summary><span class="name">Draft</span> <span class="what">Run a local 3D generator for each organic part only, with the GPU otherwise idle.</span></summary>
+      <div class="body">
+        <p>Generators (TRELLIS.2, Pixal3D, Hunyuan3D-2mv, PartCrafter) are used as <em>look targets</em> for organic parts such as sculpted grips, creature bodies, ornament reliefs, and draped cloth. They are never used for a hero's hard-surface final mesh — a machined barrel, a slide, a housing. Each generated mesh must pass topology and side checks (<code>glb_topology</code>, <code>side_check</code>) before it enters the build.</p>
+        <p>Organic ornament also follows a picture-first route: redraw the reference crop large with the local image model, generate from that one picture, then check the shape against every view before adding any detail.</p>
+        <pre><code># draft generators (Tier 4 only)
+lune run parallax gen views &lt;name&gt; --view side=&lt;rgba.png&gt; --view front=&lt;rgba.png&gt;
+lune run parallax gen parts &lt;name&gt; --image &lt;picture&gt; --parts &lt;1-16&gt;</code></pre>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">4</span>
+    <details id="stage-blockout">
+      <summary><span class="name">Blockout</span> <span class="badge lock">you approve</span><span class="what">Build the big shapes only, as clay, and approve proportions before any detail or bake.</span></summary>
+      <div class="body">
+        <p>The blockout is a fast shape pass — no baking, no textures, no fine detail. It draws a blockout sheet from a shape round and shows proportions against the model sheet. You must approve the blockout before any detail work, baking, or surface pass will run.</p>
+        <p>Like the sheet, the approval holds for what you saw. A redrawn blockout needs a new approval.</p>
+        <pre><code>lune run parallax blockout &lt;name&gt;
+lune run parallax approve 3d &lt;name&gt; "&lt;your words&gt;" --by owner --stage blockout</code></pre>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">5</span>
+    <details id="stage-shape">
+      <summary><span class="name">Shape</span> <span class="what">Match every traced view to ≥ 0.9 and build each part by the method its plan names.</span></summary>
+      <div class="body">
+        <p>Every traced view is matched against the model using <code>a.trace_match</code>. A view must hit ≥ 0.9 or be explicitly excluded with a written reason; a hero with no traced view at all fails as "unmeasured". For hero hard-surface parts, cross-sections must be within ≤ 1.5 mm of a reference model.</p>
+        <p><strong>Part-by-part routes</strong> are enforced: the kit rejects a build if a part is not made by the method its plan declared. The main families:</p>
+        <ul>
+          <li><strong>Machined / hard-surface:</strong> CAD from mm profiles (<code>a.cad</code>, <code>rbx.profile</code>), fillets and booleans in OpenCASCADE, sections checked against a reference model.</li>
+          <li><strong>Organic ornament:</strong> a checked reference mesh as clay (<code>a.form_match</code>) or a per-part generator draft with relief.</li>
+          <li><strong>Cloth:</strong> <code>rbx_garment</code> drape simulation.</li>
+          <li><strong>Thin plates / rims:</strong> <code>s.strap</code>.</li>
+          <li><strong>Designed / fictional object from orthographic renders:</strong> trace the side view into parts, take widths from the top view, sections from the front view.</li>
+        </ul>
+        <p>Proportions are auto-fitted with CMA-ES (<code>kit fit</code>). Every traced view is opened and checked after each shape round — scoring alone is not enough.</p>
+        <pre><code>lune run parallax asset &lt;name&gt; --geo
+lune run parallax asset &lt;name&gt; --geo --only &lt;part&gt;
+lune run parallax cad check &lt;name&gt; [--only &lt;Part&gt;,&lt;Part&gt;]</code></pre>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">6</span>
+    <details id="stage-surface">
+      <summary><span class="name">Surface</span> <span class="what">Apply a material per part from sourced data, engrave markings at measured positions, add wear from use.</span></summary>
+      <div class="body">
+        <p>Every part gets a material with a data source (scanned texture, real-world values). Markings are engraved at positions measured from references. Wear follows the kind of use: <code>a.contact("hand"|"rub"|"ground"|"drip")</code> applies scratches, polish, rust streaks, or grime to the right surfaces. Dust lands on faces that point up.</p>
+        <p>Tertiary detail — rivets, screws, panel lines, knurling, grille, ornament reliefs — is stamped into the normal map (no extra triangles). Drawn ornament (scrollwork, filigree, crest lines) is authored from its own SVG or PNG into the same normal-map route. A texel narrower than the map can represent is flagged by the <code>stamp_texels</code> warning.</p>
+        <p>The game mesh (low-poly) is baked from the high-poly CAD solid. Each part bakes only from its own high, so no two parts trade normals. The texel density target is ≥ 1 texel per screen pixel at the asset's judging distance (1028 px/m for hero, 257 px/m for prop).</p>
+        <pre><code>lune run parallax asset &lt;name&gt;</code></pre>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">7</span>
+    <details id="stage-mechanism">
+      <summary><span class="name">Mechanism</span> <span class="what">Hero only: prove every joint moves without collision, then run the action cycle and disassembly.</span></summary>
+      <div class="body">
+        <p>This stage applies only to hero assets with moving parts. Each joint is checked through its full travel: no moving part sits inside another at rest, no barrel passes through a wall, no trigger is inside its housing. The check runs at five stops and reports which parts intersect and roughly where.</p>
+        <p>The action cycle (<code>a.cycle</code>) runs on the Blender timeline with every joint posed together. The disassembly (<code>a.disassembly</code>) separates every part cleanly.</p>
+        <pre><code>lune run parallax asset &lt;name&gt;</code></pre>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">8</span>
+    <details id="stage-judge">
+      <summary><span class="name">Judge</span> <span class="what">The verifier compares a reference crop to the render crop per view; one edit per round, up to 10 rounds, then your verdict.</span></summary>
+      <div class="body">
+        <p>The judge step renders the same camera crop from the reference photo and from the model, side by side, for every traced view. The session proposes one edit per round. After at most 10 rounds you give your verdict (<code>kit verdict asset &lt;name&gt; &lt;0-10&gt; "..."</code>).</p>
+        <p>Always open the renders yourself before giving a verdict — the pipeline's scores and green gates are not a substitute for looking at the actual images.</p>
+        <pre><code>lune run parallax judge &lt;name&gt;
+lune run parallax verdict asset &lt;name&gt; &lt;0-10&gt; "&lt;your words&gt;"</code></pre>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">9</span>
+    <details id="stage-ship">
+      <summary><span class="name">Ship</span> <span class="what">Build the game version, spawn it in Studio, and upload. Promote only on a verdict ≥ 7.</span></summary>
+      <div class="body">
+        <p><code>kit optimize</code> builds the game-ready low-poly mesh (prop budget: ≤ 5,500 triangles). It must spawn in Studio. Public assets are uploaded with <code>kit upload</code>: the Studio MCP sends each file (<code>open_cloud_invoke</code> with your Studio login), so no API key is required; with <code>ROBLOX_API_KEY</code> set, the kit uploads by itself. The ids are recorded in <code>assets/</code>.</p>
+        <p><code>kit promote asset &lt;name&gt; --about "..."</code> adds the asset to the kit's example library, but only on your verdict of 7 or above and a gate that passed after its last edit. <code>kit sync</code> pulls the kit's lessons and examples into a project.</p>
+        <pre><code>lune run parallax optimize &lt;name&gt;
+lune run parallax upload
+lune run parallax verdict asset &lt;name&gt; &lt;0-10&gt; "&lt;your words&gt;"</code></pre>
+      </div>
+    </details>
+  </li>
+
+</ol>
+</section>
+
+<section>
+<h2 id="gates">Gates</h2>
+<p>Gates run on every build (<code>lines_&lt;view&gt;</code> runs as its own step after it). Blocking gates refuse the build output. Warning gates report without stopping it.</p>
+
+<h3 id="gates-blocking">Blocking gates</h3>
+<table>
+  <thead><tr><th>Gate</th><th>What it measures</th><th>Threshold</th><th>Tier</th></tr></thead>
+  <tbody>
+    <tr><td>triangles (<code>tris</code>)</td><td>Triangle count per mesh.</td><td>≤ 20,000 tris</td><td>All</td></tr>
+    <tr><td>closed mesh (<code>manifold</code>)</td><td>No open edges (watertight solid).</td><td>0 open edges</td><td>All</td></tr>
+    <tr><td>UVs (<code>uv</code>)</td><td>UVs present on the game mesh.</td><td>Required</td><td>All</td></tr>
+    <tr><td>floating parts (<code>floating</code>)</td><td>No part disconnected from the assembly.</td><td>0 floating</td><td>All</td></tr>
+    <tr><td>size vs design (<code>size_vs_target</code>)</td><td>Asset dimensions within the brief's design sizes.</td><td>Within design</td><td>All</td></tr>
+    <tr><td><code>inside_out</code></td><td>No normals facing inward.</td><td>0 inside-out faces</td><td>All</td></tr>
+    <tr><td><code>cad_solid</code></td><td>Every CAD part is a valid, closed solid.</td><td>Valid, closed</td><td>All</td></tr>
+    <tr><td><code>quality_bar</code></td><td>Asset meets its tier's minimum quality level.</td><td>Tier-dependent</td><td>All</td></tr>
+    <tr><td>fresh review</td><td>A recent verifier pass exists.</td><td>Required</td><td>Hero / AAA</td></tr>
+    <tr><td><code>stage</code></td><td>Every traced view at the shape bar before detail is judged.</td><td>≥ 0.9 IoU or excluded with reason</td><td>Hero / AAA</td></tr>
+    <tr><td><code>coverage</code></td><td>Each hero feature has ≥ 2 px/mm in at least one picture.</td><td>≥ 2 px/mm</td><td>Hero / AAA</td></tr>
+    <tr><td><code>pbr_values</code></td><td>PBR roughness and metalness within physical range.</td><td>Valid range</td><td>Hero / AAA</td></tr>
+    <tr><td><code>part_visibility</code></td><td>Internal parts hidden; spec's visible flag enforced.</td><td>0 violations</td><td>Hero / AAA</td></tr>
+    <tr><td><code>fastener_support</code></td><td>Pins, screws, rivets pass through material (no spans in air).</td><td>0 mm span</td><td>Hero / AAA</td></tr>
+    <tr><td><code>mechanism</code></td><td>No moving part inside another at rest; full joint travel clear.</td><td>0 collisions</td><td>Hero / AAA</td></tr>
+    <tr><td><code>slivers</code></td><td>No thin shelves (parallel faces closer than ~1.5 mm).</td><td>~1.5 mm min</td><td>Hero / AAA</td></tr>
+    <tr><td><code>plate_support</code></td><td>Thin flat parts rest on host over ≥ 70% of their back.</td><td>≥ 70%</td><td>Hero / AAA</td></tr>
+    <tr><td><code>attach_gaps</code></td><td>No visible daylight where seated parts face their host.</td><td>0 gaps</td><td>Hero / AAA</td></tr>
+    <tr><td><code>marking_placement</code></td><td>Engraved text sits on one flat face of one part.</td><td>Required</td><td>Hero / AAA</td></tr>
+    <tr><td><code>lines_&lt;view&gt;</code></td><td>Model lines vs the reference photo's lines inside the outline (its own step after the build; skipped, and said so, without the vision models).</td><td>≥ 50% of photo's lines</td><td>Hero / AAA</td></tr>
+  </tbody>
+</table>
+
+<h3 id="gates-warning">Warning gates</h3>
+<table>
+  <thead><tr><th>Gate</th><th>What it measures</th><th>Threshold</th></tr></thead>
+  <tbody>
+    <tr><td><code>texel_bar</code></td><td>Texel density at the asset's judging distance.</td><td>1,028 px/m hero · 257 px/m prop</td></tr>
+    <tr><td><code>texture_roblox</code></td><td>Map resolution within what Roblox keeps.</td><td>≤ 4,096 px</td></tr>
+    <tr><td>buried parts</td><td>Parts hidden inside other parts without being marked internal.</td><td>0</td></tr>
+    <tr><td><code>palette</code></td><td>Colour count within palette limits.</td><td>—</td></tr>
+    <tr><td><code>symmetry</code></td><td>Mirrored parts that differ unexpectedly.</td><td>—</td></tr>
+    <tr><td><code>degenerate_faces</code></td><td>Zero-area or zero-length geometry.</td><td>0</td></tr>
+  </tbody>
+</table>
+</section>
+
+<section>
+<h2 id="io">Inputs and outputs</h2>
+<div class="tabs">
+  <div class="tab-list">
+    <button class="tab" data-tab="io-in" aria-selected="true">Inputs</button>
+    <button class="tab" data-tab="io-out">Outputs</button>
+    <button class="tab" data-tab="io-game">In the game</button>
+  </div>
+  <div class="tab-panel" data-panel="io-in" id="io-in">
+    <ul>
+      <li><code>assets/models/&lt;name&gt;.brief.md</code> — tier, hero features, parts plan, similar/from fields.</li>
+      <li>Dossier JSON — approved facts, source words, graded pictures and reference models.</li>
+      <li>Patent figures, turntable references, two reference <code>.glb</code> models.</li>
+      <li>Traced views (outline curves per view and per part).</li>
+      <li><code>refs/&lt;name&gt;.spec.json</code> — every part named, described, and attached.</li>
+      <li>Direction JSON (for original / fictional designs).</li>
+      <li><code>assets/plans/&lt;name&gt;.plan.json</code> — tool plan per part for heavy builds.</li>
+    </ul>
+  </div>
+  <div class="tab-panel" data-panel="io-out" id="io-out">
+    <ul>
+      <li><code>build/renders/&lt;name&gt;.png</code> — six views at ≥ 1,024 px each.</li>
+      <li><code>build/renders/&lt;name&gt;_lines_&lt;view&gt;.png</code> — reference / model / diff overlays.</li>
+      <li><code>build/renders/parts/&lt;name&gt;_parts_*.png</code> — per-part tiles in context and isolated.</li>
+      <li><code>build/judge/&lt;name&gt;/</code> — full judge packets with reference and render crops.</li>
+      <li><code>src/models/&lt;name&gt;.model.json</code> — Rojo model for Studio.</li>
+      <li>Uploaded Roblox asset ids in <code>assets/</code> (<code>uploads.json</code> and the id files).</li>
+      <li><code>&lt;name&gt;_high.blend</code> — full-detail Blender source beside the build.</li>
+    </ul>
+  </div>
+  <div class="tab-panel" data-panel="io-game" id="io-game">
+    <p><code>kit optimize</code> produces the game mesh (low-poly, baked normals, colour, roughness, metalness). It spawns in Studio via <code>kit showcase</code>. Upload it with <code>kit upload</code>: the Studio MCP's <code>open_cloud_invoke</code> sends each file, so no <code>ROBLOX_API_KEY</code> is required. The ids are stored in <code>assets/</code>, and <code>src/models/&lt;name&gt;.model.json</code> is rewritten so <code>Models.spawn("&lt;name&gt;")</code> builds the real model.</p>
+  </div>
+</div>
+</section>
+
+<section>
+<h2 id="tools">Tools and hardware</h2>
+<div class="chips" data-chip-target="#tools-table" data-chip-attr="data-tier">
+  <button class="chip active" data-value="all">All</button>
+  <button class="chip" data-value="tier-1">Tier 1</button>
+  <button class="chip" data-value="tier-2">Tier 2</button>
+  <button class="chip" data-value="tier-3">Tier 3</button>
+  <button class="chip" data-value="tier-4">Tier 4</button>
+</div>
+<table id="tools-table">
+  <thead><tr><th>Tool</th><th>Used for</th><th>Tier</th></tr></thead>
+  <tbody>
+    <tr data-tier="tier-1"><td>Blender 5.2</td><td>DCC host: Cycles bakes, shading, renders, UV unwrap, mesh work, the kit rig.</td><td><span class="badge tier">Tier 1</span></td></tr>
+    <tr data-tier="tier-1"><td>OpenCASCADE (<code>a.cad</code>)</td><td>CAD: profiles, fillets, booleans, revolves, sweeps, threads, chains, gems — for machined parts.</td><td><span class="badge tier">Tier 1</span></td></tr>
+    <tr data-tier="tier-1"><td>Mitsuba 3</td><td>Differentiable light fits: checks a scan's colour with its light taken out against photos under another light.</td><td><span class="badge tier">Tier 1</span></td></tr>
+    <tr data-tier="tier-2"><td>SAM 2.1 (<code>sam2.1-hiera-small</code>)</td><td>Part masks from a point or a box; cutting reference crops.</td><td><span class="badge tier">Tier 2</span></td></tr>
+    <tr data-tier="tier-2"><td>BiRefNet</td><td>Background cutout / object silhouette for reference images.</td><td><span class="badge tier">Tier 2</span></td></tr>
+    <tr data-tier="tier-2"><td>TEED</td><td>Edge map for <code>lines_&lt;view&gt;</code> gate (reference vs model).</td><td><span class="badge tier">Tier 2</span></td></tr>
+    <tr data-tier="tier-2"><td>SigLIP 2 (<code>siglip2-base</code>)</td><td>Perceptual similarity judge; view ranking for references.</td><td><span class="badge tier">Tier 2</span></td></tr>
+    <tr data-tier="tier-2"><td>DINOv2 (<code>dinov2-reg-small</code>)</td><td>Dense per-patch "where it differs" maps between render and reference.</td><td><span class="badge tier">Tier 2</span></td></tr>
+    <tr data-tier="tier-2"><td>Real-ESRGAN</td><td>4× upscale of reference crops before tracing.</td><td><span class="badge tier">Tier 2</span></td></tr>
+    <tr data-tier="tier-3"><td>Qwen3-VL-4B (<code>qwen3-vl-4b</code>)</td><td>Reference inventory: lists every visible detail with its bounding box; reads engraved text.</td><td><span class="badge tier">Tier 3</span></td></tr>
+    <tr data-tier="tier-3"><td>SAM 3</td><td>Part masks from a text prompt ("screw", "trigger") — all matches at once.</td><td><span class="badge tier">Tier 3</span></td></tr>
+    <tr data-tier="tier-4"><td>TRELLIS.2</td><td>Local 3D generator for organic-part drafts only (never hero hard-surface).</td><td><span class="badge tier">Tier 4</span></td></tr>
+    <tr data-tier="tier-4"><td>Pixal3D</td><td>Local 3D generator for organic-part drafts only.</td><td><span class="badge tier">Tier 4</span></td></tr>
+    <tr data-tier="tier-4"><td>Hunyuan3D-2mv</td><td>Local 3D generator for organic-part drafts only.</td><td><span class="badge tier">Tier 4</span></td></tr>
+    <tr data-tier="tier-4"><td>PartCrafter</td><td>Local 3D generator for organic-part drafts only.</td><td><span class="badge tier">Tier 4</span></td></tr>
+    <tr data-tier="tier-1"><td>CMA-ES (<code>kit fit</code>)</td><td>Auto-fit proportions to traced views.</td><td><span class="badge tier">Tier 1</span></td></tr>
+  </tbody>
+</table>
+</section>
+
+<section>
+<h2 id="commands">Commands</h2>
+<pre><code># ── Session start (required before any build) ──────────────────────────────
+lune run parallax start 3d --prompt "a sci-fi pistol"
+
+# ── Asset creation and navigation ─────────────────────────────────────────
+lune run parallax new asset &lt;snake&gt; [--from sword]
+lune run parallax plan &lt;name&gt;         # current stage + ≤5 next commands
+
+# ── Props (runs the whole pipeline in budget, ~6 min) ─────────────────────
+lune run parallax make &lt;name&gt; "&lt;object&gt;" --tier prop
+
+# ── References and dossier ────────────────────────────────────────────────
+lune run parallax refs find "&lt;object&gt;"
+lune run parallax refs expand "&lt;idea&gt;"
+lune run parallax refs dims find "&lt;object&gt; [part]"
+lune run parallax refs patent &lt;D-number&gt;
+lune run parallax refs coverage &lt;name&gt;
+lune run parallax vision cutout &lt;picture&gt; --rgba
+lune run parallax vision upscale &lt;picture&gt; --x 4
+lune run parallax vision plate --from &lt;crop&gt;
+
+# ── Study (required before any build) ─────────────────────────────────────
+lune run parallax study &lt;name&gt; --new
+lune run parallax study &lt;name&gt; --reroute  # re-answer all lessons on a route change
+
+# ── Model sheet and blockout (complex / hero) ─────────────────────────────
+lune run parallax sheet &lt;name&gt;
+lune run parallax blockout &lt;name&gt;
+lune run parallax approve 3d &lt;name&gt; "&lt;words&gt;" --by owner --stage sheet
+lune run parallax approve 3d &lt;name&gt; "&lt;words&gt;" --by owner --stage blockout
+
+# ── Build and check ───────────────────────────────────────────────────────
+lune run parallax asset &lt;name&gt;             # full build + all checks
+lune run parallax asset &lt;name&gt; --geo       # shape pass only
+lune run parallax asset &lt;name&gt; --geo --only &lt;part words&gt;
+lune run parallax cad check &lt;name&gt; [--only &lt;Part&gt;,&lt;Part&gt;]
+
+# ── Design (original / fictional pieces) ──────────────────────────────────
+lune run parallax design direction|maker|explore|concept|review
+
+# ── Draft generators (Tier 4, organic parts only) ─────────────────────────
+lune run parallax gen views &lt;name&gt; --view side=&lt;rgba.png&gt; --view front=&lt;rgba.png&gt;
+lune run parallax gen parts &lt;name&gt; --image &lt;picture&gt; --parts &lt;1-16&gt;
+
+# ── Judge and verdict ─────────────────────────────────────────────────────
+lune run parallax judge &lt;name&gt;
+lune run parallax verdict asset &lt;name&gt; &lt;0-10&gt; "&lt;your words&gt;"
+
+# ── Ship ──────────────────────────────────────────────────────────────────
+lune run parallax optimize &lt;name&gt;
+lune run parallax upload
+lune run parallax promote asset &lt;name&gt; --about "&lt;one line&gt;"   # only on verdict ≥ 7</code></pre>
+</section>
+
+<section>
+<h2 id="learning">How it learns</h2>
+
+<h3 id="learning-verdicts">Verdicts and the golden set</h3>
+<p>Every verdict feeds the kit's memory. A verdict of 7 or above adds the asset to the golden set — the reference calibration for future quality checks. A verdict of 3 or below puts its build route in the graveyard; that route is refused on the next similar piece without your explicit words to override it.</p>
+<p>After five new verdicts, <code>kit start</code> asks for <code>kit vault distil 3d</code> first: it turns the new evidence into written rules for the lane.</p>
+
+<h3 id="learning-study">The study step</h3>
+<p>The study is not a one-time task. It runs before every new piece and answers: what does each reference do well, what do all the good ones share, and what does your version keep, change, and add as a signature? The best-matching vault lessons (up to five) must each be applied or skipped, with at least six words on how or why.</p>
+<p>If you change the build route — moving from CAD to a generator, for example, or adding a simulation step — you must run <code>kit study &lt;name&gt; --reroute</code> and answer every lesson again. Copied answers are rejected; the kit tracks what was written for which route.</p>
+
+<h3 id="learning-lessons">Lessons</h3>
+<p>Lessons are ranked by relevance for each asset at session start. They must be answered before the quality locks pass. A lesson added after a verdict is live on the next build. Run <code>lune run parallax lessons 3d</code> for the full list.</p>
+
+<h3 id="learning-promote">Promoting work</h3>
+<p><code>kit promote asset &lt;name&gt; --about "..."</code> adds proven work to the kit's example library so future pieces can start from it (<code>kit new asset &lt;x&gt; --from &lt;name&gt;</code>). <code>kit sync</code> pulls the kit's lessons and examples into a project.</p>
+</section>
+
+<section>
+<h2 id="limits">Known limits</h2>
+<div class="limit"><span class="callout-title">Known limit</span><p>OpenCASCADE refuses fillets over traced perimeters: round only the edges that read, or redraw the outline tangent. Coplanar faces are the most common boolean failure; overshoot cutting bodies and inset mating outlines ~0.15 mm.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>Whole-object generator meshes are never accepted for a hero's hard-surface final mesh. Generators (Tier 4) are look targets for organic parts only. Hero hard-surface parts must be built part by part from CAD or traced reference outlines.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>Generated turned views are unreliable for thickness. Thicknesses for round parts must come from the director's section plan or from cross-sections measured against a reference model.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>The <code>cad_solid</code> gate can report open edges while <code>kit cad check</code> says 0 (an untrue volume). When that happens, bisect by mesh volume error to find the part, rather than guessing at the shape.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>Dense CAD tessellation folds a mesh bevel past about 0.3 mm; shaded rounds stay readable only at ≤ 0.8 mm. Wider reads as melted geometry.</p></div>
+</section>
+
+<section>
+<h2 id="typical-session">A typical session</h2>
+<pre><code># 1. Start the lane with your request
+lune run parallax start 3d --prompt "a ruined prop lantern"
+
+# 2. Create the asset and read the brief template
+lune run parallax new asset ruined_lantern
+# edit assets/models/ruined_lantern.brief.md: tier, hero features, parts plan
+
+# 3. Gather references (dossier, two reference models, traced views)
+lune run parallax refs expand "a ruined iron lantern"
+lune run parallax refs find "iron lantern"
+lune run parallax vision cutout &lt;picture&gt; --rgba   # cut out from background
+lune run parallax vision upscale &lt;picture&gt; --x 4  # 4x a small reference crop
+
+# 4. Lock the study (required before any build)
+lune run parallax study ruined_lantern --new
+
+# 5. This is a prop — run the whole pipeline in budget
+lune run parallax make ruined_lantern "a ruined iron lantern" --tier prop
+
+# 6. Open the renders beside the references and check
+# build/renders/ruined_lantern.png
+
+# 7. Give your verdict
+lune run parallax verdict asset ruined_lantern 8 "shape is right, good patina"
+
+# 8. Ship to the game
+lune run parallax optimize ruined_lantern
+lune run parallax upload
+lune run parallax promote asset ruined_lantern --about "a ruined iron lantern"</code></pre>
+<p>For a hero asset, insert the sheet and blockout approval steps between gather and shape, and expect multiple shape rounds before the judge step. The clock limits each attempt to 60 minutes of build time.</p>
+</section>
+
+<section>
+<h2 id="related">Related</h2>
+<div class="cards">
+  <a class="card" href="vfx.html"><div class="kicker">Pipeline</div><h3>Visual effects</h3><p>Build anime- and AAA-grade effects from scene breakdowns, beat charts, and Blender textures.</p></a>
+  <a class="card" href="anim.html"><div class="kicker">Pipeline</div><h3>Animation</h3><p>Author R6 character animations measured from real footage and proven in Studio frame by frame.</p></a>
+  <a class="card" href="world.html"><div class="kicker">Pipeline</div><h3>Worlds</h3><p>Build Roblox levels from JSON blueprints with real-hydrology terrain and playability checks.</p></a>
+  <a class="card" href="../enforcement.html"><div class="kicker">Reference</div><h3>Enforcement</h3><p>How gates, clocks, and the method register keep the pipelines honest.</p></a>
+  <a class="card" href="../learning.html"><div class="kicker">Reference</div><h3>Learning</h3><p>Verdicts, the golden set, the graveyard, and how lessons reach future builds.</p></a>
+</div>
+</section>
+
+</main>
+<aside class="toc"></aside>
+</div>
+<div id="site-footer"></div>
+<!-- sources: kit/skills/parallax-3d/SKILL.md, kit/knowledge/vault/3d/boot.md, kit/skills/parallax-3d/reference/11-gates-reference-what-every-build-checks.md, kit/skills/parallax-3d/reference/12-the-model-sheet-and-the-blockout.md, kit/skills/parallax-3d/reference/02-the-pipeline-at-a-glance.md, README.md (3D sections 147-168), scratchpad/recon/lanes_3d_vfx_anim_world.md (3D section), scratchpad/recon/tiers.md -->
+</body>
+</html>

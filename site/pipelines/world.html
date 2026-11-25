@@ -1,0 +1,576 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Worlds pipeline · Parallax</title>
+<meta name="description" content="Build Roblox levels from JSON blueprints with terrain shaped by real hydrology, scanned materials, and playability proven by numbers before the Studio walk.">
+<link rel="icon" href="../assets/logo.svg" type="image/svg+xml">
+<link rel="stylesheet" href="../assets/style.css">
+<script src="../assets/app.js" defer></script>
+</head>
+<body data-root="../" data-page="lane-world">
+<div id="site-header"></div>
+<div class="layout">
+<aside class="sidebar"></aside>
+<main class="content">
+
+<nav class="lane-nav" aria-label="Pipelines">
+  <a href="3d.html">3D models</a><a href="vfx.html">Visual effects</a><a href="anim.html">Animation</a><a href="world.html" class="active">Worlds</a>
+  <a href="ui.html">Interfaces</a><a href="sfx.html">Sound</a><a href="code.html">Gameplay systems</a><a href="qa.html">QA</a>
+</nav>
+
+<header class="page-head">
+  <p class="eyebrow">Pipeline</p>
+  <h1>Worlds</h1>
+  <p class="lead">Build Roblox levels and maps from JSON blueprints — terrain shaped by rivers and real elevation data, scanned CC0 materials and meshes, roads laid first, playability proven by numbers, then walked in Studio. One world pushed to impressive beats five mediocre ones.</p>
+  <div class="meta-row">
+    <span class="badge tier">Tier 1+ for Blender look stations</span>
+    <span class="badge lock">1 approval (direction)</span>
+    <span class="badge">10 / 30 / 60 min clock (complex by default)</span>
+  </div>
+</header>
+
+<section>
+<h2 id="at-a-glance">At a glance</h2>
+<dl class="specs">
+  <dt>Makes</dt>
+  <dd>Roblox levels and maps: battleground arenas, lobbies, obbies, towns, interiors, open terrain. Each world ships as a Rojo model in <code>src/world</code> (Workspace.KitWorld), with optional terrain, materials, and streaming.</dd>
+  <dt>Hardware</dt>
+  <dd><span class="badge tier">Tier 0</span> Blueprint building, gates, and the streaming check require only a CPU. <span class="badge tier">Tier 1+</span> Blender 5.2 is required for eye-level look stations (1920×1080 renders beside reference stills) and material PBR preview.</dd>
+  <dt>Your approvals</dt>
+  <dd>One: the creative direction, before any building starts. You pick one of three rendered direction frames. After building, you give a verdict (0–10) which completes the pipeline.</dd>
+  <dt>Clock</dt>
+  <dd>Worlds are complex by default (30 min), or hero with explicit approval (60 min). Simple is 10 min. The clock starts when <code>lune run parallax world</code> builds any blueprint new or changed since the last build. Past the budget, no change rebuilds the world; show what exists and wait for your words.</dd>
+  <dt>Results land in</dt>
+  <dd><code>src/world</code> (Workspace.KitWorld via Rojo), <code>build/worlds/look/&lt;Name&gt;/pages/</code> (look stations), <code>build/worlds/checks/&lt;Name&gt;.png</code> (reachability map), <code>build/worlds/web/&lt;Name&gt;.html</code> (three.js viewer for art direction).</dd>
+</dl>
+</section>
+
+<section>
+<h2 id="flow">The flow in one line</h2>
+<div class="flow">
+  <span class="step lock">direction (you pick)</span>
+  <span class="arrow">→</span>
+  <span class="step">refs</span>
+  <span class="arrow">→</span>
+  <span class="step">lessons</span>
+  <span class="arrow">→</span>
+  <span class="step">terrain</span>
+  <span class="arrow">→</span>
+  <span class="step">materials</span>
+  <span class="arrow">→</span>
+  <span class="step">meshes</span>
+  <span class="arrow">→</span>
+  <span class="step">dressing</span>
+  <span class="arrow">→</span>
+  <span class="step">check</span>
+  <span class="arrow">→</span>
+  <span class="step">look</span>
+  <span class="arrow">→</span>
+  <span class="step">Studio walk</span>
+  <span class="arrow">→</span>
+  <span class="step lock">verdict (you score 0–10)</span>
+</div>
+<p>The direction approval is the only hard lock before building. The check must reach 0 errors before the look stations are drawn.</p>
+</section>
+
+<section>
+<h2 id="stages">The stages</h2>
+<button class="expand-all" data-expand-target="#stages-list">Expand all</button>
+<ol class="stages" id="stages-list">
+
+  <li>
+    <span class="num">0</span>
+    <details id="stage-direction">
+      <summary><span class="name">Direction</span> <span class="badge lock">you pick</span><span class="what">Pick a creative direction from three rendered options before any building starts.</span></summary>
+      <div class="body">
+        <p>Every original world gets a direction document first. The document specifies the intent, one central idea, six or more reference images from three or more different media (each with what to take and what to leave), three pillars, bans, and three directions that differ on at least two axes (rhythm, read, effort, mood).</p>
+        <p>Each direction is rendered as a frame using the kit's real pieces (<code>lune run parallax world frame &lt;scene.frame.json&gt;</code>). The board shows all three frames side by side. You pick one. Building is refused until the direction document has your pick recorded in its <code>## Pick</code> section.</p>
+        <p>A color script (<code>lune run parallax world colorscript</code>) lays the world's places out in journey order: palette, value, and warmth. Neighbouring zones with no change of mood are flagged for rethinking.</p>
+        <pre><code>lune run parallax world direction &lt;Piece&gt; --new
+lune run parallax world frame &lt;scene.frame.json&gt;   # render a direction frame
+lune run parallax world board                        # show the three frames to you
+lune run parallax world direction &lt;Piece&gt;            # checks the doc and your pick in ## Pick
+lune run parallax world colorscript</code></pre>
+        <p>Produces: <code>assets/worlds/direction/&lt;Piece&gt;.md</code> (direction document) and its rendered frames.</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">1</span>
+    <details id="stage-refs">
+      <summary><span class="name">References</span><span class="what">Measure six or more real stills to build a world identity from numbers.</span></summary>
+      <div class="body">
+        <p>At least six real reference stills are measured by script: horizon line placement, value structure (how light, mid, and dark values are distributed), atmospheric haze, palette, and landmark placement. The measurements produce a <code>REFS.md</code> file that distils the world's visual identity as numbers.</p>
+        <p><code>--vs &lt;render.png&gt;</code> compares a render against the references: one difference and one edit, no score.</p>
+        <p>References must come from real sources: game screenshots, photographs, film stills. Words alone make generic maps.</p>
+        <pre><code>lune run parallax world refs &lt;Name&gt;
+lune run parallax world refs &lt;Name&gt; --vs &lt;render.png&gt;</code></pre>
+        <p>Produces: <code>assets/worlds/refs/&lt;Name&gt;/</code> (reference stills), <code>REFS.md</code> (measured identity).</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">1b</span>
+    <details id="stage-lessons">
+      <summary><span class="name">Lessons</span><span class="what">Answer the vault's ranked lessons for this world before anything is built.</span></summary>
+      <div class="body">
+        <p>Before building starts, the vault's lessons are ranked for this specific world (by its blueprint words, brief, and direction) and shown as a sheet. Up to five answer lessons must be applied (how) or skipped (with a reason of at least six words) before any build runs.</p>
+        <p>Past house layouts (<code>*.layout.json</code>) are offered as examples for town and interior worlds — examples to draw ideas from, never templates to copy.</p>
+        <p>Once answered, the applied lessons are recorded on the world. Your future verdict credits or flags each one, so the pipeline knows which lessons actually helped and which were noise.</p>
+        <pre><code>lune run parallax world lessons &lt;Name&gt;      # ranked sheet + answer prompt
+lune run parallax world lessons &lt;Name&gt; --show  # re-check answers</code></pre>
+        <p>Produces: <code>assets/worlds/&lt;Name&gt;.lessons.md</code>.</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">2</span>
+    <details id="stage-terrain">
+      <summary><span class="name">Terrain</span><span class="what">Shape land by rivers and real hydrology; paint roles by climate and slope.</span></summary>
+      <div class="body">
+        <p>Land is never shaped by noise and thermal erosion alone — that produces talus-angle cones that read as a wall. Instead, the terrain generator uses a stream-power incision pass to carve rivers into the heightmap, then thermal erosion, then droplet erosion, then a painter that assigns material roles (meadow, lush, rock, cliff, scree, sand, snow) by slope, altitude, and climate.</p>
+        <p>Terrain generation flags:</p>
+        <ul>
+          <li><code>--stream</code>: stream-power river incision, so rivers carve the land. After terrain generation, run <code>lune run parallax world rivers &lt;Name&gt;</code> once: D8 drainage over the stored heights paints the cells where the most water gathers (the top 1.2%) as Water.</li>
+          <li><code>--thermal</code>: thermal erosion (talus transport).</li>
+          <li><code>--erosion</code>: droplet erosion (simulated rainfall).</li>
+          <li>Real elevation: <code>lune run parallax world dem &lt;Name&gt; --bbox lon0,lat0,lon1,lat1</code> fetches USGS 3DEP data (US only, public domain) for a terrain design's <code>"dem"</code> base. A ~3 km box gives roughly 2.9 m per stud on a 1024-stud map. Refine real land lightly; the river pass is tuned for noise and over-carves real terrain.</li>
+          <li><code>--climate</code>: a climate model (wind bearing, rainfall, sea temperature, lapse rate, north-face shade) determines the soil on each slope: lush on windward faces, bare behind ridges, snow above the snowline.</li>
+        </ul>
+        <p>Keep masks and an anchor (the lake bed anchor prevents the minimum height from moving during erosion) are part of the terrain spec. Land is designed with shapes (rim, plateau, basin, hill, ridge, ramp, dunes, ring) plus a domain warp, then eroded. Stamps (crater, mesa, cone, ridge, valley, mound, pit) are placed on the finished land after erosion.</p>
+        <p>Always look at the heightmap relief and the paint before moving to materials. The heightmap samples are embedded in the world model so the game, the check, and the look all read the same heights.</p>
+        <pre><code>lune run parallax world terrain &lt;Name&gt; --stream --thermal --erosion
+lune run parallax world rivers &lt;Name&gt;   # paint river cells as Water
+lune run parallax world dem &lt;Name&gt; --bbox lon0,lat0,lon1,lat1  # real elevation (US only)</code></pre>
+        <p>Produces: <code>assets/worlds/terrain/&lt;Name&gt;.hm.json</code> (heightmap with painted roles), <code>&lt;Name&gt;.hm.rivers.png</code> (river map to inspect).</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">3</span>
+    <details id="stage-materials">
+      <summary><span class="name">Materials</span><span class="what">Assign scanned CC0 materials from ambientCG to each painter role.</span></summary>
+      <div class="body">
+        <p>Each terrain role (meadow, cliff, rock, sand, etc.) is assigned a scanned surface from <strong>ambientCG</strong> at 1K resolution (CC0, vetted in <code>VETLOG.md</code>). These become MaterialVariants in <code>src/materials/&lt;World&gt;.model.json</code>. The game's Rojo project maps <code>MaterialService.KitWorldMaterials</code> to that folder. At runtime, a game script calls <code>MaterialService:SetBaseMaterialOverride</code> for each material.</p>
+        <p>Stylised texture packs are never used in a realistic world. The goal is scanned PBR surfaces that look right in Roblox's lighting with no post-processing.</p>
+        <pre><code>lune run parallax materials --fetch &lt;ids&gt; --res 1K  # fetch scanned materials</code></pre>
+        <p>Produces: <code>build/terrainmaps/</code> (color/normal/roughness PNGs), <code>src/materials/&lt;World&gt;.model.json</code> after upload.</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">4</span>
+    <details id="stage-meshes">
+      <summary><span class="name">Meshes</span><span class="what">Import CC0 scanned rocks, cliffs, and trees; keep the total part count under 10,000.</span></summary>
+      <div class="body">
+        <p>Scanned rock, cliff, and boulder meshes from <strong>Poly Haven</strong> (CC0, vetted in <code>VETLOG.md</code>) are imported via an import spec (<code>assets/worlds/imports/&lt;set&gt;.json</code>). Each mesh is split at 20,000 triangles or fewer. Textures are downsized to 1024 px. The total part count after import must stay under 10,000 (error threshold).</p>
+        <p>Z-fighting between imported meshes is a warning. Meshes must not float above the terrain or bury themselves below it.</p>
+        <p>Trees are grown by an L-system grammar (broadleaf, conifer, dead, shrub). A recipe says the grammar, the seed, the leaf card size and density. The pipeline grows it and writes the mesh. A tree already uploaded into the game by its name in the project's ids file is not asked for again.</p>
+        <pre><code>lune run parallax world import                    # import CC0 scanned meshes
+lune run parallax world import &lt;set&gt;              # a specific import set</code></pre>
+        <p>Produces: mesh models in <code>src/world</code>, import records in <code>assets/worlds/imports/</code>.</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">5</span>
+    <details id="stage-dressing">
+      <summary><span class="name">Dressing</span><span class="what">Lay roads first; set-dress everything else by story.</span></summary>
+      <div class="body">
+        <p>Roads are always placed before scatter and cover. Scatter and cover rules keep off roads automatically. Set dressing follows story logic: what does a player see first, what draws them forward, what breaks up the silhouette.</p>
+        <p>A town is planned before it is typed. <code>lune run parallax world town &lt;Name&gt;</code> draws the town plan from above: a square entered at its corners, streets that end on house fronts, terraced lots on a 4-stud grid, and one landmark on the main gate's line of sight. Read this plan before dressing anything. <code>lune run parallax world town &lt;Name&gt; --kit</code> then writes one house mesh recipe per house type. Twelve or more <code>building</code> steps typed individually is a build error — use a <code>town</code> step instead.</p>
+        <p>Scatter generators (<code>forest</code>, <code>scatter</code>, <code>cover</code>) place objects by density and role. Each has keep masks to clear roads, spawn pads, and objective areas.</p>
+        <p>Breakable objects (crates, barrels, walls) are placed with the <code>breakable</code> generator step. They connect to <code>KitBreakable</code> and <code>KitHealth</code> at runtime.</p>
+        <pre><code>lune run parallax world town &lt;Name&gt;         # draw town plan
+lune run parallax world town &lt;Name&gt; --kit   # write house mesh recipes
+lune run parallax world meshes --set town_&lt;World&gt;  # build house meshes</code></pre>
+        <p>Produces: updated blueprint JSON, town plan image (<code>LOOK:</code> line in every town build), house mesh recipes in <code>assets/worlds/</code>.</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">6</span>
+    <details id="stage-check">
+      <summary><span class="name">Check</span><span class="what">Prove playability by numbers: reachability, traps, spawn fairness, camera clearance, knockback room, sightlines.</span></summary>
+      <div class="body">
+        <p>The check gate must reach 0 errors before the look stations are drawn. It runs a full playability proof by numbers:</p>
+        <ul>
+          <li><strong>R6 reachability:</strong> voxelizes the world (1-stud cells; 2-stud cells on maps larger than 400,000 square studs) and walks every reachable floor using the R6 real jump arc (<code>v = sqrt(2gJ)</code>). Narrow areas that the coarse grid misses are rechecked at 1-stud cells. A spawn that cannot reach another spawn or an objective is an error; a walkable area no one can reach is a warning.</li>
+          <li><strong>Traps:</strong> a reachable place from which no spawn can be reached again (a pit you fall into for good), 12 cells or more, is an error. A gap narrower than the voxel body-width that still holds a whole voxel can read as passable — this is a known limit of the voxel check.</li>
+          <li><strong>Spawn fairness</strong> (a warning): the path distance from each spawn to the objectives, or to the floor's centre, must not differ by more than 15%.</li>
+          <li><strong>Camera clearance</strong> (a warning): a third-person camera 12 studs back must not hit a wall within 4 studs over more than 20% of the reachable floor.</li>
+          <li><strong>Knockback room</strong> (a warning, battlegrounds): the share of floor with 30 studs of open room to the nearest wall.</li>
+          <li><strong>Sightlines and exposure:</strong> how much of the map sees each spot, drawn with a sightline histogram; an exposure imbalance between spawns is a warning.</li>
+          <li><strong>Landmark guidance:</strong> each landmark must be visible from at least 70% of road samples. The longest blind stretch of road is named.</li>
+          <li><strong>Pacing:</strong> no more than 60 seconds of road travel (at the declared player speed) between points of interest (objectives, landmarks, spawns).</li>
+        </ul>
+        <p>Look lint (floating props, buried props, trees through buildings, rocks or trunks on roads) is also cleared before the look stage.</p>
+        <pre><code>lune run parallax world check &lt;Name&gt;   # 0 errors required</code></pre>
+        <p>Produces: <code>build/worlds/checks/&lt;Name&gt;.png</code> (reachability map, coloured by zone), a plain-text report of every error and warning.</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">7</span>
+    <details id="stage-look">
+      <summary><span class="name">Look stations</span><span class="what">Render every station at 1920×1080 beside its reference still; one difference and one edit per station.</span></summary>
+      <div class="body">
+        <p>Every look station is rendered at 1920×1080 in Blender. Each page shows the reference still above the render at the same framing. You open every page individually — not a contact sheet, not a thumbnail grid. For each station: one difference from the reference and one edit to make.</p>
+        <p>Stations cover: each spawn (from behind the R6 rig), every view declared in the blueprint, back from each objective, and from above. A <code>refs/&lt;Name&gt;/stations.json</code> file says which reference still maps to which station and how to crop it.</p>
+        <p>The web viewer (<code>lune run parallax world web &lt;Name&gt;</code>) is an art-direction tool, not a proof. It renders in a browser with a three.js shader (terrain layers, procedural materials, water, sky, height fog, sun shadows, HDR bloom, light shafts, grass, particles). Use it to explore the world's look and colour script. Spatial proof stays in the check gate and the Studio walk.</p>
+        <p>The look command ends with <code>LOOK: &lt;folder&gt;</code> lines. A changed world's look is re-rendered automatically at the end of <code>lune run parallax world</code>.</p>
+        <pre><code>lune run parallax world look &lt;Name&gt;   # eye-level look stations
+lune run parallax world web &lt;Name&gt;    # three.js web viewer (art direction)
+lune run parallax world shots &lt;Name&gt;  # headless contact sheet (~1 min)</code></pre>
+        <p>Produces: <code>build/worlds/look/&lt;Name&gt;/pages/</code> (one HTML page per station, reference above, render below), <code>build/worlds/web/&lt;Name&gt;.html</code>.</p>
+      </div>
+    </details>
+  </li>
+
+  <li>
+    <span class="num">8</span>
+    <details id="stage-studio">
+      <summary><span class="name">Studio walk</span><span class="what">Walk the world in Roblox Studio's own lighting; check 0 console errors; get a verdict.</span></summary>
+      <div class="body">
+        <p>Blender's lighting is a stand-in. The Studio walk is the final proof. The kit makes a scratch place (the world alone; nothing saved or uploaded), and <code>capture.luau</code>. You open the scratch place in your own Studio window, start <code>lune run parallax world studio &lt;Name&gt; --capture</code> in the background, then run the capture script once through the Studio MCP (using that window's Studio ID, never another place's). This produces three-pane station images: reference, Blender render, and Studio capture side by side.</p>
+        <p>Then <code>rojo serve games/&lt;Name&gt;/default.project.json</code> serves the full project. The Studio MCP walks every station and asserts 0 console errors. You walk the world yourself, then give a verdict.</p>
+        <pre><code>lune run parallax world studio &lt;Name&gt;
+lune run parallax world studio &lt;Name&gt; --capture  # run in background after opening place
+# in Studio: run capture.luau once via MCP
+rojo serve games/&lt;Name&gt;/default.project.json
+lune run parallax verdict world &lt;Name&gt; 8 "dark tone reads clearly from the spawn"</code></pre>
+        <p>Produces: three-pane station pages in <code>build/worlds/studio/&lt;Name&gt;/</code>.</p>
+      </div>
+    </details>
+  </li>
+
+</ol>
+</section>
+
+<section>
+<h2 id="gates">Gates</h2>
+<h3>Blocking gates (errors)</h3>
+<table>
+  <thead><tr><th>Gate</th><th>What it checks</th><th>Threshold</th><th>Effect</th></tr></thead>
+  <tbody>
+    <tr><td>unknown material</td><td>A material or palette name not in the kit's list</td><td>—</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>world size</td><td>Blueprint footprint</td><td>0–2048 studs</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>spawn buried</td><td>Spawn pads below the terrain surface</td><td>—</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>part count</td><td>Total parts in the built world, streamed or not</td><td>≤ 10,000</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>building too shallow</td><td>A building not deep enough for its declared stair count</td><td>—</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>streaming declaration</td><td>A world whose played part exceeds 1,024 studs wide must declare <code>"streaming": {"cell": 256}</code></td><td>1,024 studs (played part)</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>streaming speed</td><td>A streaming world must declare player speed and maximum drop</td><td>—</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>streaming mismatch</td><td>Blueprint says <code>"streaming"</code> but <code>default.project.json</code> has <code>StreamingEnabled: false</code></td><td>—</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>city grid / missing skins</td><td>Any <code>city</code> grid; a <code>town</code> with no <code>"skins"</code>; a typed <code>building</code> with no <code>"skin"</code></td><td>—</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>12+ individual buildings</td><td>12 or more <code>building</code> steps typed one by one (use a <code>town</code> step)</td><td>—</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>rooms not declared</td><td>A building 20 studs or more on a side with no <code>"rooms"</code> declaration</td><td>—</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>lamp crowding</td><td>A lamp with 3 or more other lamps within 80 studs</td><td>—</td><td><span class="badge block">blocks</span></td></tr>
+    <tr><td>source drift</td><td><code>src/world</code> does not match the blueprints (changed by hand)</td><td>Exact match</td><td><span class="badge block">blocks</span></td></tr>
+  </tbody>
+</table>
+
+<h3>Warning gates</h3>
+<table>
+  <thead><tr><th>Gate</th><th>What it checks</th><th>Threshold</th><th>Effect</th></tr></thead>
+  <tbody>
+    <tr><td>Z-fighting</td><td>Overlapping coplanar faces</td><td>—</td><td><span class="badge warn">warns</span></td></tr>
+    <tr><td>mobile part count</td><td>Total parts in the built world</td><td>&gt; 3,000</td><td><span class="badge warn">warns</span></td></tr>
+    <tr><td>no spawn</td><td>Blueprint has no spawn pads</td><td>—</td><td><span class="badge warn">warns</span></td></tr>
+    <tr><td>scatter/cover miss</td><td>A scatter or cover object that could not fit in any valid spot</td><td>—</td><td><span class="badge warn">warns</span></td></tr>
+    <tr><td>floating / buried props</td><td>Props not resting on a surface</td><td>—</td><td><span class="badge warn">warns</span></td></tr>
+    <tr><td>trees through buildings</td><td>Tree trunks or canopy intersecting a building mesh</td><td>—</td><td><span class="badge warn">warns</span></td></tr>
+    <tr><td>rocks on roads</td><td>Rock or stone mesh centers on a road surface</td><td>—</td><td><span class="badge warn">warns</span></td></tr>
+  </tbody>
+</table>
+
+<div class="note"><span class="callout-title">Note</span><p>Streaming check details: <code>StreamingMinRadius</code> must be at least <code>max(64, 4 s × player_speed)</code>. <code>StreamingTargetRadius</code> must be at least twice that. For players faster than a walking speed, <code>StreamingIntegrityMode</code> must be <code>"PauseOutsideLoadedArea"</code>. A drop taller than the minimum radius requires a named arrival at its landing (<code>WorldStream.ahead</code> from the top).</p></div>
+</section>
+
+<section>
+<h2 id="io">Inputs and outputs</h2>
+<div class="tabs">
+  <div class="tab-list">
+    <button class="tab" data-tab="io-in" aria-selected="true">Inputs</button>
+    <button class="tab" data-tab="io-out">Outputs</button>
+    <button class="tab" data-tab="io-game">In the game</button>
+  </div>
+  <div class="tab-panel" data-panel="io-in" id="io-in">
+    <ul>
+      <li><code>assets/worlds/&lt;Name&gt;.json</code>: blueprint — generator steps, objectives, checks config, streaming declaration, lighting preset, terrain ops.</li>
+      <li><code>assets/worlds/&lt;Name&gt;.brief.md</code>: free-text brief.</li>
+      <li><code>assets/worlds/terrain/&lt;Name&gt;.hm.json</code>: heightmap with painted roles, produced by the terrain command.</li>
+      <li><code>assets/worlds/refs/&lt;Name&gt;/</code>: reference stills for look stations.</li>
+      <li><code>assets/worlds/imports/&lt;set&gt;.json</code>: CC0 mesh import lists (Poly Haven rocks, cliffs).</li>
+      <li><code>refs/&lt;Name&gt;/stations.json</code>: which reference still maps to which look station, and how to crop it.</li>
+      <li>Direction document and rendered frames from stage 0.</li>
+    </ul>
+  </div>
+  <div class="tab-panel" data-panel="io-out" id="io-out">
+    <ul>
+      <li><code>build/worlds/&lt;Name&gt;.*</code>: world model files.</li>
+      <li><code>build/worlds/checks/&lt;Name&gt;.png</code>: reachability map (coloured by zone, unreachable areas marked).</li>
+      <li><code>build/worlds/look/&lt;Name&gt;/pages/</code>: one HTML page per look station (reference above, Blender render below, labelled).</li>
+      <li><code>build/worlds/web/&lt;Name&gt;.html</code>: three.js web viewer for art direction.</li>
+      <li><code>build/worlds/studio/&lt;Name&gt;/</code>: three-pane station pages (reference, Blender, Studio).</li>
+      <li><code>src/world</code>: Workspace.KitWorld via Rojo.</li>
+      <li><code>src/materials/&lt;World&gt;.model.json</code>: MaterialVariant models.</li>
+    </ul>
+  </div>
+  <div class="tab-panel" data-panel="io-game" id="io-game">
+    <p>The world loads into Workspace.KitWorld through Rojo. At runtime:</p>
+    <pre><code>-- streaming: tell the kit where to stream around the player
+local WorldStream = require(ReplicatedStorage.kit.WorldStream)
+WorldStream.arrive(player, "Keep gate")  -- requests Roblox streaming before moving the character
+WorldStream.ahead(player, "Bridge")      -- requests without moving
+
+-- breakables:
+-- KitBreakable and KitHealth components are on breakable parts automatically
+
+-- animated grass:
+-- decoration = true in the blueprint enables Roblox animated Grass terrain</code></pre>
+    <p>The game plays the same heightmap that the check and the look used: heightmap samples are stored in <code>KitTerrain&lt;i&gt;_&lt;k&gt;</code> ModuleScript chunks inside the world model and assembled at runtime by the kit's Environment. Rojo cannot carry terrain or lighting effects directly.</p>
+  </div>
+</div>
+</section>
+
+<section>
+<h2 id="tools">Tools and hardware</h2>
+<table>
+  <thead><tr><th>Tool</th><th>Used for</th><th>Tier</th></tr></thead>
+  <tbody>
+    <tr><td>Blender 5.2</td><td>Eye-level look stations (1920×1080), material PBR preview, sky rendering (six faces), tree mesh grammar output</td><td><span class="badge tier">Tier 1+</span></td></tr>
+    <tr><td>Three.js web viewer (<code>kit/world/web.py</code>)</td><td>Art-direction viewer — custom shaders for terrain layers, procedural materials, water, sky, height fog, sun shadows, HDR bloom, light shafts, grass, particles. Browser only; no GPU required for playback.</td><td><span class="badge tier">Tier 0</span></td></tr>
+    <tr><td>Stream-power hydrology (<code>kit/world/terrain.py</code>)</td><td>River incision, D8 drainage, erosion passes, heightmap design shapes</td><td><span class="badge tier">Tier 0</span></td></tr>
+    <tr><td>ambientCG (CC0)</td><td>Scanned PBR terrain materials at 1K resolution — grass, rock, cliff, sand, soil, snow. Vetted in VETLOG.md.</td><td><span class="badge tier">Tier 0</span></td></tr>
+    <tr><td>Poly Haven (CC0)</td><td>Scanned rock and cliff meshes. Vetted in VETLOG.md. Split at ≤ 20k triangles; textures at 1024 px.</td><td><span class="badge tier">Tier 0</span></td></tr>
+    <tr><td>USGS 3DEP</td><td>Real elevation data for US locations (public domain). Fetched by <code>world dem</code>.</td><td><span class="badge tier">Tier 0</span></td></tr>
+    <tr><td>Roblox Studio with its MCP (<code>execute_luau</code>, <code>character_navigation</code>)</td><td>Studio capture, MCP station walk, 0 console error assertion</td><td><span class="badge">Separate install, any tier</span></td></tr>
+  </tbody>
+</table>
+</section>
+
+<section>
+<h2 id="commands">Commands</h2>
+<pre><code># ── start the lane ────────────────────────────────────────────────────────────
+lune run parallax start world --prompt "a ruined gothic town, battleground"
+
+# ── new world blueprint ───────────────────────────────────────────────────────
+lune run parallax new world &lt;Pascal&gt; [--from BattlegroundsArena]
+lune run parallax game new &lt;GameName&gt;   # worlds live in games/&lt;Name&gt;/
+
+# ── direction ─────────────────────────────────────────────────────────────────
+lune run parallax world direction &lt;Piece&gt; --new
+lune run parallax world frame &lt;scene.frame.json&gt;    # render a direction frame
+lune run parallax world board                        # show frames to you
+lune run parallax world direction &lt;Piece&gt;            # checks your pick in ## Pick
+lune run parallax world colorscript                  # journey color plan
+
+# ── lessons ───────────────────────────────────────────────────────────────────
+lune run parallax world lessons &lt;Name&gt;
+lune run parallax world lessons &lt;Name&gt; --show
+
+# ── terrain ───────────────────────────────────────────────────────────────────
+lune run parallax world terrain &lt;Name&gt; --stream --thermal --erosion
+lune run parallax world dem &lt;Name&gt; --bbox lon0,lat0,lon1,lat1   # real elevation (US only)
+lune run parallax world rivers &lt;Name&gt;               # D8 river paint (run once)
+
+# ── materials ─────────────────────────────────────────────────────────────────
+lune run parallax materials --fetch &lt;ids&gt; --res 1K
+
+# ── meshes ────────────────────────────────────────────────────────────────────
+lune run parallax world import                      # import CC0 scanned meshes
+lune run parallax world import &lt;set&gt;
+
+# ── town planning ─────────────────────────────────────────────────────────────
+lune run parallax world town &lt;Name&gt;                 # draw plan from above
+lune run parallax world town &lt;Name&gt; --kit           # write house mesh recipes
+lune run parallax world meshes --set town_&lt;World&gt;   # build house meshes
+
+# ── build the world ───────────────────────────────────────────────────────────
+# (edit assets/worlds/&lt;Name&gt;.json first)
+lune run parallax world                             # build all changed blueprints
+
+# ── playability check ─────────────────────────────────────────────────────────
+lune run parallax world check &lt;Name&gt;    # 0 errors required
+
+# ── look stations ─────────────────────────────────────────────────────────────
+lune run parallax world look &lt;Name&gt;    # 1920x1080 Blender stations
+lune run parallax world web &lt;Name&gt;     # three.js web viewer
+lune run parallax world shots &lt;Name&gt;   # headless contact sheet (~1 min)
+
+# ── Studio walk ───────────────────────────────────────────────────────────────
+lune run parallax world studio &lt;Name&gt;
+lune run parallax world studio &lt;Name&gt; --capture
+rojo serve games/&lt;Name&gt;/default.project.json
+
+# ── verdict ───────────────────────────────────────────────────────────────────
+lune run parallax verdict world &lt;Name&gt; 8 "dark tone reads clearly"
+
+# ── sky ───────────────────────────────────────────────────────────────────────
+lune run parallax world sky &lt;Name&gt; --sun 25,180 --clouds 0.4 --size 512</code></pre>
+</section>
+
+<section>
+<h2 id="generators">Generators</h2>
+<p>The blueprint JSON accepts generator steps. Measurements are in studs; <code>rot</code> values are degrees in the same convention as <code>CFrame.Angles</code>. The cardinal directions are: N = -Z, S = +Z, E = +X, W = -X.</p>
+<div class="chips" data-chip-target="#gen-table" data-chip-attr="kind">
+  <button class="chip active" data-value="all">All</button>
+  <button class="chip" data-value="structure">Structures</button>
+  <button class="chip" data-value="terrain">Terrain</button>
+  <button class="chip" data-value="vegetation">Vegetation</button>
+  <button class="chip" data-value="path">Paths</button>
+</div>
+<input class="filter" type="search" placeholder="Filter generators..." data-filter-target="#gen-table" aria-label="Filter generators">
+<table id="gen-table">
+  <thead><tr><th>Generator</th><th>What it makes</th><th>Kind</th></tr></thead>
+  <tbody>
+    <tr data-kind="structure"><td><code>room</code></td><td>A single enclosed room with optional doors and windows</td><td>Structure</td></tr>
+    <tr data-kind="structure"><td><code>building</code></td><td>Multi-storey building with parametric stairs, rooms, and a skin mesh</td><td>Structure</td></tr>
+    <tr data-kind="structure"><td><code>tower</code></td><td>A tower; one 60 studs or taller counts as a landmark</td><td>Structure</td></tr>
+    <tr data-kind="structure"><td><code>ruin</code></td><td>A degraded building fragment with missing walls</td><td>Structure</td></tr>
+    <tr data-kind="structure"><td><code>wall</code></td><td>A straight or curved defensive wall along typed points</td><td>Structure</td></tr>
+    <tr data-kind="structure"><td><code>palisade</code></td><td>A wooden palisade fence along typed points</td><td>Structure</td></tr>
+    <tr data-kind="structure"><td><code>bridge</code></td><td>A bridge between two typed points</td><td>Structure</td></tr>
+    <tr data-kind="structure"><td><code>ring</code></td><td>A circular structure (arena boundary, henge, ring fort)</td><td>Structure</td></tr>
+    <tr data-kind="structure"><td><code>grace</code></td><td>A glowing place marker (glow, light and motes)</td><td>Structure</td></tr>
+    <tr data-kind="structure"><td><code>crosswalk</code></td><td>A street crossing with road markings</td><td>Structure</td></tr>
+    <tr data-kind="structure"><td><code>city</code></td><td>A grid of city blocks; <code>kit world check</code> fails a city grid, so lay houses out with a <code>town</code> step</td><td>Structure</td></tr>
+    <tr data-kind="structure"><td><code>town</code></td><td>A planned town: a square entered at its corners, streets that end on house fronts, terraced lots on a 4-stud grid, one landmark on the main gate's line of sight</td><td>Structure</td></tr>
+    <tr data-kind="path"><td><code>path</code></td><td>A walkable path along typed waypoints; with <code>"ground": true</code> it is a road across the land (scatter, cover and breakables keep off roads)</td><td>Path</td></tr>
+    <tr data-kind="path"><td><code>row</code></td><td>A straight row of repeated objects (lamp posts, trees, bollards)</td><td>Path</td></tr>
+    <tr data-kind="terrain"><td><code>cover</code></td><td>Scatter of low cover objects by density; keeps off roads and spawns</td><td>Terrain</td></tr>
+    <tr data-kind="terrain"><td><code>scatter</code></td><td>Scatter of decorative objects by density and role</td><td>Terrain</td></tr>
+    <tr data-kind="terrain"><td><code>breakable</code></td><td>Breakable prop (connects to KitBreakable at runtime)</td><td>Terrain</td></tr>
+    <tr data-kind="terrain"><td><code>peak</code></td><td>A mountain peak; counts as a landmark</td><td>Terrain</td></tr>
+    <tr data-kind="vegetation"><td><code>forest</code></td><td>Tree scatter by density</td><td>Vegetation</td></tr>
+  </tbody>
+</table>
+<div class="note"><span class="callout-title">Note</span><p>The compiler's full list of step keys: part, fit, town, mesh, wall, floor, stairs, ring, grid, scatter, room, dungeon, cave, tiles, cover, path, breakable, building, tree, forest, ruin, tower, bridge, grace, horizon, rocks, cliffs, story, arch, palisade, peak, city, crosswalk, row, ziggurat, falls, spawn, decal, prefab, trails and fog. An unknown key is a build error.</p></div>
+<div class="note"><span class="callout-title">Note</span><p>A road, row, palisade, or wall that turns more than 20 degrees at a typed point must declare <code>"curve": true</code> (smooth line through its points) or <code>"curve": false</code> (a hard corner, intended). Omitting it is a build error.</p></div>
+</section>
+
+<section>
+<h2 id="learning">How it learns</h2>
+<p>The pipeline improves from every world you score and every lesson you answer.</p>
+<ul>
+  <li><strong>Vault lessons:</strong> the lessons applied to a world are recorded on it, and your verdict credits or flags each one.</li>
+  <li><strong>Past house layouts:</strong> for town and interior worlds, past layouts are offered as examples when answering lessons. The pipeline never copies a layout; it uses them as a range of what has worked.</li>
+  <li><strong>Golden set:</strong> a verdict of 7 or above adds the world to the golden set.</li>
+  <li><strong>Graveyard:</strong> a verdict of 3 or below records the world's route in the graveyard. Failed routes (five showcase worlds instead of one, terrain from noise and thermal erosion alone, backdrop ranges of long straight ridges, primitive-part trees, buildings and rocks) are listed and refused without your word.</li>
+  <li><strong>Vault distillation:</strong> after enough new verdicts, the kit distils evidence into live rules for the world vault.</li>
+</ul>
+</section>
+
+<section>
+<h2 id="limits">Known limits</h2>
+<div class="limit"><span class="callout-title">Known limit</span><p>Coloured light on water turns muddy. Light water by intensity only; keep the hue neutral.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>Yards, markets, and lamps are checked for presence, not for quality. The check gate passes a yard that exists but reads poorly.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>The voxel reachability check uses 1-stud cells (2 studs on maps larger than 400,000 square studs). A gap narrower than the voxel body-width that still holds a whole voxel can read as passable. Narrow stairs and doorways that the coarse grid misses are rechecked at 1-stud cells and listed as fine-rechecked in the stats.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>Roblox's <code>StreamAroundAsync</code> returns nothing on a timeout and makes no guarantee. A 5-second streaming request can come back "late". The kit's <code>WorldStream.arrive</code> handles this by requesting before moving the character, but a late response still means the character arrives into an unloaded area.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>The three.js web viewer and the Blender look stations do not draw SDF caves or overhangs — land the SDF op adds is missing there, and cave openings look solid. The voxel check and the Studio walk are the only proofs of SDF playability.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>The weather cycle system (<code>"weather": {"cycle": [...]}</code>) has been written and passes its spec tests, but has not been seen to run in a live Roblox session.</p></div>
+<div class="limit"><span class="callout-title">Known limit</span><p>Town playability is proved by the check gate and the Studio walk, not by the town plan generator alone. The generator lays out a geometrically valid town; playability (whether a player can reach every building, whether the streets flow well) is confirmed by the check's reachability pass.</p></div>
+</section>
+
+<section>
+<h2 id="session">A typical session</h2>
+<pre><code># 1. Start the lane with your request
+lune run parallax start world --prompt "a ruined gothic town, PvP battleground"
+
+# 2. Check the board and claim the task
+lune run parallax status --dept world
+lune run parallax task claim &lt;id&gt; --as "building the ruined town"
+
+# 3. Direction: write three options, render frames, show you the board
+lune run parallax world direction RuinedTown --new
+lune run parallax world frame ruins_a.frame.json
+lune run parallax world frame ruins_b.frame.json
+lune run parallax world frame ruins_c.frame.json
+lune run parallax world board
+# → you pick B: write it and your words in the doc's ## Pick section
+lune run parallax world direction RuinedTown   # checks the doc and the pick
+
+# 4. Color script
+lune run parallax world colorscript
+
+# 5. Lessons
+lune run parallax world lessons RuinedTown
+# → answer 3 lessons, skip 2 with reasons
+
+# 6. Terrain
+lune run parallax world terrain RuinedTown --stream --thermal --erosion
+lune run parallax world rivers RuinedTown
+# → inspect RuinedTown.hm.rivers.png: rivers look right
+
+# 7. Materials (fetch scanned rock and grass from ambientCG)
+lune run parallax materials --fetch &lt;ambientCG ids&gt; --res 1K
+
+# 8. Meshes (import Poly Haven rocks)
+lune run parallax world import ruins_rocks
+
+# 9. Edit the blueprint: add town step, roads, scatter, breakables
+# (edit assets/worlds/RuinedTown.json)
+lune run parallax world town RuinedTown
+# → inspect the town plan image before dressing anything
+lune run parallax world town RuinedTown --kit
+lune run parallax world meshes --set town_RuinedTown
+
+# 10. Build
+lune run parallax world
+
+# 11. Playability check
+lune run parallax world check RuinedTown
+# → fix any errors, rebuild, repeat until 0 errors
+
+# 12. Look stations
+lune run parallax world look RuinedTown
+# → open every page in build/worlds/look/RuinedTown/pages/
+# → one difference + one edit per station
+
+# 13. Web viewer (art direction)
+lune run parallax world web RuinedTown
+
+# 14. Studio walk
+lune run parallax world studio RuinedTown
+# → open the scratch place in Studio
+lune run parallax world studio RuinedTown --capture  # background
+# → run capture.luau once via MCP
+rojo serve games/RuinedTownGame/default.project.json
+# → MCP walks stations: 0 console errors
+# → you walk the world
+
+# 15. Verdict and hand off
+lune run parallax verdict world RuinedTown 8 "bell tower reads from every spawn"
+lune run parallax task done &lt;id&gt;
+lune run parallax handoff "built RuinedTown (8/10), Studio walk passed" --lane world \
+  --next "add interior to the cathedral" --as "agent"</code></pre>
+</section>
+
+<section>
+<h2 id="related">Related</h2>
+<div class="cards">
+  <a class="card" href="3d.html"><div class="kicker">Pipeline</div><h3>3D models</h3><p>Build the building skins, rocks, and props that the world generators dress the map with.</p></a>
+  <a class="card" href="vfx.html"><div class="kicker">Pipeline</div><h3>Visual effects</h3><p>Add environmental VFX (embers, dust, water spray) that the world's ambient system drives.</p></a>
+  <a class="card" href="code.html"><div class="kicker">Pipeline</div><h3>Gameplay systems</h3><p>Wire WorldStream, KitBreakable, and WeatherRules into the game scripts.</p></a>
+  <a class="card" href="../enforcement.html"><div class="kicker">Reference</div><h3>Enforcement</h3><p>How the direction lock, streaming gates, town rules, and check gate are enforced.</p></a>
+  <a class="card" href="../learning.html"><div class="kicker">Reference</div><h3>Learning</h3><p>How verdicts, vault lessons, and past layouts shape future world quality.</p></a>
+</div>
+</section>
+
+</main>
+<aside class="toc"></aside>
+</div>
+<div id="site-footer"></div>
+<!-- sources: kit/skills/parallax-world/SKILL.md, kit/skills/parallax-world/reference/04-gates-kit-world.md, kit/skills/parallax-world/reference/03-terrain-lighting.md, kit/knowledge/vault/world/boot.md, kit/harness/AGENTS.parallax.md -->
+</body>
+</html>

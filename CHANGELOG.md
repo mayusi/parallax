@@ -1,5 +1,26 @@
 # Changelog
 
+## Unreleased
+
+### Added
+- **A documentation site** at https://mayusi.github.io/parallax/, built from `site/` and published by
+  `.github/workflows/pages.yml`: an in-depth page for each of the eight pipelines (stages, gates, commands, inputs and
+  outputs, tools, limits), the setup guide, the hardware tiers with every local model and its exact size, enforcement,
+  the learning loop, the MCP server and AI clients, the full command reference and the roadmap.
+- `CODE_OF_CONDUCT.md`.
+
+### Changed
+- A new logo: a black neutron star (`docs/assets/parallax-logo.svg`).
+- The README explains each pipeline in collapsible sections (stages, gates, commands, limits) and each hardware tier's
+  models and runtimes, and links into the site.
+
+### Fixed
+- SETUP.md never installed PyTorch: `vision setup` only downloads weights, so Tier 2 and up could not run when
+  followed step by step. The hardware-tier step now installs PyTorch, transformers and safetensors first, says which
+  models need the hand-built diffusers and TRELLIS.2 environments (`kit/gen/README.md`), and gives one Tier 4 figure.
+- The README's pipeline and tier details were checked against the code: wrong gate severities, commands missing
+  required arguments, sizes in mixed units, and limits that are no longer true were corrected.
+
 ## 3.1.0 — 2026-11-25
 
 ### Added
@@ -72,7 +93,7 @@
   `vault_migrate.py --check` exits 1 when anything is unfiled, and CI runs it and `vault check`; the migrator prints one
   `pending` count that verify and `upgrade` read too.
 - The grading record a game grows in `kit/` when it has no kit home (`kit/grades.json`, `pairs.json`, `weights.json`,
-  `kit/anchors/`) is the owner's data: `kit status` no longer reports it as an edited kit file, and `upgrade` never
+  `kit/anchors/`) is your data: `kit status` no longer reports it as an edited kit file, and `upgrade` never
   replaces it (a release's copy is added only where the game has none). `update` / `sync` from a kit home refreshes a
   linked game's copy of the home's record, as before; when it links a game that graded on its own, that game's own
   record - and any anchor render the home's copy would write over - is first kept in `board/grading-kept-<time>/`
